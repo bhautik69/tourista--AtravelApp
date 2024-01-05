@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "992603855931",
+    "project_id": "tourista-1c919",
+    "storage_bucket": "tourista-1c919.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992603855931:android:6eb61f91b1c3543b9d101e",
+        "android_client_info": {
+          "package_name": "com.example.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992603855931-c7as7l4t92tdcpl8v4aucg6j9r9e7tt7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH1bPYjYOa_J_AOvwRDmzgyNcFVX1UpTQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992603855931-c7as7l4t92tdcpl8v4aucg6j9r9e7tt7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

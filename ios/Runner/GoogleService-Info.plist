@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>992603855931-qvst9icq5ncnseo0pvpst2c9shh2hfnk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.992603855931-qvst9icq5ncnseo0pvpst2c9shh2hfnk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDMtHIh8JI-UgWchhqO2cPaovzVvFC9q2Q</string>
+	<key>GCM_SENDER_ID</key>
+	<string>992603855931</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.demo</string>
+	<key>PROJECT_ID</key>
+	<string>tourista-1c919</string>
+	<key>STORAGE_BUCKET</key>
+	<string>tourista-1c919.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:992603855931:ios:14cd12d49a34d9109d101e</string>
+</dict>
+</plist>
