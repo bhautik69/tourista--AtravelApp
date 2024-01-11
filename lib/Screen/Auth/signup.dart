@@ -93,7 +93,7 @@ class SignupState extends State<Signup> {
               Stack(children: [
                 Image.asset(
                     width: mq.size.width,
-                    height: mq.size.height * 0.267,
+                    // height: mq.size.height * 0.267,
                     fit: BoxFit.cover,
                     "assets/img/login.png"),
                 Positioned(
@@ -264,13 +264,13 @@ class SignupState extends State<Signup> {
                     },
                   )),
               SizedBox(
-                height: mq.size.height * 0.057,
+                height: mq.size.height * 0.062,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: SizedBox(
                     width: mq.size.width,
-                    height: 50,
+                    height: 52,
                     child: commenButton(
                         title: "SIGN UP",
                         callback: () {

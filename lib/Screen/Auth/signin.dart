@@ -198,13 +198,13 @@ class _SigninState extends State<Signin> {
                     ]),
               ),
               SizedBox(
-                height: mq.size.height * 0.12,
+                height: mq.size.height * 0.129,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: SizedBox(
                     width: mq.size.width,
-                    height: 50,
+                    height: 52,
                     child: commenButton(
                         title: "SIGN IN",
                         callback: () {
