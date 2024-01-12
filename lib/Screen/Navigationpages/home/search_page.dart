@@ -244,7 +244,7 @@ class _SearchState extends State<Search> {
                 tabs: [
                   Tab(
                     icon: Icon(Icons.hiking_outlined),
-                    text: "Bhautik",
+                    text: "Trips",
                   ),
                   Tab(
                     icon: Icon(Ionicons.bed_outline),
