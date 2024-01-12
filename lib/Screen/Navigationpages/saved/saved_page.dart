@@ -435,7 +435,8 @@ class _SavedState extends State<Saved> {
                                                                   ? Colors
                                                                       .white54
                                                                   : Colors
-                                                                      .black54,
+                                                                      .black54
+                                                                      ,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w400))
