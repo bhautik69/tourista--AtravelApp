@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<DarkThemeProvider>(builder: (context, provider, child) {
         return Sizer(
           builder: (context, orientation, deviceType) => MaterialApp(
-            title: 'Tourista',
+            title: 'Tourista App',
             debugShowCheckedModeBanner: false,
             theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
             home: const Splashscreen(),
