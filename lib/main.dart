@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         builder: (context, provider, child) {
           return Sizer(
             builder: (context, orientation, deviceType) => MaterialApp(
-              title: 'Tourist',
+              title: 'Tourista',
               debugShowCheckedModeBanner: false,
               theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
               home: const Splashscreen(),
