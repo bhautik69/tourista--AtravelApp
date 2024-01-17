@@ -1,4 +1,3 @@
-
 import 'package:demo/Firebase/firebase_options.dart';
 
 import 'package:demo/Screen/Splash%20Screen/splashscreen.dart';
@@ -10,7 +9,7 @@ import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart'; 
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:provider/provider.dart';
 
@@ -47,7 +46,6 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -57,18 +55,18 @@ class _MyAppState extends State<MyApp> {
           return darkThemeProvider;
         })
       ],
-      child: Consumer<DarkThemeProvider>(builder: (context, provider, child) {
-        return Sizer(
-          builder: (context, orientation, deviceType) => MaterialApp(
-            title: 'Tourista',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
-            home: const Splashscreen(),
-          ),
-        );
-      }),
+      child: Consumer<DarkThemeProvider>(
+        builder: (context, provider, child) {
+          return Sizer(
+            builder: (context, orientation, deviceType) => MaterialApp(
+              title: 'Tourist',
+              debugShowCheckedModeBanner: false,
+              theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
+              home: const Splashscreen(),
+            ),
+          );
+        },
+      ),
     );
   }
 }
-
-
