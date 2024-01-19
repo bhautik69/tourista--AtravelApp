@@ -253,6 +253,8 @@ Widget hotel(
     {required BuildContext context,
     required String to,
     required String hotelname,
+    required VoidCallback showMap,
+    required VoidCallback viewDetails,
     required String img,
     required String phone,
     required String address,
@@ -368,10 +370,38 @@ Widget hotel(
           )
         ],
       ),
-      // SizedBox(
-      // height: mq.size.height * 0.01,
-      //),
-      //  Divider(color: themeState.getDarkTheme ? Colors.white38 : Colors.black38),
+      SizedBox(
+        height: mq.size.height * 0.012,
+      ),
+      Row(
+        children: [
+          InkWell(
+            onTap: () {
+              showMap();
+            },
+            child: Text(
+              "Show On Map",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                color: Colors.blue,
+              ),
+            ),
+          ),
+          Spacer(),
+          GestureDetector(
+            onTap: () => viewDetails,
+            child: Text(
+              "View Details",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16,
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      )
     ],
   );
 }

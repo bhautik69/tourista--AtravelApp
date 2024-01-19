@@ -4,6 +4,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/booking.dart';
 import 'package:demo/Screen/Navigationpages/main_page.dart';
+import 'package:demo/consts/hotelmap.dart';
 import 'package:demo/models/bookingmodel.dart';
 import 'package:demo/models/packagemodel.dart';
 import 'package:demo/widget/button.dart';
@@ -245,6 +246,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                             height: mq.size.height * 0.01,
                           ),
                           Card(
+                            
                             elevation: 2.5,
                             color: themeState.getDarkTheme
                                 ? const Color(0xff212121)
@@ -253,6 +255,16 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 12, vertical: 5),
                               child: hotel(
+                                  showMap: () {
+                                    setState(() {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>  Hotelmaps(hotelname:widget.package!.hotelName!,add:widget.package!.hotelAdd! ,imges: widget.package!.hotelImg!,),
+                                        ));
+                                    });
+                                  },
+                                  viewDetails: () {},
                                   context: context,
                                   to: widget.package!.traveligTo!,
                                   hotelname: widget.package!.hotelName!,

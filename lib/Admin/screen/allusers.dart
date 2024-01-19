@@ -89,7 +89,10 @@ class _AllusersState extends State<Allusers> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: const Icon(IconlyLight.arrow_left_2)),
+              icon: const Icon(
+                IconlyLight.arrow_left_2,
+                color: Colors.white,
+              )),
         ),
         body: alluser.isEmpty
             ? const Center(
