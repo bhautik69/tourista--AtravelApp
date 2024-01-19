@@ -98,7 +98,7 @@ class _MngAccState extends State<MngAcc> {
     DateTime? parsedDate = await parseDateStringAsync(dateC.text);
     if (parsedDate != null) {
       // You can use the parsedDate here
-      
+
       print(parsedDate);
     } else {
       // Handle parsing error
@@ -309,7 +309,6 @@ class _MngAccState extends State<MngAcc> {
                                         .map((e) => DropdownMenuItem<String>(
                                             value: e, child: Text(e)))
                                         .toList(),
-                                    value: gender,
                                     onChanged: (value) {
                                       setState(() {
                                         gender = value.toString();
