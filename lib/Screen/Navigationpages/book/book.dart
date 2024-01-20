@@ -192,6 +192,9 @@ class _BookState extends State<Book> {
                                                   PlaceDetails(
                                                     id: data[index]["id"],
                                                     package: Package(
+                                                      latitude:  data[index]["latitude"],
+                                                      longitude: data[index]["longitude"]
+,
                                                         ActivityList: data[index]
                                                             ["activityList"],
                                                         startingForm: data[index]

@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:demo/Screen/Navigationpages/profile/profile_page.dart';
 import 'package:demo/Screen/Navigationpages/saved/saved_page.dart';
-import 'package:demo/Screen/Navigationpages/home/search_page.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbar.dart';
 
 import 'package:flutter/material.dart';
 

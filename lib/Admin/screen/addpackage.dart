@@ -16,6 +16,8 @@ class AddPackage extends StatefulWidget {
 
 class _AddPackageState extends State<AddPackage> {
   var retunefligthtime = TextEditingController();
+  var longitude = TextEditingController();
+  var latitude = TextEditingController();
   var retunereachfligthtime = TextEditingController();
   var startingForm = TextEditingController();
   var retunefligthdate = TextEditingController();
@@ -839,7 +841,57 @@ class _AddPackageState extends State<AddPackage> {
                                         color: themeState.getDarkTheme
                                             ? Colors.white
                                             : Colors.black))),
-                          )
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "* required";
+                              }
+                              return null;
+                            },
+                            controller: latitude,
+                            textAlignVertical: TextAlignVertical.bottom,
+                            decoration: InputDecoration(
+                                label: const Text("LATITUDE"),
+                                labelStyle: TextStyle(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54,
+                                    fontWeight: FontWeight.w500),
+                                focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.5, color: Color(0xff0078aa))),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black))),
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "* required";
+                              }
+                              return null;
+                            },
+                            controller: longitude,
+                            textAlignVertical: TextAlignVertical.bottom,
+                            decoration: InputDecoration(
+                                label: const Text("LONGITUDE"),
+                                labelStyle: TextStyle(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54,
+                                    fontWeight: FontWeight.w500),
+                                focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.5, color: Color(0xff0078aa))),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black))),
+                          ),
                         ],
                       ))),
               Card(
@@ -1041,6 +1093,8 @@ class _AddPackageState extends State<AddPackage> {
       retunfligthtime: retunefligthtime.text,
       retunreachfligthtime: retunereachfligthtime.text,
       retunfligthdate: retunefligthdate.text,
+      latitude: latitude.text,
+      longitude: longitude.text,
     )).whenComplete(() {
       setState(() {
         isloading = false;

@@ -246,7 +246,6 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                             height: mq.size.height * 0.01,
                           ),
                           Card(
-                            
                             elevation: 2.5,
                             color: themeState.getDarkTheme
                                 ? const Color(0xff212121)
@@ -258,10 +257,17 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                                   showMap: () {
                                     setState(() {
                                       Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>  Hotelmaps(hotelname:widget.package!.hotelName!,add:widget.package!.hotelAdd! ,imges: widget.package!.hotelImg!,),
-                                        ));
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Hotelmaps(
+                                              latitude: widget.package!.latitude,
+                                              longitude: widget.package!.longitude,
+                                              hotelname:
+                                                  widget.package!.hotelName!,
+                                              add: widget.package!.hotelAdd!,
+                                              imges: widget.package!.hotelImg!,
+                                            ),
+                                          ));
                                     });
                                   },
                                   viewDetails: () {},
@@ -434,6 +440,8 @@ class _PlaceDetailsState extends State<PlaceDetails> {
           builder: (context) => BookingDone(
               id: widget.id!,
               package: Package(
+                  latitude: widget.package!.latitude,
+                  longitude: widget.package!.longitude,
                   retunfligthdate: widget.package!.retunfligthdate,
                   retunreachfligthdate: widget.package!.retunreachfligthdate,
                   retunfligthtime: widget.package!.retunfligthtime,
@@ -471,7 +479,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const Mainpage(),
+          builder: (context) =>  Mainpage(),
         ));
   }
 }

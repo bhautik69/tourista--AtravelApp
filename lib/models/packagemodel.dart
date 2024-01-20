@@ -6,7 +6,6 @@ class Package {
   String? id;
   String? startingForm;
   String? traveligTo;
-
   String? startDate;
   String? endDate;
   String? imgUrl;
@@ -28,6 +27,8 @@ class Package {
   String? hotelImg;
   String? hotelRate;
   String? hotelAdd;
+  String? latitude;
+  String? longitude;
   String? hotelPhone;
 
   bool? isFavorite;
@@ -40,6 +41,8 @@ class Package {
       // ignore: non_constant_identifier_names
       required this.ActivityList,
       required this.startingForm,
+      required this.latitude,
+      required this.longitude,
       required this.traveligTo,
       required this.startDate,
       required this.endDate,
@@ -80,6 +83,8 @@ class Package {
       "img2": package.img2,
       "img3": package.img3,
       "img4": package.img4,
+      "latitude" : package.latitude,
+      "longitude" : package.longitude,
       "flightDate": package.flightDate,
       "reachDate": package.reachDate,
       "flightTime": package.flightTime,
@@ -120,6 +125,8 @@ class Package {
       "hotelPhone": updatePackage.hotelPhone,
       "hotelRate": updatePackage.hotelRate,
       "activityList": updatePackage.ActivityList,
+       "latitude" : updatePackage.latitude,
+      "longitude" : updatePackage.longitude,
       "isFavorite": updatePackage.isFavorite,
       'retunFligthDate': updatePackage.retunfligthdate,
       'retunReachFligthDate': updatePackage.retunreachfligthdate,

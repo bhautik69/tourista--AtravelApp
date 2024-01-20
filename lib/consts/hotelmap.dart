@@ -1,3 +1,7 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
+import 'dart:async';
+
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -12,29 +16,49 @@ class Hotelmaps extends StatefulWidget {
   String? hotelname;
   String? add;
   String? imges;
-  Hotelmaps({super.key, this.add, this.imges, this.hotelname});
+  String? latitude;
+  String? longitude;
+  Hotelmaps(
+      {super.key,
+      this.add,
+      this.imges,
+      this.hotelname,
+      this.latitude,
+      this.longitude});
 
   @override
   State<Hotelmaps> createState() => _HotelmapsState();
 }
 
 class _HotelmapsState extends State<Hotelmaps> {
-  static const CameraPosition _kGoogleplex = CameraPosition(
-    target: LatLng(21.170240, 72.831062),
-    zoom: 14,
-  );
-  // ignore: prefer_typing_uninitialized_variables
   var hotelname1;
   var img;
   var address;
+  var latitude;
+  var longitude;
+  late CameraPosition _kGoogleplex;
+  Set<Marker> markers = {};
   @override
   void initState() {
     hotelname1 = widget.hotelname;
     img = widget.imges;
     address = widget.add;
+    latitude = double.parse(widget.latitude!);
+    longitude = double.parse(widget.longitude!);
+    markers.add(Marker(
+        markerId: const MarkerId("1"),
+        position: LatLng(latitude, longitude),
+        infoWindow: InfoWindow(title: hotelname1)));
+
+    _kGoogleplex = CameraPosition(
+      target: LatLng(latitude, longitude),
+      zoom: 17,
+    );
+
     setState(() {});
     super.initState();
   }
+   final Completer<GoogleMapController> _controler =Completer();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +81,8 @@ class _HotelmapsState extends State<Hotelmaps> {
           GoogleMap(
             initialCameraPosition: _kGoogleplex,
             compassEnabled: false,
-            myLocationEnabled: true,
+            myLocationEnabled: false,
+            markers: markers,
           ),
           Positioned(
             bottom: mq.size.height * 0.04,
@@ -70,11 +95,11 @@ class _HotelmapsState extends State<Hotelmaps> {
                   color: themeState.getDarkTheme
                       ? const Color(0xff212121)
                       : const Color(0xffffffff),
-                  child: Container(
+                  child: SizedBox(
                     height: mq.size.height / 4,
                     width: mq.size.width,
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -91,7 +116,7 @@ class _HotelmapsState extends State<Hotelmaps> {
                                         boxFit: BoxFit.cover,
                                       )),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 23),

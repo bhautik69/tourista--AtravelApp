@@ -190,7 +190,7 @@ class _SavedState extends State<Saved> {
                                         Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
-                                              builder: (context) => const Mainpage(),
+                                              builder: (context) =>  Mainpage(),
                                             ));
                                       }),
                                 )
@@ -214,6 +214,9 @@ class _SavedState extends State<Saved> {
                                         builder: (context) => PlaceDetails(
                                           id: data[index].id,
                                           package: Package(
+                                            latitude: data[index]
+                                                  ["latitude"],
+                                                  longitude:data[index]["longitude"] ,
                                               ActivityList: data[index]
                                                   ["activityList"],
                                               startingForm: data[index]
@@ -293,7 +296,7 @@ class _SavedState extends State<Saved> {
                                                             .uid)
                                                         .collection("items")
                                                         .where("pid",
-                                                            isEqualTo:
+                                                          isEqualTo:
                                                                 data[index].id)
                                                         .snapshots(),
                                                     builder: (context,

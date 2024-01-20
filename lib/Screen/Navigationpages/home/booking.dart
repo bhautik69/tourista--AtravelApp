@@ -528,6 +528,8 @@ class _BookingDoneState extends State<BookingDone> {
     addTravellers();
     await Booking.addBookPackage(
         Booking(
+          latitude:widget.package!.latitude,
+          longitude:widget.package!.longitude,
           type: "booking",
           // package: widget.package!,
           id: widget.id,

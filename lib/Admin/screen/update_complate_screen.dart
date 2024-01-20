@@ -1,4 +1,3 @@
-
 import 'package:demo/models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -21,6 +20,8 @@ class UpdatePackageComplete extends StatefulWidget {
 class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
   List activityList = [];
   var numvalue = 1;
+  var longitude = TextEditingController();
+  var latitude = TextEditingController();
   var startingForm = TextEditingController();
   var retunefligthtime = TextEditingController();
   var retunereachfligthtime = TextEditingController();
@@ -77,6 +78,8 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
     hotelRate.text = widget.package!.hotelRate!;
     hotelAdd.text = widget.package!.hotelAdd!;
     hotelPhone.text = widget.package!.hotelPhone!;
+    latitude.text = widget.package!.latitude!;
+    longitude.text = widget.package!.longitude!;
 
     price.text = widget.package!.price!;
     getnumlist();
@@ -113,8 +116,6 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
       numList.add(i);
     }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -209,7 +210,6 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
 
                           startDate.text =
                               "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
-                          
                         },
                         textAlignVertical: TextAlignVertical.bottom,
                         decoration: InputDecoration(
@@ -898,7 +898,57 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                                         color: themeState.getDarkTheme
                                             ? Colors.white
                                             : Colors.black))),
-                          )
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "* required";
+                              }
+                              return null;
+                            },
+                            controller: latitude,
+                            textAlignVertical: TextAlignVertical.bottom,
+                            decoration: InputDecoration(
+                                label: const Text("LATITUDE"),
+                                labelStyle: TextStyle(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54,
+                                    fontWeight: FontWeight.w500),
+                                focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.5, color: Color(0xff0078aa))),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black))),
+                          ),
+                          TextFormField(
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "* required";
+                              }
+                              return null;
+                            },
+                            controller: longitude,
+                            textAlignVertical: TextAlignVertical.bottom,
+                            decoration: InputDecoration(
+                                label: const Text("LONGITUDE"),
+                                labelStyle: TextStyle(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54,
+                                    fontWeight: FontWeight.w500),
+                                focusedBorder: const UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.5, color: Color(0xff0078aa))),
+                                enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black))),
+                          ),
                         ],
                       ))),
               Card(
@@ -948,7 +998,6 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                                         numvalue = int.parse(value!);
                                         getactivitydata();
                                         updateactivitydata();
-                                        
                                       });
                                     }),
                               ),
@@ -1074,7 +1123,8 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
     await Package.updatePackage(
         widget.id!,
         Package(
-          
+          latitude:  latitude.text,
+          longitude: longitude.text,
           id: widget.id,
           startingForm: startingForm.text,
           traveligTo: travelingTo.text,

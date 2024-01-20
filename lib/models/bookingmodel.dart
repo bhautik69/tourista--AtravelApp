@@ -31,7 +31,8 @@ class Booking {
   String? hotelRate;
   String? hotelAdd;
   String? hotelPhone;
-  
+  String? longitude;
+  String? latitude;
   String? type;
   String? name;
   String? id;
@@ -47,6 +48,8 @@ class Booking {
       { //this.package,
       required this.name,
       required this.type,
+      required this.latitude,
+      required this.longitude,
       this.id,
       required this.retunfligthdate,
       required this.retunreachfligthdate,
@@ -89,7 +92,8 @@ class Booking {
       "id": booking.id,
       "type": booking.type,
       'startingForm': booking.startingForm,
-
+      'latitude':booking.latitude,
+      'longitude':booking.longitude,
       'retunFligthDate': booking.retunfligthdate,
       'retunReachFligthDate': booking.retunreachfligthdate,
       'retunFligthTime': booking.retunfligthtime,
