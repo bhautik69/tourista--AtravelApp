@@ -10,25 +10,26 @@ import 'package:ionicons/ionicons.dart';
 
 // ignore: must_be_immutable
 class Search extends StatefulWidget {
-  const Search({super.key});
-
+ Search({super.key , this.currentindex });
+  int? currentindex=0;
+   
   @override
   State<Search> createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
+    @override
   
-  int currentindex=0;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        initialIndex: currentindex,
+        initialIndex: widget.currentindex!,
         length: 3,
         child: Builder(builder: (BuildContext context) {
           final TabController tabController = DefaultTabController.of(context);
           tabController.addListener(() {
             if (!tabController.indexIsChanging) {
-              currentindex = tabController.index;
+              widget.currentindex = tabController.index;
               setState(() {
                 
               });
@@ -51,6 +52,7 @@ class _SearchState extends State<Search> {
                   unselectedBackgroundColor: Colors.transparent,
                   unselectedLabelStyle: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
+
                   labelStyle: const TextStyle(
                       color: Colors.white, fontWeight: FontWeight.bold),
                   tabs: const [

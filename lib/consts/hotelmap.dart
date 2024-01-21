@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'dart:async';
-
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +40,30 @@ class _HotelmapsState extends State<Hotelmaps> {
   var longitude;
   late CameraPosition _kGoogleplex;
   Set<Marker> markers = {};
+  String maptheme = "";
+  Uint8List? markerImg;
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
+  loadData() async {
+    final Uint8List markericon =
+        await getBytesFromAsset("assets/img/location.png", 100);
+    markers.add(Marker(
+        markerId: const MarkerId("1"),
+        icon: BitmapDescriptor.fromBytes(markericon),
+        position: LatLng(latitude, longitude),
+        infoWindow: InfoWindow(title: hotelname1)));
+
+    setState(() {});
+  }
+
   @override
   void initState() {
     hotelname1 = widget.hotelname;
@@ -45,20 +71,24 @@ class _HotelmapsState extends State<Hotelmaps> {
     address = widget.add;
     latitude = double.parse(widget.latitude!);
     longitude = double.parse(widget.longitude!);
-    markers.add(Marker(
-        markerId: const MarkerId("1"),
-        position: LatLng(latitude, longitude),
-        infoWindow: InfoWindow(title: hotelname1)));
+    loadData();
 
     _kGoogleplex = CameraPosition(
       target: LatLng(latitude, longitude),
       zoom: 17,
     );
-
+    DefaultAssetBundle.of(context)
+        .loadString("assets/maptheme/dark_theme.json")
+        .then(
+      (value) {
+        maptheme = value;
+      },
+    );
     setState(() {});
     super.initState();
   }
-   final Completer<GoogleMapController> _controler =Completer();
+
+  final Completer<GoogleMapController> _controler = Completer();
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +113,10 @@ class _HotelmapsState extends State<Hotelmaps> {
             compassEnabled: false,
             myLocationEnabled: false,
             markers: markers,
+            onMapCreated: (GoogleMapController controller) => {
+              _controler.complete(controller),
+              if (themeState.getDarkTheme) {controller.setMapStyle(maptheme)}
+            },
           ),
           Positioned(
             bottom: mq.size.height * 0.04,
