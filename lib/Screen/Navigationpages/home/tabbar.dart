@@ -17,8 +17,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  
-  int currentindex=0;
+  int currentindex = 0;
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -29,9 +28,7 @@ class _SearchState extends State<Search> {
           tabController.addListener(() {
             if (!tabController.indexIsChanging) {
               currentindex = tabController.index;
-              setState(() {
-                
-              });
+              setState(() {});
             }
           });
           return Scaffold(
@@ -69,7 +66,7 @@ class _SearchState extends State<Search> {
                   ],
                 ),
                 title: const Text("Tourista")),
-            body: const TabBarView(
+            body: TabBarView(
               children: [Triptab(), Hoteltab(), Fligthtab()],
             ),
           );
