@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'dart:async';
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -110,8 +109,9 @@ class _HotelmapsState extends State<Hotelmaps> {
         children: [
           GoogleMap(
             initialCameraPosition: _kGoogleplex,
-            compassEnabled: false,
+            compassEnabled: true,
             myLocationEnabled: false,
+            myLocationButtonEnabled: true,
             markers: markers,
             onMapCreated: (GoogleMapController controller) => {
               _controler.complete(controller),
@@ -203,8 +203,37 @@ class _HotelmapsState extends State<Hotelmaps> {
                   )),
             ),
           ),
+          /*  Positioned(
+            top: 13,
+            right: 13,
+            child: FloatingActionButton(
+                onPressed: () {
+                  getUserCurrentLocation();
+                },
+                elevation: 8,
+                backgroundColor: themeState.getDarkTheme
+                    ? const Color(0xff212121)
+                    : Colors.white,
+                child: Icon(
+                  Icons.my_location_outlined,
+                  color: themeState.getDarkTheme
+                      ? Colors.red.withOpacity(0.8)
+                      : Colors.red,
+                )),
+          )*/
         ],
       ),
     );
   }
+
+  /*Future<Position> getUserCurrentLocation() async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) {
+      print(error.toString());
+
+      
+    });
+    return await Geolocator.getCurrentPosition();
+  }*/
 }

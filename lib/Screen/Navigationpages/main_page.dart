@@ -19,7 +19,8 @@ class Mainpage extends StatefulWidget {
 }
 
 class _MainpageState extends State<Mainpage> {
-  List pages = [Search(), const Saved(), const Book(), const Profile()];
+  
+  List pages = [ const Search(), const Saved(), const Book(), const Profile()];
 
   int currentIndex = 0;
 

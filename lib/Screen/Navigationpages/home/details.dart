@@ -479,7 +479,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>  Mainpage(),
+          builder: (context) =>  const Mainpage(),
         ));
   }
 }
