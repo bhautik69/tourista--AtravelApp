@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:buttons_tabbar/buttons_tabbar.dart';
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/fligthtab.dart';
+import 'package:demo/Screen/Navigationpages/home/Flight/Flighttab.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hoteltab.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/tripscreen.dart';
 
@@ -17,10 +17,10 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  
-  int currentindex=0;
+  int currentindex = 0;
   @override
   Widget build(BuildContext context) {
+    int currentindex = 0;
     return DefaultTabController(
         initialIndex: currentindex,
         length: 3,
@@ -29,9 +29,7 @@ class _SearchState extends State<Search> {
           tabController.addListener(() {
             if (!tabController.indexIsChanging) {
               currentindex = tabController.index;
-              setState(() {
-                
-              });
+              setState(() {});
             }
           });
           return Scaffold(
