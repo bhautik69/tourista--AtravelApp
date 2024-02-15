@@ -480,23 +480,52 @@ class _FligthtabState extends State<Fligthtab> {
                           onTap: () {
                             _travellerField = false;
                             flightkey.currentState!.validate();
-                            showBottomSheet(
-                              context: context,
-                              backgroundColor: Colors.white,
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20),
-                                      topRight: Radius.circular(20))),
-                              builder: (context) {
-                                return bottomSheet(
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder:
+                                    (context, animation, secondaryAnimation) =>
+                                        bottomSheet(
                                   myQuantity: (qua) {
                                     setState(() {
                                       count = qua;
                                     });
                                   },
-                                );
-                              },
+                                ),
+                                transitionsBuilder: (context, animation,
+                                    secondaryAnimation, child) {
+                                  const begin = Offset(0.0, 1.0);
+                                  const end = Offset.zero;
+                                  const curve = Curves.ease;
+                                  var tween = Tween(begin: begin, end: end)
+                                      .chain(CurveTween(curve: curve));
+                                  var offsetAnimation = animation.drive(tween);
+
+                                  return SlideTransition(
+                                    position: offsetAnimation,
+                                    child: child,
+                                  );
+                                },
+                              ),
                             );
+
+                            // showBottomSheet(
+                            //   context: context,
+                            //   backgroundColor: Colors.white,
+                            //   shape: const RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.only(
+                            //           topLeft: Radius.circular(20),
+                            //           topRight: Radius.circular(20))),
+                            //   builder: (context) {
+                            //     return bottomSheet(
+                            //       myQuantity: (qua) {
+                            //         setState(() {
+                            //           count = qua;
+                            //         });
+                            //       },
+                            //     );
+                            // },
+                            // );
                           },
                         ),
                       ),
