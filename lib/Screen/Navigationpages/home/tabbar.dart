@@ -1,8 +1,9 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:buttons_tabbar/buttons_tabbar.dart';
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/fligthtab.dart';
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hoteltab.dart';
+import 'package:demo/Screen/Navigationpages/home/Flight/Flighttab.dart';
+
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hotelscreens/hoteltab.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/tripscreen.dart';
 
 import 'package:flutter/material.dart';

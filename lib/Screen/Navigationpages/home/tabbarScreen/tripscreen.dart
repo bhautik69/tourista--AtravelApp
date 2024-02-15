@@ -503,19 +503,18 @@ class _TriptabState extends State<Triptab> {
                                     _formKey.currentState?.validate();
                                   });
                                   var dateTime = await showDatePicker(
-
-                                      /* builder: (BuildContext context,Widget? child) {
-                                      return Theme(data: ThemeData().copyWith(colorScheme: ColorScheme.light(
-                                        primary: Color(0xff0078aa),
-                                        onPrimary: Colors.white,
-                                        
-                                        onSurface: Colors.black,
-                                        
-          
-                                      )), child:child,
-                                      );
-                                    },*/
-
+                                      builder: (BuildContext context,
+                                          Widget? child) {
+                                        return Theme(
+                                          data: ThemeData().copyWith(
+                                              colorScheme: ColorScheme.light(
+                                            primary: Color(0xff0078aa),
+                                            onPrimary: Colors.white,
+                                            onSurface: Colors.black,
+                                          )),
+                                          child: child!,
+                                        );
+                                      },
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
@@ -667,339 +666,338 @@ class _TriptabState extends State<Triptab> {
                                             ));
                                       },
                                       child: Card(
+                                        color: themeState.getDarkTheme
+                                            ? const Color(0xff212121)
+                                            : const Color(0xffffffff),
                                         elevation: 3,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: themeState.getDarkTheme
-                                                  ? const Color(0xff212121)
-                                                  : const Color(0xffffffff),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(6))),
-                                          width: mq.size.width,
-                                          height: mq.size.height * 0.503,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8),
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 10),
-                                                  child: Row(
-                                                    children: [
-                                                      Titletext(
-                                                          title:
-                                                              foundlist[index]
-                                                                  .traveligTo!),
-                                                      const Spacer(),
-                                                      StreamBuilder(
-                                                          stream: FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "favorite")
-                                                              .doc(FirebaseAuth
-                                                                  .instance
-                                                                  .currentUser!
-                                                                  .uid)
-                                                              .collection(
-                                                                  "items")
-                                                              .where("pid",
-                                                                  isEqualTo:
-                                                                      allPackage[
-                                                                              index]
-                                                                          .id)
-                                                              .snapshots(),
-                                                          builder: (context,
-                                                              AsyncSnapshot<
-                                                                      QuerySnapshot>
-                                                                  snapshot) {
-                                                            if (snapshot.data ==
-                                                                null) {
-                                                              return const Text(
-                                                                  "");
-                                                            }
-                                                            return InkWell(
-                                                                onTap: () {
-                                                                  snapshot.data!.docs
-                                                                              .length ==
-                                                                          0
-                                                                      ? addToFavorite(
-                                                                          foundlist[index]
-                                                                              .id!)
-                                                                      : removFavorite(
-                                                                          foundlist[index]
-                                                                              .id!);
-                                                                },
-                                                                child: Icon(
-                                                                  snapshot.data!.docs
-                                                                              .length ==
-                                                                          0
-                                                                      ? Icons
-                                                                          .favorite_outline
-                                                                      : Icons
-                                                                          .favorite,
-                                                                  color: snapshot
-                                                                              .data!
-                                                                              .docs
-                                                                              .length ==
-                                                                          0
-                                                                      ? color
-                                                                      : Colors
-                                                                          .red,
-                                                                ));
-                                                          })
-                                                    ],
-                                                  ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(
+                                              mq.size.width * 0.023),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    bottom:
+                                                        mq.size.width * 0.03,
+                                                    top: mq.size.width * 0.03 -
+                                                        mq.size.width * 0.023),
+                                                child: Row(
+                                                  children: [
+                                                    Titletext(
+                                                        title: foundlist[index]
+                                                            .traveligTo!),
+                                                    const Spacer(),
+                                                    StreamBuilder(
+                                                        stream: FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                "favorite")
+                                                            .doc(FirebaseAuth
+                                                                .instance
+                                                                .currentUser!
+                                                                .uid)
+                                                            .collection("items")
+                                                            .where("pid",
+                                                                isEqualTo:
+                                                                    allPackage[
+                                                                            index]
+                                                                        .id)
+                                                            .snapshots(),
+                                                        builder: (context,
+                                                            AsyncSnapshot<
+                                                                    QuerySnapshot>
+                                                                snapshot) {
+                                                          if (snapshot.data ==
+                                                              null) {
+                                                            return const Text(
+                                                                "");
+                                                          }
+                                                          return InkWell(
+                                                              onTap: () {
+                                                                snapshot.data!.docs
+                                                                            .length ==
+                                                                        0
+                                                                    ? addToFavorite(
+                                                                        foundlist[index]
+                                                                            .id!)
+                                                                    : removFavorite(
+                                                                        foundlist[index]
+                                                                            .id!);
+                                                              },
+                                                              child: Icon(
+                                                                snapshot.data!.docs
+                                                                            .length ==
+                                                                        0
+                                                                    ? Icons
+                                                                        .favorite_outline
+                                                                    : Icons
+                                                                        .favorite,
+                                                                color: snapshot
+                                                                            .data!
+                                                                            .docs
+                                                                            .length ==
+                                                                        0
+                                                                    ? color
+                                                                    : Colors
+                                                                        .red,
+                                                              ));
+                                                        })
+                                                  ],
                                                 ),
-                                                SizedBox(
-                                                    height:
-                                                        mq.size.width * 0.45,
-                                                    width: double.infinity,
-                                                    child: FancyShimmerImage(
-                                                      imageUrl: foundlist[index]
-                                                          .imgUrl!,
-                                                    )),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  child: Row(
+                                              ),
+                                              SizedBox(
+                                                  height: mq.size.width * 0.45,
+                                                  width: double.infinity,
+                                                  child: FancyShimmerImage(
+                                                    imageUrl: foundlist[index]
+                                                        .imgUrl!,
+                                                  )),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical:
+                                                        mq.size.width * 0.023),
+                                                child: Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons
+                                                          .location_on_outlined,
+                                                      color: themeState
+                                                              .getDarkTheme
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      size: 16,
+                                                    ),
+                                                    Text.rich(
+                                                      TextSpan(
+                                                          text:
+                                                              " Starting from : ",
+                                                          style: TextStyle(
+                                                            color: themeState
+                                                                    .getDarkTheme
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                          ),
+                                                          children: [
+                                                            TextSpan(
+                                                                text: foundlist[
+                                                                        index]
+                                                                    .startingForm,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    color: themeState
+                                                                            .getDarkTheme
+                                                                        ? Colors
+                                                                            .white
+                                                                            .withOpacity(
+                                                                                0.6)
+                                                                        : Colors
+                                                                            .black
+                                                                            .withOpacity(0.6)))
+                                                          ]),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Text.rich(
+                                                TextSpan(
+                                                    text: " Date : ",
+                                                    style: TextStyle(
+                                                      color: themeState
+                                                              .getDarkTheme
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                    ),
                                                     children: [
-                                                      Icon(
-                                                        Icons
-                                                            .location_on_outlined,
-                                                        color: themeState
-                                                                .getDarkTheme
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                        size: 16,
-                                                      ),
-                                                      Text.rich(
-                                                        TextSpan(
-                                                            text:
-                                                                " Starting from : ",
-                                                            style: TextStyle(
+                                                      TextSpan(
+                                                          text: foundlist[index]
+                                                              .startDate,
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              color: themeState
+                                                                      .getDarkTheme
+                                                                  ? Colors.white
+                                                                      .withOpacity(
+                                                                          0.6)
+                                                                  : Colors.black
+                                                                      .withOpacity(
+                                                                          0.6)))
+                                                    ]),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical:
+                                                        mq.size.width * 0.023),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Column(
+                                                      children: [
+                                                        RotatedBox(
+                                                            quarterTurns: 1,
+                                                            child: Icon(
+                                                              Icons.flight,
                                                               color: themeState
                                                                       .getDarkTheme
                                                                   ? Colors.white
                                                                   : Colors
                                                                       .black,
-                                                            ),
-                                                            children: [
-                                                              TextSpan(
-                                                                  text: foundlist[
-                                                                          index]
-                                                                      .startingForm,
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      color: themeState
-                                                                              .getDarkTheme
-                                                                          ? Colors.white.withOpacity(
-                                                                              0.6)
-                                                                          : Colors
-                                                                              .black
-                                                                              .withOpacity(0.6)))
-                                                            ]),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                Text.rich(
-                                                  TextSpan(
-                                                      text: " Date : ",
-                                                      style: TextStyle(
-                                                        color: themeState
-                                                                .getDarkTheme
-                                                            ? Colors.white
-                                                            : Colors.black,
-                                                      ),
-                                                      children: [
-                                                        TextSpan(
-                                                            text:
-                                                                foundlist[index]
-                                                                    .startDate,
+                                                            )),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(mq
+                                                                      .size
+                                                                      .width *
+                                                                  0.0115),
+                                                          child: Text(
+                                                            "2 Flight",
                                                             style: TextStyle(
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
+                                                                        .normal,
                                                                 color: themeState
                                                                         .getDarkTheme
                                                                     ? Colors
                                                                         .white
                                                                         .withOpacity(
-                                                                            0.6)
+                                                                            0.7)
                                                                     : Colors
                                                                         .black
                                                                         .withOpacity(
-                                                                            0.6)))
-                                                      ]),
-                                                ),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Column(
-                                                        children: [
-                                                          RotatedBox(
-                                                              quarterTurns: 1,
-                                                              child: Icon(
-                                                                Icons.flight,
-                                                                color: themeState
-                                                                        .getDarkTheme
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black,
-                                                              )),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(4.0),
-                                                            child: Text(
-                                                              "2 Flight",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  color: themeState
-                                                                          .getDarkTheme
-                                                                      ? Colors
-                                                                          .white
-                                                                          .withOpacity(
-                                                                              0.7)
-                                                                      : Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.7)),
-                                                            ),
+                                                                            0.7)),
                                                           ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Icon(
-                                                            Icons
-                                                                .business_outlined,
-                                                            color: themeState
-                                                                    .getDarkTheme
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(4.0),
-                                                            child: Text(
-                                                              "1 Hotel",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  color: themeState
-                                                                          .getDarkTheme
-                                                                      ? Colors
-                                                                          .white
-                                                                          .withOpacity(
-                                                                              0.7)
-                                                                      : Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.7)),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          Icon(
-                                                            Icons.hiking_sharp,
-                                                            color: themeState
-                                                                    .getDarkTheme
-                                                                ? Colors.white
-                                                                : Colors.black,
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(4.0),
-                                                            child: Text(
-                                                              "${foundlist[index].ActivityList!.length} Activities",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .normal,
-                                                                  color: themeState
-                                                                          .getDarkTheme
-                                                                      ? Colors
-                                                                          .white
-                                                                          .withOpacity(
-                                                                              0.7)
-                                                                      : Colors
-                                                                          .black
-                                                                          .withOpacity(
-                                                                              0.7)),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                const SizedBox(
-                                                  height: 2,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const Spacer(),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 6),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            "₹${foundlist[index].price!}",
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Icon(
+                                                          Icons
+                                                              .business_outlined,
+                                                          color: themeState
+                                                                  .getDarkTheme
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(mq
+                                                                      .size
+                                                                      .width *
+                                                                  0.0115),
+                                                          child: Text(
+                                                            "1 Hotel",
                                                             style: TextStyle(
-                                                                color: themeState
-                                                                        .getDarkTheme
-                                                                    ? Colors
-                                                                        .white
-                                                                    : Colors
-                                                                        .black,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .w500,
-                                                                fontSize: 20),
+                                                                        .normal,
+                                                                color: themeState
+                                                                        .getDarkTheme
+                                                                    ? Colors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            0.7)
+                                                                    : Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                            0.7)),
                                                           ),
-                                                          Text("per person",
-                                                              style: TextStyle(
-                                                                  fontSize: 13,
-                                                                  color: themeState
-                                                                          .getDarkTheme
-                                                                      ? Colors
-                                                                          .white54
-                                                                      : Colors
-                                                                          .black54,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400))
-                                                        ],
-                                                      ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Icon(
+                                                          Icons.hiking_sharp,
+                                                          color: themeState
+                                                                  .getDarkTheme
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsets.all(mq
+                                                                      .size
+                                                                      .width *
+                                                                  0.0115),
+                                                          child: Text(
+                                                            "${foundlist[index].ActivityList!.length} Activities",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                                color: themeState
+                                                                        .getDarkTheme
+                                                                    ? Colors
+                                                                        .white
+                                                                        .withOpacity(
+                                                                            0.7)
+                                                                    : Colors
+                                                                        .black
+                                                                        .withOpacity(
+                                                                            0.7)),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
-                                                )
-                                              ],
-                                            ),
+                                                ),
+                                              ),
+                                              const SizedBox(
+                                                height: 2,
+                                              ),
+                                              Row(
+                                                children: [
+                                                  const Spacer(),
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        bottom: mq.size.width *
+                                                                0.03 -
+                                                            mq.size.width *
+                                                                0.023),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          "₹${foundlist[index].price!}",
+                                                          style: TextStyle(
+                                                              color: themeState
+                                                                      .getDarkTheme
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                              fontSize: 20),
+                                                        ),
+                                                        Text("per person",
+                                                            style: TextStyle(
+                                                                fontSize: 13,
+                                                                color: themeState
+                                                                        .getDarkTheme
+                                                                    ? Colors
+                                                                        .white54
+                                                                    : Colors
+                                                                        .black54,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400))
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ),

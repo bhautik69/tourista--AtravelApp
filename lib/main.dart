@@ -1,6 +1,7 @@
 import 'package:demo/Firebase/firebase_options.dart';
 
 import 'package:demo/Screen/Splash%20Screen/splashscreen.dart';
+import 'package:get/get.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -57,7 +58,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: Consumer<DarkThemeProvider>(builder: (context, provider, child) {
         return Sizer(
-          builder: (context, orientation, deviceType) => MaterialApp(
+          builder: (context, orientation, deviceType) => GetMaterialApp(
             title: 'Tourista App',
             debugShowCheckedModeBanner: false,
             theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
