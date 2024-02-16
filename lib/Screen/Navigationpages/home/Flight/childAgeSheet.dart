@@ -1,11 +1,18 @@
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 
+typedef StoreAges = Function(int age);
+
+// ignore: must_be_immutable
 class ChildAgaSheet extends StatefulWidget {
   // int? ages;
 
   // ChildAgaSheet(int ages);
-  const ChildAgaSheet({super.key});
+  StoreAges storeAges;
+  ChildAgaSheet({
+    super.key,
+    required this.storeAges,
+  });
 
   @override
   State<ChildAgaSheet> createState() => _ChildAgaSheetState();
@@ -34,6 +41,7 @@ class _ChildAgaSheetState extends State<ChildAgaSheet> {
                       children: [
                         Text("${index + 1}"),
                         Radio(
+                          activeColor: Colors.blue,
                           value: (index + 1).toString(),
                           groupValue: ages,
                           onChanged: (value) {
@@ -88,6 +96,8 @@ class _ChildAgaSheetState extends State<ChildAgaSheet> {
                     child: commenButton(
                       title: "Done",
                       callback: () {
+                        widget.storeAges(int.parse(ages));
+                        Navigator.of(context).pop();
                         // Global.ages = widget.ages!;
                         // setState(() {
                         // print("${Global.ages}");

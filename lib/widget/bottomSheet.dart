@@ -23,7 +23,8 @@ class _bottomSheetState extends State<bottomSheet> {
   int quantity = 1;
   int quantity1 = 0;
   int qunt = 1;
-  // int ages = 1;
+  int ages = 0;
+  TextEditingController childAge = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -185,6 +186,7 @@ class _bottomSheetState extends State<bottomSheet> {
                           height: mq.size.height * 0.01,
                         ),
                         TextFormField(
+                          controller:childAge, 
                           readOnly: true,
                           decoration: InputDecoration(
                               // hintText: "${Global.ages}",
@@ -212,7 +214,13 @@ class _bottomSheetState extends State<bottomSheet> {
                                       topLeft: Radius.circular(20),
                                       topRight: Radius.circular(20))),
                               builder: (context) {
-                                return const ChildAgaSheet();
+                                return ChildAgaSheet(
+                                  storeAges: (age) {
+                                    setState(() {
+                                      childAge.text = age.toString();
+                                    });
+                                  },
+                                );
                                 // return ChildAgaSheet(ages);
                               },
                             );

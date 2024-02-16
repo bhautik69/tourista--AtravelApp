@@ -1,5 +1,6 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, avoid_function_literals_in_foreach_calls, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, unused_local_variable
 
+import 'package:demo/Screen/Navigationpages/home/Flight/Flighttab.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,8 @@ class ChooseSeat extends StatefulWidget {
 
 class _ChooseSeatState extends State<ChooseSeat> {
   // var isBooked
-  var countSeatLeft = 3 * 31;
-  var countSeatRight = 3 * 31;
+  var countSeatLeft = 3 * 13;
+  var countSeatRight = 3 * 13;
   var listSeatLeft = [];
   var listSeatRight = [];
 
@@ -35,6 +36,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
   initSeatValueToList(List data, count, side) {
     var objectData;
     //init variable to save your object data
+    // int counts=classType=="First Class"?10:count;
     for (int i = 0; i < count; i++) {
       objectData = {
         "id": side + "${i + 1}",
@@ -56,14 +58,14 @@ class _ChooseSeatState extends State<ChooseSeat> {
     listSeatLeft.forEach((seat) {
       if (seat["isSelected"]) {
         setState(() {
-          seat["isBooked"] = true;
+          seat["isBooked"] = false;
         });
       }
     });
     listSeatRight.forEach((seat) {
       if (seat["isSelected"]) {
         setState(() {
-          seat["isBooked"] = true;
+          seat["isBooked"] = false;
         });
       }
     });
@@ -100,6 +102,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                 child: Column(
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    ///seat availility show
                     Container(
                       width: mq.size.width,
                       height: mq.size.height / 5,
@@ -184,6 +187,8 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     Divider(
                       thickness: 2,
                     ),
+
+                    ///seat ui show
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 23),
                       child: Row(
@@ -191,7 +196,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                         children: [
                           Container(
                             width: mq.size.width / 90,
-                            height: mq.size.height * 1.717,
+                            height: mq.size.height * 0.8,
                             color: Color.fromARGB(255, 214, 214, 214),
                           ),
                           SizedBox(
@@ -206,7 +211,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                   children: [
                                     Container(
                                       width: mq.size.width / 2.8,
-                                      height: mq.size.height / 20,
+                                      height: mq.size.height * 0.06,
                                       //color: Colors.deepOrange,
                                       child: const Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -239,7 +244,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                     SizedBox(width: mq.size.width / 11),
                                     Container(
                                       width: mq.size.width / 2.8,
-                                      height: mq.size.height / 20,
+                                      height: mq.size.height * 0.06,
                                       //color: Colors.deepOrange,
                                       child: const Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -278,20 +283,22 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                       //margin: EdgeInsets.symmetric(horizontal: 10),
                                       // height: 100,
                                       width: mq.size.width / 2.8,
-                                      child: widgetSeat(listSeatLeft, false),
+                                      child: widgetSeat(listSeatLeft, false,
+                                          classType, "left"),
                                     ),
                                     Container(
                                       width: mq.size.width / 11,
-                                      height: mq.size.height * 1.66,
+                                      // height: mq.size.height * 1.66,
                                       // color: Colors.deepOrange,
-                                      child: buildNumberColumn(),
+                                      // child: buildNumberColumn(),
                                     ),
                                     Container(
                                       //color: Colors.amber,
                                       //margin: EdgeInsets.symmetric(horizontal: 10),
                                       // height: 100,
                                       width: mq.size.width / 2.8,
-                                      child: widgetSeat(listSeatRight, false),
+                                      child: widgetSeat(listSeatRight, false,
+                                          classType, "right"),
                                     )
                                   ],
                                 ),
@@ -303,7 +310,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                           ),
                           Container(
                             width: mq.size.width / 90,
-                            height: mq.size.height * 1.717,
+                            height: mq.size.height * 0.8,
                             color: const Color.fromARGB(255, 214, 214, 214),
                           ),
                         ],
@@ -356,18 +363,75 @@ class _ChooseSeatState extends State<ChooseSeat> {
         ));
   }
 
-  Widget widgetSeat(List dataSeat, bool isCenter) {
+  Widget widgetSeat(
+      List dataSeat, bool isCenter, String classType, String sideShow) {
+    // listSeatLeft
+    //listSeatRight
+    List<String> classhint = <String>[
+      "Economy",
+      "Premium",
+      "Business",
+      "First Class"
+    ];
+
+    int? count = seatCount[classType];
     return Container(
       width: MediaQuery.of(context).size.width / 2.9,
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: isCenter ? 4 : 3,
+          // crossAxisCount: isCenter ? 4 : 3,
+          crossAxisCount: 3,
           childAspectRatio: isCenter ? 1 : 1,
         ),
-        itemCount: dataSeat.length,
+        itemCount: count,
         itemBuilder: (BuildContext context, int index) {
+          int count = 0;
+          if (classType == "Business") {
+            if ("left" == sideShow) {
+              print("count--$count");
+              int value = (index) ~/ 3;
+              count = (3 * value) + (index + 1);
+              print("count-++++++-$count");
+            } else {
+              int value = ((index) ~/ 3) + 1;
+              count = (3 * value) + (index + 1);
+            }
+          }
+          if (classType == "Premium") {
+            if ("left" == sideShow) {
+              print("count--$count");
+              int value = (index) ~/ 3;
+              count = (3 * value) + (index + 19);
+              print("count-++++++-$count");
+            } else {
+              int value = ((index) ~/ 3) + 1;
+              count = (3 * value) + (index + 19);
+            }
+          }
+          if (classType == "First Class") {
+            if ("left" == sideShow) {
+              print("count--$count");
+              int value = (index) ~/ 3;
+              count = (3 * value) + (index + 49);
+              print("count-++++++-$count");
+            } else {
+              int value = ((index) ~/ 3) + 1;
+              count = (3 * value) + (index + 49);
+            }
+          }
+          if (classType == "Economy") {
+            if ("left" == sideShow) {
+              print("count--$count");
+              int value = (index) ~/ 3;
+              count = (3 * value) + (index + 109);
+              print("count-++++++-$count");
+            } else {
+              int value = ((index) ~/ 3) + 1;
+              count = (3 * value) + (index + 109);
+            }
+          }
           return Visibility(
             visible: dataSeat[index]["isVisible"],
             child: GestureDetector(
@@ -395,13 +459,18 @@ class _ChooseSeatState extends State<ChooseSeat> {
                             : Border.all(),
                     borderRadius: BorderRadius.circular(3),
                   ),
+                  alignment: Alignment.center,
                   child: dataSeat[index]["isBooked"]
                       ? const Center(
                           child: Icon(
                           Icons.close,
                           size: 35,
                         ))
-                      : const Text("")),
+                      : Text(
+                          "$count",
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        )),
             ),
           );
         },
@@ -410,23 +479,23 @@ class _ChooseSeatState extends State<ChooseSeat> {
   }
 }
 
-Widget buildNumberColumn() {
-  List<Widget> numberWidgets = [];
+// Widget buildNumberColumn() {
+//   List<Widget> numberWidgets = [];
 
-  for (int i = 1; i <= 31; i++) {
-    numberWidgets.add(Column(
-      children: [Text('$i'), SizedBox(height: 22.322)],
-    ));
-  }
+//   for (int i = 1; i <= 31; i++) {
+//     numberWidgets.add(Column(
+//       children: [Text('$i'), SizedBox(height: 22.322)],
+//     ));
+//   }
 
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: numberWidgets,
-      ),
-    ),
-  );
-}
+//   return Center(
+//     child: Padding(
+//       padding: const EdgeInsets.all(8.0),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//         children: numberWidgets,
+//       ),
+//     ),
+//   );
+// }
