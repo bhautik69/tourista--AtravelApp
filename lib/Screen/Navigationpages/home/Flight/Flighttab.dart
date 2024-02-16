@@ -87,9 +87,12 @@ class _FligthtabState extends State<Fligthtab> {
         child: Form(
           key: flightkey,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.all(10),
             child: Column(
               children: [
+                SizedBox(
+                  height: mq.size.height * 0.02,
+                ),
                 TypeAheadFormField(
                   validator: (value) {
                     if (_flightFromField) {
@@ -119,34 +122,34 @@ class _FligthtabState extends State<Fligthtab> {
                               : Colors.black54,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 15),
-                        prefixIcon: Icon(Icons.flight_takeoff_rounded,
-                            size: 25,
-                            color: themeState.getDarkTheme
-                                ? Colors.white
-                                : Colors.black),
+                            vertical: 17, horizontal: 15),
+                        prefixIcon: const Icon(Icons.flight_takeoff_outlined),
+                        //  prefixIconColor: Colors.grey,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
                             borderSide: const BorderSide(
-                                width: 1.5, color: Colors.black)),
+                                width: 1.5, color: Colors.black12),
+                            borderRadius: BorderRadius.circular(10)),
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
                                 width: 1.5,
                                 color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black)),
+                                    ? Colors.white54
+                                    : Colors.black54)),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
                                 width: 1.5,
                                 color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black38)),
+                                    ? Colors.white54
+                                    : Colors.black54)),
+                        // errorStyle:
+                        //   const TextStyle(color: Color(0xffB00020)),
                         errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: const BorderSide(
-                                width: 1.5, color: Colors.red))),
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1.5, color: Colors.red),
+                        )),
                   ),
                   suggestionsCallback: getSuggestion,
                   itemBuilder: (context, itemData) {
@@ -180,9 +183,7 @@ class _FligthtabState extends State<Fligthtab> {
                     flightfrom.text = item;
                   },
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: mq.size.height * 0.02),
                 TypeAheadFormField(
                   validator: (value) {
                     if (_flightToField) {
@@ -213,34 +214,34 @@ class _FligthtabState extends State<Fligthtab> {
                               : Colors.black54,
                         ),
                         contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 15),
-                        prefixIcon: Icon(Icons.flight_land_rounded,
-                            size: 25,
-                            color: themeState.getDarkTheme
-                                ? Colors.white
-                                : Colors.black),
+                            vertical: 17, horizontal: 15),
+                        prefixIcon: const Icon(Icons.flight_land_outlined),
+                        //  prefixIconColor: Colors.grey,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
                             borderSide: const BorderSide(
-                                width: 1.5, color: Colors.black)),
+                                width: 1.5, color: Colors.black12),
+                            borderRadius: BorderRadius.circular(10)),
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
                                 width: 1.5,
                                 color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black)),
+                                    ? Colors.white54
+                                    : Colors.black54)),
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(
                                 width: 1.5,
                                 color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black38)),
+                                    ? Colors.white54
+                                    : Colors.black54)),
+                        // errorStyle:
+                        //   const TextStyle(color: Color(0xffB00020)),
                         errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide: const BorderSide(
-                                width: 1.5, color: Colors.red))),
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              const BorderSide(width: 1.5, color: Colors.red),
+                        )),
                   ),
                   suggestionsCallback: getSuggestion,
                   itemBuilder: (context, itemData) {
@@ -275,7 +276,7 @@ class _FligthtabState extends State<Fligthtab> {
                   },
                 ),
                 SizedBox(
-                  height: mq.size.height * 0.03,
+                  height: mq.size.height * 0.02,
                 ),
                 TextFormField(
                   controller: date,
@@ -288,33 +289,31 @@ class _FligthtabState extends State<Fligthtab> {
                             : Colors.black54,
                       ),
                       contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 15),
-                      prefixIcon: Icon(Icons.calendar_month_outlined,
-                          color: themeState.getDarkTheme
-                              ? Colors.white
-                              : Colors.black),
+                          vertical: 17, horizontal: 15),
+                      prefixIcon: const Icon(Icons.calendar_month_outlined),
+                      //  prefixIconColor: Colors.grey,
                       border: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1.5, color: Colors.black),
-                          borderRadius: BorderRadius.circular(20)),
+                          borderSide: const BorderSide(
+                              width: 1.5, color: Colors.black12),
+                          borderRadius: BorderRadius.circular(10)),
                       focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
                               width: 1.5,
                               color: themeState.getDarkTheme
-                                  ? Colors.white
-                                  : Colors.black38)),
+                                  ? Colors.white54
+                                  : Colors.black54)),
                       enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(
                               width: 1.5,
                               color: themeState.getDarkTheme
-                                  ? Colors.white
-                                  : Colors.black38)),
+                                  ? Colors.white54
+                                  : Colors.black54)),
                       // errorStyle:
                       //   const TextStyle(color: Color(0xffB00020)),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(10),
                         borderSide:
                             const BorderSide(width: 1.5, color: Colors.red),
                       )),
@@ -333,18 +332,17 @@ class _FligthtabState extends State<Fligthtab> {
                       flightkey.currentState?.validate();
                     });
                     var dateTime = await showDatePicker(
-
-                        /* builder: (BuildContext context,Widget? child) {
-                                          return Theme(data: ThemeData().copyWith(colorScheme: ColorScheme.light(
-                                            primary: Color(0xff0078aa),
-                                            onPrimary: Colors.white,
-                
-                                            onSurface: Colors.black,
-                
-                                          )), child:child,
-                                          );
-                                        },*/
-
+                        builder: (BuildContext context, Widget? child) {
+                          return Theme(
+                            data: ThemeData().copyWith(
+                                colorScheme: ColorScheme.light(
+                              primary: Color(0xff0078aa),
+                              onPrimary: Colors.white,
+                              onSurface: Colors.black,
+                            )),
+                            child: child!,
+                          );
+                        },
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime.now(),
@@ -355,79 +353,13 @@ class _FligthtabState extends State<Fligthtab> {
                   },
                 ),
                 SizedBox(
-                  height: mq.size.height * 0.03,
+                  height: mq.size.height * 0.02,
                 ),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: mq.size.width / 2.3,
-                        child: DropdownButtonFormField(
-                          validator: (value) {
-                            if (_dropdownField) {
-                              if (value == null || value.isEmpty) {
-                                return "*Required Field...";
-                              }
-                              return null;
-                            }
-                            return null;
-                          },
-                          onTap: () {
-                            setState(() {
-                              _dropdownField = false;
-                              flightkey.currentState!.validate();
-                            });
-                          },
-                          decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 15),
-                            hintText: "Class",
-                            hintStyle: TextStyle(
-                              color: themeState.getDarkTheme
-                                  ? Colors.white54
-                                  : Colors.black54,
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    width: 1.5, color: Colors.black12),
-                                borderRadius: BorderRadius.circular(20)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    width: 1.5,
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54)),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                                borderSide: BorderSide(
-                                    width: 1.5,
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54)),
-                            // errorStyle:
-                            //     const TextStyle(color: Color(0xffB00020)),
-                            errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide: const BorderSide(
-                                  width: 1.5, color: Colors.red),
-                            ),
-                          ),
-                          dropdownColor: Colors.white,
-                          items: classhint
-                              .map((e) => DropdownMenuItem<String>(
-                                  value: e, child: Text(e)))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              flightClass = value.toString();
-                              classType = flightClass;
-                            });
-                          },
-                        ),
-                      ),
-                      SizedBox(
-                        width: mq.size.width / 2.3,
+                        width: mq.size.width / 2.2,
                         child: TextFormField(
                           keyboardType: TextInputType.none,
                           showCursor: false,
@@ -440,41 +372,41 @@ class _FligthtabState extends State<Fligthtab> {
                             }
                             return null;
                           },
+                          controller: traveller,
+                          readOnly: true,
                           decoration: InputDecoration(
-                              hintText: "$count Traveller",
+                              hintText: "Traveller",
                               hintStyle: TextStyle(
                                 color: themeState.getDarkTheme
                                     ? Colors.white54
                                     : Colors.black54,
                               ),
                               contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 15),
-                              prefixIcon: Icon(Icons.person,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white
-                                      : Colors.black),
+                                  vertical: 17, horizontal: 15),
+                              prefixIcon: const Icon(Icons.person),
+                              //  prefixIconColor: Colors.grey,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
                                       width: 1.5, color: Colors.black12),
-                                  borderRadius: BorderRadius.circular(20)),
+                                  borderRadius: BorderRadius.circular(10)),
                               focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
                                       width: 1.5,
                                       color: themeState.getDarkTheme
                                           ? Colors.white54
                                           : Colors.black54)),
                               enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20),
+                                  borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide(
                                       width: 1.5,
                                       color: themeState.getDarkTheme
                                           ? Colors.white54
                                           : Colors.black54)),
                               // errorStyle:
-                              //     const TextStyle(color: Color(0xffB00020)),
+                              //   const TextStyle(color: Color(0xffB00020)),
                               errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.red),
                               )),
@@ -489,7 +421,7 @@ class _FligthtabState extends State<Fligthtab> {
                                         bottomSheet(
                                   myQuantity: (qua) {
                                     setState(() {
-                                      count = qua;
+                                      traveller.text = "${qua} Traveller";
                                     });
                                   },
                                 ),
@@ -530,9 +462,71 @@ class _FligthtabState extends State<Fligthtab> {
                           },
                         ),
                       ),
+                      SizedBox(
+                        width: mq.size.width / 2.2,
+                        // height: 54,
+                        child: DropdownButtonFormField(
+                          validator: (value) {
+                            if (_dropdownField) {
+                              if (value == null || value.isEmpty) {
+                                return "*Required Field...";
+                              }
+                              return null;
+                            }
+                            return null;
+                          },
+                          onTap: () {
+                            setState(() {
+                              _dropdownField = false;
+                              flightkey.currentState!.validate();
+                            });
+                          },
+                          decoration: InputDecoration(
+                              hintText: "Class",
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 14.5, horizontal: 15),
+                              //  prefixIcon: const Icon(Icons.star),
+                              //  prefixIconColor: Colors.grey,
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1.5, color: Colors.black12),
+                                  borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                      width: 1.5,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white54
+                                          : Colors.black54)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  borderSide: BorderSide(
+                                      width: 1.5,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white54
+                                          : Colors.black54)),
+                              // errorStyle:
+                              //   const TextStyle(color: Color(0xffB00020)),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                    width: 1.5, color: Colors.red),
+                              )),
+                          dropdownColor: Colors.white,
+                          items: classhint
+                              .map((e) => DropdownMenuItem<String>(
+                                  value: e, child: Text(e)))
+                              .toList(),
+                          onChanged: (value) {
+                            setState(() {
+                              flightClass = value.toString();
+                            });
+                          },
+                        ),
+                      ),
                     ]),
                 SizedBox(
-                  height: mq.size.height * 0.03,
+                  height: mq.size.height * 0.02,
                 ),
                 SizedBox(
                   width: mq.size.width,

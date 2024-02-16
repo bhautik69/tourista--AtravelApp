@@ -1,27 +1,28 @@
-import 'package:demo/Screen/Navigationpages/home/Flight/childAgeSheet.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hotelscreens/childAgeSheethotel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-typedef MyQuantity = Function(int qua);
+typedef TotalRAC = Function(int rooms, int adults, int children);
 
 // ignore: camel_case_types, must_be_immutable
-class bottomSheet extends StatefulWidget {
-  MyQuantity myQuantity;
-  bottomSheet({
+class roomGuest extends StatefulWidget {
+  TotalRAC totalRAC;
+  roomGuest({
     super.key,
-    required this.myQuantity,
+    required this.totalRAC,
   });
 
   @override
-  State<bottomSheet> createState() => _bottomSheetState();
+  State<roomGuest> createState() => _roomGuestState();
 }
 
 // ignore: camel_case_types
-class _bottomSheetState extends State<bottomSheet> {
-  int quantity = 1;
-  int quantity1 = 0;
+class _roomGuestState extends State<roomGuest> {
+  int adultsCount = 1;
+  int roomCount = 1;
+  int childCount = 0;
   int qunt = 1;
 
   // int ages = 1;
@@ -34,7 +35,7 @@ class _bottomSheetState extends State<bottomSheet> {
   }
 
   void _initializeControllers() {
-    for (int i = 0; i < quantity1; i++) {
+    for (int i = 0; i < childCount; i++) {
       if (!_controllers.containsKey(i)) {
         _controllers[i] = TextEditingController();
       }
@@ -77,6 +78,7 @@ class _bottomSheetState extends State<bottomSheet> {
                           Navigator.of(context).pop();
                         },
                         child: const Padding(
+                          
                           padding: EdgeInsets.only(right: 15),
                           child: Align(
                             alignment: Alignment.topRight,
@@ -96,7 +98,7 @@ class _bottomSheetState extends State<bottomSheet> {
                       const Padding(
                         padding: EdgeInsets.only(left: 15),
                         child: Text(
-                          "Who's flying?",
+                          "Select rooms and guests",
                           style: TextStyle(
                               fontSize: 23, fontWeight: FontWeight.bold),
                         ),
@@ -114,15 +116,72 @@ class _bottomSheetState extends State<bottomSheet> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                height: mq.size.height * 0.015,
+                                height: mq.size.height * 0.02,
                               ),
-                              const Padding(
-                                padding: EdgeInsets.only(left: 15),
-                                child: Text(
-                                  "Travelers",
-                                  style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Rooms",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: themeState.getDarkTheme
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    Container(
+                                        height: mq.size.height * 0.07,
+                                        width: mq.size.width * 0.375,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: themeState.getDarkTheme
+                                                    ? Colors.white54
+                                                    : Colors.black54),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Row(
+                                          children: [
+                                            IncrementAndDecrement(
+                                                color: roomCount == 1
+                                                    ? color1
+                                                    : Color(0xff0078aa),
+                                                onPressed: () {
+                                                  if (roomCount > 1) {
+                                                    setState(() {
+                                                      roomCount--;
+                                                    });
+                                                  }
+                                                },
+                                                icon: Icons.remove),
+                                            Text(
+                                              roomCount.toString(),
+                                              style:
+                                                  const TextStyle(fontSize: 18),
+                                            ),
+                                            IncrementAndDecrement(
+                                                color: roomCount == 10
+                                                    ? color1
+                                                    : Color(0xff0078aa),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    if (roomCount < 10) {
+                                                      roomCount++;
+                                                    }
+                                                    if (roomCount >
+                                                        adultsCount) {
+                                                      adultsCount = roomCount;
+                                                    }
+                                                  });
+                                                },
+                                                icon: Icons.add),
+                                          ],
+                                        ))
+                                  ],
                                 ),
                               ),
                               SizedBox(
@@ -146,7 +205,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                     ),
                                     Container(
                                         height: mq.size.height * 0.07,
-                                        width: mq.size.width * 0.35,
+                                        width: mq.size.width * 0.375,
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                                 color: themeState.getDarkTheme
@@ -157,32 +216,67 @@ class _bottomSheetState extends State<bottomSheet> {
                                         child: Row(
                                           children: [
                                             IncrementAndDecrement(
-                                                color: quantity == 1
+                                                color: adultsCount == 1
                                                     ? color1
                                                     : Color(0xff0078aa),
                                                 onPressed: () {
-                                                  if (quantity > 1) {
+                                                  if (adultsCount > 1) {
                                                     setState(() {
-                                                      quantity--;
+                                                      adultsCount--;
                                                     });
+
+                                                    if (roomCount >
+                                                        adultsCount) {
+                                                      roomCount = adultsCount;
+                                                    }
                                                   }
                                                 },
                                                 icon: Icons.remove),
                                             Text(
-                                              quantity.toString(),
+                                              adultsCount.toString(),
                                               style:
                                                   const TextStyle(fontSize: 18),
                                             ),
                                             IncrementAndDecrement(
-                                                color: quantity1 + quantity == 9
+                                                color: adultsCount == 10
                                                     ? color1
                                                     : Color(0xff0078aa),
                                                 onPressed: () {
                                                   setState(() {
-                                                    if (quantity1 + quantity <
-                                                        9) {
-                                                      quantity++;
+                                                    if (adultsCount < 10) {
+                                                      adultsCount++;
                                                     }
+
+                                                    /*  if (childCount +
+                                                                    adultsCount >
+                                                                8 &&
+                                                            roomCount == 1 ||
+                                                        childCount +
+                                                                    adultsCount >
+                                                                16 &&
+                                                            roomCount <= 2 ||
+                                                        childCount +
+                                                                    adultsCount >
+                                                                24 &&
+                                                            roomCount <= 3 ||
+                                                        childCount +
+                                                                    adultsCount >
+                                                                32 &&
+                                                            roomCount <= 4 ||
+                                                        childCount +
+                                                                    adultsCount >
+                                                                40 &&
+                                                            roomCount <= 5 ||
+                                                        childCount +
+                                                                    adultsCount >
+                                                                48 &&
+                                                            roomCount <= 6 ||
+                                                        childCount +
+                                                                    adultsCount >
+                                                                56 &&
+                                                            roomCount <= 7) {
+                                                      roomCount++;
+                                                    }*/
                                                   });
                                                 },
                                                 icon: Icons.add),
@@ -212,7 +306,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                     ),
                                     Container(
                                         height: mq.size.height * 0.07,
-                                        width: mq.size.width * 0.35,
+                                        width: mq.size.width * 0.375,
                                         decoration: BoxDecoration(
                                             border: Border.all(
                                               color: themeState.getDarkTheme
@@ -224,15 +318,15 @@ class _bottomSheetState extends State<bottomSheet> {
                                         child: Row(
                                           children: [
                                             IncrementAndDecrement(
-                                                color: quantity1 == 0
+                                                color: childCount == 0
                                                     ? color1
                                                     : Color(0xff0078aa),
                                                 onPressed: () {
-                                                  if (quantity1 > 0) {
+                                                  if (childCount > 0) {
                                                     setState(() {
                                                       _controllers.remove(
-                                                          quantity1 - 1);
-                                                      quantity1--;
+                                                          childCount - 1);
+                                                      childCount--;
 
                                                       _initializeControllers();
                                                     });
@@ -240,21 +334,43 @@ class _bottomSheetState extends State<bottomSheet> {
                                                 },
                                                 icon: Icons.remove),
                                             Text(
-                                              quantity1.toString(),
+                                              childCount.toString(),
                                               style:
                                                   const TextStyle(fontSize: 18),
                                             ),
                                             IncrementAndDecrement(
-                                              color: quantity1 + quantity == 9
+                                              color: childCount == 20
                                                   ? color1
                                                   : Color(0xff0078aa),
                                               onPressed: () {
                                                 setState(() {
-                                                  if (quantity1 + quantity <
-                                                      9) {
-                                                    quantity1++;
+                                                  if (childCount < 20) {
+                                                    childCount++;
                                                     _initializeControllers();
                                                   }
+                                                  /* if (childCount + adultsCount >
+                                                              8 &&
+                                                          roomCount == 1 ||
+                                                      childCount + adultsCount >
+                                                              16 &&
+                                                          roomCount <= 2 ||
+                                                      childCount + adultsCount >
+                                                              24 &&
+                                                          roomCount <= 3 ||
+                                                      childCount + adultsCount >
+                                                              32 &&
+                                                          roomCount <= 4 ||
+                                                      childCount + adultsCount >
+                                                              40 &&
+                                                          roomCount <= 5 ||
+                                                      childCount + adultsCount >
+                                                              48 &&
+                                                          roomCount <= 6 ||
+                                                      childCount + adultsCount >
+                                                              56 &&
+                                                          roomCount <= 7) {
+                                                    roomCount++;
+                                                  }*/
                                                 });
                                               },
                                               icon: Icons.add,
@@ -264,14 +380,41 @@ class _bottomSheetState extends State<bottomSheet> {
                                   ],
                                 ),
                               ),
-                              //SizedBox(
-                              //  height: mq.size.height * 0.02,
-                              // ),
+                              SizedBox(
+                                height: mq.size.height * 0.045,
+                              ),
+                              Visibility(
+                                visible: childCount == 0 ? false : true,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    "Age of children at check-out",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: mq.size.height * 0.011,
+                              ),
+                              Visibility(
+                                visible: childCount == 0 ? false : true,
+                                child: const Padding(
+                                  padding: EdgeInsets.only(left: 15),
+                                  child: Text(
+                                    "Child ages will be used to find you the best match in beds, room size and special prices.",
+                                    style: TextStyle(
+                                        // fontSize: 16,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ),
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 20),
+                                    const EdgeInsets.symmetric(vertical: 5),
                                 child: ListView.builder(
-                                  itemCount: quantity1,
+                                  itemCount: childCount,
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
@@ -286,7 +429,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                             height: mq.size.height * 0.025,
                                           ),
                                           Text(
-                                            quantity1 > 1
+                                            childCount > 1
                                                 ? "${index + 1} child's age"
                                                 : "Child's age",
                                             style: const TextStyle(
@@ -301,8 +444,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                             readOnly: true,
                                             decoration: InputDecoration(
                                                 // hintText: "${Global.ages}",
-                                                hintText:
-                                                    "Select age at time of flying",
+                                                hintText: "Select age",
                                                 hintStyle: TextStyle(
                                                   color: themeState.getDarkTheme
                                                       ? Colors.white54
@@ -359,11 +501,11 @@ class _bottomSheetState extends State<bottomSheet> {
                                                                     .circular(
                                                                         20))),
                                                 builder: (context) {
-                                                  return ChildAgaSheet(
+                                                  return ChildAgaSheetHotal(
                                                       myAge: (age) {
                                                     setState(() {
                                                       _controllers[index]!
-                                                          .text = "${age}";
+                                                          .text = "$age";
                                                     });
                                                   });
                                                   // return ChildAgaSheet(ages);
@@ -400,7 +542,7 @@ class _bottomSheetState extends State<bottomSheet> {
                               ? Colors.white12
                               : Colors.black12)
                     ]),
-                height: mq.size.height * 0.125,
+                height: mq.size.height * 0.11,
                 child: Column(children: [
                   Container(
                       width: mq.size.width,
@@ -409,29 +551,20 @@ class _bottomSheetState extends State<bottomSheet> {
                           ? Colors.white12
                           : Colors.black12),
                   SizedBox(
-                    height: mq.size.height * 0.0265,
+                    height: mq.size.height * 0.019,
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Spacer(),
-                        SizedBox(
-                          height: mq.size.height * 0.067,
-                          width: mq.size.width * 0.44,
-                          child: commenButton(
-                            title: "DONE",
-                            callback: () {
-                              setState(() {
-                                qunt = quantity + quantity1;
-                              });
-                              widget.myQuantity(qunt);
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ],
+                    child: SizedBox(
+                      height: mq.size.height * 0.067,
+                      width: mq.size.width,
+                      child: commenButton(
+                        title: "APPLY",
+                        callback: () {
+                          widget.totalRAC(roomCount, adultsCount, childCount);
+                          Navigator.pop(context);
+                        },
+                      ),
                     ),
                   )
                 ]),

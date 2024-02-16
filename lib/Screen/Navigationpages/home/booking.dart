@@ -108,8 +108,9 @@ class _BookingDoneState extends State<BookingDone> {
                                 ? const Color(0xff212121)
                                 : const Color(0xffffffff),
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 16),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: mq.size.width * 0.046,
+                                  vertical: mq.size.width * 0.046),
                               child: Column(
                                 children: [
                                   const Titletext(
@@ -290,17 +291,20 @@ class _BookingDoneState extends State<BookingDone> {
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
                               child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 16),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: mq.size.width * 0.046,
+                                      vertical: mq.size.width * 0.046),
                                   child: Column(children: [
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        const SizedBox(
-                                          width: 85,
+                                        SizedBox(
+                                          // width: 85,
+                                          width: mq.size.width * 0.239,
                                         ),
-                                        const Titletext(title: "Traveller Details"),
+                                        const Titletext(
+                                            title: "Traveller Details"),
                                         const Spacer(),
                                         TextButton(
                                             onPressed: () {
@@ -363,6 +367,19 @@ class _BookingDoneState extends State<BookingDone> {
                                       controller: dob,
                                       onTap: () async {
                                         var dateTime = await showDatePicker(
+                                            builder: (BuildContext context,
+                                                Widget? child) {
+                                              return Theme(
+                                                data: ThemeData().copyWith(
+                                                    colorScheme:
+                                                        ColorScheme.light(
+                                                  primary: Color(0xff0078aa),
+                                                  onPrimary: Colors.white,
+                                                  onSurface: Colors.black,
+                                                )),
+                                                child: child!,
+                                              );
+                                            },
                                             context: context,
                                             initialDate: DateTime(2018, 1, 1),
                                             firstDate: DateTime(1900),
@@ -528,8 +545,8 @@ class _BookingDoneState extends State<BookingDone> {
     addTravellers();
     await Booking.addBookPackage(
         Booking(
-          latitude:widget.package!.latitude,
-          longitude:widget.package!.longitude,
+          latitude: widget.package!.latitude,
+          longitude: widget.package!.longitude,
           type: "booking",
           // package: widget.package!,
           id: widget.id,

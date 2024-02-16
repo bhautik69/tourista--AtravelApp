@@ -2,7 +2,8 @@
 
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:demo/Screen/Navigationpages/home/Flight/Flighttab.dart';
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hoteltab.dart';
+
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hotelscreens/hoteltab.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/tripscreen.dart';
 
 import 'package:flutter/material.dart';
@@ -10,25 +11,26 @@ import 'package:ionicons/ionicons.dart';
 
 // ignore: must_be_immutable
 class Search extends StatefulWidget {
-  const Search({super.key});
+  const Search({
+    super.key,
+  });
 
   @override
   State<Search> createState() => _SearchState();
 }
 
 class _SearchState extends State<Search> {
-  int currentindex = 0;
+  @override
   @override
   Widget build(BuildContext context) {
-    int currentindex = 0;
     return DefaultTabController(
-        initialIndex: currentindex,
+        initialIndex: 0,
         length: 3,
         child: Builder(builder: (BuildContext context) {
           final TabController tabController = DefaultTabController.of(context);
           tabController.addListener(() {
             if (!tabController.indexIsChanging) {
-              currentindex = tabController.index;
+              // widget.currentindex = tabController.index;
               setState(() {});
             }
           });

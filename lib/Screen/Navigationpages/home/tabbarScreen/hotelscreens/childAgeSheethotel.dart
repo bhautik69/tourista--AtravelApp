@@ -7,15 +7,15 @@ import 'package:provider/provider.dart';
 
 typedef MyAge = Function(String age);
 
-class ChildAgaSheet extends StatefulWidget {
+class ChildAgaSheetHotal extends StatefulWidget {
   MyAge myAge;
-  ChildAgaSheet({super.key, required this.myAge});
+  ChildAgaSheetHotal({super.key, required this.myAge});
 
   @override
-  State<ChildAgaSheet> createState() => _ChildAgaSheetState();
+  State<ChildAgaSheetHotal> createState() => _ChildAgaSheetState();
 }
 
-class _ChildAgaSheetState extends State<ChildAgaSheet> {
+class _ChildAgaSheetState extends State<ChildAgaSheetHotal> {
   String ages = "0";
   @override
   Widget build(BuildContext context) {

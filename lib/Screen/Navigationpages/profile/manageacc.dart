@@ -252,6 +252,18 @@ class _MngAccState extends State<MngAcc> {
                                   controller: dateC,
                                   onTap: () async {
                                     var dateTime = await showDatePicker(
+                                        builder: (BuildContext context,
+                                            Widget? child) {
+                                          return Theme(
+                                            data: ThemeData().copyWith(
+                                                colorScheme: ColorScheme.light(
+                                              primary: Color(0xff0078aa),
+                                              onPrimary: Colors.white,
+                                              onSurface: Colors.black,
+                                            )),
+                                            child: child!,
+                                          );
+                                        },
                                         context: context,
                                         initialDate: DateTime.now(),
                                         firstDate: DateTime(1900),
@@ -311,6 +323,7 @@ class _MngAccState extends State<MngAcc> {
                                         .toList(),
                                     onChanged: (value) {
                                       setState(() {
+                                        
                                         gender = value.toString();
                                       });
                                     },

@@ -203,6 +203,17 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                         controller: startDate,
                         onTap: () async {
                           var dateTime = await showDatePicker(
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: ThemeData().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                    primary: Color(0xff0078aa),
+                                    onPrimary: Colors.white,
+                                    onSurface: Colors.black,
+                                  )),
+                                  child: child!,
+                                );
+                              },
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime.now(),
@@ -240,6 +251,17 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                         controller: endDate,
                         onTap: () async {
                           var dateTime = await showDatePicker(
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: ThemeData().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                    primary: Color(0xff0078aa),
+                                    onPrimary: Colors.white,
+                                    onSurface: Colors.black,
+                                  )),
+                                  child: child!,
+                                );
+                              },
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime.now(),
@@ -1123,7 +1145,7 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
     await Package.updatePackage(
         widget.id!,
         Package(
-          latitude:  latitude.text,
+          latitude: latitude.text,
           longitude: longitude.text,
           id: widget.id,
           startingForm: startingForm.text,

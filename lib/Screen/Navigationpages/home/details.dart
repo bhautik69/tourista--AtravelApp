@@ -327,9 +327,9 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                      color: themeState.getDarkTheme
-                          ? const Color(0xff121212)
-                          : const Color(0xFFffffff),
+                    color: themeState.getDarkTheme
+                          ? const Color(0xff212121)
+                          : const Color(0xffffffff),
                       boxShadow: [
                         BoxShadow(
                             offset: const Offset(5, 5),
@@ -479,7 +479,7 @@ class _PlaceDetailsState extends State<PlaceDetails> {
     Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>  Mainpage(),
+          builder: (context) =>  const Mainpage(),
         ));
   }
 }
