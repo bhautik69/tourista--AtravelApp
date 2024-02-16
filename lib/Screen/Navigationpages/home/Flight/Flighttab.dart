@@ -557,3 +557,11 @@ class _FligthtabState extends State<Fligthtab> {
     );
   }
 }
+
+String classType = "";
+Map<String, int> seatCount = {
+  "Economy": 13 * 3,
+  "Premium": 5 * 3,
+  "Business": 3 * 3,
+  "First Class": 10 * 3
+};
