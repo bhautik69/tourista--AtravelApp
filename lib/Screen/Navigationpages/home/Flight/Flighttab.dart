@@ -481,6 +481,8 @@ class _FligthtabState extends State<Fligthtab> {
                               flightkey.currentState!.validate();
                             });
                           },
+                          dropdownColor: themeState.getDarkTheme?Color(0xff212121) :Colors.white
+                          ,
                           decoration: InputDecoration(
                               hintText: "Class",
                               contentPadding: const EdgeInsets.symmetric(
@@ -512,7 +514,6 @@ class _FligthtabState extends State<Fligthtab> {
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.red),
                               )),
-                          dropdownColor: Colors.white,
                           items: classhint
                               .map((e) => DropdownMenuItem<String>(
                                   value: e, child: Text(e)))
