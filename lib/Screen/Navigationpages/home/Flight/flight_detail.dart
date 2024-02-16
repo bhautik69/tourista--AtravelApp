@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/Flight/seat_booking.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
-import 'package:demo/widget/textwidget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -45,9 +42,6 @@ class _FlightDetailState extends State<FlightDetail> {
                   children: [
                     Card(
                       elevation: 2.5,
-                      color: themeState.getDarkTheme
-                          ? const Color(0xff212121)
-                          : const Color(0xffffffff),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
@@ -212,9 +206,6 @@ class _FlightDetailState extends State<FlightDetail> {
                       height: mq.size.height * 0.01,
                     ),
                     Card(
-                      color: themeState.getDarkTheme
-                          ? const Color(0xff212121)
-                          : const Color(0xffffffff),
                       elevation: 2.5,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -395,13 +386,14 @@ class _FlightDetailState extends State<FlightDetail> {
                 ),
               ),
             ),
-            /* Container(
+            Container(
               height: mq.size.height * 0.1,
               decoration: BoxDecoration(
                 // color: Colors.white,
-                border:
-                    const Border(top: BorderSide(width: 2, color: Colors.grey)),
-                ,
+                border: const Border(top: BorderSide(width: 2, color: Colors.grey)),
+                color: themeState.getDarkTheme
+                    ? const Color(0xff121212)
+                    : const Color(0xFFffffff),
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -435,66 +427,6 @@ class _FlightDetailState extends State<FlightDetail> {
                 ),
               ),
             ),
-          */
-            Container(
-              decoration: BoxDecoration(
-                  color: themeState.getDarkTheme
-                      ? const Color(0xff212121)
-                      : const Color(0xffffffff),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(5, 5),
-                        color: themeState.getDarkTheme
-                            ? Colors.white12
-                            : Colors.black12)
-                  ]),
-              height: mq.size.height * 0.1,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Row(children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Titletext(title: "₹ 25000"),
-                      SizedBox(
-                        height: mq.size.height * 0.01,
-                      ),
-                      Text("Per person",
-                          style: TextStyle(
-                              fontSize: 13,
-                              color: themeState.getDarkTheme
-                                  ? Colors.white54
-                                  : Colors.black54,
-                              fontWeight: FontWeight.w400))
-                    ],
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                      height: mq.size.height * 0.065,
-                      child: StreamBuilder(
-                          stream: FirebaseFirestore.instance
-                              .collection("booking")
-                              .doc(FirebaseAuth.instance.currentUser!.uid)
-                              .collection("bookingPkg")
-                              //   .where("id", isEqualTo: widget.id)
-                              .snapshots(),
-                          builder:
-                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                            if (snapshot.data == null) {
-                              return const Text("");
-                            }
-                            return commenButton(
-                                title: snapshot.data!.docs.isEmpty
-                                    ? "BOOK NOW"
-                                    : "CANCEL BOOKING",
-                                callback: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => ChooseSeat()));
-                                });
-                          }))
-                ]),
-              ),
-            )
           ],
         ));
   }

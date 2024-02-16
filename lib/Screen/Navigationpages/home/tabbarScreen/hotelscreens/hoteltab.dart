@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hotelscreens/roomandguest.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
+
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -25,7 +27,7 @@ class _HoteltabState extends State<Hoteltab> {
 
   final _formKey = GlobalKey<FormState>();
   var destination = TextEditingController();
-  var adults = TextEditingController();
+  var rac = TextEditingController();
   var checkin = TextEditingController();
   var checkout = TextEditingController();
   List cityList = [
@@ -80,7 +82,7 @@ class _HoteltabState extends State<Hoteltab> {
         child: Column(
           children: [
             SizedBox(
-              height: mq.size.height * 0.03,
+              height: mq.size.height * 0.02,
             ),
             TypeAheadFormField(
               // hideSuggestionsOnKeyboardHide: true,
@@ -113,7 +115,8 @@ class _HoteltabState extends State<Hoteltab> {
                     contentPadding: const EdgeInsets.symmetric(
                         vertical: 17, horizontal: 15),
                     prefixIcon: const Icon(Icons.search),
-                    prefixIconColor: Colors.grey,
+                    //       prefixIconColor: Colors.grey,
+
                     border: OutlineInputBorder(
                         borderSide:
                             const BorderSide(width: 1.5, color: Colors.black12),
@@ -177,13 +180,13 @@ class _HoteltabState extends State<Hoteltab> {
               },
             ),
             SizedBox(
-              height: mq.size.height * 0.03,
+              height: mq.size.height * 0.02,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SizedBox(
-                  width: mq.size.width / 2.26,
+                  width: mq.size.width / 2.2,
                   child: TextFormField(
                     controller: checkin,
                     readOnly: true,
@@ -197,7 +200,7 @@ class _HoteltabState extends State<Hoteltab> {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 17, horizontal: 15),
                         prefixIcon: const Icon(Icons.calendar_month_outlined),
-                        prefixIconColor: Colors.grey,
+                        //     prefixIconColor: Colors.grey,
                         border: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 1.5, color: Colors.black12),
@@ -251,7 +254,7 @@ class _HoteltabState extends State<Hoteltab> {
                   ),
                 ),
                 SizedBox(
-                  width: mq.size.width / 2.26,
+                  width: mq.size.width / 2.2,
                   child: TextFormField(
                     controller: checkout,
                     readOnly: true,
@@ -265,7 +268,7 @@ class _HoteltabState extends State<Hoteltab> {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 17, horizontal: 15),
                         prefixIcon: const Icon(Icons.calendar_month_outlined),
-                        prefixIconColor: Colors.grey,
+                        //  prefixIconColor: Colors.grey,
                         border: OutlineInputBorder(
                             borderSide: const BorderSide(
                                 width: 1.5, color: Colors.black12),
@@ -320,10 +323,10 @@ class _HoteltabState extends State<Hoteltab> {
               ],
             ),
             SizedBox(
-              height: mq.size.height * 0.03,
+              height: mq.size.height * 0.02,
             ),
             TextFormField(
-              controller: adults,
+              controller: rac,
               readOnly: true,
               decoration: InputDecoration(
                   hintText: "ROOMS AND GUESTS",
@@ -335,7 +338,7 @@ class _HoteltabState extends State<Hoteltab> {
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: 17, horizontal: 15),
                   prefixIcon: const Icon(Icons.person),
-                  prefixIconColor: Colors.grey,
+                  //  prefixIconColor: Colors.grey,
                   border: OutlineInputBorder(
                       borderSide:
                           const BorderSide(width: 1.5, color: Colors.black12),
@@ -373,13 +376,40 @@ class _HoteltabState extends State<Hoteltab> {
                 setState(() {
                   _dateFieldTouched = false;
                   _formKey.currentState?.validate();
-                });
 
-                
+                  Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          roomGuest(
+                        totalRAC: (rooms, adults, children) {
+                          setState(() {
+                            rac.text =
+                                "${rooms} rooms . ${adults} adults . ${children} child";
+                          });
+                        },
+                      ),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        const begin = Offset(0.0, 1.0);
+                        const end = Offset.zero;
+                        const curve = Curves.ease;
+                        var tween = Tween(begin: begin, end: end)
+                            .chain(CurveTween(curve: curve));
+                        var offsetAnimation = animation.drive(tween);
+
+                        return SlideTransition(
+                          position: offsetAnimation,
+                          child: child,
+                        );
+                      },
+                    ),
+                  );
+                });
               },
             ),
             SizedBox(
-              height: mq.size.height * 0.03,
+              height: mq.size.height * 0.02,
             ),
             SizedBox(
               width: mq.size.width,

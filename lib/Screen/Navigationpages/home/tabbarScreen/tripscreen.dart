@@ -241,7 +241,7 @@ class _TriptabState extends State<Triptab> {
                           child: Column(
                             children: [
                               SizedBox(
-                                height: mq.size.height * 0.03,
+                                height: mq.size.height * 0.02,
                               ),
                               TypeAheadFormField(
                                 // hideSuggestionsOnKeyboardHide: true,
@@ -276,7 +276,7 @@ class _TriptabState extends State<Triptab> {
                                               vertical: 17, horizontal: 15),
                                       prefixIcon: const Icon(
                                           Icons.location_on_outlined),
-                                      prefixIconColor: Colors.grey,
+                                      //  prefixIconColor: Colors.grey,
                                       border: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                               width: 1.5,
@@ -344,7 +344,7 @@ class _TriptabState extends State<Triptab> {
                                 },
                               ),
                               SizedBox(
-                                height: mq.size.height * 0.03,
+                                height: mq.size.height * 0.02,
                               ),
                               TypeAheadFormField(
                                 // animationDuration: Duration(seconds: 1),
@@ -377,7 +377,7 @@ class _TriptabState extends State<Triptab> {
                                               vertical: 17, horizontal: 15),
                                       prefixIcon: const Icon(
                                           Icons.location_on_outlined),
-                                      prefixIconColor: Colors.grey,
+                                      //  prefixIconColor: Colors.grey,
                                       border: OutlineInputBorder(
                                           borderSide: const BorderSide(
                                               width: 1.5,
@@ -445,7 +445,7 @@ class _TriptabState extends State<Triptab> {
                                 },
                               ),
                               SizedBox(
-                                height: mq.size.height * 0.03,
+                                height: mq.size.height * 0.02,
                               ),
                               TextFormField(
                                 controller: date,
@@ -461,7 +461,7 @@ class _TriptabState extends State<Triptab> {
                                         vertical: 17, horizontal: 15),
                                     prefixIcon: const Icon(
                                         Icons.calendar_month_outlined),
-                                    prefixIconColor: Colors.grey,
+                                    //   prefixIconColor: Colors.grey,
                                     border: OutlineInputBorder(
                                         borderSide: const BorderSide(
                                             width: 1.5, color: Colors.black12),
@@ -528,7 +528,7 @@ class _TriptabState extends State<Triptab> {
                           ),
                         ),
                         SizedBox(
-                          height: mq.size.height * 0.02,
+                          height: mq.size.height * 0.007,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),

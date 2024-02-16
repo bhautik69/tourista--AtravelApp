@@ -117,7 +117,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                       height: 25,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(3),
-                                        color: Color(0xff0078aa),
+                                        color: Color.fromRGBO(0, 0, 128, 1),
                                       ),
                                     ),
                                     Container(
@@ -185,7 +185,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                       thickness: 2,
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 23),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -271,41 +271,41 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                     ),
                                   ],
                                 ),
-                                Container(
-                                  //color: Colors.amber,
-                                  //margin: EdgeInsets.symmetric(horizontal: 10),
-                                  // height: 100,
-                                  width: mq.size.width,
-                                  child: widgetSeat(listSeatLeft, false),
+                                Row(
+                                  children: [
+                                    Container(
+                                      //color: Colors.amber,
+                                      //margin: EdgeInsets.symmetric(horizontal: 10),
+                                      // height: 100,
+                                      width: mq.size.width / 2.8,
+                                      child: widgetSeat(listSeatLeft, false),
+                                    ),
+                                    Container(
+                                      width: mq.size.width / 11,
+                                      height: mq.size.height * 1.66,
+                                      // color: Colors.deepOrange,
+                                      child: buildNumberColumn(),
+                                    ),
+                                    Container(
+                                      //color: Colors.amber,
+                                      //margin: EdgeInsets.symmetric(horizontal: 10),
+                                      // height: 100,
+                                      width: mq.size.width / 2.8,
+                                      child: widgetSeat(listSeatRight, false),
+                                    )
+                                  ],
                                 ),
-                                // Row(
-                                //   children: [
-                                //     // Container(
-                                //     //   width: mq.size.width / 11,
-                                //     //   height: mq.size.height * 1.66,
-                                //     //   // color: Colors.deepOrange,
-                                //     //   child: buildNumberColumn(),
-                                //     // ),
-                                //     // Container(
-                                //     //   //color: Colors.amber,
-                                //     //   //margin: EdgeInsets.symmetric(horizontal: 10),
-                                //     //   // height: 100,
-                                //     //   width: mq.size.width / 2.8,
-                                //     //   child: widgetSeat(listSeatRight, false),
-                                //     // )
-                                //   ],
-                                // ),
                               ],
                             ),
                           ),
-                          // SizedBox(
-                          //   width: mq.size.width / 50,
-                          // ),
-                          // Container(
-                          //   width: mq.size.width / 90,
-                          //   height: mq.size.height * 1.717,
-                          //   color: const Color.fromARGB(255, 214, 214, 214),
-                          // ),
+                          SizedBox(
+                            width: mq.size.width / 50,
+                          ),
+                          Container(
+                            width: mq.size.width / 90,
+                            height: mq.size.height * 1.717,
+                            color: const Color.fromARGB(255, 214, 214, 214),
+                          ),
                         ],
                       ),
                     ),
@@ -358,15 +358,14 @@ class _ChooseSeatState extends State<ChooseSeat> {
 
   Widget widgetSeat(List dataSeat, bool isCenter) {
     return Container(
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width / 2.9,
       child: GridView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 6,
-            // childAspectRatio: 2 / 2,
-            crossAxisSpacing: 2,
-            mainAxisSpacing: 2),
+          crossAxisCount: isCenter ? 4 : 3,
+          childAspectRatio: isCenter ? 1 : 1,
+        ),
         itemCount: dataSeat.length,
         itemBuilder: (BuildContext context, int index) {
           return Visibility(
@@ -380,9 +379,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
               },
               //show the seat info
               child: Container(
-                  // margin: const EdgeInsets.all(2.5),
-                  width: 20,
-                  height: 20,
+                  margin: const EdgeInsets.all(2.5),
+                  width: 25,
+                  height: 25,
                   decoration: BoxDecoration(
                     color: dataSeat[index]["isBooked"]
                         ? Color.fromARGB(255, 211, 209, 209)
