@@ -1,6 +1,7 @@
-import 'package:demo/Screen/Navigationpages/home/Flight/seat_booking.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/seat_booking.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
+import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -387,46 +388,64 @@ class _FlightDetailState extends State<FlightDetail> {
               ),
             ),
             Container(
-              height: mq.size.height * 0.1,
               decoration: BoxDecoration(
-                // color: Colors.white,
-                border: const Border(top: BorderSide(width: 2, color: Colors.grey)),
-                color: themeState.getDarkTheme
-                    ? const Color(0xff121212)
-                    : const Color(0xFFffffff),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 16, vertical: mq.size.height * 0.015),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "₹ 15,135.87",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text("1 travellers")
-                      ],
-                    ),
-                    SizedBox(
-                      width: mq.size.width * 0.35,
-                      height: mq.size.height * 0.06,
-                      child: commenButton(
-                        title: "Select",
-                        callback: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ChooseSeat(),
-                          ));
-                        },
+                  color: themeState.getDarkTheme
+                      ? const Color(0xff212121)
+                      : const Color(0xffffffff),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(5, 5),
+                        color: themeState.getDarkTheme
+                            ? Colors.white12
+                            : Colors.black12)
+                  ]),
+              height: mq.size.height * 0.1,
+              child: Column(
+                children: [
+                  Container(
+                      width: mq.size.width,
+                      height: 3,
+                      color: themeState.getDarkTheme
+                          ? Colors.white12
+                          : Colors.black12),
+                  SizedBox(
+                    height: mq.size.height * 0.019,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Titletext(title: "₹ 15,135"),
+                          SizedBox(
+                            height: mq.size.height * 0.01,
+                          ),
+                          Text("Per person",
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: themeState.getDarkTheme
+                                      ? Colors.white54
+                                      : Colors.black54,
+                                  fontWeight: FontWeight.w400))
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                      const Spacer(),
+                      SizedBox(
+                          height: mq.size.height * 0.06,
+                          width: mq.size.width * 0.44,
+                          child: commenButton(
+                              title: "SELECT",
+                              callback: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ChooseSeat(),
+                                ));
+                              }))
+                    ]),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ));
   }

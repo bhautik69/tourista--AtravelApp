@@ -1,6 +1,7 @@
-import 'package:demo/Screen/Navigationpages/home/Flight/flight_search.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/bottomSheet.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
-import 'package:demo/widget/bottomSheet.dart';
+
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -97,9 +98,9 @@ class _FligthtabState extends State<Fligthtab> {
                   validator: (value) {
                     if (_flightFromField) {
                       if (value == null || value.isEmpty) {
-                        return "*Required Field...";
+                        return "*Required Field";
                       } else if (!RegExp(r"^[a-zA-Z._ +]+$").hasMatch(value)) {
-                        return "*Enter valid name...";
+                        return "*Enter valid name";
                       } else {
                         return null;
                       }
@@ -188,11 +189,11 @@ class _FligthtabState extends State<Fligthtab> {
                   validator: (value) {
                     if (_flightToField) {
                       if (value == null || value.isEmpty) {
-                        return "*Required Field...";
+                        return "*Required Field";
                       } else if (!RegExp(r"^[a-zA-Z._ +]+$").hasMatch(value)) {
-                        return "*Enter valid name...";
+                        return "*Enter valid name";
                       } else if (flightfrom.text == flightTo.text) {
-                        return "*Both places are same...";
+                        return "*Origin and destination can't be the same";
                       }
                       return null;
                     }
@@ -320,7 +321,7 @@ class _FligthtabState extends State<Fligthtab> {
                   validator: (value) {
                     if (_dateFieldTouched) {
                       if (value == null || value.isEmpty) {
-                        return "*Required Field...";
+                        return "*Required Field";
                       }
                       return null;
                     }
@@ -366,7 +367,7 @@ class _FligthtabState extends State<Fligthtab> {
                           validator: (value) {
                             if (_travellerField) {
                               if (count <= 0) {
-                                return "Select Traveller...";
+                                return "Select Traveller";
                               }
                               return null;
                             }
@@ -469,7 +470,7 @@ class _FligthtabState extends State<Fligthtab> {
                           validator: (value) {
                             if (_dropdownField) {
                               if (value == null || value.isEmpty) {
-                                return "*Required Field...";
+                                return "*Required Field";
                               }
                               return null;
                             }
@@ -481,8 +482,9 @@ class _FligthtabState extends State<Fligthtab> {
                               flightkey.currentState!.validate();
                             });
                           },
-                          dropdownColor: themeState.getDarkTheme?Color(0xff212121) :Colors.white
-                          ,
+                          dropdownColor: themeState.getDarkTheme
+                              ? Color(0xff212121)
+                              : Colors.white,
                           decoration: InputDecoration(
                               hintText: "Class",
                               contentPadding: const EdgeInsets.symmetric(
@@ -521,6 +523,7 @@ class _FligthtabState extends State<Fligthtab> {
                           onChanged: (value) {
                             setState(() {
                               flightClass = value.toString();
+                              classType = flightClass;
                             });
                           },
                         ),

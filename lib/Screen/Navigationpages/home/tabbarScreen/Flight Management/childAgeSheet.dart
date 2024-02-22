@@ -77,19 +77,19 @@ class _ChildAgaSheetState extends State<ChildAgaSheet> {
                           ? Colors.white12
                           : Colors.black12)
                 ]),
-            height: mq.size.height * 0.125,
+            height: mq.size.height * 0.1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
                     width: mq.size.width,
-                    height: 1.8,
+                    height: 3,
                     color: themeState.getDarkTheme
                         ? Colors.white12
                         : Colors.black12),
                 SizedBox(
-                  height: mq.size.height * 0.0265,
+                  height: mq.size.height * 0.016,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -112,7 +112,7 @@ class _ChildAgaSheetState extends State<ChildAgaSheet> {
                               borderRadius: BorderRadius.circular(10)),
                           child: const Center(
                             child: Text(
-                              "REMOVE",
+                              "Remove",
                               style: TextStyle(
                                   color: Color(0xff0078aa),
                                   fontWeight: FontWeight.bold,
@@ -126,7 +126,7 @@ class _ChildAgaSheetState extends State<ChildAgaSheet> {
                         height: mq.size.height * 0.067,
                         width: mq.size.width * 0.44,
                         child: commenButton(
-                          title: "DONE",
+                          title: "Done",
                           callback: () {
                             widget.myAge(ages);
                             Navigator.pop(context);

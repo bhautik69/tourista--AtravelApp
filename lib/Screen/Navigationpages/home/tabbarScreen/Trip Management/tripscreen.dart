@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Screen/Navigationpages/home/details.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/details.dart';
 import 'package:demo/models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -352,6 +352,8 @@ class _TriptabState extends State<Triptab> {
                                   if (_toFieldTouched) {
                                     if (value == null || value.isEmpty) {
                                       return "*Required Field";
+                                    } else if (from.text == to.text) {
+                                      return "*Origin and destination can't be the same";
                                     }
                                     return null;
                                   }
@@ -546,8 +548,10 @@ class _TriptabState extends State<Triptab> {
                                         _toFieldTouched = true;
                                       },
                                     );
-                                    _formKey.currentState!.validate();
-                                    runFilter(from.text, to.text, date.text);
+                                    if (_formKey.currentState!.validate()) {
+                                      runFilter(from.text, to.text, date.text);
+                                    }
+                                    
                                   })),
                         ),
                         SizedBox(

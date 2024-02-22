@@ -1,4 +1,4 @@
-import 'package:demo/Screen/Navigationpages/home/Flight/flight_detail.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_detail.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';

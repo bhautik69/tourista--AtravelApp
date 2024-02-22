@@ -1,8 +1,9 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, avoid_function_literals_in_foreach_calls, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, unused_local_variable
 
-import 'package:demo/Screen/Navigationpages/home/Flight/Flighttab.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
+import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -120,7 +121,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                       height: 25,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(3),
-                                        color: Color.fromRGBO(0, 0, 128, 1),
+                                        color: Color(0xff0078aa),
                                       ),
                                     ),
                                     Container(
@@ -321,44 +322,58 @@ class _ChooseSeatState extends State<ChooseSeat> {
               ),
             ),
             Container(
-              width: mq.size.width,
-              height: mq.size.height * 0.1,
               decoration: BoxDecoration(
                   color: themeState.getDarkTheme
-                      ? const Color(0xff121212)
-                      : const Color(0xFFffffff),
-                  border:
-                      Border(top: BorderSide(width: 2, color: Colors.grey))),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 16, vertical: mq.size.height * 0.015),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "₹ 15,135.87",
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text("1 travellers")
-                      ],
-                    ),
-                    SizedBox(
-                      width: mq.size.width * 0.35,
-                      height: mq.size.height * 0.06,
-                      child: commenButton(
-                        title: "Select",
-                        callback: () {
-                          setSelectedToBooked();
-                        },
+                      ? const Color(0xff212121)
+                      : const Color(0xffffffff),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(5, 5),
+                        color: themeState.getDarkTheme
+                            ? Colors.white12
+                            : Colors.black12)
+                  ]),
+              height: mq.size.height * 0.1,
+              child: Column(
+                children: [
+                  Container(
+                      width: mq.size.width,
+                      height: 3,
+                      color: themeState.getDarkTheme
+                          ? Colors.white12
+                          : Colors.black12),
+                  SizedBox(
+                    height: mq.size.height * 0.019,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Titletext(title: "₹ 15,135"),
+                          SizedBox(
+                            height: mq.size.height * 0.01,
+                          ),
+                          Text("Per person",
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: themeState.getDarkTheme
+                                      ? Colors.white54
+                                      : Colors.black54,
+                                  fontWeight: FontWeight.w400))
+                        ],
                       ),
-                    )
-                  ],
-                ),
+                      const Spacer(),
+                      SizedBox(
+                          height: mq.size.height * 0.06,
+                          width: mq.size.width * 0.44,
+                          child: commenButton(title: "SELECT", callback: () {}))
+                    ]),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ));
   }
@@ -451,7 +466,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                         ? Color.fromARGB(255, 211, 209, 209)
                         : dataSeat[index]["isSelected"]
                             ? const Color.fromARGB(255, 198, 239, 199)
-                            : const Color.fromRGBO(0, 0, 128, 1),
+                            : Color(0xff0078aa),
                     border: dataSeat[index]["isBooked"]
                         ? Border.all(color: Colors.black)
                         : dataSeat[index]["isSelected"]
@@ -468,7 +483,8 @@ class _ChooseSeatState extends State<ChooseSeat> {
                         ))
                       : Text(
                           "$count",
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         )),
             ),
