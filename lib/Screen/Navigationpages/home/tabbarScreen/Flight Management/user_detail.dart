@@ -1,25 +1,43 @@
+// ignore_for_file: camel_case_types, must_be_immutable
+
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
-import 'package:demo/widget/textformfield.dart';
-import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
-class user_detail extends StatefulWidget {
-  const user_detail({super.key});
+typedef dataStore = Function(String gender, String Dob);
+
+class User_detail extends StatefulWidget {
+  String traveller;
+  String travellerNo;
+  String age;
+  bool visible;
+  dataStore store;
+
+  User_detail(
+      {super.key,
+      required this.store,
+      required this.traveller,
+      required this.visible,
+      required this.age,
+      required this.travellerNo});
 
   @override
-  State<user_detail> createState() => _user_detailState();
+  State<User_detail> createState() => User_DetailState();
 }
 
-class _user_detailState extends State<user_detail> {
+class User_DetailState extends State<User_detail> {
   static const List<String> list = <String>[
     'Male',
     'Female',
   ];
+
   final _formKey = GlobalKey<FormState>();
   var f_name = TextEditingController();
   var l_name = TextEditingController();
+  var date = TextEditingController();
+  var childyear;
   String gender = "";
   //bool _nameFieldTouched = false;
   RegExp name = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%0-9-]');
@@ -38,147 +56,386 @@ class _user_detailState extends State<user_detail> {
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("data"),
-        centerTitle: true,
-      ),
+          title: const Text("Traveller details"),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(IconlyLight.arrow_left_2,
+                  color: Colors.white))), // centerTitle: true,
+
       body: Form(
+        autovalidateMode: AutovalidateMode.always,
         key: _formKey,
         child: Column(
           children: [
             Expanded(
               child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        const Icon(
-                          Icons.account_circle_outlined,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: mq.size.width * 0.05,
-                        ),
-                        const Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Traveller 1",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20),
-                            ),
-                            Text(
-                              "Child aged 7",
-                            ),
-                          ],
-                        ),
-                      ]),
-                      SizedBox(
-                        height: mq.size.height * 0.05,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: mq.size.height * 0.028,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
                       ),
-                      const Text(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            "assets/img/user1.png",
+                            scale: 22.5,
+                            color: themeState.getDarkTheme
+                                ? Colors.white
+                                : Colors.black,
+                          ),
+                          SizedBox(
+                            width: mq.size.width * 0.05,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                widget.travellerNo,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: Text(widget.traveller),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.038,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: const Text(
                         "First name",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
                       ),
-                      SizedBox(
-                        height: mq.size.height * 0.01,
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.01,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
                       ),
-                      commentextfield(
-                        controllername: f_name,
-                        hinttext: "Enter Name",
+                      child: TextFormField(
+                        controller: f_name,
                         validator: (value) {
-                          return null;
+                          if (value == null || value.isEmpty) {
+                            return 'Add first name for this traveller to continue';
+                          } else {
+                            if (validateStructurename(value)) {
+                              return "Enter your name without any special characters";
+                            } else {
+                              return null;
+                            }
+                          }
                         },
-                      ),
-                      SizedBox(
-                        height: mq.size.height * 0.03,
-                      ),
-                      const Text(
-                        "Last name",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: mq.size.height * 0.01,
-                      ),
-                      commentextfield(
-                        controllername: l_name,
-                        hinttext: "Enter Name",
-                        validator: (value) {
-                          return null;
-                        },
-                      ),
-                      SizedBox(
-                        height: mq.size.height * 0.03,
-                      ),
-                      const Text(
-                        "Gender specified on your passport/ID",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: mq.size.height * 0.01,
-                      ),
-                      DropdownButtonFormField(
-                        // hint: const Text("Gender"),
                         decoration: InputDecoration(
-                            hintStyle: const TextStyle(
-                              color: Colors.black54,
+                            //   hintText: "Enter First name",
+
+                            hintStyle: TextStyle(
+                              color: themeState.getDarkTheme
+                                  ? Colors.white54
+                                  : Colors.black54,
                             ),
-                            labelStyle: const TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.w500),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    width: 1.5, color: Color(0xff0078AA))),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(
-                                    width: 1.5, color: Colors.black54)),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 15),
+                            //  prefixIconColor: Colors.grey,
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
                                 borderSide: const BorderSide(
-                                    width: 1.5, color: Colors.black54)),
-                            errorStyle:
-                                const TextStyle(color: Color(0xffB00020)),
+                                    width: 1.5, color: Colors.black12),
+                                borderRadius: BorderRadius.circular(2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            // errorStyle:
+                            //   const TextStyle(color: Color(0xffB00020)),
                             errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(2),
                               borderSide: const BorderSide(
-                                  width: 1.5, color: Color(0xffB00020)),
+                                  width: 1.5, color: Colors.red),
                             )),
+                        onTap: () async {},
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.025,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: const Text(
+                        "Last name",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.01,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: TextFormField(
+                        controller: l_name,
+                        decoration: InputDecoration(
+                            //hintText: "Enter last name",
+                            hintStyle: TextStyle(
+                              color: themeState.getDarkTheme
+                                  ? Colors.white54
+                                  : Colors.black54,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 15),
+                            //  prefixIconColor: Colors.grey,
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1.5, color: Colors.black12),
+                                borderRadius: BorderRadius.circular(2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            // errorStyle:
+                            //   const TextStyle(color: Color(0xffB00020)),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2),
+                              borderSide: const BorderSide(
+                                  width: 1.5, color: Colors.red),
+                            )),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Add last name for this traveller to continue';
+                          } else {
+                            if (validateStructurename(value)) {
+                              return "Enter your name without any special characters";
+                            } else {
+                              return null;
+                            }
+                          }
+                        },
+                        onTap: () async {},
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.025,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: const Text(
+                        "Gender specified on your passport/ID",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.01,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: DropdownButtonFormField(
+                        dropdownColor: themeState.getDarkTheme
+                            ? Color(0xff212121)
+                            : Colors.white,
+
+                        decoration: InputDecoration(
+                            //hintText: "Enter last name",
+                            hintStyle: TextStyle(
+                              color: themeState.getDarkTheme
+                                  ? Colors.white54
+                                  : Colors.black54,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 14.5, horizontal: 15),
+                            //  prefixIconColor: Colors.grey,
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1.5, color: Colors.black12),
+                                borderRadius: BorderRadius.circular(2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            // errorStyle:
+                            //   const TextStyle(color: Color(0xffB00020)),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2),
+                              borderSide: const BorderSide(
+                                  width: 1.5, color: Colors.red),
+                            )),
+
+                        // hint: const Text("Gender"),
                         items: list
                             .map((e) => DropdownMenuItem<String>(
                                 value: e, child: Text(e)))
                             .toList(),
+                        value: list.first,
                         onChanged: (value) {
                           setState(() {
                             gender = value.toString();
+                            setState(() {});
                           });
                         },
                       ),
-                      SizedBox(
-                        height: mq.size.height * 0.01,
-                      ),
-                      Text(
-                        "We're currently required by airlines and providers to ask for this information",
-                        style: TextStyle(
-                          color: themeState.getDarkTheme
-                              ? Colors.white54
-                              : Colors.black54,
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.025,
+                    ),
+                    Visibility(
+                      visible: widget.visible,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: mq.size.height * 0.012,
+                        ),
+                        child: const Text(
+                          "Date of Birth",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500, fontSize: 15),
                         ),
                       ),
-                      SizedBox(
-                        height: mq.size.height * 0.03,
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.01,
+                    ),
+                    Visibility(
+                      visible: widget.visible,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: mq.size.height * 0.012,
+                        ),
+                        child: TextFormField(
+                          controller: date,
+                          readOnly: true,
+                          decoration: InputDecoration(
+                              //  hintText: "Which Date?",
+                              hintStyle: TextStyle(
+                                color: themeState.getDarkTheme
+                                    ? Colors.white54
+                                    : Colors.black54,
+                              ),
+                              contentPadding: const EdgeInsets.symmetric(
+                                  vertical: 17, horizontal: 15),
+                              //prefixIcon:
+                              //  const Icon(Icons.calendar_month_outlined),
+                              //  prefixIconColor: Colors.grey,
+                              border: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      width: 1.5, color: Colors.black12),
+                                  borderRadius: BorderRadius.circular(2)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: BorderSide(
+                                      width: 1.5,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white54
+                                          : Colors.black54)),
+                              enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(2),
+                                  borderSide: BorderSide(
+                                      width: 1.5,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white54
+                                          : Colors.black54)),
+                              // errorStyle:
+                              //   const TextStyle(color: Color(0xffB00020)),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: const BorderSide(
+                                    width: 1.5, color: Colors.red),
+                              )),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Enter this passenger's date of birth";
+                            } else {
+                              if (DateTime.now().year - int.parse(widget.age) !=
+                                  childyear) {
+                                return "For the flight, adjust the child's birthdate; they'll be ${widget.age} years.";
+                              }
+                            }
+
+                            return null;
+                          },
+                          onTap: () async {
+                            setState(() {});
+                            var dateTime = await showDatePicker(
+                                builder: (BuildContext context, Widget? child) {
+                                  return Theme(
+                                    data: ThemeData().copyWith(
+                                        colorScheme: ColorScheme.light(
+                                      primary: Color(0xff0078aa),
+                                      onPrimary: Colors.white,
+                                      onSurface: Colors.black,
+                                    )),
+                                    child: child!,
+                                  );
+                                },
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime(DateTime.now().year -
+                                    int.parse(widget.age)),
+                                lastDate: DateTime.now());
+                            childyear = dateTime?.year;
+                            date.text =
+                                "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
+                            setState(() {});
+                          },
+                        ),
                       ),
-                      const Text(
-                        "Date of Birth",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: mq.size.height * 0.01,
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -195,45 +452,34 @@ class _user_detailState extends State<user_detail> {
                             : Colors.black12)
                   ]),
               height: mq.size.height * 0.1,
-              child: Column(
-                children: [
-                  Container(
-                      width: mq.size.width,
-                      height: 3,
-                      color: themeState.getDarkTheme
-                          ? Colors.white12
-                          : Colors.black12),
-                  SizedBox(
-                    height: mq.size.height * 0.019,
+              child: Column(children: [
+                Container(
+                    width: mq.size.width,
+                    height: 3,
+                    color: themeState.getDarkTheme
+                        ? Colors.white12
+                        : Colors.black12),
+                SizedBox(
+                  height: mq.size.height * 0.016,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: SizedBox(
+                    height: mq.size.height * 0.067,
+                    width: mq.size.width,
+                    child: commenButton(
+                      title: "Done",
+                      callback: () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.store(gender, date.text);
+                          setState(() {});
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Row(children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Titletext(title: "₹ 15,135"),
-                          SizedBox(
-                            height: mq.size.height * 0.01,
-                          ),
-                          Text("Per person",
-                              style: TextStyle(
-                                  fontSize: 13,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                  fontWeight: FontWeight.w400))
-                        ],
-                      ),
-                      const Spacer(),
-                      SizedBox(
-                          height: mq.size.height * 0.06,
-                          width: mq.size.width * 0.44,
-                          child: commenButton(title: "SELECT", callback: () {}))
-                    ]),
-                  ),
-                ],
-              ),
+                )
+              ]),
             )
           ],
         ),

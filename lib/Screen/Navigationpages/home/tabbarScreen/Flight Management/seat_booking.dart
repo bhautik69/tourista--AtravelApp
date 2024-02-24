@@ -1,6 +1,7 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, avoid_function_literals_in_foreach_calls, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, unused_local_variable
 
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_information.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -368,7 +369,15 @@ class _ChooseSeatState extends State<ChooseSeat> {
                       SizedBox(
                           height: mq.size.height * 0.06,
                           width: mq.size.width * 0.44,
-                          child: commenButton(title: "SELECT", callback: () {}))
+                          child: commenButton(
+                              title: "SELECT",
+                              callback: () {
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return Userinfo();
+                                  },
+                                ));
+                              }))
                     ]),
                   ),
                 ],

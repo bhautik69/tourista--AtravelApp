@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TravellerDataProvider with ChangeNotifier {
-  String? travelerNo;
+  int travelerNo=2;
   List<Map<String, dynamic>>? childAge;
 
-  void updateTravelerNo(String travelerNum) {
+  void updateTravelerNo(int travelerNum) {
     travelerNo = travelerNum;
     notifyListeners();
   }
