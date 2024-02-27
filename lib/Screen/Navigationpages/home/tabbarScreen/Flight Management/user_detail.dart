@@ -4,6 +4,7 @@ import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 typedef dataStore = Function(String gender, String Dob);
@@ -147,8 +148,8 @@ class User_DetailState extends State<User_detail> {
                           }
                         },
                         decoration: InputDecoration(
-                            //   hintText: "Enter First name",
-
+                            prefixIcon: Icon(Icons.person),
+                            hintText: "Enter First name",
                             hintStyle: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white54
@@ -208,12 +209,13 @@ class User_DetailState extends State<User_detail> {
                       child: TextFormField(
                         controller: l_name,
                         decoration: InputDecoration(
-                            //hintText: "Enter last name",
+                            hintText: "Enter last name",
                             hintStyle: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white54
                                   : Colors.black54,
                             ),
+                            prefixIcon: Icon(Icons.person),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
                             //  prefixIconColor: Colors.grey,
@@ -290,7 +292,8 @@ class User_DetailState extends State<User_detail> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 14.5, horizontal: 15),
-                            //  prefixIconColor: Colors.grey,
+                            prefixIcon: Icon(Ionicons.male_female),
+                            //  prefixIconColor: Colors.grey,0
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.black12),
@@ -316,13 +319,18 @@ class User_DetailState extends State<User_detail> {
                               borderSide: const BorderSide(
                                   width: 1.5, color: Colors.red),
                             )),
-
-                        // hint: const Text("Gender"),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Add gender for this traveller to continue';
+                          }
+                          return null;
+                        },
+                        hint: const Text("Gender"),
                         items: list
                             .map((e) => DropdownMenuItem<String>(
                                 value: e, child: Text(e)))
                             .toList(),
-                        value: list.first,
+                        // value: list.first,
                         onChanged: (value) {
                           setState(() {
                             gender = value.toString();
@@ -360,7 +368,7 @@ class User_DetailState extends State<User_detail> {
                           controller: date,
                           readOnly: true,
                           decoration: InputDecoration(
-                              //  hintText: "Which Date?",
+                              hintText: "Enter DOB",
                               hintStyle: TextStyle(
                                 color: themeState.getDarkTheme
                                     ? Colors.white54
@@ -368,8 +376,7 @@ class User_DetailState extends State<User_detail> {
                               ),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 17, horizontal: 15),
-                              //prefixIcon:
-                              //  const Icon(Icons.calendar_month_outlined),
+                              prefixIcon: Icon(Icons.calendar_month_outlined),
                               //  prefixIconColor: Colors.grey,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(

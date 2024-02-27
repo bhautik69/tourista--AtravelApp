@@ -35,6 +35,9 @@ class _HotelDetailsState extends State<HotelDetails> {
     var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+      backgroundColor: themeState.getDarkTheme
+          ? const Color(0xff121212)
+          : const Color.fromARGB(255, 236, 235, 235),
       body: Column(
         children: [
           Expanded(
@@ -48,7 +51,10 @@ class _HotelDetailsState extends State<HotelDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        Container(
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
                           child: Flexible(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -506,16 +512,13 @@ class _HotelDetailsState extends State<HotelDetails> {
                             ),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Divider(
-                            thickness: 1.5,
-                          ),
-                        ),
                         SizedBox(
-                          height: mq.size.height * 0.02,
+                          height: mq.size.height * 0.0135,
                         ),
-                        SizedBox(
+                        Container(
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 10),
@@ -581,13 +584,13 @@ class _HotelDetailsState extends State<HotelDetails> {
                             ),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Divider(
-                            thickness: 1.5,
-                          ),
-                        ),
                         SizedBox(
+                          height: mq.size.height * 0.0135,
+                        ),
+                        Container(
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 12),
@@ -630,13 +633,13 @@ class _HotelDetailsState extends State<HotelDetails> {
                             ),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Divider(
-                            thickness: 1.5,
-                          ),
-                        ),
                         SizedBox(
+                          height: mq.size.height * 0.0135,
+                        ),
+                        Container(
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 12, vertical: 10),
@@ -679,237 +682,244 @@ class _HotelDetailsState extends State<HotelDetails> {
                             ),
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Divider(
-                            thickness: 1.5,
-                          ),
+                        SizedBox(
+                          height: mq.size.height * 0.0135,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Titletext(
-                                title: "Languages spoken",
-                                size: 18,
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              Row(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        "assets/img/unitedkingdom.png",
-                                        scale: 20,
-                                      ),
-                                      const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        child: Text(
-                                          "English",
-                                          style: TextStyle(fontSize: 16),
+                        Container(
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Titletext(
+                                  title: "Languages spoken",
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                Row(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/img/unitedkingdom.png",
+                                          scale: 20,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: mq.size.width * 0.2,
-                                  ),
-                                  Row(
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: Text(
+                                            "English",
+                                            style: TextStyle(fontSize: 16),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      width: mq.size.width * 0.2,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/img/india.png",
+                                          scale: 20,
+                                        ),
+                                        const Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 15),
+                                          child: Text("Hindi",
+                                              style: TextStyle(fontSize: 16)),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: mq.size.height * 0.0135,
+                        ),
+                        Container(
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Titletext(
+                                  title: "Highlights",
+                                  size: 18,
+                                ),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20))),
+                                      builder: (context) => const Great(),
+                                    );
+                                  },
+                                  child: Row(
                                     children: [
-                                      Image.asset(
-                                        "assets/img/india.png",
-                                        scale: 20,
+                                      const Icon(
+                                        Icons.thumb_up_alt,
+                                        color: Color(0xff0078aa),
+                                        size: 20,
                                       ),
                                       const Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 15),
-                                        child: Text("Hindi",
-                                            style: TextStyle(fontSize: 16)),
-                                      )
+                                        padding:
+                                            EdgeInsets.only(left: 15, right: 1),
+                                        child: Text(
+                                          "Great for activities",
+                                          style: TextStyle(fontSize: 15),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.report_sharp,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: 16,
+                                      ),
                                     ],
                                   ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Divider(
-                            thickness: 1.5,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Titletext(
-                                title: "Highlights",
-                                size: 18,
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20))),
-                                    builder: (context) => const Great(),
-                                  );
-                                },
-                                child:  Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.thumb_up_alt,
-                                      color: Color(0xff0078aa),
-                                      size: 20,
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 15, right: 1),
-                                      child: Text(
-                                        "Great for activities",
-                                        style: TextStyle(fontSize: 15),
+                                ),
+                                SizedBox(
+                                  height: mq.size.height * 0.009,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20))),
+                                      builder: (context) => const Hygiene(),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.add_moderator,
+                                        color: Color(0xff0078aa),
+                                        size: 19,
                                       ),
-                                    ),
-                                    Icon(
-                                      Icons.report_sharp,
-                                         color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black,
-                                      size: 16,
-                                    ),
-                                  ],
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 15, right: 1),
+                                        child: Text("Hygiene Plus",
+                                            style: TextStyle(fontSize: 15)),
+                                      ),
+                                      Icon(
+                                        Icons.report_sharp,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.009,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20))),
-                                    builder: (context) => const Hygiene(),
-                                  );
-                                },
-                                child:  Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.add_moderator,
-                                      color: Color(0xff0078aa),
-                                      size: 19,
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 15, right: 1),
-                                      child: Text("Hygiene Plus",
-                                          style: TextStyle(fontSize: 15)),
-                                    ),
-                                    Icon(
-                                      Icons.report_sharp,
-                                     color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black,
-                                      size: 16,
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: mq.size.height * 0.009,
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.009,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20))),
-                                    builder: (context) => Airport(
-                                        fee: 1300, distance: 12, time: 60),
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.flight_land,
-                                      color: Color(0xff0078aa),
-                                      size: 20,
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 15, right: 1),
-                                      child: Text("Airport transfer",
-                                          style: TextStyle(fontSize: 15)),
-                                    ),
-                                    Icon(
-                                      Icons.report_sharp,
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black,
-                                      size: 16,
-                                    ),
-                                  ],
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20))),
+                                      builder: (context) => Airport(
+                                          fee: 1300, distance: 12, time: 60),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.flight_land,
+                                        color: Color(0xff0078aa),
+                                        size: 20,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 15, right: 1),
+                                        child: Text("Airport transfer",
+                                            style: TextStyle(fontSize: 15)),
+                                      ),
+                                      Icon(
+                                        Icons.report_sharp,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.009,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20),
-                                            topRight: Radius.circular(20))),
-                                    builder: (context) => Checkin(
-                                        checkinfrom: "02:00 PM",
-                                        checkinuntil: "11:00 AM",
-                                        checkout: "11:00 AM"),
-                                  );
-                                },
-                                child:  Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.meeting_room_rounded,
-                                      color: Color(0xff0078aa),
-                                      size: 20,
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 15, right: 1),
-                                      child: Text("Check-in [24-hour]",
-                                          style: TextStyle(fontSize: 15)),
-                                    ),
-                                    Icon(
-                                      Icons.report_sharp,
-                                       color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black,
-                                      size: 16,
-                                    ),
-                                  ],
+                                SizedBox(
+                                  height: mq.size.height * 0.009,
                                 ),
-                              )
-                            ],
+                                GestureDetector(
+                                  onTap: () {
+                                    showModalBottomSheet(
+                                      context: context,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20))),
+                                      builder: (context) => Checkin(
+                                          checkinfrom: "02:00 PM",
+                                          checkinuntil: "11:00 AM",
+                                          checkout: "11:00 AM"),
+                                    );
+                                  },
+                                  child: Row(
+                                    children: [
+                                      const Icon(
+                                        Icons.meeting_room_rounded,
+                                        color: Color(0xff0078aa),
+                                        size: 20,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 15, right: 1),
+                                        child: Text("Check-in [24-hour]",
+                                            style: TextStyle(fontSize: 15)),
+                                      ),
+                                      Icon(
+                                        Icons.report_sharp,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white
+                                            : Colors.black,
+                                        size: 16,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
+                        ),
+                        SizedBox(
+                          height: mq.size.height * 0.014,
                         ),
                       ],
                     ),

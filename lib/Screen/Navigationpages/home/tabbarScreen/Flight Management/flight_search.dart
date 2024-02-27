@@ -17,10 +17,14 @@ class _FlightSearchState extends State<FlightSearch> {
     final themeState = Provider.of<DarkThemeProvider>(context);
     var mq = MediaQuery.of(context);
     return Scaffold(
+        backgroundColor: themeState.getDarkTheme
+            ? const Color(0xff121212)
+            : const Color.fromARGB(255, 236, 235, 235),
+
         // backgroundColor: const Color.fromRGBO(249, 251, 250, 1),
         appBar: AppBar(
           title: const Text("Search Result"),
-          centerTitle: true,
+          //centerTitle: true,
           leading: InkWell(
             onTap: () {
               Navigator.of(context).pop();
@@ -34,25 +38,25 @@ class _FlightSearchState extends State<FlightSearch> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: const EdgeInsets.only(top: 14),
             child: ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(7),
                     child: Card(
                       color: themeState.getDarkTheme
                           ? const Color(0xff212121)
                           : const Color(0xffffffff),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(10)),
                       child: Container(
                         decoration: BoxDecoration(
                             color: themeState.getDarkTheme
-                                ? Colors.black12
+                                ? const Color(0xff212121)
                                 : const Color(0xffffffff),
                             borderRadius: BorderRadius.circular(20)),
                         width: mq.size.width,
@@ -72,8 +76,9 @@ class _FlightSearchState extends State<FlightSearch> {
                                     decoration: BoxDecoration(
                                         //color: Colors.amber,
                                         border: Border.all(
-                                            color: const Color.fromARGB(
-                                                39, 185, 185, 167)),
+                                            color: themeState.getDarkTheme
+                                                ? Colors.white12
+                                                : Colors.black12),
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     child: const Center(
@@ -82,8 +87,7 @@ class _FlightSearchState extends State<FlightSearch> {
                                       style: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.bold,
-                                          color:
-                                              Color.fromARGB(241, 36, 22, 233)),
+                                          color: Color(0xff0078aa)),
                                     )),
                                   ),
                                   Text(

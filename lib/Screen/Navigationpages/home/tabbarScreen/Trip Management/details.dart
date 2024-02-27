@@ -50,6 +50,10 @@ class _PlaceDetailsState extends State<PlaceDetails> {
     final themeState = Provider.of<DarkThemeProvider>(context);
     return SafeArea(
       child: Scaffold(
+        backgroundColor: themeState.getDarkTheme
+            ? const Color(0xff121212)
+            : const Color.fromARGB(255, 236, 235, 235),
+
         /*appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
@@ -73,166 +77,154 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Card(
-                              elevation: 2.5,
+                            Container(
+                              color: themeState.getDarkTheme
+                                  ? const Color(0xff212121)
+                                  : const Color(0xffffffff),
                               child: Flexible(
-                                child: Container(
-                                  color: themeState.getDarkTheme
-                                      ? const Color(0xff212121)
-                                      : const Color(0xffffffff),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(
-                                          height: mq.size.height * 0.085,
-                                          child: Row(
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: const Icon(
-                                                    IconlyLight.arrow_left_2,
-                                                  )),
-                                              const SizedBox(
-                                                width: 10,
-                                              ),
-                                              Titletext(
-                                                  title: widget
-                                                      .package!.traveligTo!)
-                                            ],
-                                          )),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                        height: mq.size.height * 0.085,
+                                        child: Row(
                                           children: [
-                                            SizedBox(
-                                              height: mq.size.height * 0.28,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(15),
-                                                child: Swiper(
-                                                  itemCount: placesimage.length,
-                                                  pagination: const SwiperPagination(
-                                                      alignment: Alignment
-                                                          .bottomCenter,
-                                                      builder:
-                                                          DotSwiperPaginationBuilder(
-                                                              size: 7,
-                                                              activeSize: 7,
-                                                              color:
-                                                                  Colors.white,
-                                                              activeColor: Color(
-                                                                  0xff0078aa))),
-                                                  //control: SwiperControl(),
-                                                  autoplay: true,
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    return FancyShimmerImage(
-                                                        imageUrl:
-                                                            placesimage[index]);
-                                                  },
-                                                ),
-                                              ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: const Icon(
+                                                  IconlyLight.arrow_left_2,
+                                                )),
+                                            const SizedBox(
+                                              width: 10,
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                top: 20,
-                                              ),
-                                              child: Titletext(
+                                            Titletext(
                                                 title:
-                                                    "Amazing ${widget.package!.traveligTo!} Trip",
-                                                size: 19,
+                                                    widget.package!.traveligTo!)
+                                          ],
+                                        )),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 12,
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          SizedBox(
+                                            height: mq.size.height * 0.28,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              child: Swiper(
+                                                itemCount: placesimage.length,
+                                                pagination: const SwiperPagination(
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    builder:
+                                                        DotSwiperPaginationBuilder(
+                                                            size: 7,
+                                                            activeSize: 7,
+                                                            color: Colors.white,
+                                                            activeColor: Color(
+                                                                0xff0078aa))),
+                                                //control: SwiperControl(),
+                                                autoplay: true,
+                                                itemBuilder: (context, index) {
+                                                  return FancyShimmerImage(
+                                                      imageUrl:
+                                                          placesimage[index]);
+                                                },
                                               ),
                                             ),
-                                            SizedBox(
-                                              height: mq.size.height * 0.01,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                              top: 20,
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 15),
-                                              child: Align(
+                                            child: Titletext(
+                                              title:
+                                                  "Amazing ${widget.package!.traveligTo!} Trip",
+                                              size: 19,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: mq.size.height * 0.01,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 15),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Container(
                                                 alignment: Alignment.center,
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              13),
-                                                      border: Border.all(
-                                                          width: 1,
-                                                          //color: themeState.getDarkTheme
-                                                          //  ? Colors.white
-                                                          //: Colors.black
-                                                          color: const Color(
-                                                              0xff0078aa))),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            12),
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          "${widget.package!.startingForm!} To ${widget.package!.traveligTo!}",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: themeState
-                                                                      .getDarkTheme
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              fontSize: 17),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            13),
+                                                    border: Border.all(
+                                                        width: 1,
+                                                        //color: themeState.getDarkTheme
+                                                        //  ? Colors.white
+                                                        //: Colors.black
+                                                        color: const Color(
+                                                            0xff0078aa))),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(12),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        "${widget.package!.startingForm!} To ${widget.package!.traveligTo!}",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: themeState
+                                                                    .getDarkTheme
+                                                                ? Colors.white
+                                                                : Colors.black,
+                                                            fontSize: 17),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  top: 10, bottom: 10),
-                                              child: Text(
-                                                widget.package!.decs!,
-                                                style: TextStyle(
-                                                    color: themeState
-                                                            .getDarkTheme
-                                                        ? Colors.white
-                                                            .withOpacity(0.7)
-                                                        : Colors.black
-                                                            .withOpacity(0.7)),
-                                              ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 10, bottom: 10),
+                                            child: Text(
+                                              widget.package!.decs!,
+                                              style: TextStyle(
+                                                  color: themeState.getDarkTheme
+                                                      ? Colors.white
+                                                          .withOpacity(0.7)
+                                                      : Colors.black
+                                                          .withOpacity(0.7)),
                                             ),
-                                            SizedBox(
-                                              height: mq.size.height * 0.025,
-                                            )
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
+                                          ),
+                                          SizedBox(
+                                            height: mq.size.height * 0.025,
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                             ),
                             SizedBox(
-                              height: mq.size.height * 0.01,
+                              height: mq.size.height * 0.0135,
                             ),
-                            Card(
-                              elevation: 2.5,
+                            Container(
                               color: themeState.getDarkTheme
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
@@ -252,10 +244,10 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                               ),
                             ),
                             SizedBox(
-                              height: mq.size.height * 0.01,
+                              height: mq.size.height * 0.0135,
                             ),
-                            Card(
-                              elevation: 2.5,
+                            Container(
+                              // elevation: 2.5,
                               color: themeState.getDarkTheme
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
@@ -293,10 +285,9 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                               ),
                             ),
                             SizedBox(
-                              height: mq.size.height * 0.01,
+                              height: mq.size.height * 0.0135,
                             ),
-                            Card(
-                              elevation: 2.5,
+                            Container(
                               color: themeState.getDarkTheme
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
@@ -310,10 +301,10 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                               ),
                             ),
                             SizedBox(
-                              height: mq.size.height * 0.01,
+                              height: mq.size.height * 0.0135,
                             ),
-                            Card(
-                              elevation: 2.5,
+                            Container(
+                              //  elevation: 2.5,
                               color: themeState.getDarkTheme
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
@@ -333,6 +324,9 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                                         widget.package!.retunreachfligthdate!),
                               ),
                             ),
+                            SizedBox(
+                              height: mq.size.height * 0.0135,
+                            )
                           ],
                         ),
                       ),

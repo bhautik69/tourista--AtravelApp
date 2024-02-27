@@ -82,6 +82,9 @@ class _BookingDoneState extends State<BookingDone> {
     var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+      backgroundColor: themeState.getDarkTheme
+          ? const Color(0xff121212)
+          : const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
           title: const Text("Book Trip"),
           leading: IconButton(
@@ -103,7 +106,7 @@ class _BookingDoneState extends State<BookingDone> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          Card(
+                          Container(
                             color: themeState.getDarkTheme
                                 ? const Color(0xff212121)
                                 : const Color(0xffffffff),
@@ -286,7 +289,10 @@ class _BookingDoneState extends State<BookingDone> {
                               ),
                             ),
                           ),
-                          Card(
+                          SizedBox(
+                            height: mq.size.height * 0.0135,
+                          ),
+                          Container(
                               color: themeState.getDarkTheme
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
@@ -517,7 +523,7 @@ class _BookingDoneState extends State<BookingDone> {
                             const Spacer(),
                             SizedBox(
                                 height: mq.size.height * 0.067,
-                                 width: mq.size.width * 0.44,
+                                width: mq.size.width * 0.44,
                                 child: commenButton(
                                     loading: loading,
                                     title: "Pay Now",

@@ -8,7 +8,7 @@ typedef ContectDetails = Function(String email, String phone);
 
 class Usercontact extends StatefulWidget {
   ContectDetails contectDetails;
-   Usercontact({super.key,required this.contectDetails});
+  Usercontact({super.key, required this.contectDetails});
 
   @override
   State<Usercontact> createState() => UsercontactState();
@@ -124,8 +124,7 @@ class UsercontactState extends State<Usercontact> {
                           }
                         },
                         decoration: InputDecoration(
-                            //   hintText: "Enter First name",
-
+                            hintText: "Enter email address",
                             hintStyle: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white54
@@ -133,7 +132,7 @@ class UsercontactState extends State<Usercontact> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
-                            //  prefixIconColor: Colors.grey,
+                            prefixIcon: Icon(Icons.mail_outline),
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.black12),
@@ -201,9 +200,7 @@ class UsercontactState extends State<Usercontact> {
                         },
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-
-                            //   hintText: "Enter First name",
-
+                            hintText: "Enter phone number",
                             hintStyle: TextStyle(
                               color: themeState.getDarkTheme
                                   ? Colors.white54
@@ -211,7 +208,7 @@ class UsercontactState extends State<Usercontact> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
-                            //  prefixIconColor: Colors.grey,
+                            prefixIcon: Icon(Icons.phone_outlined),
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.black12),
@@ -278,8 +275,8 @@ class UsercontactState extends State<Usercontact> {
                     child: commenButton(
                       title: "Done",
                       callback: () {
-                          if (_formKey.currentState!.validate()) {
-                          widget.contectDetails(email.text,phone.text);
+                        if (_formKey.currentState!.validate()) {
+                          widget.contectDetails(email.text, phone.text);
                           setState(() {});
                           Navigator.pop(context);
                         }

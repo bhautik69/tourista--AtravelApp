@@ -80,12 +80,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
     final themeState = Provider.of<DarkThemeProvider>(context);
     Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     return Scaffold(
-        backgroundColor: themeState.getDarkTheme
-            ? const Color(0xff212121)
-            : const Color(0xffffffff),
         appBar: AppBar(
           title: const Text("Choose Seat"),
-          centerTitle: true,
+          //centerTitle: true,
           leading: InkWell(
             onTap: () {
               Navigator.of(context).pop();
@@ -165,7 +162,10 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                       height: 25,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(3),
-                                        border: Border.all(color: Colors.black),
+                                        border: Border.all(
+                                            color: themeState.getDarkTheme
+                                                ? Colors.white24
+                                                : Colors.black26),
                                         color:
                                             Color.fromARGB(255, 211, 209, 209),
                                       ),
@@ -199,7 +199,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
                           Container(
                             width: mq.size.width / 90,
                             height: mq.size.height * 0.8,
-                            color: Color.fromARGB(255, 214, 214, 214),
+                            color: themeState.getDarkTheme
+                                ? Colors.grey[800]
+                                : Colors.grey[350],
                           ),
                           SizedBox(
                             width: mq.size.width / 50,
@@ -313,7 +315,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
                           Container(
                             width: mq.size.width / 90,
                             height: mq.size.height * 0.8,
-                            color: const Color.fromARGB(255, 214, 214, 214),
+                            color: themeState.getDarkTheme
+                                ? Colors.grey[800]
+                                : Colors.grey[350],
                           ),
                         ],
                       ),
@@ -397,7 +401,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
       "Business",
       "First Class"
     ];
-
+    final themeState = Provider.of<DarkThemeProvider>(context);
     int? count = seatCount[classType];
     return Container(
       width: MediaQuery.of(context).size.width / 2.9,
@@ -477,10 +481,16 @@ class _ChooseSeatState extends State<ChooseSeat> {
                             ? const Color.fromARGB(255, 198, 239, 199)
                             : Color(0xff0078aa),
                     border: dataSeat[index]["isBooked"]
-                        ? Border.all(color: Colors.black)
+                        ? Border.all(
+                            color: themeState.getDarkTheme
+                                ? Colors.white24
+                                : Colors.black26)
                         : dataSeat[index]["isSelected"]
                             ? Border.all(color: Colors.green)
-                            : Border.all(),
+                            : Border.all(
+                                color: themeState.getDarkTheme
+                                    ? Colors.black
+                                    : Colors.white),
                     borderRadius: BorderRadius.circular(3),
                   ),
                   alignment: Alignment.center,

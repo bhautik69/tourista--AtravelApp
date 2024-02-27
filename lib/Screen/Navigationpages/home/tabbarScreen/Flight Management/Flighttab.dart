@@ -558,26 +558,26 @@ class _FligthtabState extends State<Fligthtab> {
                         width: mq.size.width,
                         height: 52,
                         child: commenButton(
-                          title: "Search",
-                          callback: () async {
-                            setState(() {
-                              _dateFieldTouched = true;
-                              _flightFromField = true;
-                              _flightToField = true;
-                              _dropdownField = true;
-                              _travellerField = true;
-                            });
-                            if (flightkey.currentState!.validate()) {
+                            title: "Search",
+                            callback: () async {
+                              setState(() {
+                                _dateFieldTouched = true;
+                                _flightFromField = true;
+                                _flightToField = true;
+                                _dropdownField = true;
+                                _travellerField = true;
+                              });
+                              if (flightkey.currentState!.validate()) {
                               var prefs = await SharedPreferences.getInstance();
                               prefs.setInt("total", total);
-                               prefs.setInt("children", children);
-                                prefs.setInt("adult", adult);
+                              prefs.setInt("children", children);
+                              prefs.setInt("adult", adult);
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const FlightSearch(),
                               ));
                             }
-                          },
-                        ),
+                              },
+                            ),
                       )
                     ],
                   );

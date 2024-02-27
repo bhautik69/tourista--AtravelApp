@@ -18,9 +18,12 @@ class _FlightDetailState extends State<FlightDetail> {
     var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+        backgroundColor: themeState.getDarkTheme
+            ? const Color(0xff121212)
+            : const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(
           title: const Text("Flight Details"),
-          centerTitle: true,
+          // centerTitle: true,
           leading: InkWell(
             onTap: () {
               Navigator.of(context).pop();
@@ -41,8 +44,12 @@ class _FlightDetailState extends State<FlightDetail> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Card(
-                      elevation: 2.5,
+                    Container(
+                      color: themeState.getDarkTheme
+                          ? const Color(0xff212121)
+                          : const Color(0xffffffff),
+
+                      // elevation: 2.5,
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
@@ -204,10 +211,12 @@ class _FlightDetailState extends State<FlightDetail> {
                       ),
                     ),
                     SizedBox(
-                      height: mq.size.height * 0.01,
+                      height: mq.size.height * 0.0135,
                     ),
-                    Card(
-                      elevation: 2.5,
+                    Container(
+                      color: themeState.getDarkTheme
+                          ? const Color(0xff212121)
+                          : const Color(0xffffffff),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10, vertical: 10),
@@ -321,10 +330,9 @@ class _FlightDetailState extends State<FlightDetail> {
                       ),
                     ),
                     SizedBox(
-                      height: mq.size.height * 0.01,
+                      height: mq.size.height * 0.0135,
                     ),
-                    Card(
-                      elevation: 2.5,
+                    Container(
                       color: themeState.getDarkTheme
                           ? const Color(0xff212121)
                           : const Color(0xffffffff),
@@ -359,10 +367,10 @@ class _FlightDetailState extends State<FlightDetail> {
                       ),
                     ),
                     SizedBox(
-                      height: mq.size.height * 0.01,
+                      height: mq.size.height * 0.0135,
                     ),
-                    Card(
-                      elevation: 2.5,
+                    Container(
+                      //elevation: 2.5,
                       color: themeState.getDarkTheme
                           ? const Color(0xff212121)
                           : const Color(0xffffffff),
