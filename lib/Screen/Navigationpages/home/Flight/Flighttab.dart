@@ -520,6 +520,7 @@ class _FligthtabState extends State<Fligthtab> {
                           onChanged: (value) {
                             setState(() {
                               flightClass = value.toString();
+                              classType = flightClass;
                             });
                           },
                         ),
