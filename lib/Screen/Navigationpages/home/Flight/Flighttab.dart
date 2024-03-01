@@ -1,6 +1,6 @@
-import 'package:demo/Screen/Navigationpages/home/Flight/flight_search.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/bottomSheet.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
-import 'package:demo/widget/bottomSheet.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -78,6 +78,9 @@ class _FligthtabState extends State<Fligthtab> {
         return cityLower.startsWith(queryLower);
       }).toList();
 
+  int total = 0;
+  int children = 0;
+  int adult = 0;
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -419,9 +422,12 @@ class _FligthtabState extends State<Fligthtab> {
                                 pageBuilder:
                                     (context, animation, secondaryAnimation) =>
                                         bottomSheet(
-                                  myQuantity: (qua) {
+                                  myQuantity: (t, c, a) {
                                     setState(() {
-                                      traveller.text = "${qua} Traveller";
+                                      total = t;
+                                      adult = a;
+                                      children = c;
+                                      traveller.text = "${t} Traveller";
                                     });
                                   },
                                 ),

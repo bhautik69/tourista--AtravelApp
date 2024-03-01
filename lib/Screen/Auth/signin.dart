@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
-import 'package:demo/Admin/screen/adminmainpage.dart';
+
+import 'package:demo/Admin/screen/adminside.dart';
 import 'package:demo/Screen/Auth/signup.dart';
 import 'package:demo/consts/forgetpass.dart';
 import 'package:demo/widget/button.dart';
@@ -261,7 +262,7 @@ class _SigninState extends State<Signin> {
                   .then((value) {
                 Navigator.pop(context);
                 Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Adminmainpage()));
+                    MaterialPageRoute(builder: (context) => Adminside()));
               });
             } on FirebaseAuthException catch (e) {
               Navigator.pop(context);

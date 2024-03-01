@@ -82,6 +82,9 @@ class _BookingDoneState extends State<BookingDone> {
     var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+      backgroundColor: themeState.getDarkTheme
+          ? const Color(0xff121212)
+          : const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
           title: const Text("Book Trip"),
           leading: IconButton(
@@ -103,7 +106,7 @@ class _BookingDoneState extends State<BookingDone> {
                     child: SingleChildScrollView(
                       child: Column(
                         children: [
-                          Card(
+                          Container(
                             color: themeState.getDarkTheme
                                 ? const Color(0xff212121)
                                 : const Color(0xffffffff),
@@ -286,7 +289,10 @@ class _BookingDoneState extends State<BookingDone> {
                               ),
                             ),
                           ),
-                          Card(
+                          SizedBox(
+                            height: mq.size.height * 0.0135,
+                          ),
+                          Container(
                               color: themeState.getDarkTheme
                                   ? const Color(0xff212121)
                                   : const Color(0xffffffff),
@@ -471,8 +477,8 @@ class _BookingDoneState extends State<BookingDone> {
                   Container(
                     decoration: BoxDecoration(
                         color: themeState.getDarkTheme
-                            ? const Color(0xff121212)
-                            : const Color(0xFFffffff),
+                            ? const Color(0xff212121)
+                            : const Color(0xffffffff),
                         boxShadow: [
                           BoxShadow(
                               offset: const Offset(5, 5),
@@ -481,58 +487,68 @@ class _BookingDoneState extends State<BookingDone> {
                                   : Colors.black12)
                         ]),
                     height: mq.size.height * 0.1,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        child: Row(children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Titletext(title: "₹ $totleprise "),
-                              SizedBox(
-                                height: mq.size.height * 0.01,
-                              ),
-                              Text(
-                                  travellerList.isEmpty || traveleller == 1
-                                      ? "Per person"
-                                      : "$traveleller Traveller",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white54
-                                          : Colors.black54,
-                                      fontWeight: FontWeight.w400))
-                            ],
-                          ),
-                          const Spacer(),
-                          SizedBox(
-                              height: mq.size.height * 0.067,
-                              width: 140,
-                              child: commenButton(
-                                  loading: loading,
-                                  title: "PAY NOW",
-                                  callback: () {
-                                    // await makePayment();
-                                    if (_formKey.currentState!.validate()) {
-                                      setState(() {
-                                        totleprise =
-                                            int.parse(widget.package!.price!);
+                    child: Column(
+                      children: [
+                        Container(
+                            width: mq.size.width,
+                            height: 3,
+                            color: themeState.getDarkTheme
+                                ? Colors.white12
+                                : Colors.black12),
+                        SizedBox(
+                          height: mq.size.height * 0.019,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Row(children: [
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Titletext(title: "₹ $totleprise "),
+                                SizedBox(
+                                  height: mq.size.height * 0.01,
+                                ),
+                                Text(
+                                    travellerList.isEmpty || traveleller == 1
+                                        ? "Per person"
+                                        : "$traveleller Traveller",
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: themeState.getDarkTheme
+                                            ? Colors.white54
+                                            : Colors.black54,
+                                        fontWeight: FontWeight.w400))
+                              ],
+                            ),
+                            const Spacer(),
+                            SizedBox(
+                                height: mq.size.height * 0.067,
+                                width: mq.size.width * 0.44,
+                                child: commenButton(
+                                    loading: loading,
+                                    title: "Pay Now",
+                                    callback: () {
+                                      // await makePayment();
+                                      if (_formKey.currentState!.validate()) {
+                                        setState(() {
+                                          totleprise =
+                                              int.parse(widget.package!.price!);
 
-                                        saveBooking().whenComplete(() {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const UoiIndia(),
-                                              ));
+                                          saveBooking().whenComplete(() {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const UoiIndia(),
+                                                ));
+                                          });
                                         });
-                                      });
-                                      travellerList.clear();
-                                    }
-                                  }))
-                        ]),
-                      ),
+                                        travellerList.clear();
+                                      }
+                                    }))
+                          ]),
+                        ),
+                      ],
                     ),
                   )
                 ],

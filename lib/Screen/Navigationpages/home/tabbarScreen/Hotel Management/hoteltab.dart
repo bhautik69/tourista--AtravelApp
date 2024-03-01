@@ -1,6 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/hotelscreens/roomandguest.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hoteldetails.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 
 import 'package:demo/widget/button.dart';
@@ -416,7 +418,13 @@ class _HoteltabState extends State<Hoteltab> {
               height: 52,
               child: commenButton(
                 title: "Search",
-                callback: () {},
+                callback: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => show_hotel(),
+                      ));
+                },
               ),
             )
           ],

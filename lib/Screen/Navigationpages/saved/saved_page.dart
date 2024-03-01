@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls, prefer_is_empty, prefer_interpolation_to_compose_strings
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Screen/Navigationpages/home/details.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/details.dart';
 
 import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/models/packagemodel.dart';

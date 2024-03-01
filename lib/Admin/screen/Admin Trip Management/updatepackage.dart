@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Admin/screen/update_complate_screen.dart';
+import 'package:demo/Admin/screen/Admin%20Trip%20Management/update_complate_screen.dart';
+
 import 'package:demo/models/packagemodel.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';

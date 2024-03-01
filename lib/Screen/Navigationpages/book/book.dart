@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Screen/Navigationpages/home/details.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/details.dart';
 import 'package:demo/models/packagemodel.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
