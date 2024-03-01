@@ -41,41 +41,34 @@ class _FligthtabState extends State<Fligthtab> {
     "First Class"
   ];
   List cityList = [
-    "Agra",
-    "Ahmedabad",
-    "Allahabad",
-    "Amritsar",
-    "Bangalore",
-    "Bhopal",
-    "Chandigarh",
-    "Chennai",
-    "Delhi",
-    "Goa",
-    "Haridwar",
-    "Himalayas",
-    "Hyderabad",
-    "Indore",
-    "Jaipur",
-    "Jaisalmer",
-    "Jodhpur",
-    "Kanpur",
-    "Khajuraho",
-    "Kerala",
-    "Locknow",
-    "Kochi",
-    "Kolkata",
-    "mahabaleshwar",
-    "Mumbai",
-    "Mysore",
-    "Nashik",
-    "Patna",
-    "Pune",
-    "Rajkot",
-    "Shimla",
-    "Surat",
-    "Saputara",
-    "Udaipur",
-    "Varanasi"
+    "Agartala Airport - IXA",
+    "Ahmedabad Airport - AMD",
+    "Biju Patnaik  Airport - BBI",
+    "Calicut  Airport - CCJ",
+    "Chandigarh  Airport - IXC",
+    "Chennai  Airport - MAA",
+    "Chhatrapati Shivaji Airport - BOM",
+    "Cochin  Airport - COK",
+    "Coimbatore  Airport - CJB",
+    "Devi Ahilya Bai Holkar Airport - IDR",
+    "Babasaheb Ambedkar Airport - NAG",
+    "Goa Airport - GOI",
+    "Imphal Airport - IMF",
+    "Indira Gandhi  Airport - DEL",
+    "Jaipur Airport - JAI",
+    "Jodhpur Airport - JDH",
+    "Kempegowda Airport - BLR",
+    "Madurai Airport - IXM",
+    "Mangalore Airport - IXE",
+    "Pune Airport - PNQ",
+    "Rajiv Gandhi  Airport - HYD",
+    "Rajkot Airport - RAJ",
+    "Siliguri Bagdogra Airport - IXB",
+    "Surat Airport - STV",
+    "Tiruchirappalli Airport - TRZ",
+    "Trivandrum Airport - TRV",
+    "Vijayawada Airport - VGA",
+    "Visakhapatnam Airport - VTZ"
   ];
 
   List<dynamic> getSuggestion(String query) => List.of(cityList).where((city) {
@@ -108,7 +101,7 @@ class _FligthtabState extends State<Fligthtab> {
                           if (_flightFromField) {
                             if (value == null || value.isEmpty) {
                               return "*Required Field";
-                            } else if (!RegExp(r"^[a-zA-Z._ +]+$")
+                            } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
                                 .hasMatch(value)) {
                               return "*Enter valid name";
                             } else {
@@ -201,7 +194,7 @@ class _FligthtabState extends State<Fligthtab> {
                           if (_flightToField) {
                             if (value == null || value.isEmpty) {
                               return "*Required Field";
-                            } else if (!RegExp(r"^[a-zA-Z._ +]+$")
+                            } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
                                 .hasMatch(value)) {
                               return "*Enter valid name";
                             } else if (flightfrom.text == flightTo.text) {
@@ -558,16 +551,16 @@ class _FligthtabState extends State<Fligthtab> {
                         width: mq.size.width,
                         height: 52,
                         child: commenButton(
-                            title: "Search",
-                            callback: () async {
-                              setState(() {
-                                _dateFieldTouched = true;
-                                _flightFromField = true;
-                                _flightToField = true;
-                                _dropdownField = true;
-                                _travellerField = true;
-                              });
-                              if (flightkey.currentState!.validate()) {
+                          title: "Search",
+                          callback: () async {
+                            setState(() {
+                              _dateFieldTouched = true;
+                              _flightFromField = true;
+                              _flightToField = true;
+                              _dropdownField = true;
+                              _travellerField = true;
+                            });
+                            if (flightkey.currentState!.validate()) {
                               var prefs = await SharedPreferences.getInstance();
                               prefs.setInt("total", total);
                               prefs.setInt("children", children);
@@ -576,8 +569,8 @@ class _FligthtabState extends State<Fligthtab> {
                                 builder: (context) => const FlightSearch(),
                               ));
                             }
-                              },
-                            ),
+                          },
+                        ),
                       )
                     ],
                   );

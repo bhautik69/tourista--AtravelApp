@@ -1,3 +1,4 @@
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_confermation.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_contact.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_detail.dart';
 import 'package:demo/provider/flight_traveller_datastore_.dart';
@@ -115,10 +116,10 @@ class _UserinfoState extends State<Userinfo> {
                                     store: (gender, Dob) {
                                       gender1[index] = gender;
                                       dob[index] = Dob;
-                                      for (int i = 0; i < total; i++) {
+                                      for (int i = 0; i <= total; i++) {
                                         gender1[i] == null || gender1[i] == " "
                                             ? visible1[i] = true
-                                            : visible2[i] = true;
+                                            : visible2[i + 1] = true;
                                       }
 
                                       setState(() {});
@@ -199,17 +200,18 @@ class _UserinfoState extends State<Userinfo> {
                                                 ),
                                                 Visibility(
                                                   visible:
-                                                      visible1[index] ?? false,
+                                                      visible1[index + 1] ??
+                                                          false,
                                                   child: Text(
-                                                    visible2[index] == true
+                                                    visible2[index + 1] == true
                                                         ? "✓ successfully added"
                                                         : "Add details for this traveller ⓘ",
                                                     style: TextStyle(
-                                                        color:
-                                                            visible2[index] ==
-                                                                    true
-                                                                ? Colors.green
-                                                                : Colors.red),
+                                                        color: visible2[index +
+                                                                    1] ==
+                                                                true
+                                                            ? Colors.green
+                                                            : Colors.red),
                                                   ),
                                                 ),
                                               ],
@@ -409,10 +411,10 @@ class _UserinfoState extends State<Userinfo> {
                             child: commenButton(
                                 title: "Next",
                                 callback: () {
-                                  for (int i = 0; i < total; i++) {
+                                  for (int i = 0; i <= total; i++) {
                                     gender1[i] == null || gender1[i] == " "
                                         ? visible1[i] = true
-                                        : visible2[i] = true;
+                                        : visible2[i + 1] = true;
                                   }
                                   emailadd == "" ||
                                           emailadd.isEmpty ||
@@ -420,6 +422,18 @@ class _UserinfoState extends State<Userinfo> {
                                           phonenum.isEmpty
                                       ? v3 = true
                                       : v4 = true;
+                                  for (int i = 0; i <= total; i++) {
+                                    if (v4 == true &&
+                                        v3 == true &&
+                                        visible2[i] == true) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const FlightConfirm(),
+                                          ));
+                                    }
+                                  }
 
                                   setState(() {});
                                 }))

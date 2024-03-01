@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Tourista App',
             debugShowCheckedModeBanner: false,
             theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
-            home: const Adminside(),
+            home: const Splashscreen(),
           ),
         );
       }),
