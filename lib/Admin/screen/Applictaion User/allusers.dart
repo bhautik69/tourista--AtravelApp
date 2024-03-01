@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Admin/screen/singleuser.dart';
+import 'package:demo/Admin/screen/Applictaion%20User/singleuser.dart';
+
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 
@@ -84,7 +85,7 @@ class _AllusersState extends State<Allusers> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("All Users"),
+          title: const Text("Application Users"),
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);

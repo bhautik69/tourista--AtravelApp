@@ -1,3 +1,4 @@
+import 'package:demo/Admin/screen/Admin%20Trip%20Management/tripMainpage.dart';
 import 'package:demo/Firebase/firebase_options.dart';
 
 import 'package:demo/Screen/Splash%20Screen/splashscreen.dart';
@@ -12,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:provider/provider.dart';
+
+import 'Admin/screen/adminside.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,7 +64,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Tourista App',
             debugShowCheckedModeBanner: false,
             theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
-            home: const Splashscreen(),
+            home: const Adminside(),
           ),
         );
       }),

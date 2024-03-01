@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hoteldetails.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
@@ -421,7 +422,7 @@ class _HoteltabState extends State<Hoteltab> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HotelDetails(),
+                        builder: (context) => show_hotel(),
                       ));
                 },
               ),

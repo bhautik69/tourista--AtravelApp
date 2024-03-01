@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:demo/Admin/screen/adminmainpage.dart';
+
+import 'package:demo/Admin/screen/adminside.dart';
 import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/pageview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -29,7 +30,7 @@ class _SplashscreenState extends State<Splashscreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => const Adminmainpage(),
+                builder: (context) => const Adminside(),
               ));
         } else {
           Navigator.pushReplacement(
