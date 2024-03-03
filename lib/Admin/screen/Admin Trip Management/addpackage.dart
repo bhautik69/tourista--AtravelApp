@@ -1,4 +1,4 @@
-import 'package:demo/models/packagemodel.dart';
+import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -57,10 +57,12 @@ class _AddPackageState extends State<AddPackage> {
 
   @override
   Widget build(BuildContext context) {
+    var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-        title: const Text("ADD PACKAGE"),
+        title: const Text("Add Trip Packages"),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -72,7 +74,7 @@ class _AddPackageState extends State<AddPackage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Card(
+              Container(
                 color: Colors.white,
                 child: Padding(
                   padding:
@@ -141,19 +143,17 @@ class _AddPackageState extends State<AddPackage> {
                         controller: startDate,
                         onTap: () async {
                           var dateTime = await showDatePicker(
-                             builder: (BuildContext context,
-                                          Widget? child) {
-                                        return Theme(
-                                          data: ThemeData().copyWith(
-                                              colorScheme: ColorScheme.light(
-                                            primary: Color(0xff0078aa),
-                                            onPrimary: Colors.white,
-                                            onSurface: Colors.black,
-                                          )),
-                                          child: child!,
-                                        );
-                                      },
- 
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: ThemeData().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                    primary: Color(0xff0078aa),
+                                    onPrimary: Colors.white,
+                                    onSurface: Colors.black,
+                                  )),
+                                  child: child!,
+                                );
+                              },
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime.now(),
@@ -191,19 +191,17 @@ class _AddPackageState extends State<AddPackage> {
                         controller: endDate,
                         onTap: () async {
                           var dateTime = await showDatePicker(
-                             builder: (BuildContext context,
-                                          Widget? child) {
-                                        return Theme(
-                                          data: ThemeData().copyWith(
-                                              colorScheme: ColorScheme.light(
-                                            primary: Color(0xff0078aa),
-                                            onPrimary: Colors.white,
-                                            onSurface: Colors.black,
-                                          )),
-                                          child: child!,
-                                        );
-                                      },
- 
+                              builder: (BuildContext context, Widget? child) {
+                                return Theme(
+                                  data: ThemeData().copyWith(
+                                      colorScheme: ColorScheme.light(
+                                    primary: Color(0xff0078aa),
+                                    onPrimary: Colors.white,
+                                    onSurface: Colors.black,
+                                  )),
+                                  child: child!,
+                                );
+                              },
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime.now(),
@@ -256,6 +254,8 @@ class _AddPackageState extends State<AddPackage> {
                                         : Colors.black))),
                       ),
                       TextFormField(
+                        minLines: 1,
+                        maxLines: 5,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "* required";
@@ -310,7 +310,10 @@ class _AddPackageState extends State<AddPackage> {
                   ),
                 ),
               ),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -420,7 +423,10 @@ class _AddPackageState extends State<AddPackage> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -574,7 +580,10 @@ class _AddPackageState extends State<AddPackage> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -728,7 +737,10 @@ class _AddPackageState extends State<AddPackage> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -876,6 +888,7 @@ class _AddPackageState extends State<AddPackage> {
                               return null;
                             },
                             controller: latitude,
+                            keyboardType: TextInputType.number,
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
                                 label: const Text("LATITUDE"),
@@ -901,6 +914,7 @@ class _AddPackageState extends State<AddPackage> {
                               return null;
                             },
                             controller: longitude,
+                            keyboardType: TextInputType.number,
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
                                 label: const Text("LONGITUDE"),
@@ -920,7 +934,10 @@ class _AddPackageState extends State<AddPackage> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -1029,21 +1046,18 @@ class _AddPackageState extends State<AddPackage> {
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: SizedBox(
-                    height: 52,
-                    width: MediaQuery.of(context).size.width,
-                    child: commenButton(
-                        title: "ADD",
-                        loading: isloading,
-                        callback: () {
-                          if (_formKey.currentState!.validate()) {
-                            addActivity();
-                            save();
-                          }
-                        })),
-              ),
+              SizedBox(
+                  height: 52,
+                  width: MediaQuery.of(context).size.width,
+                  child: commenButton(
+                      title: "ADD",
+                      loading: isloading,
+                      callback: () {
+                        if (_formKey.currentState!.validate()) {
+                          addActivity();
+                          save();
+                        }
+                      })),
               const SizedBox(
                 height: 25,
               )

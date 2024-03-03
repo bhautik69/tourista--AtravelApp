@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/details.dart';
 
 import 'package:demo/Screen/Navigationpages/main_page.dart';
-import 'package:demo/models/packagemodel.dart';
+import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/widget/button.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';

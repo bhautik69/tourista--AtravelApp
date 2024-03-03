@@ -1,4 +1,4 @@
-import 'package:demo/models/packagemodel.dart';
+import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -119,8 +119,10 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
 
   @override
   Widget build(BuildContext context) {
+    var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
         title: const Text("UPDATE PACKAGE"),
         leading: IconButton(
@@ -134,7 +136,7 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Card(
+              Container(
                 color: Colors.white,
                 child: Padding(
                   padding:
@@ -368,7 +370,10 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                   ),
                 ),
               ),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -478,7 +483,10 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -632,7 +640,10 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -786,7 +797,10 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -973,7 +987,10 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                           ),
                         ],
                       ))),
-              Card(
+              SizedBox(
+                height: mq.size.height * 0.01,
+              ),
+              Container(
                   color: Colors.white,
                   child: Padding(
                       padding: const EdgeInsets.symmetric(

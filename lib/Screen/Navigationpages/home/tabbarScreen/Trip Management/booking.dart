@@ -2,8 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/consts/upipayment.dart';
-import 'package:demo/models/bookingmodel.dart';
-import 'package:demo/models/packagemodel.dart';
+import 'package:demo/models/Trip%20models/bookingmodel.dart';
+import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';

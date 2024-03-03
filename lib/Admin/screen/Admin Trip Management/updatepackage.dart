@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/update_complate_screen.dart';
 
-import 'package:demo/models/packagemodel.dart';
+import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -100,14 +100,13 @@ class _UpdatePackageState extends State<UpdatePackage> {
                                   MediaQuery.of(context).size.height * 0.382,
                             ),
                             const CircularProgressIndicator(
-   
                               color: Color(0xff0078aa),
                             ),
                           ],
                         ));
                       }
                       if (snapshot.data!.docs.isEmpty) {
-                       return const Center(
+                        return const Center(
                           child: Text(
                             "NOT DATA FOUND!",
                             style: TextStyle(
@@ -127,165 +126,172 @@ class _UpdatePackageState extends State<UpdatePackage> {
                         return startingForm.contains(searchQuery) ||
                             traveligTo.contains(searchQuery);
                       }).toList();
-                           if(data.isEmpty)
-                           {
-                            return const Center(
+                      if (data.isEmpty) {
+                        return const Center(
                           child: Text(
                             "PACKAGE NOT FOUND!",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 22),
                           ),
                         );
-                      
-                           }
+                      }
                       return ListView.builder(
                         itemBuilder: (context, index) {
-                          return Card(
-                            elevation: 1,
-                            color: Colors.white,
-                            margin: const EdgeInsets.symmetric(vertical: 2),
-                            child: ListTile(
-                              leading: SizedBox(
-                                  height: 60,
-                                  width: 71,
-                                  child: FancyShimmerImage(
-                                    imageUrl: data[index]["imgUrl"],
-                                    boxFit: BoxFit.cover,
-                                  )),
-                              title: Text(
-                                data[index]["startingForm"] +
-                                    ' To ' +
-                                    data[index]["traveligTo"],
-                                // style: TextStyle(
-                                // color: Colors.white, fontWeight: FontWeight.w500
-                                //   ),
-                              ),
-                              subtitle: Text(data[index]["startDate"]
-                                  // ' To ' +
-                                  // data[index]['endDate'],
-                                  // style:
-                                  //TextStyle(color: Colors.white.withOpacity(0.85)),
+                          return Column(
+                            children: [
+                              Container(
+                                color: Colors.white,
+                                margin: const EdgeInsets.symmetric(vertical: 2),
+                                child: ListTile(
+                                  leading: SizedBox(
+                                      height: 60,
+                                      width: 71,
+                                      child: FancyShimmerImage(
+                                        imageUrl: data[index]["imgUrl"],
+                                        boxFit: BoxFit.cover,
+                                      )),
+                                  title: Text(
+                                    data[index]["startingForm"] +
+                                        ' To ' +
+                                        data[index]["traveligTo"],
+                                    // style: TextStyle(
+                                    // color: Colors.white, fontWeight: FontWeight.w500
+                                    //   ),
                                   ),
-                              trailing: SizedBox(
-                                width: 97,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  UpdatePackageComplete(
-                                                id: data[index].id,
-                                                package: Package(
-                                                  latitude:data[index]["latitude"],
-                                                  longitude:data[index]["longitude"],
-                                                    ActivityList: data[index]
-                                                        ["activityList"],
-                                                    startingForm: data[index]
-                                                        ["startingForm"],
-                                                    traveligTo: data[index]
-                                                        ["traveligTo"],
-                                                    startDate: data[index]
-                                                        ["startDate"],
-                                                    endDate: data[index]
-                                                        ["endDate"],
-                                                    imgUrl: data[index]
-                                                        ["imgUrl"],
-                                                    decs: data[index]["decs"],
-                                                    price: data[index]["price"],
-                                                    img1: data[index]["img1"],
-                                                    img2: data[index]["img2"],
-                                                    img3: data[index]["img3"],
-                                                    img4: data[index]["img4"],
-                                                    flightDate: data[index]
-                                                        ["flightDate"],
-                                                    reachDate: data[index]
-                                                        ["reachDate"],
-                                                    flightTime: data[index]
-                                                        ["flightTime"],
-                                                    reachTime: data[index]
-                                                        ["reachTime"],
-                                                    hotelName: data[index]
-                                                        ["hotelName"],
-                                                    hotelImg: data[index]
-                                                        ["hotelImg"],
-                                                    hotelAdd: data[index]
-                                                        ["hotelAdd"],
-                                                    hotelPhone: data[index]
-                                                        ["hotelPhone"],
-                                                    hotelRate: data[index]
-                                                        ["hotelRate"],
-                                                    retunfligthdate: data[index]
-                                                        ["retunFligthDate"],
-                                                    retunreachfligthdate: data[index][
-                                                        "retunReachFligthDate"],
-                                                    retunfligthtime: data[index]
-                                                        ["retunFligthTime"],
-                                                    retunreachfligthtime: data[index]
-                                                        ["retunReachFligthTime"]),
-                                              ),
-                                            ));
-                                      },
-                                      icon: const Icon(Icons.edit),
-                                      //  color: Colors.white,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                                title: const Text(
-                                                  "Delete Package ",
-                                                  style:
-                                                      TextStyle(fontSize: 18),
-                                                ),
-                                                content: const Text(
-                                                    style:
-                                                        TextStyle(fontSize: 15),
-                                                    "Are you sure you want to delete this package ?"),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child:
-                                                          const Text("CANCEL")),
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Package.deletePackage(
-                                                                data[index].id)
-                                                            .whenComplete(() {
-                                                          Navigator.pop(
-                                                              context);
-                                                        });
-
-                                                        setState(() {});
-                                                      },
-                                                      child: const Text(
-                                                          "PROCEED")),
-                                                ],
-                                                contentPadding:
-                                                    const EdgeInsets.only(
-                                                        top: 20,
-                                                        left: 25,
-                                                        right: 25));
+                                  subtitle: Text(data[index]["startDate"]
+                                      // ' To ' +
+                                      // data[index]['endDate'],
+                                      // style:
+                                      //TextStyle(color: Colors.white.withOpacity(0.85)),
+                                      ),
+                                  trailing: SizedBox(
+                                    width: 97,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      UpdatePackageComplete(
+                                                    id: data[index].id,
+                                                    package: Package(
+                                                        latitude: data[index]
+                                                            ["latitude"],
+                                                        longitude: data[index]
+                                                            ["longitude"],
+                                                        ActivityList: data[index]
+                                                            ["activityList"],
+                                                        startingForm: data[index]
+                                                            ["startingForm"],
+                                                        traveligTo: data[index]
+                                                            ["traveligTo"],
+                                                        startDate: data[index]
+                                                            ["startDate"],
+                                                        endDate: data[index]
+                                                            ["endDate"],
+                                                        imgUrl: data[index]
+                                                            ["imgUrl"],
+                                                        decs: data[index]
+                                                            ["decs"],
+                                                        price: data[index]
+                                                            ["price"],
+                                                        img1: data[index]
+                                                            ["img1"],
+                                                        img2: data[index]
+                                                            ["img2"],
+                                                        img3: data[index]
+                                                            ["img3"],
+                                                        img4: data[index]
+                                                            ["img4"],
+                                                        flightDate: data[index]
+                                                            ["flightDate"],
+                                                        reachDate: data[index]
+                                                            ["reachDate"],
+                                                        flightTime: data[index]
+                                                            ["flightTime"],
+                                                        reachTime: data[index]
+                                                            ["reachTime"],
+                                                        hotelName: data[index]["hotelName"],
+                                                        hotelImg: data[index]["hotelImg"],
+                                                        hotelAdd: data[index]["hotelAdd"],
+                                                        hotelPhone: data[index]["hotelPhone"],
+                                                        hotelRate: data[index]["hotelRate"],
+                                                        retunfligthdate: data[index]["retunFligthDate"],
+                                                        retunreachfligthdate: data[index]["retunReachFligthDate"],
+                                                        retunfligthtime: data[index]["retunFligthTime"],
+                                                        retunreachfligthtime: data[index]["retunReachFligthTime"]),
+                                                  ),
+                                                ));
                                           },
-                                        );
-                                        setState(() {});
-                                        setState(() {});
-                                      },
-                                      icon: const Icon(Icons.delete_forever),
-                                      // color: Colors.white,
+                                          icon: const Icon(Icons.edit),
+                                          //  color: Colors.white,
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                    title: const Text(
+                                                      "Delete Package ",
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                    content: const Text(
+                                                        style: TextStyle(
+                                                            fontSize: 15),
+                                                        "Are you sure you want to delete this package ?"),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              "CANCEL")),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Package.deletePackage(
+                                                                    data[index]
+                                                                        .id)
+                                                                .whenComplete(
+                                                                    () {
+                                                              Navigator.pop(
+                                                                  context);
+                                                            });
+
+                                                            setState(() {});
+                                                          },
+                                                          child: const Text(
+                                                              "PROCEED")),
+                                                    ],
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            top: 20,
+                                                            left: 25,
+                                                            right: 25));
+                                              },
+                                            );
+                                            setState(() {});
+                                            setState(() {});
+                                          },
+                                          icon:
+                                              const Icon(Icons.delete_forever),
+                                          // color: Colors.white,
+                                        ),
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
+                              Divider(
+                                thickness: 1.5,
+                              )
+                            ],
                           );
                         },
                         itemCount: data.length,
