@@ -124,7 +124,7 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-        title: const Text("UPDATE PACKAGE"),
+        title: const Text("Update packagr"),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -1200,32 +1200,4 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
     });
   }
 
-  clearFields() {
-    setState(() {
-      startingForm.clear();
-      travelingTo.clear();
-      startDate.clear();
-      endDate.clear();
-      imgurl.clear();
-
-      decs.clear();
-      img1.clear();
-      img2.clear();
-      img3.clear();
-      img4.clear();
-      flightdate.clear();
-      reachdate.clear();
-      flightTime.clear();
-      reachTime.clear();
-      hotelName.clear();
-      hotelImg.clear();
-      hotelRate.clear();
-      hotelAdd.clear();
-      hotelPhone.clear();
-      activityname.clear();
-      activityimg.clear();
-      activitydesc.clear();
-      price.clear();
-    });
   }
-}

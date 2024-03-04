@@ -7,8 +7,8 @@ import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 
 class Bottomseetfasility extends StatefulWidget {
-  final Map<String, bool> faciliti1;
-  final Function(Map<String, bool>) updateFacility;
+  final Map<String, dynamic> faciliti1;
+  final Function(Map<String, dynamic>) updateFacility;
 
   const Bottomseetfasility(
       {super.key, required this.faciliti1, required this.updateFacility});

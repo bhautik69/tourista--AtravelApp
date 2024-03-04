@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Admin/screen/Admin%20Hotel%20Management/bootomseet.dart';
-import 'package:demo/Admin/screen/Admin%20Hotel%20Management/imagesshow.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/bootomseet.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/imagesshow.dart';
 
 import 'package:demo/models/Hotel%20models/hotelAdd.dart';
 import 'package:demo/widget/button.dart';
@@ -43,7 +42,7 @@ class _AddHotelState extends State<AddHotel> {
 
   final imagePicker = ImagePicker();
   List<XFile> images = [];
-  Map<String, bool> ficility = {};
+  Map<String, dynamic> ficility = {};
 
   void _initializeControllers() {
     for (int i = 0; i < 14; i++) {
@@ -59,7 +58,7 @@ class _AddHotelState extends State<AddHotel> {
     super.initState();
   }
 
-  void updateFacility(Map<String, bool> newFacility) {
+  void updateFacility(Map<String, dynamic> newFacility) {
     int a = 0;
     setState(() {
       ficility = newFacility;
@@ -562,7 +561,7 @@ class _AddHotelState extends State<AddHotel> {
                     height: 52,
                     width: MediaQuery.of(context).size.width,
                     child: commenButton(
-                        title: "ADD",
+                        title: "Add",
                         loading: isloading,
                         callback: () {
                           if (_formKey.currentState!.validate()) {
@@ -658,6 +657,7 @@ class _AddHotelState extends State<AddHotel> {
       descriptionController.clear();
       ficility.clear();
       imgUrl.clear();
+      images.clear();
       facilityController.clear();
       imagesController.clear();
       cityController.clear();

@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Admin/screen/Admin%20Hotel%20Management/hotelmainpage.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/hotelmainpage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/tripMainpage.dart';
 import 'package:demo/Admin/screen/Applictaion%20User/allusers.dart';
 import 'package:demo/Exeptiopn/signout_fail.dart';

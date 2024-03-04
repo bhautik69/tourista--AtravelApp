@@ -1,4 +1,5 @@
 import 'package:demo/Firebase/firebase_options.dart';
+import 'package:demo/Screen/Splash%20Screen/splashscreen.dart';
 
 import 'package:sizer/sizer.dart';
 
@@ -61,7 +62,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Tourista App',
             debugShowCheckedModeBanner: false,
             theme: ThemeStyle.themeDate(provider.getDarkTheme, context),
-            home: const Adminside(),
+            home: const Splashscreen(),
           ),
         );
       }),

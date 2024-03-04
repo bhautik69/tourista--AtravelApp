@@ -1,40 +1,26 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/update_complate_screen.dart';
-
-import 'package:demo/models/Trip%20models/packagemodel.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/update_hotel_complate_screen.dart';
+import 'package:demo/models/Hotel%20models/hotelAdd.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+
 import 'package:iconly/iconly.dart';
 
-class UpdatePackage extends StatefulWidget {
-  const UpdatePackage({super.key});
-  
+class UpdateHotels extends StatefulWidget {
+  const UpdateHotels({super.key});
 
   @override
-  State<UpdatePackage> createState() => _UpdatePackageState();
+  State<UpdateHotels> createState() => _UpdateHotelsState();
 }
 
-class _UpdatePackageState extends State<UpdatePackage> {
+class _UpdateHotelsState extends State<UpdateHotels> {
   var searchController = TextEditingController();
-
-  Future<void> deletePackagesByStartDate(String startDate) async {
-    CollectionReference packagesRef =
-        FirebaseFirestore.instance.collection('package');
-    QuerySnapshot packagesSnapshot =
-        await packagesRef.where('startDate', isEqualTo: startDate).get();
-    // ignore: avoid_function_literals_in_foreach_calls
-    packagesSnapshot.docs.forEach((doc) async {
-      await packagesRef.doc(doc.id).delete();
-    });
-  }
-
   @override
   void initState() {
-    DateTime dateTime = DateTime.now();
-    String datetime1 = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
-    deletePackagesByStartDate(datetime1);
     searchController.addListener(_onSearchChanged);
     setState(() {});
+
     super.initState();
   }
 
@@ -42,11 +28,10 @@ class _UpdatePackageState extends State<UpdatePackage> {
     setState(() {});
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Update/Delete Packages"),
+        title: const Text("Update/Delete Hotels"),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -88,7 +73,7 @@ class _UpdatePackageState extends State<UpdatePackage> {
               child: Expanded(
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection("package")
+                        .collection("Hotel")
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -117,19 +102,18 @@ class _UpdatePackageState extends State<UpdatePackage> {
                       final data =
                           snapshot.data!.docs.where((documentSnapshot) {
                         var searchQuery = searchController.text.toLowerCase();
-                        var startingForm = documentSnapshot['startingForm']
+                        var hotelName =
+                            documentSnapshot['name'].toString().toLowerCase();
+                        var city = documentSnapshot['cityName']
                             .toString()
                             .toLowerCase();
-                        var traveligTo = documentSnapshot['traveligTo']
-                            .toString()
-                            .toLowerCase();
-                        return startingForm.contains(searchQuery) ||
-                            traveligTo.contains(searchQuery);
+                        return hotelName.contains(searchQuery) ||
+                            city.contains(searchQuery);
                       }).toList();
                       if (data.isEmpty) {
                         return const Center(
                           child: Text(
-                            "PACKAGE NOT FOUND!",
+                            "HOTEL NOT FOUND!",
                             style: TextStyle(
                                 fontWeight: FontWeight.w500, fontSize: 22),
                           ),
@@ -147,18 +131,16 @@ class _UpdatePackageState extends State<UpdatePackage> {
                                       height: 60,
                                       width: 71,
                                       child: FancyShimmerImage(
-                                        imageUrl: data[index]["imgUrl"],
+                                        imageUrl: data[index]["images"].first,
                                         boxFit: BoxFit.cover,
                                       )),
-                                  title: Text(
-                                    data[index]["startingForm"] +
-                                        ' To ' +
-                                        data[index]["traveligTo"],
-                                    // style: TextStyle(
-                                    // color: Colors.white, fontWeight: FontWeight.w500
-                                    //   ),
-                                  ),
-                                  subtitle: Text(data[index]["startDate"]
+                                  title: Text(data[index]["name"]
+
+                                      // style: TextStyle(
+                                      // color: Colors.white, fontWeight: FontWeight.w500
+                                      //   ),
+                                      ),
+                                  subtitle: Text(data[index]["cityName"]
                                       // ' To ' +
                                       // data[index]['endDate'],
                                       // style:
@@ -176,55 +158,40 @@ class _UpdatePackageState extends State<UpdatePackage> {
                                                 context,
                                                 MaterialPageRoute(
                                                   builder: (context) =>
-                                                      UpdatePackageComplete(
-                                                    id: data[index].id,
-                                                    package: Package(
-                                                        latitude: data[index]
-                                                            ["latitude"],
-                                                        longitude: data[index]
-                                                            ["longitude"],
-                                                        ActivityList: data[index]
-                                                            ["activityList"],
-                                                        startingForm: data[index]
-                                                            ["startingForm"],
-                                                        traveligTo: data[index]
-                                                            ["traveligTo"],
-                                                        startDate: data[index]
-                                                            ["startDate"],
-                                                        endDate: data[index]
-                                                            ["endDate"],
-                                                        imgUrl: data[index]
-                                                            ["imgUrl"],
-                                                        decs: data[index]
-                                                            ["decs"],
-                                                        price: data[index]
-                                                            ["price"],
-                                                        img1: data[index]
-                                                            ["img1"],
-                                                        img2: data[index]
-                                                            ["img2"],
-                                                        img3: data[index]
-                                                            ["img3"],
-                                                        img4: data[index]
-                                                            ["img4"],
-                                                        flightDate: data[index]
-                                                            ["flightDate"],
-                                                        reachDate: data[index]
-                                                            ["reachDate"],
-                                                        flightTime: data[index]
-                                                            ["flightTime"],
-                                                        reachTime: data[index]
-                                                            ["reachTime"],
-                                                        hotelName: data[index]["hotelName"],
-                                                        hotelImg: data[index]["hotelImg"],
-                                                        hotelAdd: data[index]["hotelAdd"],
-                                                        hotelPhone: data[index]["hotelPhone"],
-                                                        hotelRate: data[index]["hotelRate"],
-                                                        retunfligthdate: data[index]["retunFligthDate"],
-                                                        retunreachfligthdate: data[index]["retunReachFligthDate"],
-                                                        retunfligthtime: data[index]["retunFligthTime"],
-                                                        retunreachfligthtime: data[index]["retunReachFligthTime"]),
-                                                  ),
+                                                      UpdateComplateHotel(
+                                                          id: data[index].id,
+                                                          hotel: Hotel(
+                                                            facilities: data[index]["facilities"],
+                                                              name: data[index]
+                                                                  ["name"],
+                                                              description:
+                                                                  data[index]["description"],
+                                                              images:
+                                                                  data[index]["images"],
+                                                              price:
+                                                                  data[index]["price"],
+                                                              cityName:
+                                                                  data[index]["cityName"],
+                                                              disttocenter:
+                                                                  data[index]["disttocenter"],
+                                                              address:
+                                                                  data[index]["address"],
+                                                              latitude:
+                                                                  data[index]["latitude"],
+                                                              longitude:
+                                                                  data[index]["longitude"],
+                                                              checkinfrom:
+                                                                  data[index]["checkinfrom"],
+                                                              checkinUntil:
+                                                                  data[index]["checkinUntil"],
+                                                              checkoutUntil:
+                                                                  data[index]["checkoutUntil"],
+                                                              transeferFee:
+                                                                  data[index]["transeferFee"],
+                                                              distFromAirport:
+                                                                  data[index]["distFromAirport"],
+                                                              traveltimetoairport:
+                                                                  data[index]["traveltimetoairport"])),
                                                 ));
                                           },
                                           icon: const Icon(Icons.edit),
@@ -237,14 +204,14 @@ class _UpdatePackageState extends State<UpdatePackage> {
                                               builder: (context) {
                                                 return AlertDialog(
                                                     title: const Text(
-                                                      "Delete Package ",
+                                                      "Delete Hotel ",
                                                       style: TextStyle(
                                                           fontSize: 18),
                                                     ),
                                                     content: const Text(
                                                         style: TextStyle(
                                                             fontSize: 15),
-                                                        "Are you sure you want to delete this package ?"),
+                                                        "Are you sure you want to delete this hotel ?"),
                                                     actions: [
                                                       TextButton(
                                                           onPressed: () {
@@ -255,16 +222,16 @@ class _UpdatePackageState extends State<UpdatePackage> {
                                                               "CANCEL")),
                                                       TextButton(
                                                           onPressed: () {
-                                                            Package.deletePackage(
-                                                                    data[index]
-                                                                        .id)
-                                                                .whenComplete(
-                                                                    () {
-                                                              Navigator.pop(
-                                                                  context);
+                                                            setState(() {
+                                                              Hotel.deletehotel(
+                                                                      data[index]
+                                                                          .id)
+                                                                  .whenComplete(
+                                                                      () {
+                                                                Navigator.pop(
+                                                                    context);
+                                                              });
                                                             });
-
-                                                            setState(() {});
                                                           },
                                                           child: const Text(
                                                               "PROCEED")),

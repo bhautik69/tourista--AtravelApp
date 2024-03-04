@@ -1,5 +1,5 @@
-import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotels.dart';
-import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotels.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/addhotels.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updatehotels.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/addpackage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/updatepackage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/viewbooking.dart';

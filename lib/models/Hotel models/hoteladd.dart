@@ -6,7 +6,7 @@ class Hotel {
   String? id;
   String? name;
   String? description;
-  Map<String, bool>? facilities;
+  Map<String, dynamic>? facilities;
   List<dynamic>? images;
   String? price;
   String? cityName;
@@ -25,7 +25,7 @@ class Hotel {
       {this.id,
       required this.name,
       required this.description,
-      this.facilities,
+      required this.facilities,
       required this.images,
       required this.price,
       required this.cityName,
@@ -71,7 +71,7 @@ class Hotel {
       "id": updatehotel.id,
       "name": updatehotel.name,
       "description": updatehotel.description,
-      "facilities  ": updatehotel.facilities,
+      "facilities": updatehotel.facilities,
       "images": updatehotel.images,
       "price": updatehotel.price,
       "cityName": updatehotel.cityName,
