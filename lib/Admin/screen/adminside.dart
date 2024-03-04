@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/hotelmainpage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/tripMainpage.dart';
 import 'package:demo/Admin/screen/Applictaion%20User/allusers.dart';
 import 'package:demo/Exeptiopn/signout_fail.dart';
@@ -32,7 +33,7 @@ class _AdminsideState extends State<Adminside> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
                 const Row(
@@ -55,7 +56,7 @@ class _AdminsideState extends State<Adminside> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => TripsManagement(),
+                          builder: (context) => const TripsManagement(),
                         ));
                   },
                   child: Card(
@@ -120,46 +121,55 @@ class _AdminsideState extends State<Adminside> {
                 SizedBox(
                   height: mq.size.height * 0.013,
                 ),
-                Card(
-                  elevation: 5,
-                  color: const Color(0xffffffff),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 23),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Image.asset(
-                                "assets/img/checkin.png",
-                                scale: 12,
-                              ),
-                              const Expanded(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Titletext(
-                                          title: "Hotels Management ",
-                                          size: 18.5,
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Titletext(
-                                          title: "20",
-                                          size: 16,
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AdminHotelManagement(),
+                        ));
+                  },
+                  child: Card(
+                    elevation: 5,
+                    color: const Color(0xffffffff),
+                    child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 23),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "assets/img/checkin.png",
+                                  scale: 12,
                                 ),
-                              )
-                            ],
-                          ),
-                        ],
-                      )),
+                                const Expanded(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Titletext(
+                                            title: "Hotels Management ",
+                                            size: 18.5,
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Titletext(
+                                            title: "20",
+                                            size: 16,
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
+                        )),
+                  ),
                 ),
                 SizedBox(
                   height: mq.size.height * 0.013,

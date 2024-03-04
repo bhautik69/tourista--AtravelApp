@@ -161,7 +161,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                   height: mq.size.height * 0.02,
                                                 ),
                                                 const Text(
-                                                  "21 beds",
+                                                  "beds",
                                                   style: TextStyle(
                                                       fontSize: 11,
                                                       fontWeight:
@@ -216,7 +216,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                   height: mq.size.height * 0.02,
                                                 ),
                                                 const Text(
-                                                  "2 bedrooms",
+                                                  "bedrooms",
                                                   style: TextStyle(
                                                       fontSize: 11,
                                                       fontWeight:

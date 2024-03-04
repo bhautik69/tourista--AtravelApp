@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Package {
-  // ignore: non_constant_identifier_names
+ 
   List<dynamic>? ActivityList;
   String? id;
   String? startingForm;

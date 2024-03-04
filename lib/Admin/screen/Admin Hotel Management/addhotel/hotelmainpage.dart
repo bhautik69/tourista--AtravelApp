@@ -1,3 +1,5 @@
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/addhotels.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updatehotels.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/addpackage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/updatepackage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/viewbooking.dart';
@@ -5,17 +7,16 @@ import 'package:demo/widget/textwidget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:sizer/sizer.dart';
 
-class TripsManagement extends StatefulWidget {
-  const TripsManagement({super.key});
+class AdminHotelManagement extends StatefulWidget {
+  const AdminHotelManagement({super.key});
   static const String id = "addpackage";
 
   @override
-  State<TripsManagement> createState() => _TripsManagementState();
+  State<AdminHotelManagement> createState() => _AdminHotelManagementState();
 }
 
-class _TripsManagementState extends State<TripsManagement> {
+class _AdminHotelManagementState extends State<AdminHotelManagement> {
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
@@ -23,7 +24,7 @@ class _TripsManagementState extends State<TripsManagement> {
         backgroundColor: const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(
           title: const Text(
-            "Trips Management",
+            "Hotels Management",
           ),
           leading: IconButton(
               onPressed: () {
@@ -44,7 +45,7 @@ class _TripsManagementState extends State<TripsManagement> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const AddPackage(),
+                              builder: (context) => const AddHotel(),
                             ));
                       },
                       child: Card(
@@ -71,7 +72,7 @@ class _TripsManagementState extends State<TripsManagement> {
                                           Column(
                                             children: [
                                               const Titletext(
-                                                title: "Add New Trip Packages",
+                                                title: "Add New Hotels",
                                                 size: 18.5,
                                               ),
                                             ],
@@ -93,7 +94,7 @@ class _TripsManagementState extends State<TripsManagement> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const UpdatePackage(),
+                              builder: (context) => const UpdateHotels(),
                             ));
                       },
                       child: Card(
@@ -119,8 +120,7 @@ class _TripsManagementState extends State<TripsManagement> {
                                           Column(
                                             children: [
                                               const Titletext(
-                                                title:
-                                                    "Update/Delete Trip Packages",
+                                                title: "Update/Delete Hotels",
                                                 size: 18.5,
                                               ),
                                             ],

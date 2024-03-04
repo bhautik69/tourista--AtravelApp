@@ -1,6 +1,4 @@
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/tripMainpage.dart';
 import 'package:demo/Firebase/firebase_options.dart';
-
 import 'package:demo/Screen/Splash%20Screen/splashscreen.dart';
 
 import 'package:sizer/sizer.dart';
