@@ -1,7 +1,5 @@
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/addhotels.dart';
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updatehotels.dart';
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/addpackage.dart';
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/updatepackage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/viewbooking.dart';
 import 'package:demo/widget/textwidget.dart';
 
@@ -19,7 +17,6 @@ class AdminHotelManagement extends StatefulWidget {
 class _AdminHotelManagementState extends State<AdminHotelManagement> {
   @override
   Widget build(BuildContext context) {
-    var mq = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(
@@ -35,7 +32,7 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
         body: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 9),
+              padding: const EdgeInsets.symmetric(horizontal: 9),
               child: Column(
                 children: [
                   Padding(
@@ -64,14 +61,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       //        color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "Add New Hotels",
                                                 size: 18.5,
                                               ),
@@ -112,14 +109,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       scale: 12,
                                       //          color: Color(0xff0078aa),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "Update/Delete Hotels",
                                                 size: 18.5,
                                               ),
@@ -160,14 +157,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       // color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "View Booking",
                                                 size: 18.5,
                                               ),
