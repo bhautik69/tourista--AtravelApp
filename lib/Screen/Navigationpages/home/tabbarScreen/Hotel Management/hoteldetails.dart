@@ -1,7 +1,9 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/bottomsheetdescription.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hotel_user_info.dart';
 import 'package:demo/consts/hotelmap.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
+import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
@@ -924,6 +926,66 @@ class _HotelDetailsState extends State<HotelDetails> {
                       ],
                     ),
                   ))),
+          Container(
+            decoration: BoxDecoration(
+                color: themeState.getDarkTheme
+                    ? const Color(0xff212121)
+                    : const Color(0xffffffff),
+                boxShadow: [
+                  BoxShadow(
+                      offset: const Offset(5, 5),
+                      color: themeState.getDarkTheme
+                          ? Colors.white12
+                          : Colors.black12)
+                ]),
+            height: mq.size.height * 0.1,
+            child: Column(
+              children: [
+                Container(
+                    width: mq.size.width,
+                    height: 3,
+                    color: themeState.getDarkTheme
+                        ? Colors.white12
+                        : Colors.black12),
+                SizedBox(
+                  height: mq.size.height * 0.019,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Row(children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Titletext(title: "₹ 120000"),
+                        SizedBox(
+                          height: mq.size.height * 0.01,
+                        ),
+                        Text("Per person",
+                            style: TextStyle(
+                                fontSize: 13,
+                                color: themeState.getDarkTheme
+                                    ? Colors.white54
+                                    : Colors.black54,
+                                fontWeight: FontWeight.w400))
+                      ],
+                    ),
+                    const Spacer(),
+                    SizedBox(
+                        height: mq.size.height * 0.065,
+                        child: commenButton(
+                            title: "Book Now",
+                            callback: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HotelUserInfo(),
+                                  ));
+                            }))
+                  ]),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

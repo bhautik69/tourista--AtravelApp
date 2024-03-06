@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 typedef ContectDetails = Function(String email, String phone);
 
+// ignore: must_be_immutable
 class Usercontact extends StatefulWidget {
   ContectDetails contectDetails;
   Usercontact({super.key, required this.contectDetails});

@@ -3,7 +3,6 @@
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 

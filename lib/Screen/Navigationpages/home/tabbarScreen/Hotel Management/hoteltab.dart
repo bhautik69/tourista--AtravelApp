@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hoteldetails.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 
@@ -9,6 +8,7 @@ import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Hoteltab extends StatefulWidget {
   const Hoteltab({super.key});
@@ -29,6 +29,9 @@ class _HoteltabState extends State<Hoteltab> {
   var rac = TextEditingController();
   var checkin = TextEditingController();
   var checkout = TextEditingController();
+  int adult = 0;
+  int child = 0;
+  int total = 0;
   List cityList = [
     "Agra",
     "Ahmedabad",
@@ -374,6 +377,9 @@ class _HoteltabState extends State<Hoteltab> {
                                   roomGuest(
                             totalRAC: (rooms, adults, children) {
                               setState(() {
+                                adult = adults;
+                                child = children;
+                                total = adults + children;
                                 rac.text =
                                     "${rooms} rooms . ${adults} adults . ${children} child";
                               });
@@ -406,8 +412,13 @@ class _HoteltabState extends State<Hoteltab> {
                   height: 52,
                   child: commenButton(
                     title: "Search",
-                    callback: () {
+                    callback: () async {
                       if (_formKey.currentState!.validate()) {
+                        var store = await SharedPreferences.getInstance();
+                        store.setInt("adult", adult);
+                        store.setInt("children", child);
+                        store.setInt("total", total);
+                        print("$adult $child $total -------------------");
                         Navigator.push(
                             context,
                             MaterialPageRoute(
