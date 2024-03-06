@@ -565,6 +565,7 @@ class _FligthtabState extends State<Fligthtab> {
                               prefs.setInt("total", total);
                               prefs.setInt("children", children);
                               prefs.setInt("adult", adult);
+                               indexFlightDate=date.text+flightfrom.text+flightTo.text+flightClass;
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const FlightSearch(),
                               ));
