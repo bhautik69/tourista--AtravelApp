@@ -5,7 +5,7 @@ import 'package:demo/widget/textwidget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
-import 'package:sizer/sizer.dart';
+
 
 class TripsManagement extends StatefulWidget {
   const TripsManagement({super.key});
@@ -18,7 +18,7 @@ class TripsManagement extends StatefulWidget {
 class _TripsManagementState extends State<TripsManagement> {
   @override
   Widget build(BuildContext context) {
-    var mq = MediaQuery.of(context);
+   
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(

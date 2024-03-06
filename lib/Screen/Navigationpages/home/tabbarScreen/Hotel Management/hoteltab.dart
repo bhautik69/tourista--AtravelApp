@@ -25,6 +25,9 @@ class _HoteltabState extends State<Hoteltab> {
       }).toList();
 
   final _formKey = GlobalKey<FormState>();
+  int adults1 = 1;
+  int child1 = 0;
+  int room1 = 1;
   var destination = TextEditingController();
   var rac = TextEditingController();
   var checkin = TextEditingController();
@@ -98,11 +101,7 @@ class _HoteltabState extends State<Hoteltab> {
                   },
                   textFieldConfiguration: TextFieldConfiguration(
                     controller: destination,
-                    onTap: () {
-                      setState(() {
-                        _formKey.currentState?.validate();
-                      });
-                    },
+                    
                     decoration: InputDecoration(
                         hintText: "DESTINATION",
                         hintStyle: TextStyle(
@@ -232,9 +231,7 @@ class _HoteltabState extends State<Hoteltab> {
                           return null;
                         },
                         onTap: () async {
-                          setState(() {
-                            _formKey.currentState?.validate();
-                          });
+                          
                           var dateTime = themeState.getDarkTheme
                               ? await ligtModeDatepicker(themeState, context)
                               : await darkModeDatepicker(context);
@@ -297,9 +294,7 @@ class _HoteltabState extends State<Hoteltab> {
                           return null;
                         },
                         onTap: () async {
-                          setState(() {
-                            _formKey.currentState?.validate();
-                          });
+                          
                           var dateTime = themeState.getDarkTheme
                               ? await ligtModeDatepicker(themeState, context)
                               : await darkModeDatepicker(context);
@@ -364,8 +359,6 @@ class _HoteltabState extends State<Hoteltab> {
                   },
                   onTap: () async {
                     setState(() {
-                      _formKey.currentState?.validate();
-
                       Navigator.push(
                         context,
                         PageRouteBuilder(
@@ -374,8 +367,16 @@ class _HoteltabState extends State<Hoteltab> {
                                   roomGuest(
                             totalRAC: (rooms, adults, children) {
                               setState(() {
+                                room1 = rooms;
+                                adults1 = adults;
+                                child1 = children;
+                                var child;
+                                children == 0
+                                    ? child = " "
+                                    : child = ". ${children} child";
+
                                 rac.text =
-                                    "${rooms} rooms . ${adults} adults . ${children} child";
+                                    "${rooms} rooms . ${adults} adults ${child}";
                               });
                             },
                           ),
@@ -411,7 +412,14 @@ class _HoteltabState extends State<Hoteltab> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => show_hotel(),
+                              builder: (context) => show_hotel(
+                                destination: destination.text,
+                                check_In: checkin.text,
+                                check_Out: checkout.text,
+                                adults: adults1,
+                                child: child1,
+                                room: room1,
+                              ),
                             ));
                       }
                     },
