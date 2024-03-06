@@ -237,7 +237,7 @@ class _SavedState extends State<Saved> {
         ));
   }
 
-  Expanded tripwishlist( 
+  Expanded tripwishlist(
       MediaQueryData mq, DarkThemeProvider themeState, Color color) {
     return Expanded(
       child: SingleChildScrollView(
@@ -252,20 +252,16 @@ class _SavedState extends State<Saved> {
                   .collection("items")
                   .snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                      child: Column(
-                    children: [
-                      SizedBox(
-                        height: mq.size.height * 0.382,
-                      ),
-                      const CircularProgressIndicator(
-                        color: Color(0xff0078aa),
-                      ),
-                    ],
-                  ));
+                    child: CircularProgressIndicator(
+                      color: Color(0xff0078aa),
+                    ),
+                  );
                 }
-                if (snapshot.data!.docs.isEmpty) {
+                if (!snapshot.hasData ||
+                    snapshot.data == null ||
+                    snapshot.data!.docs.isEmpty) {
                   return Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -562,20 +558,17 @@ class _SavedState extends State<Saved> {
                   .collection("hotels")
                   .snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                      child: Column(
-                    children: [
-                      SizedBox(
-                        height: mq.size.height * 0.382,
-                      ),
-                      const CircularProgressIndicator(
-                        color: Color(0xff0078aa),
-                      ),
-                    ],
-                  ));
+                    child: CircularProgressIndicator(
+                      color: Color(0xff0078aa),
+                    ),
+                  );
                 }
-                if (snapshot.data!.docs.isEmpty) {
+
+                if (!snapshot.hasData ||
+                    snapshot.data == null ||
+                    snapshot.data!.docs.isEmpty) {
                   return Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
@@ -650,8 +643,8 @@ class _SavedState extends State<Saved> {
                               MaterialPageRoute(
                                   builder: (context) => HotelDetails(
                                         adults: 1,
-                                        check_In: "0",
-                                        check_Out: "0",
+                                        check_In: "",
+                                        check_Out: "",
                                         child: 1,
                                         room: 1,
                                         id: data[index].id,

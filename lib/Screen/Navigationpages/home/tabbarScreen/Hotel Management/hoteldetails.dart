@@ -5,8 +5,10 @@ import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:iconly/iconly.dart';
 //import 'package:ionicons/ionicons.dart';
 import 'package:ionicons/ionicons.dart';
@@ -208,82 +210,90 @@ class _HotelDetailsState extends State<HotelDetails> {
                           SizedBox(
                             height: mq.size.height * 0.0135,
                           ),
-                          Container(
-                            color: themeState.getDarkTheme
-                                ? const Color(0xff212121)
-                                : const Color(0xffffffff),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Titletext(
-                                            title: "Check-in",
-                                            size: 15,
-                                          ),
-                                          Text(widget.check_In!)
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        width: mq.size.width * 0.28,
-                                      ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Titletext(
-                                            title: "Check-out",
-                                            size: 15,
-                                          ),
-                                          Text(widget.check_Out!)
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: mq.size.height * 0.015,
-                                  ),
-                                  Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Titletext(
-                                        title: "Rooms and guests",
-                                        size: 15,
-                                      ),
-                                      Text(
-                                        "${widget.room} rooms . ${widget.adults} adults " +
-                                            (widget.child == 0
-                                                ? " "
-                                                : ". ${widget.child} children"),
-                                        style: TextStyle(
-                                            //    color: Color(0xff0078aa),
-                                            //  fontWeight: FontWeight.bold
+                          Visibility(
+                            visible: widget.check_In == "" ? false : true,
+                            child: Container(
+                              color: themeState.getDarkTheme
+                                  ? const Color(0xff212121)
+                                  : const Color(0xffffffff),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 10),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Titletext(
+                                              title: "Check-in",
+                                              size: 15,
                                             ),
-                                      )
-                                    ],
-                                  )
-                                ],
+                                            Text(widget.check_In!)
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: mq.size.width * 0.28,
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Titletext(
+                                              title: "Check-out",
+                                              size: 15,
+                                            ),
+                                            Text(widget.check_Out!)
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.015,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Titletext(
+                                          title: "Rooms and guests",
+                                          size: 15,
+                                        ),
+                                        Text(
+                                          "${widget.room} rooms . ${widget.adults} adults " +
+                                              (widget.child == 0
+                                                  ? " "
+                                                  : ". ${widget.child} children"),
+                                          style: TextStyle(
+                                              //    color: Color(0xff0078aa),
+                                              //  fontWeight: FontWeight.bold
+                                              ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: mq.size.height * 0.0135,
+                          Visibility(
+                            visible: widget.check_In == "" ? false : true,
+                            child: SizedBox(
+                              height: mq.size.height * 0.0135,
+                            ),
                           ),
                           Container(
                             color: themeState.getDarkTheme
