@@ -379,12 +379,16 @@ class _ChooseSeatState extends State<ChooseSeat> {
                               title: "SELECT",
                               callback: () {
                                 flighSeatBook.addAll(flighSeat);
-                                Map<String,dynamic> data={
-                                  "id":indexFlightDate,
-                                  "favourite":flighSeatBook
+                                Map<String, dynamic> data = {
+                                  "id": indexFlightDate,
+                                  "favourite": flighSeatBook
                                 };
+                                flighSeat.clear();
                                 print("fata------------$data");
-                                FirebaseFirestore.instance.collection("flight").doc(indexFlightDate).set(data);
+                                FirebaseFirestore.instance
+                                    .collection("flight")
+                                    .doc(indexFlightDate)
+                                    .set(data);
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return Userinfo();
@@ -473,21 +477,20 @@ class _ChooseSeatState extends State<ChooseSeat> {
             visible: dataSeat[index]["isVisible"],
             child: GestureDetector(
               onTap: () {
-                if(flighSeatBook.contains(count)){
+                if (flighSeatBook.contains(count)) {
                   return;
                 }
-
-
-
+                //if (flighSeat.length <= int.parse(traveller.text)) {
                 setState(() {
                   dataSeat[index]["isSelected"] =
                       !dataSeat[index]["isSelected"];
-                  if(flighSeat.contains(count)){
+                  if (flighSeat.contains(count)) {
                     flighSeat.remove(count);
-                  }else{
+                  } else {
                     flighSeat.add(count);
                   }
                 });
+                //}
               },
               //show the seat info
               child: Container(
@@ -515,24 +518,19 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     color: flighSeatBook.contains(count)
                         ? Color.fromARGB(255, 211, 209, 209)
                         : flighSeat.contains(count)
-                        ? const Color.fromARGB(255, 198, 239, 199)
-                        : Color(0xff0078aa),
+                            ? const Color.fromARGB(255, 198, 239, 199)
+                            : Color(0xff0078aa),
                     border: flighSeatBook.contains(count)
                         ? Border.all(
-                        color: themeState.getDarkTheme
-                            ? Colors.white24
-                            : Colors.black26)
+                            color: themeState.getDarkTheme
+                                ? Colors.white24
+                                : Colors.black26)
                         : flighSeat.contains(count)
-                        ? Border.all(color: Colors.green)
-                        : Border.all(
-                        color: themeState.getDarkTheme
-                            ? Colors.black
-                            : Colors.white),
-
-
-
-
-
+                            ? Border.all(color: Colors.green)
+                            : Border.all(
+                                color: themeState.getDarkTheme
+                                    ? Colors.black
+                                    : Colors.white),
 
                     borderRadius: BorderRadius.circular(3),
                   ),
