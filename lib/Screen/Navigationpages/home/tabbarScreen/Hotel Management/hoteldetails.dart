@@ -15,6 +15,7 @@ import 'package:ionicons/ionicons.dart';
 
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class HotelDetails extends StatefulWidget {
   String id;
   Hotel hotel;
@@ -158,7 +159,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                         mq.size.height * 0.027,
                                                   ),
                                                   child: SizedBox(
-                                                    width: 77,
+                                                    width: mq.size.width * 0.25,
                                                     child: Column(
                                                       children: [
                                                         CircleAvatar(
@@ -178,7 +179,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                         SizedBox(
                                                           height:
                                                               mq.size.height *
-                                                                  0.02,
+                                                                  0.015,
                                                         ),
                                                         Text(
                                                           facilities[index]
@@ -210,90 +211,82 @@ class _HotelDetailsState extends State<HotelDetails> {
                           SizedBox(
                             height: mq.size.height * 0.0135,
                           ),
-                          Visibility(
-                            visible: widget.check_In == "" ? false : true,
-                            child: Container(
-                              color: themeState.getDarkTheme
-                                  ? const Color(0xff212121)
-                                  : const Color(0xffffffff),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 10),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Titletext(
-                                              title: "Check-in",
-                                              size: 15,
+                          Container(
+                            color: themeState.getDarkTheme
+                                ? const Color(0xff212121)
+                                : const Color(0xffffffff),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Titletext(
+                                            title: "Check-in",
+                                            size: 15,
+                                          ),
+                                          Text(widget.check_In)
+                                        ],
+                                      ),
+                                      SizedBox(
+                                        width: mq.size.width * 0.28,
+                                      ),
+                                      Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Titletext(
+                                            title: "Check-out",
+                                            size: 15,
+                                          ),
+                                          Text(widget.check_Out)
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: mq.size.height * 0.015,
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Titletext(
+                                        title: "Rooms and guests",
+                                        size: 15,
+                                      ),
+                                      Text(
+                                        "${widget.room} rooms . ${widget.adults} adults " +
+                                            (widget.child == 0
+                                                ? " "
+                                                : ". ${widget.child} children"),
+                                        style: TextStyle(
+                                            //    color: Color(0xff0078aa),
+                                            //  fontWeight: FontWeight.bold
                                             ),
-                                            Text(widget.check_In!)
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: mq.size.width * 0.28,
-                                        ),
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Titletext(
-                                              title: "Check-out",
-                                              size: 15,
-                                            ),
-                                            Text(widget.check_Out!)
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: mq.size.height * 0.015,
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Titletext(
-                                          title: "Rooms and guests",
-                                          size: 15,
-                                        ),
-                                        Text(
-                                          "${widget.room} rooms . ${widget.adults} adults " +
-                                              (widget.child == 0
-                                                  ? " "
-                                                  : ". ${widget.child} children"),
-                                          style: TextStyle(
-                                              //    color: Color(0xff0078aa),
-                                              //  fontWeight: FontWeight.bold
-                                              ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
+                                      )
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
                           ),
-                          Visibility(
-                            visible: widget.check_In == "" ? false : true,
-                            child: SizedBox(
-                              height: mq.size.height * 0.0135,
-                            ),
+                          SizedBox(
+                            height: mq.size.height * 0.0135,
                           ),
                           Container(
                             color: themeState.getDarkTheme
@@ -347,6 +340,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                             height: mq.size.height * 0.0135,
                           ),
                           Container(
+                            width: mq.size.width,
                             color: themeState.getDarkTheme
                                 ? const Color(0xff212121)
                                 : const Color(0xffffffff),

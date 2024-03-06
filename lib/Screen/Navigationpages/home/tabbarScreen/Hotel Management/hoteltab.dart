@@ -1,7 +1,8 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
+import 'dart:ffi';
+
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hoteldetails.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 
@@ -9,6 +10,7 @@ import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Hoteltab extends StatefulWidget {
   const Hoteltab({super.key});
@@ -101,7 +103,6 @@ class _HoteltabState extends State<Hoteltab> {
                   },
                   textFieldConfiguration: TextFieldConfiguration(
                     controller: destination,
-                    
                     decoration: InputDecoration(
                         hintText: "DESTINATION",
                         hintStyle: TextStyle(
@@ -231,7 +232,6 @@ class _HoteltabState extends State<Hoteltab> {
                           return null;
                         },
                         onTap: () async {
-                          
                           var dateTime = themeState.getDarkTheme
                               ? await ligtModeDatepicker(themeState, context)
                               : await darkModeDatepicker(context);
@@ -294,7 +294,6 @@ class _HoteltabState extends State<Hoteltab> {
                           return null;
                         },
                         onTap: () async {
-                          
                           var dateTime = themeState.getDarkTheme
                               ? await ligtModeDatepicker(themeState, context)
                               : await darkModeDatepicker(context);
@@ -407,8 +406,14 @@ class _HoteltabState extends State<Hoteltab> {
                   height: 52,
                   child: commenButton(
                     title: "Search",
-                    callback: () {
+                    callback: () async {
                       if (_formKey.currentState!.validate()) {
+                        var store = await SharedPreferences.getInstance();
+                        store.setString("checkInDate", checkin.text);
+                        store.setString("checkOutDate", checkout.text);
+                        store.setInt("room", room1);
+                        store.setInt("adult", adults1);
+                        store.setInt("child", child1);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

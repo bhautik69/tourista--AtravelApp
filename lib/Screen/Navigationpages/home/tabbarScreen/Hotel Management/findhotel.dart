@@ -37,7 +37,6 @@ class show_hotel extends StatefulWidget {
 }
 
 class _show_hotelState extends State<show_hotel> {
-  
   addToFavorite(String hotelid) async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection("Hotel")
@@ -70,9 +69,9 @@ class _show_hotelState extends State<show_hotel> {
         "distFromAirport": document["distFromAirport"],
         "traveltimetoairport": document["traveltimetoairport"],
       });
-      
     }
   }
+
   removFavorite(String hotelid) async {
     CollectionReference collectionReference =
         FirebaseFirestore.instance.collection("Favoritehotel");
@@ -82,7 +81,6 @@ class _show_hotelState extends State<show_hotel> {
         .doc(hotelid)
         .delete();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -224,63 +222,66 @@ class _show_hotelState extends State<show_hotel> {
                                                           ["name"]),
                                                   Spacer(),
                                                   StreamBuilder(
-                                                          stream: FirebaseFirestore
+                                                      stream: FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              "Favoritehotel")
+                                                          .doc(FirebaseAuth
                                                               .instance
-                                                              .collection(
-                                                                  "Favoritehotel")
-                                                              .doc(FirebaseAuth
-                                                                  .instance
-                                                                  .currentUser!
-                                                                  .uid)
-                                                              .collection(
-                                                                  "hotels")
-                                                              .where("fid",
-                                                                  isEqualTo:
-                                                                      data[
-                                                                              index]
-                                                                          .id
-                                                                          )
-                                                              .snapshots(),
-                                                          builder: (context,
-                                                              AsyncSnapshot<
-                                                                      QuerySnapshot>
-                                                                  snapshot) {
-                                                            if (snapshot.data ==
-                                                                null) {
-                                                              return const Text(
-                                                                  "");
-                                                            }
-                                                            return InkWell(
-                                                                onTap: () {
-                                                                  snapshot.data!.docs
-                                                                              .length ==
-                                                                          0
-                                                                      ? addToFavorite(
-                                                                          data[index]
-                                                                              .id)
-                                                                      : removFavorite(
-                                                                          data[index]
-                                                                              .id);
-                                                                },
-                                                                child: Icon(
-                                                                  snapshot.data!.docs
-                                                                              .length ==
-                                                                          0
-                                                                      ? Icons
-                                                                          .favorite_outline
-                                                                      : Icons
-                                                                          .favorite,
-                                                                  color: snapshot
-                                                                              .data!
-                                                                              .docs
-                                                                              .length ==
-                                                                          0
-                                                                      ? color
-                                                                      : Colors
-                                                                          .red,
-                                                                ));
-                                                          })
-                                             ],
+                                                              .currentUser!
+                                                              .uid)
+                                                          .collection("hotels")
+                                                          .where("fid",
+                                                              isEqualTo:
+                                                                  data[index]
+                                                                      .id)
+                                                          .snapshots(),
+                                                      builder: (context,
+                                                          AsyncSnapshot<
+                                                                  QuerySnapshot>
+                                                              snapshot) {
+                                                        if (snapshot.data ==
+                                                            null) {
+                                                          return const Text("");
+                                                        }
+                                                        return InkWell(
+                                                            onTap: () {
+                                                              print(data[index]
+                                                                  .id);
+
+                                                              snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .length ==
+                                                                      0
+                                                                  ? addToFavorite(
+                                                                      data[index]
+                                                                          [
+                                                                          "id"])
+                                                                  : removFavorite(
+                                                                      data[index]
+                                                                          ["id"]);
+                                                            },
+                                                            child: Icon(
+                                                              snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .length ==
+                                                                      0
+                                                                  ? Icons
+                                                                      .favorite_outline
+                                                                  : Icons
+                                                                      .favorite,
+                                                              color: snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .length ==
+                                                                      0
+                                                                  ? color
+                                                                  : Colors.red,
+                                                            ));
+                                                      })
+                                                ],
                                               ),
                                             ),
                                             Row(

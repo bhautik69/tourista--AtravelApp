@@ -14,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../provider/dark_theme_provider.dart';
@@ -97,6 +98,7 @@ class _SavedState extends State<Saved> {
   void initState() {
     super.initState();
     initData();
+    getdata();
   }
 
   Future<void> initData() async {
@@ -106,6 +108,29 @@ class _SavedState extends State<Saved> {
 
   bool focus1 = true;
   bool focus2 = false;
+  int room = 1;
+  int adult = 1;
+  int child = 0;
+  String check_In = "";
+  String check_Out = "";
+
+  getdata() async {
+    var store = await SharedPreferences.getInstance();
+    var v1 = store.getString("checkInDate");
+    var v2 = store.getString("checkOutDate");
+    var v3 = store.getInt("room");
+    var v4 = store.getInt("adult");
+    var v5 = store.getInt("child");
+
+    setState(() {
+      check_In = v1!;
+      check_Out = v2!;
+      room = v3!;
+      adult = v4!;
+      child = v5!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
@@ -134,7 +159,7 @@ class _SavedState extends State<Saved> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     InkWell(
                       onTap: () {
@@ -144,8 +169,8 @@ class _SavedState extends State<Saved> {
                         });
                       },
                       child: Container(
-                        height: 38,
-                        width: 100,
+                        height: 40,
+                        width: 40.w,
                         decoration: BoxDecoration(
                             color: focus1
                                 ? Colors.blue.shade50
@@ -190,8 +215,8 @@ class _SavedState extends State<Saved> {
                         });
                       },
                       child: Container(
-                        height: 38,
-                        width: 100,
+                        height: 40,
+                        width: 40.w,
                         decoration: BoxDecoration(
                             color: focus2
                                 ? Colors.blue.shade50
@@ -228,6 +253,9 @@ class _SavedState extends State<Saved> {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 10,
               ),
               focus1
                   ? tripwishlist(mq, themeState, color)
@@ -642,11 +670,11 @@ class _SavedState extends State<Saved> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HotelDetails(
-                                        adults: 1,
-                                        check_In: "",
-                                        check_Out: "",
-                                        child: 1,
-                                        room: 1,
+                                        adults: adult,
+                                        check_In: check_In,
+                                        check_Out: check_Out,
+                                        child: child,
+                                        room: room,
                                         id: data[index].id,
                                         hotel: Hotel(
                                           name: data[index]["name"],
@@ -794,7 +822,7 @@ class _SavedState extends State<Saved> {
                                                             0.03 -
                                                         mq.size.width * 0.021),
                                                 child: Text(
-                                                  "1 Hotel rooms :1 bed",
+                                                  "$room Hotel rooms : $room bed",
                                                   style: TextStyle(
                                                       color: themeState
                                                               .getDarkTheme
