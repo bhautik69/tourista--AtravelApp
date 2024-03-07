@@ -1,6 +1,8 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, avoid_function_literals_in_foreach_calls, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, unused_local_variable
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_information.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -376,6 +378,13 @@ class _ChooseSeatState extends State<ChooseSeat> {
                           child: commenButton(
                               title: "SELECT",
                               callback: () {
+                                flighSeatBook.addAll(flighSeat);
+                                Map<String,dynamic> data={
+                                  "id":indexFlightDate,
+                                  "favourite":flighSeatBook
+                                };
+                                print("fata------------$data");
+                                FirebaseFirestore.instance.collection("flight").doc(indexFlightDate).set(data);
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return Userinfo();
@@ -464,9 +473,20 @@ class _ChooseSeatState extends State<ChooseSeat> {
             visible: dataSeat[index]["isVisible"],
             child: GestureDetector(
               onTap: () {
+                if(flighSeatBook.contains(count)){
+                  return;
+                }
+
+
+
                 setState(() {
                   dataSeat[index]["isSelected"] =
                       !dataSeat[index]["isSelected"];
+                  if(flighSeat.contains(count)){
+                    flighSeat.remove(count);
+                  }else{
+                    flighSeat.add(count);
+                  }
                 });
               },
               //show the seat info
@@ -475,22 +495,45 @@ class _ChooseSeatState extends State<ChooseSeat> {
                   width: 25,
                   height: 25,
                   decoration: BoxDecoration(
-                    color: dataSeat[index]["isBooked"]
+                    // color: dataSeat[index]["isBooked"]
+                    //     ? Color.fromARGB(255, 211, 209, 209)
+                    //     : dataSeat[index]["isSelected"]
+                    //         ? const Color.fromARGB(255, 198, 239, 199)
+                    //         : Color(0xff0078aa),
+                    // border: dataSeat[index]["isBooked"]
+                    //     ? Border.all(
+                    //         color: themeState.getDarkTheme
+                    //             ? Colors.white24
+                    //             : Colors.black26)
+                    //     : dataSeat[index]["isSelected"]
+                    //         ? Border.all(color: Colors.green)
+                    //         : Border.all(
+                    //             color: themeState.getDarkTheme
+                    //                 ? Colors.black
+                    //                 : Colors.white),
+
+                    color: flighSeatBook.contains(count)
                         ? Color.fromARGB(255, 211, 209, 209)
-                        : dataSeat[index]["isSelected"]
-                            ? const Color.fromARGB(255, 198, 239, 199)
-                            : Color(0xff0078aa),
-                    border: dataSeat[index]["isBooked"]
+                        : flighSeat.contains(count)
+                        ? const Color.fromARGB(255, 198, 239, 199)
+                        : Color(0xff0078aa),
+                    border: flighSeatBook.contains(count)
                         ? Border.all(
-                            color: themeState.getDarkTheme
-                                ? Colors.white24
-                                : Colors.black26)
-                        : dataSeat[index]["isSelected"]
-                            ? Border.all(color: Colors.green)
-                            : Border.all(
-                                color: themeState.getDarkTheme
-                                    ? Colors.black
-                                    : Colors.white),
+                        color: themeState.getDarkTheme
+                            ? Colors.white24
+                            : Colors.black26)
+                        : flighSeat.contains(count)
+                        ? Border.all(color: Colors.green)
+                        : Border.all(
+                        color: themeState.getDarkTheme
+                            ? Colors.black
+                            : Colors.white),
+
+
+
+
+
+
                     borderRadius: BorderRadius.circular(3),
                   ),
                   alignment: Alignment.center,

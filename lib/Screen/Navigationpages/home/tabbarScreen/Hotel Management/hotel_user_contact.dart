@@ -60,188 +60,190 @@ class _HotelUserContactState extends State<HotelUserContact> {
               height: mq.size.height * 0.028,
             ),
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: mq.size.height * 0.012,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 29,
-                          width: 29,
-                          child: Image.asset(
-                            "assets/img/contact.png",
-                            color: themeState.getDarkTheme
-                                ? Colors.white
-                                : Colors.black,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        // mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 29,
+                            width: 29,
+                            child: Image.asset(
+                              "assets/img/contact.png",
+                              color: themeState.getDarkTheme
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
                           ),
-                        ),
-                        SizedBox(
-                          width: mq.size.width * 0.036,
-                        ),
-                        Text(
-                          "Contact details",
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: mq.size.height * 0.03,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: mq.size.height * 0.012,
-                    ),
-                    child: const Text(
-                      "Contact email",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
-                    ),
-                  ),
-                  SizedBox(
-                    height: mq.size.height * 0.01,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: mq.size.height * 0.012,
-                    ),
-                    child: TextFormField(
-                      controller: email,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return '* Required';
-                        } else {
-                          if (validateStructureemail(value)) {
-                            return null;
-                          } else {
-                            return "Enter a valid Email";
-                          }
-                        }
-                      },
-                      decoration: InputDecoration(
-                          hintText: "Enter email address",
-                          hintStyle: TextStyle(
-                            color: themeState.getDarkTheme
-                                ? Colors.white54
-                                : Colors.black54,
+                          SizedBox(
+                            width: mq.size.width * 0.036,
                           ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 17, horizontal: 15),
-                          prefixIcon: Icon(Icons.mail_outline),
-                          border: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 1.5, color: Colors.black12),
-                              borderRadius: BorderRadius.circular(2)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide: BorderSide(
-                                  width: 1.5,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide: BorderSide(
-                                  width: 1.5,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54)),
-                          // errorStyle:
-                          //   const TextStyle(color: Color(0xffB00020)),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2),
-                            borderSide:
-                                const BorderSide(width: 1.5, color: Colors.red),
-                          )),
-                      onTap: () async {},
+                          Text(
+                            "Contact details",
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: mq.size.height * 0.03,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: mq.size.height * 0.012,
+                    SizedBox(
+                      height: mq.size.height * 0.03,
                     ),
-                    child: const Text(
-                      "Contact number",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w500, fontSize: 15),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: const Text(
+                        "Contact email",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: mq.size.height * 0.01,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: mq.size.height * 0.012,
+                    SizedBox(
+                      height: mq.size.height * 0.01,
                     ),
-                    child: TextFormField(
-                      controller: phone,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "* required";
-                        } else {
-                          if (value.length != 10) {
-                            return 'Invalid contact number';
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: TextFormField(
+                        controller: email,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return '* Required';
                           } else {
-                            if (!validateMobile(value)) {
-                              return 'Invalid contact number';
-                            } else {
+                            if (validateStructureemail(value)) {
                               return null;
+                            } else {
+                              return "Enter a valid Email";
                             }
                           }
-                        }
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          hintText: "Enter phone number",
-                          hintStyle: TextStyle(
-                            color: themeState.getDarkTheme
-                                ? Colors.white54
-                                : Colors.black54,
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                              vertical: 17, horizontal: 15),
-                          prefixIcon: Icon(Icons.phone_outlined),
-                          border: OutlineInputBorder(
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Enter email address",
+                            hintStyle: TextStyle(
+                              color: themeState.getDarkTheme
+                                  ? Colors.white54
+                                  : Colors.black54,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 15),
+                            prefixIcon: Icon(Icons.mail_outline),
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1.5, color: Colors.black12),
+                                borderRadius: BorderRadius.circular(2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            // errorStyle:
+                            //   const TextStyle(color: Color(0xffB00020)),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2),
                               borderSide: const BorderSide(
-                                  width: 1.5, color: Colors.black12),
-                              borderRadius: BorderRadius.circular(2)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide: BorderSide(
-                                  width: 1.5,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54)),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(2),
-                              borderSide: BorderSide(
-                                  width: 1.5,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54)),
-                          // errorStyle:
-                          //   const TextStyle(color: Color(0xffB00020)),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(2),
-                            borderSide:
-                                const BorderSide(width: 1.5, color: Colors.red),
-                          )),
-                      onTap: () async {},
+                                  width: 1.5, color: Colors.red),
+                            )),
+                        onTap: () async {},
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: mq.size.height * 0.03,
-                  ),
-                ],
+                    SizedBox(
+                      height: mq.size.height * 0.03,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: const Text(
+                        "Contact number",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 15),
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.01,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: mq.size.height * 0.012,
+                      ),
+                      child: TextFormField(
+                        controller: phone,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "* required";
+                          } else {
+                            if (value.length != 10) {
+                              return 'Invalid contact number';
+                            } else {
+                              if (!validateMobile(value)) {
+                                return 'Invalid contact number';
+                              } else {
+                                return null;
+                              }
+                            }
+                          }
+                        },
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                            hintText: "Enter phone number",
+                            hintStyle: TextStyle(
+                              color: themeState.getDarkTheme
+                                  ? Colors.white54
+                                  : Colors.black54,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 17, horizontal: 15),
+                            prefixIcon: Icon(Icons.phone_outlined),
+                            border: OutlineInputBorder(
+                                borderSide: const BorderSide(
+                                    width: 1.5, color: Colors.black12),
+                                borderRadius: BorderRadius.circular(2)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(2),
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white54
+                                        : Colors.black54)),
+                            // errorStyle:
+                            //   const TextStyle(color: Color(0xffB00020)),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2),
+                              borderSide: const BorderSide(
+                                  width: 1.5, color: Colors.red),
+                            )),
+                        onTap: () async {},
+                      ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.03,
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(

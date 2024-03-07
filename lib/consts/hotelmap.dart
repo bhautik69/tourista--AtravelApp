@@ -19,9 +19,11 @@ class Hotelmaps extends StatefulWidget {
   String? imges;
   String? latitude;
   String? longitude;
+  VoidCallback? viewdetailcallback;
   Hotelmaps(
       {super.key,
       this.add,
+      this.viewdetailcallback,
       this.imges,
       this.hotelname,
       this.latitude,
@@ -36,6 +38,7 @@ class _HotelmapsState extends State<Hotelmaps> {
   var img;
   var address;
   var latitude;
+  var viewdetailcallback1;
   var longitude;
   late CameraPosition _kGoogleplex;
   Set<Marker> markers = {};
@@ -70,6 +73,7 @@ class _HotelmapsState extends State<Hotelmaps> {
     address = widget.add;
     latitude = double.parse(widget.latitude!);
     longitude = double.parse(widget.longitude!);
+    viewdetailcallback1 = widget.viewdetailcallback;
     loadData();
 
     _kGoogleplex = CameraPosition(
@@ -194,7 +198,9 @@ class _HotelmapsState extends State<Hotelmaps> {
                             width: double.infinity,
                             child: commenButton(
                               title: "View Details",
-                              callback: () {},
+                              callback: () {
+                                viewdetailcallback1();
+                              },
                             ),
                           )
                         ],

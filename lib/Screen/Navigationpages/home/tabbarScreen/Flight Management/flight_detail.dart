@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/seat_booking.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -12,7 +14,28 @@ class FlightDetail extends StatefulWidget {
   State<FlightDetail> createState() => _FlightDetailState();
 }
 
+
+
 class _FlightDetailState extends State<FlightDetail> {
+   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  
+void getFirebaseData()async{
+  var data= await FirebaseFirestore.instance.collection("flight"). doc("$indexFlightDate").get();
+  if(data.exists){
+    flighSeatBook=data['favourite']  ;
+    print("data------$flighSeatBook");
+    print("data------$indexFlightDate");
+  }
+  print("data-----${data.exists}");
+  print("data------$flighSeatBook");
+  print("data------$indexFlightDate");
+
+}
+  
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
