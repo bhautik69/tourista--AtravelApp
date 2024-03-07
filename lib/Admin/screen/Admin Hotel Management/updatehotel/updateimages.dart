@@ -1,12 +1,13 @@
-
-// ignore_for_file: avoid_print
+import 'dart:io';
 
 import 'package:demo/widget/button.dart';
+import 'package:demo/widget/progresindicator.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sizer/sizer.dart';
 
 typedef Imgurl = Function(List img);
@@ -39,9 +40,9 @@ class _UpdateImagesState extends State<UpdateImages> {
                   widget.imgurlpass(widget.img);
                   Navigator.pop(context);
                 },
-                child: const Text(
+                child: Text(
                   "DONE",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
@@ -61,7 +62,7 @@ class _UpdateImagesState extends State<UpdateImages> {
         children: [
           Expanded(
             child: GridView.builder(
-              padding: const EdgeInsets.all(4),
+              padding: EdgeInsets.all(4),
               itemCount: widget.img.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),
@@ -102,10 +103,10 @@ class _UpdateImagesState extends State<UpdateImages> {
             ),
           ),
           Container(
-            decoration: const BoxDecoration(
-                color: Color(0xffffffff),
+            decoration: BoxDecoration(
+                color: const Color(0xffffffff),
                 boxShadow: [
-                  BoxShadow(offset: Offset(5, 5), color: Colors.black12)
+                  BoxShadow(offset: const Offset(5, 5), color: Colors.black12)
                 ]),
             height: mq.size.height * 0.1,
             child: Column(children: [
@@ -135,7 +136,6 @@ class _UpdateImagesState extends State<UpdateImages> {
   }
 
   pickimage() async {
-    // ignore: unnecessary_nullable_for_final_variable_declarations
     final List<XFile>? pickimage = await imagePicker.pickMultiImage();
 
     if (pickimage != null) {

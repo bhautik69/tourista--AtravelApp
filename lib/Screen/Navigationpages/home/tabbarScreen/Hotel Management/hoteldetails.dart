@@ -1,8 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/bottomsheetdescription.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hotel_user_info.dart';
 import 'package:demo/consts/hotelmap.dart';
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
+import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -636,6 +638,67 @@ class _HotelDetailsState extends State<HotelDetails> {
                         ],
                       ),
                     ))),
+            Container(
+              decoration: BoxDecoration(
+                  color: themeState.getDarkTheme
+                      ? const Color(0xff212121)
+                      : const Color(0xffffffff),
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(5, 5),
+                        color: themeState.getDarkTheme
+                            ? Colors.white12
+                            : Colors.black12)
+                  ]),
+              height: mq.size.height * 0.1,
+              child: Column(
+                children: [
+                  Container(
+                      width: mq.size.width,
+                      height: 3,
+                      color: themeState.getDarkTheme
+                          ? Colors.white12
+                          : Colors.black12),
+                  SizedBox(
+                    height: mq.size.height * 0.019,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Titletext(title: "₹ 120000"),
+                          SizedBox(
+                            height: mq.size.height * 0.01,
+                          ),
+                          Text("Per person",
+                              style: TextStyle(
+                                  fontSize: 13,
+                                  color: themeState.getDarkTheme
+                                      ? Colors.white54
+                                      : Colors.black54,
+                                  fontWeight: FontWeight.w400))
+                        ],
+                      ),
+                      const Spacer(),
+                      SizedBox(
+                          height: mq.size.height * 0.067,
+                          width: mq.size.width * 0.44,
+                          child: commenButton(
+                              title: "Next",
+                              callback: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HotelUserInfo(hotel: Hotel(name:widget.hotel.name, description: widget.hotel.description, facilities: widget.hotel.facilities, images: widget.hotel.images, price: widget.hotel.price, cityName: widget.hotel.cityName, disttocenter: widget.hotel.disttocenter, address: widget.hotel.address, latitude: widget.hotel.latitude, longitude: widget.hotel.longitude, checkinfrom: widget.hotel.checkinfrom, checkinUntil: widget.hotel.checkinUntil, checkoutUntil: widget.hotel.checkoutUntil, transeferFee: widget.hotel.transeferFee, distFromAirport: widget.hotel.distFromAirport, traveltimetoairport: widget.hotel.traveltimetoairport),),
+                                    ));
+                              }))
+                    ]),
+                  ),
+                ],
+              ),
+            )
           ],
         ),
       ),

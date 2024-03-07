@@ -32,7 +32,7 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 9),
+              padding: EdgeInsets.symmetric(horizontal: 9),
               child: Column(
                 children: [
                   Padding(
@@ -61,14 +61,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       //        color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    const Expanded(
+                                    Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              Titletext(
+                                              const Titletext(
                                                 title: "Add New Hotels",
                                                 size: 18.5,
                                               ),
@@ -109,14 +109,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       scale: 12,
                                       //          color: Color(0xff0078aa),
                                     ),
-                                    const Expanded(
+                                    Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              Titletext(
+                                              const Titletext(
                                                 title: "Update/Delete Hotels",
                                                 size: 18.5,
                                               ),
@@ -157,14 +157,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       // color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    const Expanded(
+                                    Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              Titletext(
+                                              const Titletext(
                                                 title: "View Booking",
                                                 size: 18.5,
                                               ),

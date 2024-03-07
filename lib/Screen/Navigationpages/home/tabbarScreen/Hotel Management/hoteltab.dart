@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, deprecated_member_u
+// ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
@@ -28,6 +28,7 @@ class _HoteltabState extends State<Hoteltab> {
   int adults1 = 1;
   int child1 = 0;
   int room1 = 1;
+  int total = 0;
   var destination = TextEditingController();
   var rac = TextEditingController();
   var checkin = TextEditingController();
@@ -367,6 +368,7 @@ class _HoteltabState extends State<Hoteltab> {
                                 room1 = rooms;
                                 adults1 = adults;
                                 child1 = children;
+                                total = adults + children;
                                 var child;
                                 children == 0
                                     ? child = " "
@@ -412,6 +414,7 @@ class _HoteltabState extends State<Hoteltab> {
                         store.setInt("room", room1);
                         store.setInt("adult", adults1);
                         store.setInt("child", child1);
+                        store.setInt("total", total);
                         Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -1,21 +1,22 @@
-import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
-typedef ContectDetails = Function(String email, String phone);
+import '../../../../../provider/dark_theme_provider.dart';
+
+typedef Contact = Function(String email, String phone);
 
 // ignore: must_be_immutable
-class Usercontact extends StatefulWidget {
-  ContectDetails contectDetails;
-  Usercontact({super.key, required this.contectDetails});
+class HotelUserContact extends StatefulWidget {
+  Contact contact;
+  HotelUserContact({super.key, required this.contact});
 
   @override
-  State<Usercontact> createState() => UsercontactState();
+  State<HotelUserContact> createState() => _HotelUserContactState();
 }
 
-class UsercontactState extends State<Usercontact> {
+class _HotelUserContactState extends State<HotelUserContact> {
   final _formKey = GlobalKey<FormState>();
   var email = TextEditingController();
   var phone = TextEditingController();
@@ -277,7 +278,7 @@ class UsercontactState extends State<Usercontact> {
                       title: "Done",
                       callback: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.contectDetails(email.text, phone.text);
+                          widget.contact(email.text, phone.text);
                           setState(() {});
                           Navigator.pop(context);
                         }

@@ -3,6 +3,7 @@ import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 typedef TotalRAC = Function(int rooms, int adults, int children);
 
@@ -24,6 +25,7 @@ class _roomGuestState extends State<roomGuest> {
   int roomCount = 1;
   int childCount = 0;
   int qunt = 1;
+  List<String> AgeList = [];
 
   // int ages = 1;
   Map<int, TextEditingController> _controllers = {};
@@ -39,6 +41,12 @@ class _roomGuestState extends State<roomGuest> {
       if (!_controllers.containsKey(i)) {
         _controllers[i] = TextEditingController();
       }
+    }
+  }
+
+  void getAgelist() {
+    for (int i = 0; i < childCount; i++) {
+      AgeList.add(_controllers[i]!.text.toString());
     }
   }
 
@@ -573,10 +581,15 @@ class _roomGuestState extends State<roomGuest> {
                         width: mq.size.width,
                         child: commenButton(
                           title: "APPLY",
-                          callback: () {
+                          callback: () async {
                             if (_formKey.currentState!.validate()) {
                               widget.totalRAC(
                                   roomCount, adultsCount, childCount);
+                              getAgelist();
+                              setState(() {});
+                              var store = await SharedPreferences.getInstance();
+                              store.setStringList("AgeList", AgeList);
+                              print(AgeList);
                               Navigator.pop(context);
                             }
                           },
