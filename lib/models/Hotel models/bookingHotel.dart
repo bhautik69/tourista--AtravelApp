@@ -22,6 +22,9 @@ class bookingHotel {
   String? traveltimetoairport;
   String? email;
   String? phoneno;
+  String? room;
+  String? adult;
+  String? children;
   List<Map<String, dynamic>>? adultList;
   List<Map<String, dynamic>>? childrenList;
   String? totalPrice;
@@ -44,6 +47,9 @@ class bookingHotel {
       required this.transeferFee,
       required this.distFromAirport,
       required this.traveltimetoairport,
+      required this.room,
+      required this.adult,
+      required this.children,
       required this.email,
       required this.phoneno,
       required this.adultList,
@@ -76,7 +82,10 @@ class bookingHotel {
       "phoneno": bookinghotel.phoneno,
       "adultList": bookinghotel.adultList,
       "childrenList": bookinghotel.childrenList,
-      "totalPrice": bookinghotel.totalPrice
+      "totalPrice": bookinghotel.totalPrice,
+      "room": bookinghotel.room,
+      "adult": bookinghotel.adult,
+      "children": bookinghotel.children
     };
 
     collectionReference
@@ -85,9 +94,10 @@ class bookingHotel {
         .doc(id)
         .set(data);
   }
-  
+
   static Future<void> deleteBookPackage(String id) async {
-    CollectionReference db = FirebaseFirestore.instance.collection('HotelBooking');
+    CollectionReference db =
+        FirebaseFirestore.instance.collection('HotelBooking');
     await db
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection("UserBooking")

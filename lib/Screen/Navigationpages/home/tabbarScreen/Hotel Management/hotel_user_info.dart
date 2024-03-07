@@ -4,13 +4,13 @@ import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
-import 'package:demo/widget/details.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class HotelUserInfo extends StatefulWidget {
   Hotel hotel;
   HotelUserInfo({super.key, required this.hotel});
@@ -24,10 +24,14 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
   int children = 0;
   int adult = 0;
   List<String> ages = [];
+  List<Map<String, dynamic>> childList = [];
+  List<Map<String, dynamic>> adultList1 = [];
+
   bool v1 = false;
   bool v2 = false;
   bool v3 = false;
   bool v4 = false;
+  int totalprice = 0;
   @override
   void initState() {
     getravellerno();
@@ -35,6 +39,9 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
     _initializeControllers1();
     _initializeControllers2();
     _initializeControllers3();
+    _initializeControllers4();
+    _initializeControllers5();
+
     super.initState();
   }
 
@@ -47,8 +54,26 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
     }
   }
 
-  Map<int, String> dob = {};
+  Map<int, String> firstName = {};
   void _initializeControllers1() {
+    for (int i = 0; i < total; i++) {
+      if (!firstName.containsKey(i)) {
+        firstName[i];
+      }
+    }
+  }
+
+  Map<int, String> lastName = {};
+  void _initializeControllers4() {
+    for (int i = 0; i < total; i++) {
+      if (!lastName.containsKey(i)) {
+        lastName[i];
+      }
+    }
+  }
+
+  Map<int, String> dob = {};
+  void _initializeControllers5() {
     for (int i = 0; i < total; i++) {
       if (!dob.containsKey(i)) {
         dob[i];
@@ -111,9 +136,11 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => HotelUserDetail(
-                                  store: (gender, Dob) {
+                                  store: (gender, Dob, firstname, lastname) {
                                     gender1[index] = gender;
                                     dob[index] = Dob;
+                                    firstName[index] = firstname;
+                                    lastName[index] = lastname;
                                     for (int i = 0; i <= total; i++) {
                                       gender1[i] == null || gender1[i] == " "
                                           ? visible1[i] = true
@@ -393,6 +420,8 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                           child: commenButton(
                               title: "Next",
                               callback: () {
+                                totalprice =
+                                    int.parse(widget.hotel.price!) * total;
                                 v3 = true;
                                 setState(() {});
                                 for (int i = 0; i <= total; i++) {
@@ -411,10 +440,18 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                                   if (v4 == true &&
                                       v3 == true &&
                                       visible2[i] == true) {
+                                    addAdult();
+                                    addChildren();
+                                    setState(() {});
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => Confirmation(
+                                              adultList: adultList1,
+                                              childList: childList,
+                                              totalPrice: totalprice.toString(),
+                                              email: emailadd,
+                                              phone: phonenum,
                                               hotel: Hotel(
                                                   name: widget.hotel.name,
                                                   description:
@@ -470,5 +507,34 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
     children = getc ?? 0;
     adult = geta ?? 0;
     setState(() {});
+  }
+
+  addAdult() {
+    for (int i = 0; i < adult; i++) {
+      if (adultList1.length < adult) {
+        adultList1.add({
+          "firstName": firstName[i],
+          "lastName": lastName[i],
+          "gender": gender1[i]
+        });
+      }
+    }
+    print(adultList1);
+  }
+
+  addChildren() {
+    for (int i = 0; i < total - adult; i++) {
+      print(childList.length);
+      if (childList.length < total - adult) {
+        print(firstName[i]);
+        childList.add({
+          "firstName": firstName[i + adult],
+          "lastName": lastName[i + adult],
+          "gender": gender1[i + adult],
+          "dob": dob[i + adult]
+        });
+      }
+    }
+    print(childList);
   }
 }

@@ -1,4 +1,3 @@
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
@@ -6,6 +5,8 @@ import 'package:provider/provider.dart';
 
 import '../../../../../provider/dark_theme_provider.dart';
 import '../../../../../widget/button.dart';
+
+typedef dataStore = Function(String gender, String Dob, String firstName, String lastName);
 
 // ignore: must_be_immutable
 class HotelUserDetail extends StatefulWidget {
@@ -473,7 +474,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                       title: "Done",
                       callback: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.store(gender, date.text);
+                          widget.store(gender, date.text,f_name.text,l_name.text);
                           setState(() {});
                           Navigator.pop(context);
                         }

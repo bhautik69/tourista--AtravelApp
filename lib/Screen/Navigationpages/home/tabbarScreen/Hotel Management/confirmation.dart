@@ -1,3 +1,4 @@
+import 'package:demo/models/Hotel%20models/bookingHotel.dart';
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -11,7 +12,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: must_be_immutable
 class Confirmation extends StatefulWidget {
   Hotel hotel;
-  Confirmation({super.key, required this.hotel});
+  String email;
+  String phone;
+  String totalPrice;
+  List<Map<String, dynamic>> adultList;
+  List<Map<String, dynamic>> childList;
+
+  Confirmation(
+      {super.key,
+      required this.totalPrice,
+      required this.hotel,
+      required this.email,
+      required this.phone,
+      required this.adultList,
+      required this.childList});
 
   @override
   State<Confirmation> createState() => _ConfirmationState();
@@ -23,7 +37,7 @@ class _ConfirmationState extends State<Confirmation> {
   int child = 0;
   String check_In = "";
   String check_Out = "";
-
+  bool isloading = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -323,8 +337,11 @@ class _ConfirmationState extends State<Confirmation> {
                             height: mq.size.height * 0.067,
                             width: mq.size.width * 0.44,
                             child: commenButton(
+                              loading: isloading,
                               title: "Done",
-                              callback: () {},
+                              callback: () {
+                                save();
+                              },
                             ),
                           )
                         ],
@@ -354,6 +371,51 @@ class _ConfirmationState extends State<Confirmation> {
       room = v3!;
       adult = v4!;
       child = v5!;
+    });
+  }
+
+  save() async {
+    setState(() {
+      isloading = true;
+    });
+
+    await bookingHotel
+        .addBookingHotels(
+      bookingHotel(
+          name: widget.hotel.name,
+          id: widget.hotel.id,
+          description: widget.hotel.description,
+          facilities: widget.hotel.facilities,
+          images: widget.hotel.images,
+          personPrice: widget.hotel.price,
+          cityName: widget.hotel.cityName,
+          disttocenter: widget.hotel.disttocenter,
+          address: widget.hotel.address,
+          latitude: widget.hotel.latitude,
+          longitude: widget.hotel.longitude,
+          checkinfrom: widget.hotel.checkinfrom,
+          checkinUntil: widget.hotel.checkinUntil,
+          checkoutUntil: widget.hotel.checkoutUntil,
+          transeferFee: widget.hotel.transeferFee,
+          distFromAirport: widget.hotel.distFromAirport,
+          traveltimetoairport: widget.hotel.traveltimetoairport,
+          email: widget.email,
+          phoneno: widget.phone,
+          adultList: widget.adultList,
+          childrenList: widget.childList,
+          totalPrice: widget.totalPrice,
+          room: room.toString(),
+          adult: adult.toString(),
+          children: child.toString()),
+      widget.hotel.id,
+    )
+        .whenComplete(() {
+      setState(() {
+        isloading = false;
+
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("ADDED SUCCESSFULLY")));
+      });
     });
   }
 }
