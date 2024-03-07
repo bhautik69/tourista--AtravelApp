@@ -1,6 +1,4 @@
-// ignore_for_file: use_build_context_synchronously, deprecated_member_use
-
-import 'dart:ffi';
+// ignore_for_file: use_build_context_synchronously, deprecated_member_u
 
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
