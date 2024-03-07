@@ -1,7 +1,5 @@
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/addhotels.dart';
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updatehotels.dart';
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/addpackage.dart';
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/updatepackage.dart';
 import 'package:demo/Admin/screen/Admin%20Trip%20Management/viewbooking.dart';
 import 'package:demo/widget/textwidget.dart';
 
@@ -19,7 +17,6 @@ class AdminHotelManagement extends StatefulWidget {
 class _AdminHotelManagementState extends State<AdminHotelManagement> {
   @override
   Widget build(BuildContext context) {
-    var mq = MediaQuery.of(context);
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(

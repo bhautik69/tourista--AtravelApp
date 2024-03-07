@@ -1,9 +1,7 @@
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/bootomseet.dart';
-import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/imagesshow.dart';
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updateimages.dart';
 
 import 'package:demo/models/Hotel%20models/hotelAdd.dart';
-import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 
@@ -13,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+// ignore: must_be_immutable
 class UpdateComplateHotel extends StatefulWidget {
   String? id;
   Hotel? hotel;
