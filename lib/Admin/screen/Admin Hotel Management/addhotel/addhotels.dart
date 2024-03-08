@@ -84,6 +84,7 @@ class _AddHotelState extends State<AddHotel> {
         title: const Text(
           "Add New Hotels",
         ),
+        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -557,17 +558,20 @@ class _AddHotelState extends State<AddHotel> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                    height: 52,
-                    width: MediaQuery.of(context).size.width,
-                    child: commenButton(
-                        title: "Add",
-                        loading: isloading,
-                        callback: () {
-                          if (_formKey.currentState!.validate()) {
-                            save();
-                          }
-                        })),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: SizedBox(
+                      height: 52,
+                      width: MediaQuery.of(context).size.width,
+                      child: commenButton(
+                          title: "Add",
+                          loading: isloading,
+                          callback: () {
+                            if (_formKey.currentState!.validate()) {
+                              save();
+                            }
+                          })),
+                ),
                 const SizedBox(
                   height: 25,
                 )

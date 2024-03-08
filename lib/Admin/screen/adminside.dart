@@ -27,7 +27,7 @@ class _AdminsideState extends State<Adminside> {
       backgroundColor: const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
         centerTitle: true,
-        title: const Text("Tourista"),
+        title: const Text("Dashboard"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -36,20 +36,8 @@ class _AdminsideState extends State<Adminside> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Titletext(
-                      title: "Dashboard",
-                      size: 22,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: mq.size.height * 0.017,
+                const SizedBox(
+                  height: 3,
                 ),
                 GestureDetector(
                   onTap: () {
@@ -143,23 +131,40 @@ class _AdminsideState extends State<Adminside> {
                                   "assets/img/checkin.png",
                                   scale: 12,
                                 ),
-                                const Expanded(
+                                Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Column(
                                         children: [
-                                          Titletext(
+                                          const Titletext(
                                             title: "Hotels Management ",
                                             size: 18.5,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          Titletext(
-                                            title: "20",
-                                            size: 16,
-                                          )
+                                          StreamBuilder(
+                                              stream: FirebaseFirestore.instance
+                                                  .collection('Hotel')
+                                                  .snapshots(),
+                                              builder: (context,
+                                                  AsyncSnapshot<QuerySnapshot>
+                                                      snapshot) {
+                                                if (snapshot.hasData) {
+                                                  return Titletext(
+                                                    title: snapshot
+                                                        .data!.docs.length
+                                                        .toString(),
+                                                    size: 16,
+                                                  );
+                                                } else {
+                                                  return const Titletext(
+                                                    title: "00",
+                                                    size: 16,
+                                                  );
+                                                }
+                                              })
                                         ],
                                       ),
                                     ],

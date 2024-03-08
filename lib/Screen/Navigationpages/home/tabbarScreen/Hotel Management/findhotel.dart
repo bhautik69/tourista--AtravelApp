@@ -102,7 +102,7 @@ class _show_hotelState extends State<show_hotel> {
           stream: FirebaseFirestore.instance.collection("Hotel").snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   color: Color(0xff0078aa),
                 ),
@@ -111,7 +111,7 @@ class _show_hotelState extends State<show_hotel> {
             if (!snapshot.hasData ||
                 snapshot.data == null ||
                 snapshot.data!.docs.isEmpty) {
-              return Center(
+              return const Center(
                 child: Text(
                   "NO DATA FOUND!",
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
@@ -220,7 +220,7 @@ class _show_hotelState extends State<show_hotel> {
                                                   Titletext(
                                                       title: data[index]
                                                           ["name"]),
-                                                  Spacer(),
+                                                  const Spacer(),
                                                   StreamBuilder(
                                                       stream: FirebaseFirestore
                                                           .instance
@@ -260,7 +260,8 @@ class _show_hotelState extends State<show_hotel> {
                                                                           "id"])
                                                                   : removFavorite(
                                                                       data[index]
-                                                                          ["id"]);
+                                                                          [
+                                                                          "id"]);
                                                             },
                                                             child: Icon(
                                                               snapshot
@@ -312,7 +313,7 @@ class _show_hotelState extends State<show_hotel> {
                                             ),
                                             Row(
                                               children: [
-                                                Spacer(),
+                                                const Spacer(),
                                                 Padding(
                                                   padding: EdgeInsets.only(
                                                       top: mq.size.width *
@@ -363,7 +364,7 @@ class _show_hotelState extends State<show_hotel> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500)),
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 2,
                                                       ),
                                                       Text(

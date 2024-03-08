@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
+// ignore: camel_case_types
 class bookingHotel {
   String? id;
   String? name;
@@ -28,6 +28,10 @@ class bookingHotel {
   List<Map<String, dynamic>>? adultList;
   List<Map<String, dynamic>>? childrenList;
   String? totalPrice;
+  // ignore: non_constant_identifier_names
+  String? check_out;
+  // ignore: non_constant_identifier_names
+  String? check_in;
 
   bookingHotel(
       {this.id,
@@ -54,7 +58,11 @@ class bookingHotel {
       required this.phoneno,
       required this.adultList,
       required this.childrenList,
-      required this.totalPrice});
+      required this.totalPrice,
+      // ignore: non_constant_identifier_names
+      required this.check_out,
+      // ignore: non_constant_identifier_names
+      required this.check_in});
 
   static Future<void> addBookingHotels(bookingHotel bookinghotel, id) async {
     CollectionReference collectionReference =
@@ -85,7 +93,9 @@ class bookingHotel {
       "totalPrice": bookinghotel.totalPrice,
       "room": bookinghotel.room,
       "adult": bookinghotel.adult,
-      "children": bookinghotel.children
+      "children": bookinghotel.children,
+      "check_out" : bookinghotel.check_out,
+      "check_in" : bookinghotel.check_in
     };
 
     collectionReference
@@ -95,7 +105,7 @@ class bookingHotel {
         .set(data);
   }
 
-  static Future<void> deleteBookPackage(String id) async {
+  static Future<void> deleteHotelBooking(String id) async {
     CollectionReference db =
         FirebaseFirestore.instance.collection('HotelBooking');
     await db

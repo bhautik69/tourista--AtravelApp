@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print
 
+import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:upi_india/upi_india.dart';
@@ -159,8 +160,12 @@ class _UoiIndiaState extends State<UoiIndia> {
           ),
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Mainpage(),
+                    ),
+                    (route) => false);
               },
               icon: const Icon(IconlyLight.arrow_left_2, color: Colors.white))),
       body: Column(

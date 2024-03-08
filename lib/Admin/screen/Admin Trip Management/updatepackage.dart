@@ -5,10 +5,10 @@ import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:lottie/lottie.dart';
 
 class UpdatePackage extends StatefulWidget {
   const UpdatePackage({super.key});
-  
 
   @override
   State<UpdatePackage> createState() => _UpdatePackageState();
@@ -46,7 +46,8 @@ class _UpdatePackageState extends State<UpdatePackage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Update/Delete Packages"),
+        title: const Text("Update/Delete Trip"),
+        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -92,18 +93,23 @@ class _UpdatePackageState extends State<UpdatePackage> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
-                            child: Column(
-                          children: [
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.382,
-                            ),
-                            const CircularProgressIndicator(
-                              color: Color(0xff0078aa),
-                            ),
-                          ],
-                        ));
+                        return const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(
+                                  color: Color(0xff0078aa), strokeWidth: 5),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Please wait!!",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              )
+                            ],
+                          ),
+                        );
                       }
                       if (snapshot.data!.docs.isEmpty) {
                         return const Center(
@@ -127,11 +133,16 @@ class _UpdatePackageState extends State<UpdatePackage> {
                             traveligTo.contains(searchQuery);
                       }).toList();
                       if (data.isEmpty) {
-                        return const Center(
-                          child: Text(
-                            "PACKAGE NOT FOUND!",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 22),
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Lottie.asset("assets/img/no_data_found.json"),
+                              const Text(
+                                "NO TRIP FOUND!",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 22),
+                              ),
+                            ],
                           ),
                         );
                       }

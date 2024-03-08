@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 
 import 'package:iconly/iconly.dart';
+import 'package:lottie/lottie.dart';
 
 class UpdateHotels extends StatefulWidget {
   const UpdateHotels({super.key});
@@ -28,10 +29,12 @@ class _UpdateHotelsState extends State<UpdateHotels> {
     setState(() {});
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Update/Delete Hotels"),
+        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -77,18 +80,23 @@ class _UpdateHotelsState extends State<UpdateHotels> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
-                        return Center(
-                            child: Column(
-                          children: [
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.382,
-                            ),
-                            const CircularProgressIndicator(
-                              color: Color(0xff0078aa),
-                            ),
-                          ],
-                        ));
+                        return const Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(
+                                  color: Color(0xff0078aa), strokeWidth: 5),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Please wait!!",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
+                              )
+                            ],
+                          ),
+                        );
                       }
                       if (snapshot.data!.docs.isEmpty) {
                         return const Center(
@@ -111,11 +119,16 @@ class _UpdateHotelsState extends State<UpdateHotels> {
                             city.contains(searchQuery);
                       }).toList();
                       if (data.isEmpty) {
-                        return const Center(
-                          child: Text(
-                            "HOTEL NOT FOUND!",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 22),
+                        return SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Lottie.asset("assets/img/no_data_found.json"),
+                              const Text(
+                                "NO HOTEL FOUND!",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 22),
+                              ),
+                            ],
                           ),
                         );
                       }
@@ -157,41 +170,38 @@ class _UpdateHotelsState extends State<UpdateHotels> {
                                             Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      UpdateComplateHotel(
-                                                          id: data[index].id,
-                                                          hotel: Hotel(
-                                                            facilities: data[index]["facilities"],
-                                                              name: data[index]
-                                                                  ["name"],
-                                                              description:
-                                                                  data[index]["description"],
-                                                              images:
-                                                                  data[index]["images"],
-                                                              price:
-                                                                  data[index]["price"],
-                                                              cityName:
-                                                                  data[index]["cityName"],
-                                                              disttocenter:
-                                                                  data[index]["disttocenter"],
-                                                              address:
-                                                                  data[index]["address"],
-                                                              latitude:
-                                                                  data[index]["latitude"],
-                                                              longitude:
-                                                                  data[index]["longitude"],
-                                                              checkinfrom:
-                                                                  data[index]["checkinfrom"],
-                                                              checkinUntil:
-                                                                  data[index]["checkinUntil"],
-                                                              checkoutUntil:
-                                                                  data[index]["checkoutUntil"],
-                                                              transeferFee:
-                                                                  data[index]["transeferFee"],
-                                                              distFromAirport:
-                                                                  data[index]["distFromAirport"],
-                                                              traveltimetoairport:
-                                                                  data[index]["traveltimetoairport"])),
+                                                  builder: (context) => UpdateComplateHotel(
+                                                      id: data[index].id,
+                                                      hotel: Hotel(
+                                                          facilities: data[index]
+                                                              ["facilities"],
+                                                          name: data[index]
+                                                              ["name"],
+                                                          description: data[index]
+                                                              ["description"],
+                                                          images: data[index]
+                                                              ["images"],
+                                                          price: data[index]
+                                                              ["price"],
+                                                          cityName: data[index]
+                                                              ["cityName"],
+                                                          disttocenter: data[index]
+                                                              ["disttocenter"],
+                                                          address: data[index]
+                                                              ["address"],
+                                                          latitude: data[index]
+                                                              ["latitude"],
+                                                          longitude: data[index]
+                                                              ["longitude"],
+                                                          checkinfrom: data[index]
+                                                              ["checkinfrom"],
+                                                          checkinUntil: data[index]
+                                                              ["checkinUntil"],
+                                                          checkoutUntil: data[index]
+                                                              ["checkoutUntil"],
+                                                          transeferFee: data[index]["transeferFee"],
+                                                          distFromAirport: data[index]["distFromAirport"],
+                                                          traveltimetoairport: data[index]["traveltimetoairport"])),
                                                 ));
                                           },
                                           icon: const Icon(Icons.edit),
@@ -255,7 +265,7 @@ class _UpdateHotelsState extends State<UpdateHotels> {
                                   ),
                                 ),
                               ),
-                              Divider(
+                              const Divider(
                                 thickness: 1.5,
                               )
                             ],

@@ -32,9 +32,9 @@ class _ImagesState extends State<Images> {
                 onPressed: () {
                   uploadImages();
                 },
-                child: Text(
+                child: const Text(
                   "DONE",
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500),
@@ -51,7 +51,7 @@ class _ImagesState extends State<Images> {
             icon: const Icon(IconlyLight.arrow_left_2)),
       ),
       body: GridView.builder(
-        padding: EdgeInsets.all(4),
+        padding: const EdgeInsets.all(4),
         itemCount: widget.img.length,
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

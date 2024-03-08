@@ -62,7 +62,8 @@ class _AddPackageState extends State<AddPackage> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-        title: const Text("Add Trip Packages"),
+        title: const Text("Add New Trip"),
+        centerTitle: true,
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
@@ -146,7 +147,7 @@ class _AddPackageState extends State<AddPackage> {
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
                                   data: ThemeData().copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                     primary: Color(0xff0078aa),
                                     onPrimary: Colors.white,
                                     onSurface: Colors.black,
@@ -194,7 +195,7 @@ class _AddPackageState extends State<AddPackage> {
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
                                   data: ThemeData().copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                     primary: Color(0xff0078aa),
                                     onPrimary: Colors.white,
                                     onSurface: Colors.black,
@@ -1046,18 +1047,21 @@ class _AddPackageState extends State<AddPackage> {
               const SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                  height: 52,
-                  width: MediaQuery.of(context).size.width,
-                  child: commenButton(
-                      title: "ADD",
-                      loading: isloading,
-                      callback: () {
-                        if (_formKey.currentState!.validate()) {
-                          addActivity();
-                          save();
-                        }
-                      })),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: SizedBox(
+                    height: 52,
+                    width: MediaQuery.of(context).size.width,
+                    child: commenButton(
+                        title: "ADD",
+                        loading: isloading,
+                        callback: () {
+                          if (_formKey.currentState!.validate()) {
+                            addActivity();
+                            save();
+                          }
+                        })),
+              ),
               const SizedBox(
                 height: 25,
               )

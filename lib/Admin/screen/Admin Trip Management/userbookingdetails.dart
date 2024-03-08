@@ -29,6 +29,7 @@ class UserBookingDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: const Text("Travellers Details"),
+          centerTitle: true,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -74,7 +75,7 @@ class UserBookingDetails extends StatelessWidget {
                                   height: mq.size.height * 0.035,
                                 ),
                                 Text(
-                                  "NAME           :     $name",
+                                  "Name        :   $name",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -83,7 +84,7 @@ class UserBookingDetails extends StatelessWidget {
                                   height: mq.size.height * 0.028,
                                 ),
                                 Text(
-                                  "EMAIL           :     $email",
+                                  "Email    :  $email",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -92,7 +93,7 @@ class UserBookingDetails extends StatelessWidget {
                                   height: mq.size.height * 0.028,
                                 ),
                                 Text(
-                                  "PHONE          :     $phone",
+                                  "Phone        :   $phone",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -101,7 +102,7 @@ class UserBookingDetails extends StatelessWidget {
                                   height: mq.size.height * 0.028,
                                 ),
                                 Text(
-                                  "ADDRESS     :     $add",
+                                  "Assress     :   $add",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -110,7 +111,7 @@ class UserBookingDetails extends StatelessWidget {
                                   height: mq.size.height * 0.028,
                                 ),
                                 Text(
-                                  "CITY              :     $city",
+                                  "City            :   $city",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -119,7 +120,7 @@ class UserBookingDetails extends StatelessWidget {
                                   height: mq.size.height * 0.028,
                                 ),
                                 Text(
-                                  "STATE           :     $state",
+                                  "State          :   $state",
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 14),
@@ -160,7 +161,7 @@ class UserBookingDetails extends StatelessWidget {
                                     SizedBox(
                                       height: mq.size.height * 0.035,
                                     ),
-                                    Text("Traveller ${index + 1} : ",
+                                    Text("Traveller  ${index + 1}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16)),
@@ -171,9 +172,7 @@ class UserBookingDetails extends StatelessWidget {
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
                                         // ignore: prefer_interpolation_to_compose_strings
-                                        "NAME           :     " +
-                                            travelerlist[index]
-                                                ["travellerName"],
+                                        "Name      :   ${travelerlist[index]["travellerName"]}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14),
@@ -186,8 +185,7 @@ class UserBookingDetails extends StatelessWidget {
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
                                         // ignore: prefer_interpolation_to_compose_strings
-                                        "DOB              :     " +
-                                            travelerlist[index]["travellerDob"],
+                                        "DOB         :   ${travelerlist[index]["travellerDob"]}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14),
@@ -200,8 +198,7 @@ class UserBookingDetails extends StatelessWidget {
                                       padding: const EdgeInsets.only(left: 10),
                                       child: Text(
                                         // ignore: prefer_interpolation_to_compose_strings
-                                        "GENDER       :     " +
-                                            travelerlist[index]["gender"],
+                                        "Gender    :   ${travelerlist[index]["gender"]}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 14),

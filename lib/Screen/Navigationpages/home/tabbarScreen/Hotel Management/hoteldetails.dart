@@ -1,12 +1,16 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/bottomsheetdescription.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hotel_user_info.dart';
+import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/consts/hotelmap.dart';
+import 'package:demo/models/Hotel%20models/bookingHotel.dart';
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -33,7 +37,9 @@ class HotelDetails extends StatefulWidget {
       required this.id,
       required this.adults,
       required this.room,
+      // ignore: non_constant_identifier_names
       required this.check_In,
+      // ignore: non_constant_identifier_names
       required this.check_Out,
       required this.child});
 
@@ -181,13 +187,16 @@ class _HotelDetailsState extends State<HotelDetails> {
                                                         SizedBox(
                                                           height:
                                                               mq.size.height *
-                                                                  0.015,
+                                                                  0.01,
                                                         ),
                                                         Text(
                                                           facilities[index]
                                                               ["name"],
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                               fontSize: 11,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500),
@@ -234,7 +243,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Titletext(
+                                          const Titletext(
                                             title: "Check-in",
                                             size: 15,
                                           ),
@@ -250,7 +259,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Titletext(
+                                          const Titletext(
                                             title: "Check-out",
                                             size: 15,
                                           ),
@@ -267,16 +276,13 @@ class _HotelDetailsState extends State<HotelDetails> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Titletext(
+                                      const Titletext(
                                         title: "Rooms and guests",
                                         size: 15,
                                       ),
                                       Text(
-                                        "${widget.room} rooms . ${widget.adults} adults " +
-                                            (widget.child == 0
-                                                ? " "
-                                                : ". ${widget.child} children"),
-                                        style: TextStyle(
+                                        "${widget.room} rooms . ${widget.adults} adults ${widget.child == 0 ? " " : ". ${widget.child} children"}",
+                                        style: const TextStyle(
                                             //    color: Color(0xff0078aa),
                                             //  fontWeight: FontWeight.bold
                                             ),
@@ -668,7 +674,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Titletext(title: "₹ 120000"),
+                          const Titletext(title: "₹ 120000"),
                           SizedBox(
                             height: mq.size.height * 0.01,
                           ),
@@ -684,15 +690,69 @@ class _HotelDetailsState extends State<HotelDetails> {
                       const Spacer(),
                       SizedBox(
                           height: mq.size.height * 0.067,
-                          width: mq.size.width * 0.44,
-                          child: commenButton(
-                              title: "Next",
-                              callback: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => HotelUserInfo(hotel: Hotel(name:widget.hotel.name, description: widget.hotel.description, facilities: widget.hotel.facilities, images: widget.hotel.images, price: widget.hotel.price, cityName: widget.hotel.cityName, disttocenter: widget.hotel.disttocenter, address: widget.hotel.address, latitude: widget.hotel.latitude, longitude: widget.hotel.longitude, checkinfrom: widget.hotel.checkinfrom, checkinUntil: widget.hotel.checkinUntil, checkoutUntil: widget.hotel.checkoutUntil, transeferFee: widget.hotel.transeferFee, distFromAirport: widget.hotel.distFromAirport, traveltimetoairport: widget.hotel.traveltimetoairport),),
-                                    ));
+                          // width: mq.size.width * 0.44,
+                          child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection("HotelBooking")
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .collection("UserBooking")
+                                  .where("id", isEqualTo: widget.id)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.data == null) {
+                                  return const Text("");
+                                }
+                                return commenButton(
+                                    title: snapshot.data!.docs.isEmpty
+                                        ? "Next"
+                                        : "CENCEL BOOKING",
+                                    callback: () {
+                                      snapshot.data!.docs.isEmpty
+                                          ? booking(context)
+                                          : showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                    title: const Text(
+                                                      "Cancel Booking",
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                    content: const Text(
+                                                        style: TextStyle(
+                                                            fontSize: 15),
+                                                        "Are you sure you want do cancel trip ?"),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              "CANCEL")),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              themeState
+                                                                      .setDarkTheme =
+                                                                  false;
+                                                            });
+                                                            cancelBook(
+                                                                widget.id);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              "PROCEED")),
+                                                    ],
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            top: 20,
+                                                            left: 25,
+                                                            right: 25));
+                                              },
+                                            );
+                                    });
                               }))
                     ]),
                   ),
@@ -703,5 +763,45 @@ class _HotelDetailsState extends State<HotelDetails> {
         ),
       ),
     );
+  }
+
+  void booking(BuildContext context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HotelUserInfo(
+            id: widget.id,
+            hotel: Hotel(
+                name: widget.hotel.name,
+                description: widget.hotel.description,
+                facilities: widget.hotel.facilities,
+                images: widget.hotel.images,
+                price: widget.hotel.price,
+                cityName: widget.hotel.cityName,
+                disttocenter: widget.hotel.disttocenter,
+                address: widget.hotel.address,
+                latitude: widget.hotel.latitude,
+                longitude: widget.hotel.longitude,
+                checkinfrom: widget.hotel.checkinfrom,
+                checkinUntil: widget.hotel.checkinUntil,
+                checkoutUntil: widget.hotel.checkoutUntil,
+                transeferFee: widget.hotel.transeferFee,
+                distFromAirport: widget.hotel.distFromAirport,
+                traveltimetoairport: widget.hotel.traveltimetoairport),
+          ),
+        ));
+  }
+
+  void cancelBook(String id) async {
+    await bookingHotel.deleteHotelBooking(id);
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Mainpage(),
+        ));
   }
 }

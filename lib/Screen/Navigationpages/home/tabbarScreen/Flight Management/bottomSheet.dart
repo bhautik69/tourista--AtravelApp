@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/childAgeSheet.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -26,7 +28,6 @@ class _bottomSheetState extends State<bottomSheet> {
   int qunt = 1;
   List<String> childAge = [];
 
-  // int ages = 1;
   Map<int, TextEditingController> _controllers = {};
 
   void initState() {
@@ -65,7 +66,7 @@ class _bottomSheetState extends State<bottomSheet> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: themeState.getDarkTheme
-            ? Color(0xff121212)
+            ? const Color(0xff121212)
             : const Color(0xFFffffff),
         body: Form(
           key: _formKey,
@@ -170,7 +171,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                               IncrementAndDecrement(
                                                   color: quantity == 1
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     if (quantity > 1) {
                                                       setState(() {
@@ -185,10 +186,10 @@ class _bottomSheetState extends State<bottomSheet> {
                                                     fontSize: 18),
                                               ),
                                               IncrementAndDecrement(
-                                                  color:
-                                                      quantity1 + quantity == 9
-                                                          ? color1
-                                                          : Color(0xff0078aa),
+                                                  color: quantity1 + quantity ==
+                                                          9
+                                                      ? color1
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     setState(() {
                                                       if (quantity1 + quantity <
@@ -238,7 +239,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                               IncrementAndDecrement(
                                                   color: quantity1 == 0
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     if (quantity1 > 0) {
                                                       setState(() {
@@ -259,7 +260,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                               IncrementAndDecrement(
                                                 color: quantity1 + quantity == 9
                                                     ? color1
-                                                    : Color(0xff0078aa),
+                                                    : const Color(0xff0078aa),
                                                 onPressed: () {
                                                   setState(() {
                                                     if (quantity1 + quantity <

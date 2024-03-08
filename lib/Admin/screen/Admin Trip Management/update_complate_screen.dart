@@ -208,7 +208,7 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
                                   data: ThemeData().copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                     primary: Color(0xff0078aa),
                                     onPrimary: Colors.white,
                                     onSurface: Colors.black,
@@ -256,7 +256,7 @@ class _UpdatePackageCompleteState extends State<UpdatePackageComplete> {
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
                                   data: ThemeData().copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                     primary: Color(0xff0078aa),
                                     onPrimary: Colors.white,
                                     onSurface: Colors.black,

@@ -12,7 +12,6 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:provider/provider.dart';
 
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting("it_IT", null);

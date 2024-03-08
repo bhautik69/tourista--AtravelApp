@@ -145,7 +145,7 @@ void getFirebaseData()async{
                                     SizedBox(
                                       width: mq.size.width * 0.01,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       height: mq.size.height / 5,
                                       width: mq.size.width / 1.5,
                                       // color: Colors.amber,
@@ -153,7 +153,7 @@ void getFirebaseData()async{
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             height: mq.size.height * 0.063,
                                             // width: mq.size.width,
                                             // color: Colors.green,
@@ -191,7 +191,7 @@ void getFirebaseData()async{
                                           //   width: mq.size.width / 1.5,
                                           //   // color: Colors.blue,
                                           // ),
-                                          Container(
+                                          SizedBox(
                                             height: mq.size.height * 0.063,
                                             // width: mq.size.width,
                                             // color: Colors.red,

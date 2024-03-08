@@ -4,15 +4,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hoteldetails.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/details.dart';
 
-import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/models/Trip%20models/packagemodel.dart';
-import 'package:demo/widget/button.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sizer/sizer.dart';
@@ -61,7 +60,8 @@ class _SavedState extends State<Saved> {
       }
     });
   }
-   deleteUnusedItems() async {
+
+  deleteUnusedItems() async {
     final items = await FirebaseFirestore.instance
         .collection('favorite')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -83,7 +83,7 @@ class _SavedState extends State<Saved> {
     });
   }
 
- 
+  // ignore: non_constant_identifier_names
   List Hotelids = [];
   gethotelid() async {
     FirebaseFirestore.instance
@@ -97,6 +97,7 @@ class _SavedState extends State<Saved> {
       }
     });
   }
+
   deleteUnusedhitelItems() async {
     final items = await FirebaseFirestore.instance
         .collection('Favoritehotel')
@@ -119,6 +120,7 @@ class _SavedState extends State<Saved> {
     });
   }
 
+  // ignore: non_constant_identifier_names
   HotelremovFavorite(String hotelid) async {
     CollectionReference collectionReference =
         FirebaseFirestore.instance.collection("Favoritehotel");
@@ -146,7 +148,9 @@ class _SavedState extends State<Saved> {
   int room = 1;
   int adult = 1;
   int child = 0;
+  // ignore: non_constant_identifier_names
   String check_In = "";
+  // ignore: non_constant_identifier_names
   String check_Out = "";
 
   getdata() async {
@@ -188,7 +192,7 @@ class _SavedState extends State<Saved> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
@@ -316,7 +320,7 @@ class _SavedState extends State<Saved> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: Color(0xff0078aa),
                     ),
@@ -332,19 +336,14 @@ class _SavedState extends State<Saved> {
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: mq.size.height * 0.09),
-                        SizedBox(
-                          height: 28.h,
-                          width: 28.h,
-                          child: Image.asset(
-                            "assets/img/favorite.png",
-                            fit: BoxFit.cover,
-                          ),
+                        Lottie.asset(
+                          'assets/img/no_data_found.json',
                         ),
                         SizedBox(
                           height: mq.size.height * 0.008,
                         ),
                         const Text(
-                          "Compare properties easily in a list",
+                          "Add item in wishlist",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 25),
@@ -352,34 +351,9 @@ class _SavedState extends State<Saved> {
                         const SizedBox(
                           height: 18,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Text(
-                            "Just tap the heart icon in your search and choose a list.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                        ),
                         SizedBox(
                           height: 5.h,
                         ),
-                        SizedBox(
-                          height: 52,
-                          child: commenButton(
-                              title: "Start searching",
-                              callback: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Mainpage(),
-                                    ));
-                              }),
-                        )
                       ],
                     ),
                   );
@@ -622,7 +596,7 @@ class _SavedState extends State<Saved> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(
                       color: Color(0xff0078aa),
                     ),
@@ -639,19 +613,14 @@ class _SavedState extends State<Saved> {
                       // mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: mq.size.height * 0.09),
-                        SizedBox(
-                          height: 28.h,
-                          width: 28.h,
-                          child: Image.asset(
-                            "assets/img/favorite.png",
-                            fit: BoxFit.cover,
-                          ),
+                        Lottie.asset(
+                          'assets/img/no_data_found.json',
                         ),
                         SizedBox(
                           height: mq.size.height * 0.008,
                         ),
                         const Text(
-                          "Compare properties easily in a list",
+                          "Add item in wishlist",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 25),
@@ -659,34 +628,9 @@ class _SavedState extends State<Saved> {
                         const SizedBox(
                           height: 18,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Text(
-                            "Just tap the heart icon in your search and choose a list.",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400,
-                                color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black),
-                          ),
-                        ),
                         SizedBox(
                           height: 5.h,
                         ),
-                        SizedBox(
-                          height: 52,
-                          child: commenButton(
-                              title: "Start searching",
-                              callback: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Mainpage(),
-                                    ));
-                              }),
-                        )
                       ],
                     ),
                   );
@@ -774,7 +718,7 @@ class _SavedState extends State<Saved> {
                                               children: [
                                                 Titletext(
                                                     title: data[index]["name"]),
-                                                Spacer(),
+                                                const Spacer(),
                                                 StreamBuilder(
                                                     stream: FirebaseFirestore
                                                         .instance
@@ -849,7 +793,7 @@ class _SavedState extends State<Saved> {
                                           ),
                                           Row(
                                             children: [
-                                              Spacer(),
+                                              const Spacer(),
                                               Padding(
                                                 padding: EdgeInsets.only(
                                                     top: mq.size.width * 0.023,
@@ -895,7 +839,7 @@ class _SavedState extends State<Saved> {
                                                             fontWeight:
                                                                 FontWeight
                                                                     .w500)),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       height: 2,
                                                     ),
                                                     Text(

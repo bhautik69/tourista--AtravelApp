@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../../../provider/dark_theme_provider.dart';
 import '../../../../../widget/button.dart';
 
+// ignore: camel_case_types
 typedef dataStore = Function(String gender, String Dob, String firstName, String lastName);
 
 // ignore: must_be_immutable
@@ -98,7 +99,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                             children: [
                               Text(
                                 widget.travellerNo,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               Padding(
@@ -144,7 +145,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                           }
                         },
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: const Icon(Icons.person),
                             hintText: "Enter First name",
                             hintStyle: TextStyle(
                               color: themeState.getDarkTheme
@@ -211,7 +212,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                                   ? Colors.white54
                                   : Colors.black54,
                             ),
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: const Icon(Icons.person),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
                             //  prefixIconColor: Colors.grey,
@@ -276,7 +277,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                       ),
                       child: DropdownButtonFormField(
                         dropdownColor: themeState.getDarkTheme
-                            ? Color(0xff212121)
+                            ? const Color(0xff212121)
                             : Colors.white,
 
                         decoration: InputDecoration(
@@ -288,7 +289,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 14.5, horizontal: 15),
-                            prefixIcon: Icon(Ionicons.male_female),
+                            prefixIcon: const Icon(Ionicons.male_female),
                             //  prefixIconColor: Colors.grey,0
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
@@ -372,7 +373,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                               ),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 17, horizontal: 15),
-                              prefixIcon: Icon(Icons.calendar_month_outlined),
+                              prefixIcon: const Icon(Icons.calendar_month_outlined),
                               //  prefixIconColor: Colors.grey,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -417,7 +418,7 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                                 builder: (BuildContext context, Widget? child) {
                                   return Theme(
                                     data: ThemeData().copyWith(
-                                        colorScheme: ColorScheme.light(
+                                        colorScheme: const ColorScheme.light(
                                       primary: Color(0xff0078aa),
                                       onPrimary: Colors.white,
                                       onSurface: Colors.black,

@@ -343,7 +343,7 @@ class _FligthtabState extends State<Fligthtab> {
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
                                   data: ThemeData().copyWith(
-                                      colorScheme: ColorScheme.light(
+                                      colorScheme: const ColorScheme.light(
                                     primary: Color(0xff0078aa),
                                     onPrimary: Colors.white,
                                     onSurface: Colors.black,
@@ -434,7 +434,7 @@ class _FligthtabState extends State<Fligthtab> {
 
                                             adult = a;
                                             children = c;
-                                            traveller.text = "${t} Traveller";
+                                            traveller.text = "$t Traveller";
                                           });
                                         },
                                       ),
@@ -497,7 +497,7 @@ class _FligthtabState extends State<Fligthtab> {
                                   });
                                 },
                                 dropdownColor: themeState.getDarkTheme
-                                    ? Color(0xff212121)
+                                    ? const Color(0xff212121)
                                     : Colors.white,
                                 decoration: InputDecoration(
                                     hintText: "Class",
@@ -566,6 +566,7 @@ class _FligthtabState extends State<Fligthtab> {
                               prefs.setInt("children", children);
                               prefs.setInt("adult", adult);
                                indexFlightDate=date.text+flightfrom.text+flightTo.text+flightClass;
+                              // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const FlightSearch(),
                               ));

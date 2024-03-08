@@ -23,6 +23,7 @@ class _TripsManagementState extends State<TripsManagement> {
           title: const Text(
             "Trips Management",
           ),
+          centerTitle: true,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -32,7 +33,7 @@ class _TripsManagementState extends State<TripsManagement> {
         body: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 9),
+              padding: const EdgeInsets.symmetric(horizontal: 9),
               child: Column(
                 children: [
                   Padding(
@@ -61,15 +62,15 @@ class _TripsManagementState extends State<TripsManagement> {
                                       //        color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
-                                                title: "Add New Trip Packages",
+                                              Titletext(
+                                                title: "Add New Trip",
                                                 size: 18.5,
                                               ),
                                             ],
@@ -109,16 +110,15 @@ class _TripsManagementState extends State<TripsManagement> {
                                       scale: 12,
                                       //          color: Color(0xff0078aa),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
-                                                title:
-                                                    "Update/Delete Trip Packages",
+                                              Titletext(
+                                                title: "Update/Delete Trip",
                                                 size: 18.5,
                                               ),
                                             ],
@@ -158,14 +158,14 @@ class _TripsManagementState extends State<TripsManagement> {
                                       // color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "View Booking",
                                                 size: 18.5,
                                               ),

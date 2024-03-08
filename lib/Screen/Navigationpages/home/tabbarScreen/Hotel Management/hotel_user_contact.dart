@@ -85,7 +85,7 @@ class _HotelUserContactState extends State<HotelUserContact> {
                           SizedBox(
                             width: mq.size.width * 0.036,
                           ),
-                          Text(
+                          const Text(
                             "Contact details",
                           ),
                         ],
@@ -134,7 +134,7 @@ class _HotelUserContactState extends State<HotelUserContact> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
-                            prefixIcon: Icon(Icons.mail_outline),
+                            prefixIcon: const Icon(Icons.mail_outline),
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.black12),
@@ -210,7 +210,7 @@ class _HotelUserContactState extends State<HotelUserContact> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
-                            prefixIcon: Icon(Icons.phone_outlined),
+                            prefixIcon: const Icon(Icons.phone_outlined),
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
                                     width: 1.5, color: Colors.black12),

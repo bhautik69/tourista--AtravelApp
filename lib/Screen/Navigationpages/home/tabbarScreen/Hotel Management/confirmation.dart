@@ -1,3 +1,4 @@
+import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/models/Hotel%20models/bookingHotel.dart';
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
@@ -12,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: must_be_immutable
 class Confirmation extends StatefulWidget {
   Hotel hotel;
+  String id;
   String email;
   String phone;
   String totalPrice;
@@ -21,6 +23,7 @@ class Confirmation extends StatefulWidget {
   Confirmation(
       {super.key,
       required this.totalPrice,
+      required this.id,
       required this.hotel,
       required this.email,
       required this.phone,
@@ -35,7 +38,9 @@ class _ConfirmationState extends State<Confirmation> {
   int room = 1;
   int adult = 1;
   int child = 0;
+  // ignore: non_constant_identifier_names
   String check_In = "";
+  // ignore: non_constant_identifier_names
   String check_Out = "";
   bool isloading = false;
   @override
@@ -132,14 +137,14 @@ class _ConfirmationState extends State<Confirmation> {
                                       ),
                                       Row(
                                         children: [
-                                          Spacer(),
+                                          const Spacer(),
                                           Padding(
                                             padding: EdgeInsets.only(
                                                 top: mq.size.width * 0.023,
                                                 bottom: mq.size.width * 0.03 -
                                                     mq.size.width * 0.021),
                                             child: Text(
-                                              "${room} Hotel rooms : ${room} bed",
+                                              "$room Hotel rooms : $room bed",
                                               style: TextStyle(
                                                   color: themeState.getDarkTheme
                                                       ? Colors.white
@@ -173,7 +178,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                         //  fontWeight: FontWeight.w500,
                                                         fontWeight:
                                                             FontWeight.w500)),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 2,
                                                 ),
                                                 Text(
@@ -313,7 +318,14 @@ class _ConfirmationState extends State<Confirmation> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Mainpage(),
+                                  ),
+                                  (route) => false);
+                            },
                             child: Container(
                               height: mq.size.height * 0.067,
                               width: mq.size.width * 0.44,
@@ -323,7 +335,7 @@ class _ConfirmationState extends State<Confirmation> {
                                   borderRadius: BorderRadius.circular(10)),
                               child: const Center(
                                 child: Text(
-                                  "Remove",
+                                  "Cancel",
                                   style: TextStyle(
                                       color: Color(0xff0078aa),
                                       fontWeight: FontWeight.bold,
@@ -338,7 +350,7 @@ class _ConfirmationState extends State<Confirmation> {
                             width: mq.size.width * 0.44,
                             child: commenButton(
                               loading: isloading,
-                              title: "Done",
+                              title: "Confirm",
                               callback: () {
                                 save();
                               },
@@ -383,7 +395,7 @@ class _ConfirmationState extends State<Confirmation> {
         .addBookingHotels(
       bookingHotel(
           name: widget.hotel.name,
-          id: widget.hotel.id,
+          id: widget.id,
           description: widget.hotel.description,
           facilities: widget.hotel.facilities,
           images: widget.hotel.images,
@@ -406,8 +418,10 @@ class _ConfirmationState extends State<Confirmation> {
           totalPrice: widget.totalPrice,
           room: room.toString(),
           adult: adult.toString(),
-          children: child.toString()),
-      widget.hotel.id,
+          children: child.toString(),
+          check_out: check_Out,
+          check_in: check_In),
+      widget.id,
     )
         .whenComplete(() {
       setState(() {

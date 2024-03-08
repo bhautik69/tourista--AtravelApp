@@ -7,6 +7,7 @@ import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
+// ignore: non_constant_identifier_names
 typedef dataStore = Function(String gender, String Dob);
 
 class User_detail extends StatefulWidget {
@@ -102,7 +103,7 @@ class User_DetailState extends State<User_detail> {
                             children: [
                               Text(
                                 widget.travellerNo,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                               Padding(
@@ -148,7 +149,7 @@ class User_DetailState extends State<User_detail> {
                           }
                         },
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: const Icon(Icons.person),
                             hintText: "Enter First name",
                             hintStyle: TextStyle(
                               color: themeState.getDarkTheme
@@ -215,7 +216,7 @@ class User_DetailState extends State<User_detail> {
                                   ? Colors.white54
                                   : Colors.black54,
                             ),
-                            prefixIcon: Icon(Icons.person),
+                            prefixIcon: const Icon(Icons.person),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 17, horizontal: 15),
                             //  prefixIconColor: Colors.grey,
@@ -280,7 +281,7 @@ class User_DetailState extends State<User_detail> {
                       ),
                       child: DropdownButtonFormField(
                         dropdownColor: themeState.getDarkTheme
-                            ? Color(0xff212121)
+                            ? const Color(0xff212121)
                             : Colors.white,
 
                         decoration: InputDecoration(
@@ -292,7 +293,7 @@ class User_DetailState extends State<User_detail> {
                             ),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 14.5, horizontal: 15),
-                            prefixIcon: Icon(Ionicons.male_female),
+                            prefixIcon: const Icon(Ionicons.male_female),
                             //  prefixIconColor: Colors.grey,0
                             border: OutlineInputBorder(
                                 borderSide: const BorderSide(
@@ -376,7 +377,7 @@ class User_DetailState extends State<User_detail> {
                               ),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 17, horizontal: 15),
-                              prefixIcon: Icon(Icons.calendar_month_outlined),
+                              prefixIcon: const Icon(Icons.calendar_month_outlined),
                               //  prefixIconColor: Colors.grey,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -421,7 +422,7 @@ class User_DetailState extends State<User_detail> {
                                 builder: (BuildContext context, Widget? child) {
                                   return Theme(
                                     data: ThemeData().copyWith(
-                                        colorScheme: ColorScheme.light(
+                                        colorScheme: const ColorScheme.light(
                                       primary: Color(0xff0078aa),
                                       onPrimary: Colors.white,
                                       onSurface: Colors.black,

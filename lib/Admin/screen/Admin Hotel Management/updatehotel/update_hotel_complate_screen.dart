@@ -591,17 +591,20 @@ class _UpdateComplateHotelState extends State<UpdateComplateHotel> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                    height: 52,
-                    width: MediaQuery.of(context).size.width,
-                    child: commenButton(
-                        title: "Update",
-                        loading: isloading,
-                        callback: () {
-                          if (_formKey.currentState!.validate()) {
-                            update();
-                          }
-                        })),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: SizedBox(
+                      height: 52,
+                      width: MediaQuery.of(context).size.width,
+                      child: commenButton(
+                          title: "Update",
+                          loading: isloading,
+                          callback: () {
+                            if (_formKey.currentState!.validate()) {
+                              update();
+                            }
+                          })),
+                ),
                 const SizedBox(
                   height: 25,
                 )

@@ -5,6 +5,7 @@ import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:lottie/lottie.dart';
 
 class ViewBooking extends StatefulWidget {
   const ViewBooking({super.key});
@@ -107,7 +108,8 @@ class _ViewBookingState extends State<ViewBooking> {
     var mq = MediaQuery.of(context);
     return Scaffold(
         appBar: AppBar(
-          title: const Text("BOOKING"),
+          title: const Text("View Booking"),
+          centerTitle: true,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -116,7 +118,21 @@ class _ViewBookingState extends State<ViewBooking> {
         ),
         body: allBookingdata.isEmpty
             ? const Center(
-                child: CircularProgressIndicator(color: Color(0xff0078aa)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                        color: Color(0xff0078aa), strokeWidth: 5),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Please wait!!",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+                    )
+                  ],
+                ),
               )
             : Column(
                 children: [
@@ -147,11 +163,17 @@ class _ViewBookingState extends State<ViewBooking> {
                   ),
                   Expanded(
                     child: foundlist.isEmpty
-                        ? const Center(
-                            child: Text(
-                              "DATA NOT FOUND!",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 22),
+                        ? SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Lottie.asset("assets/img/no_data_found.json"),
+                                const Text(
+                                  "NO TRIP FOUND!",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 22),
+                                ),
+                              ],
                             ),
                           )
                         : ListView.builder(
@@ -237,7 +259,7 @@ class _ViewBookingState extends State<ViewBooking> {
                                                       children: [
                                                         SizedBox(
                                                           width: mq.size.width *
-                                                              0.48,
+                                                              0.5,
                                                           child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -279,11 +301,11 @@ class _ViewBookingState extends State<ViewBooking> {
                                                         SizedBox(
                                                           height:
                                                               mq.size.height *
-                                                                  0.013,
+                                                                  0.007,
                                                         ),
                                                         SizedBox(
                                                           width: mq.size.width *
-                                                              0.48,
+                                                              0.5,
                                                           child: Row(
                                                             children: [
                                                               const Text(
@@ -320,7 +342,7 @@ class _ViewBookingState extends State<ViewBooking> {
                                                         SizedBox(
                                                           height:
                                                               mq.size.height *
-                                                                  0.013,
+                                                                  0.007,
                                                         ),
                                                         Row(
                                                           children: [
@@ -349,10 +371,10 @@ class _ViewBookingState extends State<ViewBooking> {
                                                             SizedBox(
                                                               width: mq.size
                                                                       .height *
-                                                                  0.026,
+                                                                  0.03,
                                                             ),
                                                             const Text(
-                                                              "Travellers  : ",
+                                                              "Travellers : ",
                                                               style: TextStyle(
                                                                 fontSize: 13.5,
                                                                 fontWeight:
@@ -377,15 +399,16 @@ class _ViewBookingState extends State<ViewBooking> {
                                                             )
                                                           ],
                                                         ),
+                                                        SizedBox(
+                                                          height:
+                                                              mq.size.height *
+                                                                  0.007,
+                                                        ),
                                                       ],
                                                     ),
                                                   )
                                                 ],
                                               ),
-                                              // SizedBox(
-                                              // height: mq.size.height * 0.01,
-                                              //),
-                                              //  Divider(color: themeState.getDarkTheme ? Colors.white38 : Colors.black38),
                                             ],
                                           ),
                                         )),

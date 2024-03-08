@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/bottomSheet.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
@@ -338,7 +340,7 @@ class _FligthtabState extends State<Fligthtab> {
                         builder: (BuildContext context, Widget? child) {
                           return Theme(
                             data: ThemeData().copyWith(
-                                colorScheme: ColorScheme.light(
+                                colorScheme: const ColorScheme.light(
                               primary: Color(0xff0078aa),
                               onPrimary: Colors.white,
                               onSurface: Colors.black,
@@ -427,7 +429,7 @@ class _FligthtabState extends State<Fligthtab> {
                                       total = t;
                                       adult = a;
                                       children = c;
-                                      traveller.text = "${t} Traveller";
+                                      traveller.text = "$t Traveller";
                                     });
                                   },
                                 ),

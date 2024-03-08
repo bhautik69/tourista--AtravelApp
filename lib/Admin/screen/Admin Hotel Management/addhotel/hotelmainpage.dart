@@ -1,6 +1,6 @@
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/addhotels.dart';
+import 'package:demo/Admin/screen/Admin%20Hotel%20Management/bookhotel/viewhotelbooking.dart';
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updatehotels.dart';
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/viewbooking.dart';
 import 'package:demo/widget/textwidget.dart';
 
 import 'package:flutter/material.dart';
@@ -23,6 +23,7 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
           title: const Text(
             "Hotels Management",
           ),
+          centerTitle: true,
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
@@ -32,7 +33,7 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
         body: Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 9),
+              padding: const EdgeInsets.symmetric(horizontal: 9),
               child: Column(
                 children: [
                   Padding(
@@ -61,14 +62,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       //        color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "Add New Hotels",
                                                 size: 18.5,
                                               ),
@@ -109,14 +110,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       scale: 12,
                                       //          color: Color(0xff0078aa),
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "Update/Delete Hotels",
                                                 size: 18.5,
                                               ),
@@ -139,7 +140,7 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ViewBooking(),
+                              builder: (context) => const ViewHotelBooking(),
                             ));
                       },
                       child: Card(
@@ -157,14 +158,14 @@ class _AdminHotelManagementState extends State<AdminHotelManagement> {
                                       // color: Color(0xff0078aa),
                                       scale: 12,
                                     ),
-                                    Expanded(
+                                    const Expanded(
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
                                           Column(
                                             children: [
-                                              const Titletext(
+                                              Titletext(
                                                 title: "View Booking",
                                                 size: 18.5,
                                               ),

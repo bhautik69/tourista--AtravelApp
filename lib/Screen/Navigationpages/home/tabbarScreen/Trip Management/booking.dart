@@ -173,6 +173,7 @@ class _BookingDoneState extends State<BookingDone> {
                                                     : Colors.black))),
                                   ),
                                   TextFormField(
+                                    keyboardType: TextInputType.number,
                                     validator: (value) {
                                       if (value!.isEmpty) {
                                         return "* required";

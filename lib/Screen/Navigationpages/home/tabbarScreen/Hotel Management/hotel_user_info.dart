@@ -13,7 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: must_be_immutable
 class HotelUserInfo extends StatefulWidget {
   Hotel hotel;
-  HotelUserInfo({super.key, required this.hotel});
+  String id;
+  HotelUserInfo({super.key, required this.hotel, required this.id});
 
   @override
   State<HotelUserInfo> createState() => _HotelUserInfoState();
@@ -447,6 +448,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) => Confirmation(
+                                              id: widget.id,
                                               adultList: adultList1,
                                               childList: childList,
                                               totalPrice: totalprice.toString(),
