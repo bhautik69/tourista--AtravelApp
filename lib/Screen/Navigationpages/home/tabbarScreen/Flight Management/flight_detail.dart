@@ -21,10 +21,11 @@ class _FlightDetailState extends State<FlightDetail> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getFirebaseData();
   }
   
 void getFirebaseData()async{
-  var data= await FirebaseFirestore.instance.collection("flight"). doc("$indexFlightDate").get();
+  var data= await FirebaseFirestore.instance.collection("flight"). doc("$indexFlightDate$indexNumber").get();
   if(data.exists){
     flighSeatBook=data['favourite']  ;
     print("data------$flighSeatBook");

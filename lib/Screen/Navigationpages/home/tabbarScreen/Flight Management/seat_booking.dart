@@ -380,14 +380,14 @@ class _ChooseSeatState extends State<ChooseSeat> {
                               callback: () {
                                 flighSeatBook.addAll(flighSeat);
                                 Map<String, dynamic> data = {
-                                  "id": indexFlightDate,
+                                  "id": "${indexFlightDate}${indexNumber}",
                                   "favourite": flighSeatBook
                                 };
                                 flighSeat.clear();
                                 print("fata------------$data");
                                 FirebaseFirestore.instance
                                     .collection("flight")
-                                    .doc(indexFlightDate)
+                                    .doc("$indexFlightDate$indexNumber")
                                     .set(data);
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
@@ -480,17 +480,30 @@ class _ChooseSeatState extends State<ChooseSeat> {
                 if (flighSeatBook.contains(count)) {
                   return;
                 }
-                //if (flighSeat.length <= int.parse(traveller.text)) {
-                setState(() {
+
+                print("lenght---${flighSeat.length}");
+                print("lenght--1111-${int.parse(traveller.text.split(" ").first)}");
+                // if (flighSeat.length <= int.parse(traveller.text.split(" ").first)) {
+
                   dataSeat[index]["isSelected"] =
                       !dataSeat[index]["isSelected"];
                   if (flighSeat.contains(count)) {
+                    dataSeat[index]["isSelected"] =
+                    !dataSeat[index]["isSelected"];
                     flighSeat.remove(count);
                   } else {
-                    flighSeat.add(count);
+                    if(flighSeat.length < int.parse(traveller.text.split(" ").first)){
+                      dataSeat[index]["isSelected"] =
+                      !dataSeat[index]["isSelected"];
+                      flighSeat.add(count);
+                    }
                   }
-                });
-                //}
+                print("lenght---${flighSeat}");
+
+                setState(() {
+
+                  });
+
               },
               //show the seat info
               child: Container(

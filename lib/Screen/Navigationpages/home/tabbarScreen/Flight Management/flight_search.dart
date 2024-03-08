@@ -270,8 +270,8 @@ class _FlightSearchState extends State<FlightSearch> {
                                 child: commenButton(
                                   title: "Check",
                                   callback: () {
-                                    int indexNumber = index;
-                                    indexFlightDate += "$index";
+                                      indexNumber = index;
+
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
                                       builder: (context) =>
