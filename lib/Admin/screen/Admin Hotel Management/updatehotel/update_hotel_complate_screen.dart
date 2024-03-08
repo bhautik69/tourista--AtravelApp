@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/addhotel/bootomseet.dart';
 import 'package:demo/Admin/screen/Admin%20Hotel%20Management/updatehotel/updateimages.dart';
 
@@ -13,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
+// ignore: must_be_immutable
 class UpdateComplateHotel extends StatefulWidget {
   String? id;
   Hotel? hotel;
@@ -90,7 +89,6 @@ class _UpdateComplateHotelState extends State<UpdateComplateHotel> {
         }
       }
 
-      // ignore: avoid_print
       print(ficility);
       facilityController.text = a.toString();
       setState(() {});
@@ -645,6 +643,30 @@ class _UpdateComplateHotelState extends State<UpdateComplateHotel> {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("UPDATE SUCCESSFULLY")));
       });
+    });
+  }
+
+  clearFields() {
+    setState(() {
+      latitudeController.clear();
+      longitudeContoller.clear();
+      checkinConroller.clear();
+      checkinuntilConroller.clear();
+      checkoutConroller.clear();
+      trsfeeController.clear();
+      trsdisContoller.clear();
+      trstimeController.clear();
+      addressController.clear();
+      distancetocenterController.clear();
+      hotelnameController.clear();
+      descriptionController.clear();
+      ficility!.clear();
+      imgUrl.clear();
+      images.clear();
+      facilityController.clear();
+      imagesController.clear();
+      cityController.clear();
+      priceConroller.clear();
     });
   }
 }

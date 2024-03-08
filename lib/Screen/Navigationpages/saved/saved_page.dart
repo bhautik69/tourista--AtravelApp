@@ -61,8 +61,7 @@ class _SavedState extends State<Saved> {
       }
     });
   }
-
-  deleteUnusedItems() async {
+   deleteUnusedItems() async {
     final items = await FirebaseFirestore.instance
         .collection('favorite')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -78,6 +77,42 @@ class _SavedState extends State<Saved> {
             .collection('favorite')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('items')
+            .doc(item.id)
+            .delete();
+      }
+    });
+  }
+
+ 
+  List Hotelids = [];
+  gethotelid() async {
+    FirebaseFirestore.instance
+        .collection("Hotel")
+        .get()
+        .then((QuerySnapshot<Map<String, dynamic>> snapshot) {
+      for (var element in snapshot.docs) {
+        setState(() {
+          Hotelids.add(element['id']);
+        });
+      }
+    });
+  }
+  deleteUnusedhitelItems() async {
+    final items = await FirebaseFirestore.instance
+        .collection('Favoritehotel')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('hotels')
+        .get();
+
+    items.docs.forEach((item) {
+      final fid = item['fid'];
+
+      if (!Hotelids.contains(fid)) {
+        // delete unused favorite item
+        FirebaseFirestore.instance
+            .collection('Favoritehotel')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('hotels')
             .doc(item.id)
             .delete();
       }

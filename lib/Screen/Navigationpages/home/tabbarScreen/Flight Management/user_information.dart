@@ -411,6 +411,8 @@ class _UserinfoState extends State<Userinfo> {
                             child: commenButton(
                                 title: "Next",
                                 callback: () {
+                                  v3 = true;
+                                  setState(() {});
                                   for (int i = 0; i <= total; i++) {
                                     gender1[i] == null || gender1[i] == " "
                                         ? visible1[i] = true

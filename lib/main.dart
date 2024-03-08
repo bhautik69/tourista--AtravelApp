@@ -1,4 +1,3 @@
-import 'package:demo/Admin/screen/Admin%20Trip%20Management/addpackage.dart';
 import 'package:demo/Firebase/firebase_options.dart';
 import 'package:demo/Screen/Splash%20Screen/splashscreen.dart';
 
@@ -12,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'package:provider/provider.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
