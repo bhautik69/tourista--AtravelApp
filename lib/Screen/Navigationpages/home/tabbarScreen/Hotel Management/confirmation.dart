@@ -7,6 +7,7 @@ import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,6 +44,7 @@ class _ConfirmationState extends State<Confirmation> {
   // ignore: non_constant_identifier_names
   String check_Out = "";
   bool isloading = false;
+  int night = 0;
   @override
   void initState() {
     // TODO: implement initState
@@ -168,7 +170,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                    "Price for 1 night, 1 adult",
+                                                    "Price for $night night, ${adult + child} Traveller",
                                                     style: TextStyle(
                                                         fontSize: 13,
                                                         color: themeState
@@ -182,7 +184,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "₹${widget.hotel.price}",
+                                                  "₹ ${(int.parse(widget.hotel.price!) * adult) * night}",
                                                   style: TextStyle(
                                                       color: themeState
                                                               .getDarkTheme
@@ -384,6 +386,8 @@ class _ConfirmationState extends State<Confirmation> {
       adult = v4!;
       child = v5!;
     });
+    night = getNight(v1!, v2!);
+    setState(() {});
   }
 
   save() async {
@@ -427,9 +431,17 @@ class _ConfirmationState extends State<Confirmation> {
       setState(() {
         isloading = false;
 
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("ADDED SUCCESSFULLY")));
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("BOOKING SUCCESSFULLY")));
       });
     });
+  }
+
+  int getNight(String checkIn, String checkOut) {
+    DateFormat dateFormat = DateFormat("dd-MM-yyyy");
+    DateTime dateTime1 = dateFormat.parse(checkIn);
+    DateTime dateTime2 = dateFormat.parse(checkOut);
+    Duration duration = dateTime2.difference(dateTime1);
+    return duration.inDays;
   }
 }

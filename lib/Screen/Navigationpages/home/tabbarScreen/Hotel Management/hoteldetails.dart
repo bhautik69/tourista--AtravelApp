@@ -27,6 +27,7 @@ class HotelDetails extends StatefulWidget {
   Hotel hotel;
   String check_In = "";
   String check_Out = "";
+  int? totalPrice;
   int room = 0;
   int adults = 0;
   int child = 0;
@@ -37,6 +38,7 @@ class HotelDetails extends StatefulWidget {
       required this.id,
       required this.adults,
       required this.room,
+      this.totalPrice,
       // ignore: non_constant_identifier_names
       required this.check_In,
       // ignore: non_constant_identifier_names
@@ -674,11 +676,17 @@ class _HotelDetailsState extends State<HotelDetails> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Titletext(title: "₹ 120000"),
+                          Titletext(
+                              title: widget.totalPrice == null
+                                  ? "₹ ${widget.hotel.price!}"
+                                  : "₹ ${widget.totalPrice}"),
                           SizedBox(
                             height: mq.size.height * 0.01,
                           ),
-                          Text("Per person",
+                          Text(
+                              widget.totalPrice == null
+                                  ? "Per person"
+                                  : "${widget.adults + widget.child} Travellers",
                               style: TextStyle(
                                   fontSize: 13,
                                   color: themeState.getDarkTheme
@@ -690,7 +698,6 @@ class _HotelDetailsState extends State<HotelDetails> {
                       const Spacer(),
                       SizedBox(
                           height: mq.size.height * 0.067,
-                          // width: mq.size.width * 0.44,
                           child: StreamBuilder(
                               stream: FirebaseFirestore.instance
                                   .collection("HotelBooking")
@@ -703,6 +710,9 @@ class _HotelDetailsState extends State<HotelDetails> {
                                   return const Text("");
                                 }
                                 return commenButton(
+                                    size: snapshot.data!.docs.isEmpty
+                                        ? mq.size.width * 0.44
+                                        : null,
                                     title: snapshot.data!.docs.isEmpty
                                         ? "Next"
                                         : "CENCEL BOOKING",

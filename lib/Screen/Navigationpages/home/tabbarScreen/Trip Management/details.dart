@@ -22,7 +22,14 @@ import '../../../../../widget/details.dart';
 class PlaceDetails extends StatefulWidget {
   String? id;
   Package? package;
-  PlaceDetails({super.key, required this.id, required this.package});
+  String? totalPrice;
+  int? traveller;
+  PlaceDetails(
+      {super.key,
+      required this.id,
+      required this.package,
+      this.totalPrice,
+      this.traveller});
 
   @override
   State<PlaceDetails> createState() => _PlaceDetailsState();
@@ -362,11 +369,17 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Titletext(title: "₹${widget.package!.price!}"),
+                                Titletext(
+                                    title: widget.totalPrice == null
+                                        ? "₹ ${widget.package!.price!}"
+                                        : "₹ ${widget.totalPrice}"),
                                 SizedBox(
                                   height: mq.size.height * 0.01,
                                 ),
-                                Text("Per person",
+                                Text(
+                                    widget.totalPrice == null
+                                        ? "Per person"
+                                        : "${widget.traveller} Traveller",
                                     style: TextStyle(
                                         fontSize: 13,
                                         color: themeState.getDarkTheme

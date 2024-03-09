@@ -6,6 +6,7 @@ import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
@@ -306,6 +307,8 @@ class _BookState extends State<Book> {
                                   MaterialPageRoute(
                                       builder: (context) => PlaceDetails(
                                             id: data[index]["id"],
+                                            totalPrice: data[index]["totalprice"],
+                                            traveller : data[index]["travellerlist"].length,
                                             package: Package(
                                                 latitude: data[index]
                                                     ["latitude"],
@@ -579,12 +582,16 @@ class _BookState extends State<Book> {
                         ],
                       );
                     }
+
                     var data = snapshot.data!.docs;
                     return ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: data.length,
                         itemBuilder: (context, index) {
+                          var date = getNight(data[index]["check_in"],
+                              data[index]["check_out"]);
+
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 12),
                             child: GestureDetector(
@@ -593,6 +600,8 @@ class _BookState extends State<Book> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => HotelDetails(
+                                        
+
                                           check_In: data[index]["check_in"],
                                           check_Out: data[index]["check_out"],
                                           child: int.parse(
@@ -600,6 +609,7 @@ class _BookState extends State<Book> {
                                           room: int.parse(data[index]["room"]),
                                           adults:
                                               int.parse(data[index]["adult"]),
+                                              totalPrice : int.parse(data[index]["totalPrice"]) * date,
                                           id: data[index].id,
                                           hotel: Hotel(
                                               facilities: data[index]
@@ -627,8 +637,10 @@ class _BookState extends State<Book> {
                                               distFromAirport: data[index]
                                                   ["distFromAirport"],
                                               traveltimetoairport: data[index]
-                                                  ["traveltimetoairport"])),
+                                                  ["traveltimetoairport"]),
+                                                  ),
                                     ));
+                                    
                               },
                               child: Container(
                                 // width: mq.size.width,
@@ -748,7 +760,7 @@ class _BookState extends State<Book> {
                                                                 .end,
                                                         children: [
                                                           Text(
-                                                              "Price for 1 night, 1 adult",
+                                                              "Price for $date night, ${int.parse(data[index]["adult"]) + int.parse(data[index]["children"])} Travellers",
                                                               style: TextStyle(
                                                                   fontSize: 13,
                                                                   color: themeState
@@ -765,7 +777,7 @@ class _BookState extends State<Book> {
                                                             height: 2,
                                                           ),
                                                           Text(
-                                                            "₹${data[index]["price"]}",
+                                                            "₹${int.parse(data[index]["totalPrice"]) * date}",
                                                             style: TextStyle(
                                                                 color: themeState
                                                                         .getDarkTheme
@@ -804,5 +816,13 @@ class _BookState extends State<Book> {
         ),
       ),
     ));
+  }
+
+  int getNight(String checkIn, String checkOut) {
+    DateFormat dateFormat = DateFormat("dd-MM-yyyy");
+    DateTime dateTime1 = dateFormat.parse(checkIn);
+    DateTime dateTime2 = dateFormat.parse(checkOut);
+    Duration duration = dateTime2.difference(dateTime1);
+    return duration.inDays;
   }
 }

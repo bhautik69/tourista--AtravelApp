@@ -10,6 +10,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -416,7 +417,7 @@ class _SavedState extends State<Saved> {
                               borderRadius:
                                   const BorderRadius.all(Radius.circular(6))),
                           width: mq.size.width,
-                          height: mq.size.height * 0.4,
+                          height: mq.size.height * 0.42,
                           child: Padding(
                             padding: const EdgeInsets.all(8),
                             child: Column(

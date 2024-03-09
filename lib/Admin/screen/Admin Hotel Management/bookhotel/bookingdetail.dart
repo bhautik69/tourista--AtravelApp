@@ -273,7 +273,7 @@ class _BookingDetailState extends State<BookingDetail> {
               padding: const EdgeInsets.only(left: 10),
               child: Text(
                 // ignore: prefer_interpolation_to_compose_strings
-                "Gender       :  $dob",
+                "DOB            :  $dob",
                 style:
                     const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
               ),

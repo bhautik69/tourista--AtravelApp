@@ -401,7 +401,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Titletext(title: "₹ 15,135"),
+                          Titletext(title: "₹ ${widget.hotel.price}"),
                           SizedBox(
                             height: mq.size.height * 0.01,
                           ),

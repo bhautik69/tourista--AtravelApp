@@ -247,7 +247,7 @@ class _ViewHotelBookingState extends State<ViewHotelBooking> {
                                                                   .start,
                                                           children: [
                                                             const Text(
-                                                              "Name : ",
+                                                              "City    : ",
                                                               style: TextStyle(
                                                                 fontSize: 13.5,
                                                                 fontWeight:
