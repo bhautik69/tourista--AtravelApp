@@ -188,233 +188,205 @@ class _ViewHotelBookingState extends State<ViewHotelBooking> {
                                           ),
                                         ));
                                   },
-                                  child: Card(
-                                      elevation: 1,
-                                      color: Colors.white,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 2),
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 5, horizontal: 5),
-                                        child: Column(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 5),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Titletext(
+                                          title: foundlist[index]["name"],
+                                          size: 18,
+                                        ),
+                                        SizedBox(
+                                          height: mq.size.height * 0.014,
+                                        ),
+                                        Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Titletext(
-                                              title: foundlist[index]["name"],
-                                              size: 18,
-                                            ),
                                             SizedBox(
-                                              height: mq.size.height * 0.014,
+                                              height: 90,
+                                              width: 90,
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5),
+                                                  child: FancyShimmerImage(
+                                                    imageUrl: foundlist[index]
+                                                            ["images"]
+                                                        .first,
+                                                    boxFit: BoxFit.cover,
+                                                  )),
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                SizedBox(
-                                                  height: 90,
-                                                  width: 90,
-                                                  child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5),
-                                                      child: FancyShimmerImage(
-                                                        imageUrl:
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 12, right: 5),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  SizedBox(
+                                                    width: mq.size.width * 0.48,
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        const Text(
+                                                          "City    : ",
+                                                          style: TextStyle(
+                                                            fontSize: 13.5,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Flexible(
+                                                          child: Text(
                                                             foundlist[index]
-                                                                    ["images"]
-                                                                .first,
-                                                        boxFit: BoxFit.cover,
-                                                      )),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 12, right: 5),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                                ["cityName"],
+                                                            style: TextStyle(
+                                                                fontSize: 13.5,
+                                                                color: Colors
+                                                                    .black
+                                                                    .withOpacity(
+                                                                        0.65)),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        mq.size.height * 0.007,
+                                                  ),
+                                                  SizedBox(
+                                                    width: mq.size.width * 0.5,
+                                                    child: Row(
+                                                      children: [
+                                                        const Text(
+                                                          "Check In : ",
+                                                          style: TextStyle(
+                                                            fontSize: 13.5,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          foundlist[index]
+                                                              ["check_in"],
+                                                          style: TextStyle(
+                                                              fontSize: 13.5,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.65)),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        mq.size.height * 0.007,
+                                                  ),
+                                                  SizedBox(
+                                                    width: mq.size.width * 0.5,
+                                                    child: Row(
+                                                      children: [
+                                                        const Text(
+                                                          "Check Out : ",
+                                                          style: TextStyle(
+                                                            fontSize: 13.5,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          foundlist[index]
+                                                              ["check_out"],
+                                                          style: TextStyle(
+                                                              fontSize: 13.5,
+                                                              color: Colors
+                                                                  .black
+                                                                  .withOpacity(
+                                                                      0.65)),
+                                                          textAlign:
+                                                              TextAlign.start,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height:
+                                                        mq.size.height * 0.007,
+                                                  ),
+                                                  Row(
                                                     children: [
-                                                      SizedBox(
-                                                        width: mq.size.width *
-                                                            0.48,
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            const Text(
-                                                              "City    : ",
-                                                              style: TextStyle(
-                                                                fontSize: 13.5,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
-                                                            Flexible(
-                                                              child: Text(
-                                                                foundlist[index]
-                                                                    [
-                                                                    "cityName"],
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        13.5,
-                                                                    color: Colors
-                                                                        .black
-                                                                        .withOpacity(
-                                                                            0.65)),
-                                                              ),
-                                                            )
-                                                          ],
+                                                      const Text(
+                                                        "Price  : ",
+                                                        style: TextStyle(
+                                                          fontSize: 13.5,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Colors.black,
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                        height: mq.size.height *
-                                                            0.007,
+                                                      Text(
+                                                        foundlist[index]
+                                                            ["totalPrice"],
+                                                        style: TextStyle(
+                                                            fontSize: 13.5,
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.65)),
                                                       ),
                                                       SizedBox(
-                                                        width:
-                                                            mq.size.width * 0.5,
-                                                        child: Row(
-                                                          children: [
-                                                            const Text(
-                                                              "Check In : ",
-                                                              style: TextStyle(
-                                                                fontSize: 13.5,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              foundlist[index]
-                                                                  ["check_in"],
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.5,
-                                                                  color: Colors
-                                                                      .black
-                                                                      .withOpacity(
-                                                                          0.65)),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                            ),
-                                                          ],
+                                                        width: mq.size.height *
+                                                            0.03,
+                                                      ),
+                                                      const Text(
+                                                        "Travellers : ",
+                                                        style: TextStyle(
+                                                          fontSize: 13.5,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                          color: Colors.black,
                                                         ),
                                                       ),
-                                                      SizedBox(
-                                                        height: mq.size.height *
-                                                            0.007,
-                                                      ),
-                                                      SizedBox(
-                                                        width:
-                                                            mq.size.width * 0.5,
-                                                        child: Row(
-                                                          children: [
-                                                            const Text(
-                                                              "Check Out : ",
-                                                              style: TextStyle(
-                                                                fontSize: 13.5,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
-                                                            ),
-                                                            Text(
-                                                              foundlist[index]
-                                                                  ["check_out"],
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.5,
-                                                                  color: Colors
-                                                                      .black
-                                                                      .withOpacity(
-                                                                          0.65)),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .start,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        height: mq.size.height *
-                                                            0.007,
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          const Text(
-                                                            "Price  : ",
-                                                            style: TextStyle(
-                                                              fontSize: 13.5,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            foundlist[index]
-                                                                ["totalPrice"],
-                                                            style: TextStyle(
-                                                                fontSize: 13.5,
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.65)),
-                                                          ),
-                                                          SizedBox(
-                                                            width:
-                                                                mq.size.height *
-                                                                    0.03,
-                                                          ),
-                                                          const Text(
-                                                            "Travellers : ",
-                                                            style: TextStyle(
-                                                              fontSize: 13.5,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            "${foundlist[index]["adultList"].length + foundlist[index]["childrenList"].length}"
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                fontSize: 13.5,
-                                                                color: Colors
-                                                                    .black
-                                                                    .withOpacity(
-                                                                        0.65)),
-                                                          )
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        height: mq.size.height *
-                                                            0.007,
-                                                      ),
+                                                      Text(
+                                                        "${foundlist[index]["adultList"].length + foundlist[index]["childrenList"].length}"
+                                                            .toString(),
+                                                        style: TextStyle(
+                                                            fontSize: 13.5,
+                                                            color: Colors.black
+                                                                .withOpacity(
+                                                                    0.65)),
+                                                      )
                                                     ],
                                                   ),
-                                                )
-                                              ],
-                                            ),
+                                                  SizedBox(
+                                                    height:
+                                                        mq.size.height * 0.007,
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                           ],
                                         ),
-                                      )),
+                                        const Divider(
+                                          thickness: 1.5,
+                                        )
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             );

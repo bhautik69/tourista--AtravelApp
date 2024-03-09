@@ -58,98 +58,89 @@ class _BookingDetailState extends State<BookingDetail> {
                     SizedBox(
                       height: mq.size.height * 0.02,
                     ),
-                    Card(
-                      elevation: 1,
-                      margin: const EdgeInsets.symmetric(vertical: 2),
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: SizedBox(
-                          width: mq.size.width,
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: mq.size.height * 0.01,
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: SizedBox(
+                        width: mq.size.width,
+                        child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: mq.size.height * 0.01,
+                              ),
+                              const Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "Contact Details",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 25),
                                 ),
-                                const Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Contact Details",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 25),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: mq.size.height * 0.035,
-                                ),
-                                Text(
-                                  "Email        :   ${widget.email}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14),
-                                ),
-                                SizedBox(
-                                  height: mq.size.height * 0.028,
-                                ),
-                                Text(
-                                  "Phone       :   ${widget.phone}",
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 14),
-                                ),
-                                SizedBox(
-                                  height: mq.size.height * 0.028,
-                                ),
-                              ]),
-                        ),
+                              ),
+                              SizedBox(
+                                height: mq.size.height * 0.035,
+                              ),
+                              Text(
+                                "Email        :   ${widget.email}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14),
+                              ),
+                              SizedBox(
+                                height: mq.size.height * 0.028,
+                              ),
+                              Text(
+                                "Phone       :   ${widget.phone}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 14),
+                              ),
+                              SizedBox(
+                                height: mq.size.height * 0.02,
+                              ),
+                              const Divider(
+                                thickness: 1.5,
+                              )
+                            ]),
                       ),
                     ),
                     SizedBox(
-                      height: mq.size.height * 0.04,
+                      height: mq.size.height * 0.02,
                     ),
-                    Card(
-                      elevation: 1,
-                      margin: const EdgeInsets.symmetric(vertical: 2),
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            const Text(
-                              "Travellers",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 25),
-                            ),
-                            ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: adultLength + childLength,
-                              itemBuilder: (context, index) {
-                                return index < adultLength
-                                    ? adultDisplay(
-                                        widget.adultList[index]["firstName"],
-                                        widget.adultList[index]["lastName"],
-                                        widget.adultList[index]["gender"],
-                                        index)
-                                    : childrenDisplay(
-                                        widget.childList[index - adultLength]
-                                            ["firstName"],
-                                        widget.childList[index - adultLength]
-                                            ["lastName"],
-                                        widget.childList[index - adultLength]
-                                            ["gender"],
-                                        widget.childList[index - adultLength]
-                                            ["dob"],
-                                        index);
-                              },
-                            ),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Column(
+                        children: [
+                          const Text(
+                            "Travellers",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25),
+                          ),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: adultLength + childLength,
+                            itemBuilder: (context, index) {
+                              return index < adultLength
+                                  ? adultDisplay(
+                                      widget.adultList[index]["firstName"],
+                                      widget.adultList[index]["lastName"],
+                                      widget.adultList[index]["gender"],
+                                      index)
+                                  : childrenDisplay(
+                                      widget.childList[index - adultLength]
+                                          ["firstName"],
+                                      widget.childList[index - adultLength]
+                                          ["lastName"],
+                                      widget.childList[index - adultLength]
+                                          ["gender"],
+                                      widget.childList[index - adultLength]
+                                          ["dob"],
+                                      index);
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     const SizedBox(
@@ -211,6 +202,12 @@ class _BookingDetailState extends State<BookingDetail> {
                     const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            const Divider(
+              thickness: 1.5,
+            )
           ],
         ),
       );
@@ -278,6 +275,12 @@ class _BookingDetailState extends State<BookingDetail> {
                     const TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
               ),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+            const Divider(
+              thickness: 1.5,
+            )
           ],
         ),
       );
