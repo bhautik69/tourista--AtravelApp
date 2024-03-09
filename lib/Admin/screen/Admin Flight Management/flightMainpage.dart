@@ -1,4 +1,5 @@
 import 'package:demo/Admin/screen/Admin%20Flight%20Management/addNewflight.dart';
+import 'package:demo/Admin/screen/Admin%20Flight%20Management/updateflight.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
@@ -85,11 +86,11 @@ class _FlightMainPageState extends State<FlightMainPage> {
                     padding: const EdgeInsets.only(bottom: 20),
                     child: GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const UpdatePackage(),
-                        //     ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const UpdateFlight(),
+                            ));
                       },
                       child: Card(
                         elevation: 5,

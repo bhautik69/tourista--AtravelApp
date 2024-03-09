@@ -323,7 +323,6 @@ class _MngAccState extends State<MngAcc> {
                                         .toList(),
                                     onChanged: (value) {
                                       setState(() {
-                                        
                                         gender = value.toString();
                                       });
                                     },

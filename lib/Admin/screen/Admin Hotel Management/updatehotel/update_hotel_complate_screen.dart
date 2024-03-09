@@ -648,28 +648,4 @@ class _UpdateComplateHotelState extends State<UpdateComplateHotel> {
       });
     });
   }
-
-  clearFields() {
-    setState(() {
-      latitudeController.clear();
-      longitudeContoller.clear();
-      checkinConroller.clear();
-      checkinuntilConroller.clear();
-      checkoutConroller.clear();
-      trsfeeController.clear();
-      trsdisContoller.clear();
-      trstimeController.clear();
-      addressController.clear();
-      distancetocenterController.clear();
-      hotelnameController.clear();
-      descriptionController.clear();
-      ficility!.clear();
-      imgUrl.clear();
-      images.clear();
-      facilityController.clear();
-      imagesController.clear();
-      cityController.clear();
-      priceConroller.clear();
-    });
-  }
 }

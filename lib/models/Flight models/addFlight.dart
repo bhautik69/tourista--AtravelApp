@@ -16,7 +16,7 @@ class AddFlight {
   String? flightname;
 
   AddFlight({
-    required this.id,
+    this.id,
     required this.startingFrom,
     required this.travelingTo,
     required this.flightNumber,

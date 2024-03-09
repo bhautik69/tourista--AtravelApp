@@ -7,16 +7,18 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:uuid/uuid.dart';
 
-class AddNewFlight extends StatefulWidget {
-  const AddNewFlight({super.key});
+// ignore: must_be_immutable
+class UpdateCompleteflight extends StatefulWidget {
+  String? id;
+  AddFlight? addFlight;
+  UpdateCompleteflight({super.key, this.id, this.addFlight});
 
   @override
-  State<AddNewFlight> createState() => _AddNewFlightState();
+  State<UpdateCompleteflight> createState() => _UpdateCompleteflightState();
 }
 
-class _AddNewFlightState extends State<AddNewFlight> {
+class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
   var startingFrom = TextEditingController();
   var travelingTo = TextEditingController();
   var flightNumber = TextEditingController();
@@ -28,7 +30,6 @@ class _AddNewFlightState extends State<AddNewFlight> {
   var price = TextEditingController();
   String? flightname;
   bool isLoading = false;
-  var uuid = const Uuid();
 
   final _formKey = GlobalKey<FormState>();
   bool validateMobile(String value) {
@@ -93,6 +94,21 @@ class _AddNewFlightState extends State<AddNewFlight> {
       }).toList();
 
   @override
+  void initState() {
+    startingFrom.text = widget.addFlight!.startingFrom!;
+    travelingTo.text = widget.addFlight!.travelingTo!;
+    flightNumber.text = widget.addFlight!.flightNumber!;
+    startDate.text = widget.addFlight!.startDate!;
+    endDate.text = widget.addFlight!.endDate!;
+    timeDuration.text = widget.addFlight!.timeDuration!;
+    takeoffTime.text = widget.addFlight!.takeoffTime!;
+    landingTime.text = widget.addFlight!.landingTime!;
+    price.text = widget.addFlight!.price!;
+    flightname = widget.addFlight!.flightname!;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -122,7 +138,7 @@ class _AddNewFlightState extends State<AddNewFlight> {
                       const Titletext(title: "Flight Details"),
                       DropdownButtonFormField(
                         validator: (value) {
-                          if (value == null || value.isEmpty) {
+                          if (value == null) {
                             return "*Required Field";
                           }
                           return null;
@@ -150,9 +166,10 @@ class _AddNewFlightState extends State<AddNewFlight> {
                             .map((e) => DropdownMenuItem<String>(
                                 value: e, child: Text(e)))
                             .toList(),
+                        value: flightname!.isEmpty ? "" : flightname,
                         onChanged: (value) {
                           setState(() {
-                            flightname = value;
+                            flightname = value.toString();
                           });
                         },
                       ),
@@ -550,11 +567,11 @@ class _AddNewFlightState extends State<AddNewFlight> {
                     height: 52,
                     width: MediaQuery.of(context).size.width,
                     child: commenButton(
-                        title: "ADD",
+                        title: "UPDATE",
                         loading: isLoading,
                         callback: () {
                           if (_formKey.currentState!.validate()) {
-                            addData();
+                            updateData();
                           }
                         })),
               ),
@@ -568,43 +585,31 @@ class _AddNewFlightState extends State<AddNewFlight> {
     );
   }
 
-  addData() async {
+  updateData() async {
     setState(() {
       isLoading = true;
     });
 
-    await AddFlight.addNewFlight(AddFlight(
-            id: uuid.v4().toString(),
-            startingFrom: startingFrom.text,
-            travelingTo: travelingTo.text,
-            flightNumber: flightNumber.text,
-            startDate: startDate.text,
-            endDate: endDate.text,
-            timeDuration: timeDuration.text,
-            takeoffTime: takeoffTime.text,
-            landingTime: landingTime.text,
-            price: price.text,
-            flightname: flightname))
+    await AddFlight.updateFlight(
+            widget.id!,
+            AddFlight(
+                id: widget.id,
+                startingFrom: startingFrom.text,
+                travelingTo: travelingTo.text,
+                flightNumber: flightNumber.text,
+                startDate: startDate.text,
+                endDate: endDate.text,
+                timeDuration: timeDuration.text,
+                takeoffTime: takeoffTime.text,
+                landingTime: landingTime.text,
+                price: price.text,
+                flightname: flightname))
         .whenComplete(() {
       setState(() {
         isLoading = false;
-        clearFields();
         ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("ADDED SUCCESSFULLY")));
+            .showSnackBar(const SnackBar(content: Text("UPDATE SUCCESSFULLY")));
       });
     });
-  }
-
-  clearFields() {
-    startingFrom.clear();
-    travelingTo.clear();
-    flightNumber.clear();
-    startDate.clear();
-    endDate.clear();
-    timeDuration.clear();
-    takeoffTime.clear();
-    landingTime.clear();
-    price.clear();
-    flightname = "";
   }
 }
