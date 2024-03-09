@@ -202,23 +202,40 @@ class _AdminsideState extends State<Adminside> {
                                   "assets/img/fliggt.png",
                                   scale: 12,
                                 ),
-                                const Expanded(
+                                Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Column(
                                         children: [
-                                          Titletext(
+                                          const Titletext(
                                             title: "Flights Management ",
                                             size: 18.5,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 10,
                                           ),
-                                          Titletext(
-                                            title: "20",
-                                            size: 16,
-                                          )
+                                          StreamBuilder(
+                                              stream: FirebaseFirestore.instance
+                                                  .collection('FlightDetail')
+                                                  .snapshots(),
+                                              builder: (context,
+                                                  AsyncSnapshot<QuerySnapshot>
+                                                      snapshot) {
+                                                if (snapshot.hasData) {
+                                                  return Titletext(
+                                                    title: snapshot
+                                                        .data!.docs.length
+                                                        .toString(),
+                                                    size: 16,
+                                                  );
+                                                } else {
+                                                  return const Titletext(
+                                                    title: "00",
+                                                    size: 16,
+                                                  );
+                                                }
+                                              })
                                         ],
                                       ),
                                     ],

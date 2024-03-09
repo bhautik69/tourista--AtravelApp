@@ -1,9 +1,13 @@
+import 'package:demo/models/Flight%20models/addFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class AddNewFlight extends StatefulWidget {
   const AddNewFlight({super.key});
@@ -13,35 +17,18 @@ class AddNewFlight extends StatefulWidget {
 }
 
 class _AddNewFlightState extends State<AddNewFlight> {
-  var retunefligthtime = TextEditingController();
-  var longitude = TextEditingController();
-  var latitude = TextEditingController();
-  var retunereachfligthtime = TextEditingController();
-  var startingForm = TextEditingController();
-  var retunefligthdate = TextEditingController();
-  var retunereachfligthdate = TextEditingController();
+  var startingFrom = TextEditingController();
   var travelingTo = TextEditingController();
+  var flightNumber = TextEditingController();
   var startDate = TextEditingController();
   var endDate = TextEditingController();
-  var imgurl = TextEditingController();
-  var decs = TextEditingController();
-  var img1 = TextEditingController();
-  var img2 = TextEditingController();
-  var img3 = TextEditingController();
-  var img4 = TextEditingController();
-  var flightdate = TextEditingController();
-  var reachdate = TextEditingController();
-  var flightTime = TextEditingController();
-  var reachTime = TextEditingController();
-  var hotelName = TextEditingController();
-  var hotelImg = TextEditingController();
-  var hotelRate = TextEditingController();
-  var hotelAdd = TextEditingController();
-  var hotelPhone = TextEditingController();
-  var activityname = TextEditingController();
-  var activityimg = TextEditingController();
-  var activitydesc = TextEditingController();
+  var timeDuration = TextEditingController();
+  var takeoffTime = TextEditingController();
+  var landingTime = TextEditingController();
   var price = TextEditingController();
+  String? flightname;
+  bool isLoading = false;
+  var uuid = const Uuid();
 
   final _formKey = GlobalKey<FormState>();
   bool validateMobile(String value) {
@@ -49,6 +36,61 @@ class _AddNewFlightState extends State<AddNewFlight> {
     RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(value);
   }
+
+  List<String> classhint = <String>[
+    "Economy",
+    "Premium",
+    "Business",
+    "First Class"
+  ];
+
+  List<String> flightName = <String>[
+    "Indigo",
+    "Air India",
+    "Vistara",
+    "Go First",
+    "Air India Express",
+    "Star Air",
+    "SpiceJet",
+    "TruJet"
+  ];
+
+  List cityList = [
+    "Agartala Airport - IXA",
+    "Ahmedabad Airport - AMD",
+    "Biju Patnaik  Airport - BBI",
+    "Calicut  Airport - CCJ",
+    "Chandigarh  Airport - IXC",
+    "Chennai  Airport - MAA",
+    "Chhatrapati Shivaji Airport - BOM",
+    "Cochin  Airport - COK",
+    "Coimbatore  Airport - CJB",
+    "Devi Ahilya Bai Holkar Airport - IDR",
+    "Babasaheb Ambedkar Airport - NAG",
+    "Goa Airport - GOI",
+    "Imphal Airport - IMF",
+    "Indira Gandhi  Airport - DEL",
+    "Jaipur Airport - JAI",
+    "Jodhpur Airport - JDH",
+    "Kempegowda Airport - BLR",
+    "Madurai Airport - IXM",
+    "Mangalore Airport - IXE",
+    "Pune Airport - PNQ",
+    "Rajiv Gandhi  Airport - HYD",
+    "Rajkot Airport - RAJ",
+    "Siliguri Bagdogra Airport - IXB",
+    "Surat Airport - STV",
+    "Tiruchirappalli Airport - TRZ",
+    "Trivandrum Airport - TRV",
+    "Vijayawada Airport - VGA",
+    "Visakhapatnam Airport - VTZ"
+  ];
+
+  List<dynamic> getSuggestion(String query) => List.of(cityList).where((city) {
+        final cityLower = city.toLowerCase();
+        final queryLower = query.toLowerCase();
+        return cityLower.startsWith(queryLower);
+      }).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -77,90 +119,19 @@ class _AddNewFlightState extends State<AddNewFlight> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Column(
                     children: [
-                      const Titletext(title: "Normal Details"),
-                      TextFormField(
+                      const Titletext(title: "Flight Details"),
+                      DropdownButtonFormField(
                         validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* required";
+                          if (value == null || value.isEmpty) {
+                            return "*Required Field";
                           }
                           return null;
                         },
-                        controller: startingForm,
-                        textAlignVertical: TextAlignVertical.bottom,
+                        dropdownColor: themeState.getDarkTheme
+                            ? const Color(0xff212121)
+                            : Colors.white,
                         decoration: InputDecoration(
-                            label: const Text("STARTING FROM"),
-                            labelStyle: TextStyle(
-                                color: themeState.getDarkTheme
-                                    ? Colors.white54
-                                    : Colors.black54,
-                                fontWeight: FontWeight.w500),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1.5, color: Color(0xff0078aa))),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white
-                                        : Colors.black))),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* required";
-                          }
-                          return null;
-                        },
-                        controller: travelingTo,
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                            label: const Text("TRAVELLING TO"),
-                            labelStyle: TextStyle(
-                                color: themeState.getDarkTheme
-                                    ? Colors.white54
-                                    : Colors.black54,
-                                fontWeight: FontWeight.w500),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1.5, color: Color(0xff0078aa))),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white
-                                        : Colors.black))),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* required";
-                          }
-                          return null;
-                        },
-                        readOnly: true,
-                        controller: startDate,
-                        onTap: () async {
-                          var dateTime = await showDatePicker(
-                              builder: (BuildContext context, Widget? child) {
-                                return Theme(
-                                  data: ThemeData().copyWith(
-                                      colorScheme: const ColorScheme.light(
-                                    primary: Color(0xff0078aa),
-                                    onPrimary: Colors.white,
-                                    onSurface: Colors.black,
-                                  )),
-                                  child: child!,
-                                );
-                              },
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2030));
-
-                          startDate.text =
-                              "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
-                        },
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                          label: const Text("STARTING DATE"),
+                          label: const Text("Flight Name"),
                           focusedBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                   width: 1.5, color: Color(0xff0078aa))),
@@ -175,6 +146,15 @@ class _AddNewFlightState extends State<AddNewFlight> {
                                   : Colors.black54,
                               fontWeight: FontWeight.w500),
                         ),
+                        items: flightName
+                            .map((e) => DropdownMenuItem<String>(
+                                value: e, child: Text(e)))
+                            .toList(),
+                        onChanged: (value) {
+                          setState(() {
+                            flightname = value;
+                          });
+                        },
                       ),
                       TextFormField(
                         validator: (value) {
@@ -183,98 +163,129 @@ class _AddNewFlightState extends State<AddNewFlight> {
                           }
                           return null;
                         },
-                        readOnly: true,
-                        controller: endDate,
-                        onTap: () async {
-                          var dateTime = await showDatePicker(
-                              builder: (BuildContext context, Widget? child) {
-                                return Theme(
-                                  data: ThemeData().copyWith(
-                                      colorScheme: const ColorScheme.light(
-                                    primary: Color(0xff0078aa),
-                                    onPrimary: Colors.white,
-                                    onSurface: Colors.black,
-                                  )),
-                                  child: child!,
-                                );
-                              },
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2030));
-
-                          endDate.text =
-                              "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
-                        },
+                        controller: flightNumber,
                         textAlignVertical: TextAlignVertical.bottom,
                         decoration: InputDecoration(
-                          label: const Text("ENDING DATE"),
-                          focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 1.5, color: Color(0xff0078aa))),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
+                            label: const Text("Flight Number"),
+                            labelStyle: TextStyle(
+                                color: themeState.getDarkTheme
+                                    ? Colors.white54
+                                    : Colors.black54,
+                                fontWeight: FontWeight.w500),
+                            focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1.5, color: Color(0xff0078aa))),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: themeState.getDarkTheme
+                                        ? Colors.white
+                                        : Colors.black))),
+                      ),
+                      TypeAheadFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "*Required Field";
+                          } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
+                              .hasMatch(value)) {
+                            return "*Enter valid name";
+                          } else {
+                            return null;
+                          }
+                        },
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: startingFrom,
+                          onTap: () {
+                            setState(() {});
+                          },
+                          decoration: InputDecoration(
+                              label: const Text("Starting from"),
+                              labelStyle: TextStyle(
                                   color: themeState.getDarkTheme
-                                      ? Colors.white
-                                      : Colors.black)),
-                          labelStyle: TextStyle(
-                              color: themeState.getDarkTheme
-                                  ? Colors.white54
-                                  : Colors.black54,
-                              fontWeight: FontWeight.w500),
+                                      ? Colors.white54
+                                      : Colors.black54,
+                                  fontWeight: FontWeight.w500),
+                              focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1.5, color: Color(0xff0078aa))),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white
+                                          : Colors.black))),
                         ),
-                      ),
-                      TextFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* required";
-                          }
-                          return null;
-                        },
-                        controller: imgurl,
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                            label: const Text("IMG URL"),
-                            labelStyle: TextStyle(
+                        suggestionsCallback: getSuggestion,
+                        itemBuilder: (context, itemData) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 16),
+                            child: Text(
+                              itemData,
+                              style: TextStyle(
+                                fontSize: 17,
                                 color: themeState.getDarkTheme
-                                    ? Colors.white54
+                                    ? Colors.white
                                     : Colors.black54,
-                                fontWeight: FontWeight.w500),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1.5, color: Color(0xff0078aa))),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white
-                                        : Colors.black))),
-                      ),
-                      TextFormField(
-                        minLines: 1,
-                        maxLines: 5,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* required";
-                          }
-                          return null;
+                              ),
+                            ),
+                          );
                         },
-                        controller: decs,
-                        textAlignVertical: TextAlignVertical.bottom,
-                        decoration: InputDecoration(
-                            label: const Text("DESCRIPTION"),
-                            labelStyle: TextStyle(
+                        onSuggestionSelected: (item) {
+                          startingFrom.text = item;
+                        },
+                      ),
+                      TypeAheadFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "*Required Field";
+                          } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
+                              .hasMatch(value)) {
+                            return "*Enter valid name";
+                          } else if (startingFrom.text == travelingTo.text) {
+                            return "*Origin and destination can't be the same";
+                          } else {
+                            return null;
+                          }
+                        },
+                        textFieldConfiguration: TextFieldConfiguration(
+                          controller: travelingTo,
+                          onTap: () {
+                            setState(() {});
+                          },
+                          decoration: InputDecoration(
+                              label: const Text("Travelling To"),
+                              labelStyle: TextStyle(
+                                  color: themeState.getDarkTheme
+                                      ? Colors.white54
+                                      : Colors.black54,
+                                  fontWeight: FontWeight.w500),
+                              focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      width: 1.5, color: Color(0xff0078aa))),
+                              enabledBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white
+                                          : Colors.black))),
+                        ),
+                        suggestionsCallback: getSuggestion,
+                        itemBuilder: (context, itemData) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 6, horizontal: 16),
+                            child: Text(
+                              itemData,
+                              style: TextStyle(
+                                fontSize: 17,
                                 color: themeState.getDarkTheme
-                                    ? Colors.white54
+                                    ? Colors.white
                                     : Colors.black54,
-                                fontWeight: FontWeight.w500),
-                            focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 1.5, color: Color(0xff0078aa))),
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white
-                                        : Colors.black))),
+                              ),
+                            ),
+                          );
+                        },
+                        onSuggestionSelected: (item) {
+                          travelingTo.text = item;
+                        },
                       ),
                       TextFormField(
                         validator: (value) {
@@ -287,7 +298,7 @@ class _AddNewFlightState extends State<AddNewFlight> {
                         keyboardType: TextInputType.number,
                         textAlignVertical: TextAlignVertical.bottom,
                         decoration: InputDecoration(
-                            label: const Text("PRICE"),
+                            label: const Text("Price"),
                             labelStyle: TextStyle(
                                 color: themeState.getDarkTheme
                                     ? Colors.white54
@@ -316,120 +327,7 @@ class _AddNewFlightState extends State<AddNewFlight> {
                           horizontal: 16, vertical: 16),
                       child: Column(
                         children: [
-                          const Titletext(title: "Slider Image "),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: img1,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("IMG1"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: img2,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("IMG2"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: img3,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("IMG3"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: img4,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("IMG4"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                        ],
-                      ))),
-              SizedBox(
-                height: mq.size.height * 0.01,
-              ),
-              Container(
-                  color: Colors.white,
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      child: Column(
-                        children: [
-                          const Titletext(title: "Flight Details"),
+                          const Titletext(title: "Flight Time Details"),
                           TextFormField(
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -438,20 +336,32 @@ class _AddNewFlightState extends State<AddNewFlight> {
                               return null;
                             },
                             readOnly: true,
-                            controller: flightdate,
+                            controller: startDate,
                             onTap: () async {
                               var dateTime = await showDatePicker(
+                                  builder:
+                                      (BuildContext context, Widget? child) {
+                                    return Theme(
+                                      data: ThemeData().copyWith(
+                                          colorScheme: const ColorScheme.light(
+                                        primary: Color(0xff0078aa),
+                                        onPrimary: Colors.white,
+                                        onSurface: Colors.black,
+                                      )),
+                                      child: child!,
+                                    );
+                                  },
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime.now(),
                                   lastDate: DateTime(2030));
 
-                              flightdate.text =
+                              startDate.text =
                                   "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
                             },
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
-                              label: const Text("FLIGHT DATE"),
+                              label: const Text("Starting Date"),
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1.5, color: Color(0xff0078aa))),
@@ -475,20 +385,32 @@ class _AddNewFlightState extends State<AddNewFlight> {
                               return null;
                             },
                             readOnly: true,
-                            controller: reachdate,
+                            controller: endDate,
                             onTap: () async {
                               var dateTime = await showDatePicker(
+                                  builder:
+                                      (BuildContext context, Widget? child) {
+                                    return Theme(
+                                      data: ThemeData().copyWith(
+                                          colorScheme: const ColorScheme.light(
+                                        primary: Color(0xff0078aa),
+                                        onPrimary: Colors.white,
+                                        onSurface: Colors.black,
+                                      )),
+                                      child: child!,
+                                    );
+                                  },
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime.now(),
                                   lastDate: DateTime(2030));
 
-                              reachdate.text =
+                              endDate.text =
                                   "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
                             },
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
-                              label: const Text("REACH DATE"),
+                              label: const Text("Ending Date"),
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1.5, color: Color(0xff0078aa))),
@@ -512,18 +434,26 @@ class _AddNewFlightState extends State<AddNewFlight> {
                               return null;
                             },
                             readOnly: true,
-                            controller: flightTime,
+                            controller: takeoffTime,
                             onTap: () async {
                               var pickedtime = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.now(),
                                   initialEntryMode: TimePickerEntryMode.input);
-                              flightTime.text =
-                                  "${pickedtime!.hour}:${pickedtime.minute}";
+                              if (pickedtime != null) {
+                                String formattedTime =
+                                    DateFormat('hh:mm a').format(
+                                  DateTime(2024, 1, 1, pickedtime.hour,
+                                      pickedtime.minute),
+                                );
+                                setState(() {
+                                  takeoffTime.text = formattedTime;
+                                });
+                              }
                             },
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
-                              label: const Text("FLIGHT TIME"),
+                              label: const Text("Flight Takeoff Time"),
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1.5, color: Color(0xff0078aa))),
@@ -547,68 +477,26 @@ class _AddNewFlightState extends State<AddNewFlight> {
                               return null;
                             },
                             readOnly: true,
-                            controller: reachTime,
+                            controller: landingTime,
                             onTap: () async {
                               var pickedtime = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.now(),
                                   initialEntryMode: TimePickerEntryMode.input);
-                              reachTime.text =
-                                  "${pickedtime!.hour}:${pickedtime.minute}";
-                            },
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                              label: const Text("REACH TIME"),
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1.5, color: Color(0xff0078aa))),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black)),
-                              labelStyle: TextStyle(
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ],
-                      ))),
-              SizedBox(
-                height: mq.size.height * 0.01,
-              ),
-              Container(
-                  color: Colors.white,
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      child: Column(
-                        children: [
-                          const Titletext(title: "Return Flight Details"),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
+                              if (pickedtime != null) {
+                                String formattedTime =
+                                    DateFormat('hh:mm a').format(
+                                  DateTime(2024, 1, 1, pickedtime.hour,
+                                      pickedtime.minute),
+                                );
+                                setState(() {
+                                  landingTime.text = formattedTime;
+                                });
                               }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: retunefligthdate,
-                            onTap: () async {
-                              var dateTime = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(2030));
-
-                              retunefligthdate.text =
-                                  "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
                             },
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
-                              label: const Text("FLIGHT DATE"),
+                              label: const Text("Flight Landing Time"),
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1.5, color: Color(0xff0078aa))),
@@ -631,21 +519,11 @@ class _AddNewFlightState extends State<AddNewFlight> {
                               }
                               return null;
                             },
-                            readOnly: true,
-                            controller: retunereachfligthdate,
-                            onTap: () async {
-                              var dateTime = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime.now(),
-                                  lastDate: DateTime(2030));
-
-                              retunereachfligthdate.text =
-                                  "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
-                            },
+                            controller: timeDuration,
                             textAlignVertical: TextAlignVertical.bottom,
                             decoration: InputDecoration(
-                              label: const Text("REACH DATE"),
+                              label:
+                                  const Text("Flight Duration Time (01h 00m)"),
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
                                       width: 1.5, color: Color(0xff0078aa))),
@@ -660,273 +538,6 @@ class _AddNewFlightState extends State<AddNewFlight> {
                                       : Colors.black54,
                                   fontWeight: FontWeight.w500),
                             ),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: retunefligthtime,
-                            onTap: () async {
-                              var pickedtime = await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                  initialEntryMode: TimePickerEntryMode.input);
-                              retunefligthtime.text =
-                                  "${pickedtime!.hour}:${pickedtime.minute}";
-                            },
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                              label: const Text("FLIGHT TIME"),
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1.5, color: Color(0xff0078aa))),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black)),
-                              labelStyle: TextStyle(
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            readOnly: true,
-                            controller: retunereachfligthtime,
-                            onTap: () async {
-                              var pickedtime = await showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                  initialEntryMode: TimePickerEntryMode.input);
-                              retunereachfligthtime.text =
-                                  "${pickedtime!.hour}:${pickedtime.minute}";
-                            },
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                              label: const Text("REACH TIME"),
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1.5, color: Color(0xff0078aa))),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black)),
-                              labelStyle: TextStyle(
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ],
-                      ))),
-              SizedBox(
-                height: mq.size.height * 0.01,
-              ),
-              Container(
-                  color: Colors.white,
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16, vertical: 16),
-                      child: Column(
-                        children: [
-                          const Titletext(title: "Hotel Details"),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: hotelName,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("NAME"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: hotelImg,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("IMG"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: hotelRate,
-                            keyboardType: TextInputType.number,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("RATEING"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: hotelAdd,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("ADDRESS"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              } else {
-                                if (!validateMobile(value)) {
-                                  return 'Invalid mobile number';
-                                } else {
-                                  return null;
-                                }
-                              }
-                            },
-                            controller: hotelPhone,
-                            keyboardType: TextInputType.number,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("PHONE"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: latitude,
-                            keyboardType: TextInputType.number,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("LATITUDE"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
-                          ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: longitude,
-                            keyboardType: TextInputType.number,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                                label: const Text("LONGITUDE"),
-                                labelStyle: TextStyle(
-                                    color: themeState.getDarkTheme
-                                        ? Colors.white54
-                                        : Colors.black54,
-                                    fontWeight: FontWeight.w500),
-                                focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.5, color: Color(0xff0078aa))),
-                                enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white
-                                            : Colors.black))),
                           ),
                         ],
                       ))),
@@ -938,7 +549,14 @@ class _AddNewFlightState extends State<AddNewFlight> {
                 child: SizedBox(
                     height: 52,
                     width: MediaQuery.of(context).size.width,
-                    child: commenButton(title: "ADD", callback: () {})),
+                    child: commenButton(
+                        title: "ADD",
+                        loading: isLoading,
+                        callback: () {
+                          if (_formKey.currentState!.validate()) {
+                            addData();
+                          }
+                        })),
               ),
               const SizedBox(
                 height: 25,
@@ -948,5 +566,45 @@ class _AddNewFlightState extends State<AddNewFlight> {
         ),
       ),
     );
+  }
+
+  addData() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await AddFlight.addNewFlight(AddFlight(
+            id: uuid.v4().toString(),
+            startingFrom: startingFrom.text,
+            travelingTo: travelingTo.text,
+            flightNumber: flightNumber.text,
+            startDate: startDate.text,
+            endDate: endDate.text,
+            timeDuration: timeDuration.text,
+            takeoffTime: takeoffTime.text,
+            landingTime: landingTime.text,
+            price: price.text,
+            flightname: flightname))
+        .whenComplete(() {
+      setState(() {
+        isLoading = false;
+        clearFields();
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("ADDED SUCCESSFULLY")));
+      });
+    });
+  }
+
+  clearFields() {
+    startingFrom.clear();
+    travelingTo.clear();
+    flightNumber.clear();
+    startDate.clear();
+    endDate.clear();
+    timeDuration.clear();
+    takeoffTime.clear();
+    landingTime.clear();
+    price.clear();
+    flightname = null;
   }
 }
