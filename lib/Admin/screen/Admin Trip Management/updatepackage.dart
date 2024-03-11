@@ -299,7 +299,7 @@ class _UpdatePackageState extends State<UpdatePackage> {
                                   ),
                                 ),
                               ),
-                              Divider(
+                              const Divider(
                                 thickness: 1.5,
                               )
                             ],

@@ -2,7 +2,6 @@ import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Managemen
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_contact.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_detail.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
-import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/flight_traveller_datastore_.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -152,6 +151,7 @@ class _UserinfoState extends State<Userinfo> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => User_detail(
+                                    // ignore: non_constant_identifier_names
                                     store: (gender, Dob, firstname, lastname) {
                                       gender1[index] = gender;
                                       dob[index] = Dob;
@@ -224,19 +224,16 @@ class _UserinfoState extends State<Userinfo> {
                                                           bottom: 2, top: 3),
                                                   child: Text(
                                                     index < adult
-                                                        ? "Adult" +
-                                                            (gender1[index] !=
+                                                        ? "Adult${gender1[index] !=
                                                                     null
                                                                 ? " . ${gender1[index]}"
-                                                                : " ")
-                                                        : "Child aged ${ages[index - adult]}" +
-                                                            (gender1[index] !=
+                                                                : " "}"
+                                                        : "Child aged ${ages[index - adult]}${gender1[index] !=
                                                                     null
                                                                 ? " . ${gender1[index]}"
-                                                                : " ") +
-                                                            (dob[index] != null
+                                                                : " "}${dob[index] != null
                                                                 ? " . ${dob[index]}"
-                                                                : " "),
+                                                                : " "}",
                                                   ),
                                                 ),
                                                 Visibility(

@@ -11,10 +11,9 @@ import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
+
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconly/iconly.dart';
 //import 'package:ionicons/ionicons.dart';
 import 'package:ionicons/ionicons.dart';
@@ -25,7 +24,9 @@ import 'package:provider/provider.dart';
 class HotelDetails extends StatefulWidget {
   String id;
   Hotel hotel;
+  // ignore: non_constant_identifier_names
   String check_In = "";
+  // ignore: non_constant_identifier_names
   String check_Out = "";
   int? totalPrice;
   int room = 0;
@@ -152,7 +153,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                         SizedBox(
                                           height: mq.size.height * 0.02,
                                         ),
-                                        Container(
+                                        SizedBox(
                                           height: mq.size.height * 0.091,
                                           child: ListView.builder(
                                             shrinkWrap: true,

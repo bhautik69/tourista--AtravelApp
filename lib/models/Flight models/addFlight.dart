@@ -39,7 +39,7 @@ class AddFlight {
       "flightNumber": addFlight.flightNumber,
       "startDate": addFlight.startDate,
       "endDate": addFlight.endDate,
-    
+
       "takeoffTime": addFlight.takeoffTime,
       "landingTime": addFlight.landingTime,
       "price": addFlight.price,

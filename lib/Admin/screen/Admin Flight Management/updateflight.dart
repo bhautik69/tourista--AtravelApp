@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/Admin/screen/Admin%20Flight%20Management/addNewflight.dart';
 import 'package:demo/Admin/screen/Admin%20Flight%20Management/updatecompleteflight.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:lottie/lottie.dart';

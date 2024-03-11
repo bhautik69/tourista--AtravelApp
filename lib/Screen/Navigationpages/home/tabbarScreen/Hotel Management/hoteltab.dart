@@ -372,10 +372,10 @@ class _HoteltabState extends State<Hoteltab> {
                                 var child;
                                 children == 0
                                     ? child = " "
-                                    : child = ". ${children} child";
+                                    : child = ". $children child";
 
                                 rac.text =
-                                    "${rooms} rooms . ${adults} adults ${child}";
+                                    "$rooms rooms . $adults adults $child";
                               });
                             },
                           ),
