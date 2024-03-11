@@ -41,6 +41,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
 
   @override
   void initState() {
+    getseetdata();
     //l for left, c for center , r for right
     //first param "listSeatLeft","listSeatCenter","listSeatRight" that similar like object temp that u want to save the data
     // second param is for like how many seat on every side
@@ -89,9 +90,27 @@ class _ChooseSeatState extends State<ChooseSeat> {
     });
     //this function to loop every side of seat, from selected to booked, u also can this function to send to u'r serves side
   }
-    getseetdata(){
-      
-    }
+
+  List firebaseseet = [];
+  getseetdata() async {
+    await FirebaseFirestore.instance
+        .collectionGroup('FlightUserBooking')
+        .get()
+        .then((QuerySnapshot? snapshot) {
+      for (var element in snapshot!.docs) {
+        if (element.exists) {
+          if (element.id == widget.id) {
+            for (int i = 0; i < element["seatList"].length; i++) {
+              firebaseseet.add(element["seatList"][i]);
+            }
+          }
+        }
+      }
+    });
+    setState(() {});
+    print(firebaseseet);
+  }
+
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
@@ -396,17 +415,11 @@ class _ChooseSeatState extends State<ChooseSeat> {
                               callback: () {
                                 print(addseat);
 
-                                // flighSeatBook.addAll(flighSeat);
-                                // Map<String, dynamic> data = {
-                                //   "id": "${indexFlightDate}${indexNumber}",
-                                //   "favourite": flighSeatBook
-                                // };
+                               
+                                flighSeat.clear();
 
-                                // print("fata------------$data");
-                                // FirebaseFirestore.instance
-                                //     .collection("flight")
-                                //     .doc("$indexFlightDate$indexNumber")
-                                //     .set(data);
+                                setState(() {});
+                                
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return Userinfo(
@@ -434,7 +447,6 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                         id: widget.id);
                                   },
                                 ));
-                                flighSeat.clear();
                               }))
                     ]),
                   ),
@@ -568,12 +580,12 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     //                 ? Colors.black
                     //                 : Colors.white),
 
-                    color: flighSeatBook.contains(count)
+                    color: firebaseseet.contains(count)
                         ? Color.fromARGB(255, 211, 209, 209)
                         : flighSeat.contains(count)
                             ? const Color.fromARGB(255, 198, 239, 199)
                             : Color(0xff0078aa),
-                    border: flighSeatBook.contains(count)
+                    border: firebaseseet.contains(count)
                         ? Border.all(
                             color: themeState.getDarkTheme
                                 ? Colors.white24

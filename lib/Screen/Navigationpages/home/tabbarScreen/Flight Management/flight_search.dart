@@ -391,6 +391,7 @@ class _FlightSearchState extends State<FlightSearch> {
                                                 travellingto:
                                                     wordBeforeAirport2,
                                                 addFlight: AddFlight(
+                                                  id:  data[index]["id"],
                                                     startingFrom: data[index]
                                                         ["startingFrom"],
                                                     travelingTo: data[index]

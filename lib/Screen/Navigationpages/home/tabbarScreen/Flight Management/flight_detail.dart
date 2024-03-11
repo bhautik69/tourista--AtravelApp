@@ -607,6 +607,7 @@ class _FlightDetailState extends State<FlightDetail> {
                                       clsstype1: widget.classtype,
                                       id: widget.id,
                                       addFlight: AddFlight(
+                                        
                                         startingFrom:
                                             widget.addFlight.startingFrom,
                                         travelingTo:
