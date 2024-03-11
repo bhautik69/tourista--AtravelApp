@@ -377,7 +377,7 @@ class _ConfirmationState extends State<Confirmation> {
     var v2 = store.getString("checkOutDate");
     var v3 = store.getInt("room");
     var v4 = store.getInt("adult");
-    var v5 = store.getInt("child");
+    var v5 = store.getInt("children");
 
     setState(() {
       check_In = v1!;

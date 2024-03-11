@@ -413,7 +413,7 @@ class _HoteltabState extends State<Hoteltab> {
                         store.setString("checkOutDate", checkout.text);
                         store.setInt("room", room1);
                         store.setInt("adult", adults1);
-                        store.setInt("child", child1);
+                        store.setInt("children", child1);
                         store.setInt("total", total);
                         Navigator.push(
                             context,

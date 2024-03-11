@@ -526,7 +526,7 @@ class _FligthtabState extends State<Fligthtab> {
                             if (flightkey.currentState!.validate()) {
                               var prefs = await SharedPreferences.getInstance();
                               prefs.setInt("total", total);
-                              prefs.setInt("children", children);
+                              prefs.setInt("children" ,children);
                               prefs.setInt("adult", adult);
                                indexFlightDate=date.text+flightfrom.text+flightTo.text+flightClass!;
                               Navigator.of(context).push(MaterialPageRoute(

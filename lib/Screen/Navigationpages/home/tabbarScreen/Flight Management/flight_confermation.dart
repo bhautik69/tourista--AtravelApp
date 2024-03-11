@@ -406,8 +406,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                   ? const Color(0xff212121)
                   : const Color(0xffffffff),
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: mq.size.width * 0.03
-                ),
+                padding: EdgeInsets.symmetric(horizontal: mq.size.width * 0.03),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -502,7 +501,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
     var store = await SharedPreferences.getInstance();
 
     var v4 = store.getInt("adult");
-    var v5 = store.getInt("child");
+    var v5 = store.getInt("children");
 
     setState(() {
       adult = v4!;

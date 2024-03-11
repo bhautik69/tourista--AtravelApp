@@ -24,8 +24,8 @@ class Userinfo extends StatefulWidget {
   Userinfo(
       {super.key,
       required this.classtype,
-      required this. ssortname,
-  required this. esortname,
+      required this.ssortname,
+      required this.esortname,
       required this.addFlight,
       required this.id,
       required this.seelist1});
@@ -482,8 +482,8 @@ class _UserinfoState extends State<Userinfo> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => FlightConfirm(
-                                              esortname: widget.esortname,
-                                              ssortname: widget.ssortname,
+                                                esortname: widget.esortname,
+                                                ssortname: widget.ssortname,
                                                 classtype1: widget.classtype,
                                                 seetlist1: widget.seelist1,
                                                 adultList: adultList1,

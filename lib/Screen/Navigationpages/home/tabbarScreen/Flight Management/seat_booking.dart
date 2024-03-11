@@ -415,38 +415,46 @@ class _ChooseSeatState extends State<ChooseSeat> {
                               callback: () {
                                 print(addseat);
 
-                               
-                                flighSeat.clear();
+                                if (addseat.length !=
+                                    int.parse(
+                                        traveller.text.split(" ").first)) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              "select ${int.parse(traveller.text.split(" ").first) - addseat.length} more seet according to your selection")));
+                                } else {
+                                  flighSeat.clear();
 
-                                setState(() {});
-                                
-                                Navigator.push(context, MaterialPageRoute(
-                                  builder: (context) {
-                                    return Userinfo(
-                                        esortname: widget.esortname,
-                                        ssortname: widget.ssortname,
-                                        classtype: widget.clsstype1,
-                                        seelist1: addseat,
-                                        addFlight: AddFlight(
-                                            startingFrom:
-                                                widget.addFlight.startingFrom,
-                                            travelingTo:
-                                                widget.addFlight.travelingTo,
-                                            flightNumber:
-                                                widget.addFlight.flightNumber,
-                                            startDate:
-                                                widget.addFlight.startDate,
-                                            endDate: widget.addFlight.endDate,
-                                            takeoffTime:
-                                                widget.addFlight.takeoffTime,
-                                            landingTime:
-                                                widget.addFlight.landingTime,
-                                            price: widget.addFlight.price,
-                                            flightname:
-                                                widget.addFlight.flightname),
-                                        id: widget.id);
-                                  },
-                                ));
+                                  setState(() {});
+
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return Userinfo(
+                                          esortname: widget.esortname,
+                                          ssortname: widget.ssortname,
+                                          classtype: widget.clsstype1,
+                                          seelist1: addseat,
+                                          addFlight: AddFlight(
+                                              startingFrom:
+                                                  widget.addFlight.startingFrom,
+                                              travelingTo:
+                                                  widget.addFlight.travelingTo,
+                                              flightNumber:
+                                                  widget.addFlight.flightNumber,
+                                              startDate:
+                                                  widget.addFlight.startDate,
+                                              endDate: widget.addFlight.endDate,
+                                              takeoffTime:
+                                                  widget.addFlight.takeoffTime,
+                                              landingTime:
+                                                  widget.addFlight.landingTime,
+                                              price: widget.addFlight.price,
+                                              flightname:
+                                                  widget.addFlight.flightname),
+                                          id: widget.id);
+                                    },
+                                  ));
+                                }
                               }))
                     ]),
                   ),
