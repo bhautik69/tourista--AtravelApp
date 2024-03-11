@@ -2,16 +2,20 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/seat_booking.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
+import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
-import 'package:iconly/iconly.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class FlightDetail extends StatefulWidget {
   AddFlight addFlight;
+
+  
+  String id;
   String travellingto;
   String classtype;
   String timeduration;
@@ -22,6 +26,7 @@ class FlightDetail extends StatefulWidget {
   String travellingsortto;
   FlightDetail(
       {super.key,
+      required this.id,
       required this.addFlight,
       required this.startingsortfrom,
       required this.travellingsortto,
@@ -37,18 +42,18 @@ class FlightDetail extends StatefulWidget {
 }
 
 class _FlightDetailState extends State<FlightDetail> {
-  @override
   String path = " ";
   void initState() {
     path = widget.addFlight.flightname!;
     print(path);
     super.initState();
+    getFirebaseData();
   }
 
   void getFirebaseData() async {
     var data = await FirebaseFirestore.instance
         .collection("flight")
-        .doc("$indexFlightDate")
+        .doc("$indexFlightDate$indexNumber")
         .get();
     if (data.exists) {
       flighSeatBook = data['favourite'];
@@ -597,7 +602,7 @@ class _FlightDetailState extends State<FlightDetail> {
                               title: "SELECT",
                               callback: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ChooseSeat(),
+                                  builder: (context) => ChooseSeat(id: widget.id,addFlight: AddFlight( startingFrom:widget.addFlight.startingFrom, travelingTo: widget.addFlight.travelingTo, flightNumber:widget.addFlight. flightNumber, startDate:widget.addFlight. startDate, endDate:widget.addFlight. endDate, takeoffTime:widget.addFlight. takeoffTime, landingTime:widget.addFlight. landingTime, price:widget.addFlight. price, flightname:widget.addFlight. flightname, )),
                                 ));
                               }))
                     ]),

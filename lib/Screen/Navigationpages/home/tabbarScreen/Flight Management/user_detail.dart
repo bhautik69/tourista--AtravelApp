@@ -8,7 +8,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 // ignore: non_constant_identifier_names
-typedef dataStore = Function(String gender, String Dob);
+typedef dataStore = Function(String gender, String Dob, String firstName, String lastName);
 
 class User_detail extends StatefulWidget {
   String traveller;
@@ -479,7 +479,7 @@ class User_DetailState extends State<User_detail> {
                       title: "Done",
                       callback: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.store(gender, date.text);
+                          widget.store(gender, date.text ,f_name.text,l_name.text);
                           setState(() {});
                           Navigator.pop(context);
                         }

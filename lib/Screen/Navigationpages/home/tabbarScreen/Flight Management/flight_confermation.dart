@@ -1,18 +1,48 @@
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
+import 'package:demo/models/Flight%20models/addFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:path_drawing/path_drawing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../../../models/Flight models/bookingFlight.dart';
 
 class FlightConfirm extends StatefulWidget {
-  const FlightConfirm({super.key});
+  AddFlight addFlight;
+  String id;
+  String email;
+  String phone;
+  String totalPrice;
+  List<Map<String, dynamic>> adultList;
+  List seetlist1;
+  List<Map<String, dynamic>> childList;
+  FlightConfirm(
+      {super.key,
+      required this.addFlight,
+      required this.id,
+      required this.totalPrice,
+      required this.seetlist1,
+      required this.email,
+      required this.phone,
+      required this.adultList,
+      required this.childList});
 
   @override
-  State<FlightConfirm> createState() => _FlightDetailState();
+  State<FlightConfirm> createState() => _FlightConfirmState();
 }
 
-class _FlightDetailState extends State<FlightConfirm> {
+class _FlightConfirmState extends State<FlightConfirm> {
+  bool isloading = false;
+  int adult = 1;
+  int child = 0;
+  @override
+  void initState() {
+    getdata();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -333,7 +363,9 @@ class _FlightDetailState extends State<FlightConfirm> {
                   width: mq.size.width * 0.35,
                   child: commenButton(
                     title: "Confirm",
+                    loading: isloading,
                     callback: () {
+                      save();
                       // Navigator.of(context).push(MaterialPageRoute(
                       //   builder: (context) => const Fli(),
                       // ));
@@ -346,6 +378,54 @@ class _FlightDetailState extends State<FlightConfirm> {
         ],
       ),
     );
+  }
+
+  save() async {
+    setState(() {
+      isloading = true;
+    });
+
+    await BookingFlight.addBookingFlight(
+      BookingFlight(
+          id: widget.id,
+          startingFrom: widget.addFlight.startingFrom,
+          travelingTo: widget.addFlight.travelingTo,
+          flightNumber: widget.addFlight.flightNumber,
+          startDate: widget.addFlight.startDate,
+          endDate: widget.addFlight.endDate,
+          takeoffTime: widget.addFlight.takeoffTime,
+          landingTime: widget.addFlight.landingTime,
+          price: widget.addFlight.price,
+          flightname: widget.addFlight.flightname,
+          seatList: widget.seetlist1,
+          adult: adult.toString(),
+          children: child.toString(),
+          email: widget.email,
+          phoneno: widget.phone,
+          adultList: widget.adultList,
+          childrenList: widget.childList,
+          totalPrice: widget.totalPrice),
+      widget.id,
+    ).whenComplete(() {
+      setState(() {
+        isloading = false;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("BOOKING SUCCESSFULLY")));
+      });
+    });
+  }
+
+  getdata() async {
+    var store = await SharedPreferences.getInstance();
+
+    var v4 = store.getInt("adult");
+    var v5 = store.getInt("child");
+
+    setState(() {
+      adult = v4!;
+      child = v5!;
+    });
   }
 }
 

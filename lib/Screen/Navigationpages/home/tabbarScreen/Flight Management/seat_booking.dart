@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_information.dart';
+import 'package:demo/models/Flight%20models/addFlight.dart';
+import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -11,7 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ChooseSeat extends StatefulWidget {
-  ChooseSeat({Key? key}) : super(key: key);
+  String id;
+  AddFlight addFlight;
+  ChooseSeat({Key? key, required this.addFlight, required this.id});
 
   @override
   State<ChooseSeat> createState() => _ChooseSeatState();
@@ -23,6 +27,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
   var countSeatRight = 3 * 13;
   var listSeatLeft = [];
   var listSeatRight = [];
+  List addseat = [];
 
   @override
   void initState() {
@@ -357,7 +362,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Titletext(title: "₹ 15,135"),
+                          Titletext(title: "₹ ${widget.addFlight.price}"),
                           SizedBox(
                             height: mq.size.height * 0.01,
                           ),
@@ -377,16 +382,43 @@ class _ChooseSeatState extends State<ChooseSeat> {
                           child: commenButton(
                               title: "SELECT",
                               callback: () {
-                                flighSeatBook.addAll(flighSeat);
-                                Map<String,dynamic> data={
-                                  "id":indexFlightDate,
-                                  "favourite":flighSeatBook
-                                };
-                                print("fata------------$data");
-                                FirebaseFirestore.instance.collection("flight").doc(indexFlightDate).set(data);
+                                print(addseat);
+
+                                // flighSeatBook.addAll(flighSeat);
+                                // Map<String, dynamic> data = {
+                                //   "id": "${indexFlightDate}${indexNumber}",
+                                //   "favourite": flighSeatBook
+                                // };
+
+                                // flighSeat.clear();
+
+                                // print("fata------------$data");
+                                // FirebaseFirestore.instance
+                                //     .collection("flight")
+                                //     .doc("$indexFlightDate$indexNumber")
+                                //     .set(data);
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
-                                    return Userinfo();
+                                    return Userinfo(
+                                        seelist1: addseat,
+                                        addFlight: AddFlight(
+                                            startingFrom:
+                                                widget.addFlight.startingFrom,
+                                            travelingTo:
+                                                widget.addFlight.travelingTo,
+                                            flightNumber:
+                                                widget.addFlight.flightNumber,
+                                            startDate:
+                                                widget.addFlight.startDate,
+                                            endDate: widget.addFlight.endDate,
+                                            takeoffTime:
+                                                widget.addFlight.takeoffTime,
+                                            landingTime:
+                                                widget.addFlight.landingTime,
+                                            price: widget.addFlight.price,
+                                            flightname:
+                                                widget.addFlight.flightname),
+                                        id: widget.id);
                                   },
                                 ));
                               }))
@@ -472,21 +504,32 @@ class _ChooseSeatState extends State<ChooseSeat> {
             visible: dataSeat[index]["isVisible"],
             child: GestureDetector(
               onTap: () {
-                if(flighSeatBook.contains(count)){
+                if (flighSeatBook.contains(count)) {
                   return;
                 }
 
+                print("lenght---${flighSeat.length}");
+                print(
+                    "lenght--1111-${int.parse(traveller.text.split(" ").first)}");
+                // if (flighSeat.length <= int.parse(traveller.text.split(" ").first)) {
 
-
-                setState(() {
+                dataSeat[index]["isSelected"] = !dataSeat[index]["isSelected"];
+                if (flighSeat.contains(count)) {
                   dataSeat[index]["isSelected"] =
                       !dataSeat[index]["isSelected"];
-                  if(flighSeat.contains(count)){
-                    flighSeat.remove(count);
-                  }else{
+                  flighSeat.remove(count);
+                } else {
+                  if (flighSeat.length <
+                      int.parse(traveller.text.split(" ").first)) {
+                    dataSeat[index]["isSelected"] =
+                        !dataSeat[index]["isSelected"];
                     flighSeat.add(count);
                   }
-                });
+                }
+                print("lenght---${flighSeat}");
+                flighSeat.contains(count) ? addseat.add(count) : null;
+                setState(() {});
+                !flighSeat.contains(count) ? addseat.remove(count) : "";
               },
               //show the seat info
               child: Container(
@@ -514,24 +557,19 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     color: flighSeatBook.contains(count)
                         ? Color.fromARGB(255, 211, 209, 209)
                         : flighSeat.contains(count)
-                        ? const Color.fromARGB(255, 198, 239, 199)
-                        : Color(0xff0078aa),
+                            ? const Color.fromARGB(255, 198, 239, 199)
+                            : Color(0xff0078aa),
                     border: flighSeatBook.contains(count)
                         ? Border.all(
-                        color: themeState.getDarkTheme
-                            ? Colors.white24
-                            : Colors.black26)
+                            color: themeState.getDarkTheme
+                                ? Colors.white24
+                                : Colors.black26)
                         : flighSeat.contains(count)
-                        ? Border.all(color: Colors.green)
-                        : Border.all(
-                        color: themeState.getDarkTheme
-                            ? Colors.black
-                            : Colors.white),
-
-
-
-
-
+                            ? Border.all(color: Colors.green)
+                            : Border.all(
+                                color: themeState.getDarkTheme
+                                    ? Colors.black
+                                    : Colors.white),
 
                     borderRadius: BorderRadius.circular(3),
                   ),

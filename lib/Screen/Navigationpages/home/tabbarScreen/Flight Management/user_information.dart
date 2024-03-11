@@ -1,6 +1,8 @@
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_confermation.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_contact.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_detail.dart';
+import 'package:demo/models/Flight%20models/addFlight.dart';
+import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/flight_traveller_datastore_.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -11,8 +13,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../provider/dark_theme_provider.dart';
 
+// ignore: must_be_immutable
 class Userinfo extends StatefulWidget {
-  const Userinfo({super.key});
+  String id;
+  AddFlight addFlight;
+  List seelist1;
+  Userinfo(
+      {super.key,
+      required this.addFlight,
+      required this.id,
+      required this.seelist1});
 
   @override
   State<Userinfo> createState() => _UserinfoState();
@@ -27,6 +37,7 @@ class _UserinfoState extends State<Userinfo> {
   bool v2 = false;
   bool v3 = false;
   bool v4 = false;
+  int totalprice = 0;
   @override
   void initState() {
     getravellerno();
@@ -34,6 +45,8 @@ class _UserinfoState extends State<Userinfo> {
     _initializeControllers1();
     _initializeControllers2();
     _initializeControllers3();
+    _initializeControllers5();
+    _initializeControllers4();
     super.initState();
   }
 
@@ -46,6 +59,26 @@ class _UserinfoState extends State<Userinfo> {
     }
   }
 
+  Map<int, String> firstName = {};
+  void _initializeControllers5() {
+    for (int i = 0; i < total; i++) {
+      if (!firstName.containsKey(i)) {
+        firstName[i];
+      }
+    }
+  }
+
+  Map<int, String> lastName = {};
+  void _initializeControllers4() {
+    for (int i = 0; i < total; i++) {
+      if (!lastName.containsKey(i)) {
+        lastName[i];
+      }
+    }
+  }
+
+  List<Map<String, dynamic>> childList = [];
+  List<Map<String, dynamic>> adultList1 = [];
   Map<int, String> dob = {};
   void _initializeControllers1() {
     for (int i = 0; i < total; i++) {
@@ -113,9 +146,11 @@ class _UserinfoState extends State<Userinfo> {
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => User_detail(
-                                    store: (gender, Dob) {
+                                    store: (gender, Dob, firstname, lastname) {
                                       gender1[index] = gender;
                                       dob[index] = Dob;
+                                      firstName[index] = firstname;
+                                      lastName[index] = lastname;
                                       for (int i = 0; i <= total; i++) {
                                         gender1[i] == null || gender1[i] == " "
                                             ? visible1[i] = true
@@ -392,7 +427,7 @@ class _UserinfoState extends State<Userinfo> {
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Titletext(title: "₹ 15,135"),
+                            Titletext(title: "₹ ${widget.addFlight.price}"),
                             SizedBox(
                               height: mq.size.height * 0.01,
                             ),
@@ -412,7 +447,12 @@ class _UserinfoState extends State<Userinfo> {
                             child: commenButton(
                                 title: "Next",
                                 callback: () {
+                                  totalprice =
+                                      int.parse(widget.addFlight.price!) *
+                                          total;
+
                                   v3 = true;
+
                                   setState(() {});
                                   for (int i = 0; i <= total; i++) {
                                     gender1[i] == null || gender1[i] == " "
@@ -429,11 +469,40 @@ class _UserinfoState extends State<Userinfo> {
                                     if (v4 == true &&
                                         v3 == true &&
                                         visible2[i] == true) {
+                                      addAdult();
+                                      addChildren();
+                                      setState(() {});
                                       Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) =>
-                                                const FlightConfirm(),
+                                            builder: (context) => FlightConfirm(
+                                                seetlist1: widget.seelist1,
+                                                adultList: adultList1,
+                                                childList: childList,
+                                                totalPrice:
+                                                    totalprice.toString(),
+                                                email: emailadd,
+                                                phone: phonenum,
+                                                id: widget.id,
+                                                addFlight: AddFlight(
+                                                    startingFrom: widget
+                                                        .addFlight.startingFrom,
+                                                    travelingTo: widget
+                                                        .addFlight.travelingTo,
+                                                    flightNumber: widget
+                                                        .addFlight.flightNumber,
+                                                    startDate: widget
+                                                        .addFlight.startDate,
+                                                    endDate: widget
+                                                        .addFlight.endDate,
+                                                    takeoffTime: widget
+                                                        .addFlight.takeoffTime,
+                                                    landingTime: widget
+                                                        .addFlight.landingTime,
+                                                    price:
+                                                        widget.addFlight.price,
+                                                    flightname: widget
+                                                        .addFlight.flightname)),
                                           ));
                                     }
                                   }
@@ -463,5 +532,34 @@ class _UserinfoState extends State<Userinfo> {
     children = getc ?? 0;
     adult = geta ?? 0;
     setState(() {});
+  }
+
+  addAdult() {
+    for (int i = 0; i < adult; i++) {
+      if (adultList1.length < adult) {
+        adultList1.add({
+          "firstName": firstName[i],
+          "lastName": lastName[i],
+          "gender": gender1[i]
+        });
+      }
+    }
+    print(adultList1);
+  }
+
+  addChildren() {
+    for (int i = 0; i < total - adult; i++) {
+      print(childList.length);
+      if (childList.length < total - adult) {
+        print(firstName[i]);
+        childList.add({
+          "firstName": firstName[i + adult],
+          "lastName": lastName[i + adult],
+          "gender": gender1[i + adult],
+          "dob": dob[i + adult]
+        });
+      }
+    }
+    print(childList);
   }
 }

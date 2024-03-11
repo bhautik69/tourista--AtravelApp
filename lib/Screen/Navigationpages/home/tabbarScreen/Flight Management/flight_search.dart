@@ -377,6 +377,7 @@ class _FlightSearchState extends State<FlightSearch> {
                                           Navigator.of(context)
                                               .push(MaterialPageRoute(
                                             builder: (context) => FlightDetail(
+                                               id:data[index]["id"] ,
                                                 startingsortfrom:
                                                     wordBeforeAirport3,
                                                 travellingsortto:
@@ -472,6 +473,7 @@ class _FlightSearchState extends State<FlightSearch> {
   }
 }
 
+int indexNumber = 0;
 int indexFlight = 0;
 String indexFlightDate = "";
 List flighSeatBook = [];

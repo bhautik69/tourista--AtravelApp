@@ -16,6 +16,8 @@ class Fligthtab extends StatefulWidget {
   State<Fligthtab> createState() => _FligthtabState();
 }
 
+TextEditingController traveller = TextEditingController();
+
 class _FligthtabState extends State<Fligthtab> {
   String? flightClass;
   int total = 0;
@@ -25,7 +27,7 @@ class _FligthtabState extends State<Fligthtab> {
   TextEditingController flightfrom = TextEditingController();
   TextEditingController flightTo = TextEditingController();
   TextEditingController date = TextEditingController();
-  TextEditingController traveller = TextEditingController();
+
   GlobalKey<FormState> flightkey = GlobalKey();
 
   List<String> classhint = <String>[
@@ -526,11 +528,7 @@ class _FligthtabState extends State<Fligthtab> {
                               prefs.setInt("total", total);
                               prefs.setInt("children", children);
                               prefs.setInt("adult", adult);
-                              indexFlightDate = date.text +
-                                  flightfrom.text +
-                                  flightTo.text +
-                                  flightClass!;
-                              // ignore: use_build_context_synchronously
+                               indexFlightDate=date.text+flightfrom.text+flightTo.text+flightClass!;
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => FlightSearch(
                                     classname: flightClass,
