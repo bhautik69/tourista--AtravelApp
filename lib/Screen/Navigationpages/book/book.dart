@@ -98,9 +98,6 @@ class _BookState extends State<Book> {
     Color color1 = themeState.getDarkTheme ? Colors.white38 : Colors.black38;
 
     return Scaffold(
-        backgroundColor: themeState.getDarkTheme
-            ? const Color(0xff121212)
-            : const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(
           title: const Text("Booking"),
           //centerTitle: true,
@@ -307,8 +304,11 @@ class _BookState extends State<Book> {
                                   MaterialPageRoute(
                                       builder: (context) => PlaceDetails(
                                             id: data[index]["id"],
-                                            totalPrice: data[index]["totalprice"],
-                                            traveller : data[index]["travellerlist"].length,
+                                            totalPrice: data[index]
+                                                ["totalprice"],
+                                            traveller: data[index]
+                                                    ["travellerlist"]
+                                                .length,
                                             package: Package(
                                                 latitude: data[index]
                                                     ["latitude"],
@@ -600,47 +600,44 @@ class _BookState extends State<Book> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => HotelDetails(
-                                        
-
-                                          check_In: data[index]["check_in"],
-                                          check_Out: data[index]["check_out"],
-                                          child: int.parse(
-                                              data[index]["children"]),
-                                          room: int.parse(data[index]["room"]),
-                                          adults:
-                                              int.parse(data[index]["adult"]),
-                                              totalPrice : int.parse(data[index]["totalPrice"]) * date,
-                                          id: data[index].id,
-                                          hotel: Hotel(
-                                              facilities: data[index]
-                                                  ["facilities"],
-                                              name: data[index]["name"],
-                                              description: data[index]
-                                                  ["description"],
-                                              images: data[index]["images"],
-                                              price: data[index]["price"],
-                                              cityName: data[index]["cityName"],
-                                              disttocenter: data[index]
-                                                  ["disttocenter"],
-                                              address: data[index]["address"],
-                                              latitude: data[index]["latitude"],
-                                              longitude: data[index]
-                                                  ["longitude"],
-                                              checkinfrom: data[index]
-                                                  ["checkinfrom"],
-                                              checkinUntil: data[index]
-                                                  ["checkinUntil"],
-                                              checkoutUntil: data[index]
-                                                  ["checkoutUntil"],
-                                              transeferFee: data[index]
-                                                  ["transeferFee"],
-                                              distFromAirport: data[index]
-                                                  ["distFromAirport"],
-                                              traveltimetoairport: data[index]
-                                                  ["traveltimetoairport"]),
-                                                  ),
+                                        check_In: data[index]["check_in"],
+                                        check_Out: data[index]["check_out"],
+                                        child:
+                                            int.parse(data[index]["children"]),
+                                        room: int.parse(data[index]["room"]),
+                                        adults: int.parse(data[index]["adult"]),
+                                        totalPrice: int.parse(
+                                                data[index]["totalPrice"]) *
+                                            date,
+                                        id: data[index].id,
+                                        hotel: Hotel(
+                                            facilities: data[index]
+                                                ["facilities"],
+                                            name: data[index]["name"],
+                                            description: data[index]
+                                                ["description"],
+                                            images: data[index]["images"],
+                                            price: data[index]["price"],
+                                            cityName: data[index]["cityName"],
+                                            disttocenter: data[index]
+                                                ["disttocenter"],
+                                            address: data[index]["address"],
+                                            latitude: data[index]["latitude"],
+                                            longitude: data[index]["longitude"],
+                                            checkinfrom: data[index]
+                                                ["checkinfrom"],
+                                            checkinUntil: data[index]
+                                                ["checkinUntil"],
+                                            checkoutUntil: data[index]
+                                                ["checkoutUntil"],
+                                            transeferFee: data[index]
+                                                ["transeferFee"],
+                                            distFromAirport: data[index]
+                                                ["distFromAirport"],
+                                            traveltimetoairport: data[index]
+                                                ["traveltimetoairport"]),
+                                      ),
                                     ));
-                                    
                               },
                               child: Container(
                                 // width: mq.size.width,

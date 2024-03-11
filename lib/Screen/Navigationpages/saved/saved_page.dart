@@ -179,9 +179,6 @@ class _SavedState extends State<Saved> {
     Color color1 = themeState.getDarkTheme ? Colors.white38 : Colors.black38;
 
     return Scaffold(
-        backgroundColor: themeState.getDarkTheme
-            ? const Color(0xff121212)
-            : const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(
           title: const Text("My Wishlist "),
         ),

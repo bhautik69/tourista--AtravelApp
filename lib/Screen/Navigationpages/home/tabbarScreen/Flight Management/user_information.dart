@@ -244,6 +244,7 @@ class _UserinfoState extends State<Userinfo> {
                                   contectDetails: (email, phone) {
                                     emailadd = email;
                                     phonenum = phone;
+                                    v3 = true;
                                     emailadd == "" || emailadd.isEmpty
                                         ? v1 = false
                                         : v1 = true;

@@ -24,7 +24,7 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
   var flightNumber = TextEditingController();
   var startDate = TextEditingController();
   var endDate = TextEditingController();
-  var timeDuration = TextEditingController();
+
   var takeoffTime = TextEditingController();
   var landingTime = TextEditingController();
   var price = TextEditingController();
@@ -56,38 +56,39 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
     "TruJet"
   ];
 
-  List cityList = [
-    "Agartala Airport - IXA",
-    "Ahmedabad Airport - AMD",
-    "Biju Patnaik  Airport - BBI",
-    "Calicut  Airport - CCJ",
-    "Chandigarh  Airport - IXC",
-    "Chennai  Airport - MAA",
-    "Chhatrapati Shivaji Airport - BOM",
-    "Cochin  Airport - COK",
-    "Coimbatore  Airport - CJB",
-    "Devi Ahilya Bai Holkar Airport - IDR",
-    "Babasaheb Ambedkar Airport - NAG",
-    "Goa Airport - GOI",
-    "Imphal Airport - IMF",
-    "Indira Gandhi  Airport - DEL",
-    "Jaipur Airport - JAI",
-    "Jodhpur Airport - JDH",
-    "Kempegowda Airport - BLR",
-    "Madurai Airport - IXM",
-    "Mangalore Airport - IXE",
-    "Pune Airport - PNQ",
-    "Rajiv Gandhi  Airport - HYD",
-    "Rajkot Airport - RAJ",
-    "Siliguri Bagdogra Airport - IXB",
-    "Surat Airport - STV",
-    "Tiruchirappalli Airport - TRZ",
-    "Trivandrum Airport - TRV",
-    "Vijayawada Airport - VGA",
-    "Visakhapatnam Airport - VTZ"
+  List airportlist = [
+    "Agartala Airport, Agartala - IXA",
+    "Ahmedabad Airport, Ahmedabad - AMD",
+    "Biju Patnaik Airport, Bhubaneswar - BBI",
+    "Calicut Airport, Kozhikode - CCJ",
+    "Chandigarh Airport, Chandigarh - IXC",
+    "Chennai Airport, Chennai - MAA",
+    "Chhatrapati Shivaji Airport, Mumbai - BOM",
+    "Cochin Airport, Kochi - COK",
+    "Coimbatore Airport, Coimbatore - CJB",
+    "Devi Ahilya Bai Holkar Airport, Indore - IDR",
+    "Babasaheb Ambedkar Airport, Nagpur - NAG",
+    "Goa Airport, Goa - GOI",
+    "Imphal Airport, Imphal - IMF",
+    "Indira Gandhi Airport, New Delhi - DEL",
+    "Jaipur Airport, Jaipur - JAI",
+    "Jodhpur Airport, Jodhpur - JDH",
+    "Kempegowda Airport, Bengaluru - BLR",
+    "Madurai Airport, Madurai - IXM",
+    "Mangalore Airport, Mangalore - IXE",
+    "Pune Airport, Pune - PNQ",
+    "Rajiv Gandhi Airport, Hyderabad - HYD",
+    "Rajkot Airport, Rajkot - RAJ",
+    "Siliguri Bagdogra Airport, Bagdogra - IXB",
+    "Surat Airport, Surat - STV",
+    "Tiruchirappalli Airport, Tiruchirappalli - TRZ",
+    "Trivandrum Airport, Thiruvananthapuram - TRV",
+    "Vijayawada Airport, Vijayawada - VGA",
+    "Visakhapatnam Airport, Visakhapatnam - VTZ"
   ];
 
-  List<dynamic> getSuggestion(String query) => List.of(cityList).where((city) {
+  List<dynamic> getSuggestion(String query) =>
+      List.of(airportlist).where((city) {
         final cityLower = city.toLowerCase();
         final queryLower = query.toLowerCase();
         return cityLower.startsWith(queryLower);
@@ -100,7 +101,7 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
     flightNumber.text = widget.addFlight!.flightNumber!;
     startDate.text = widget.addFlight!.startDate!;
     endDate.text = widget.addFlight!.endDate!;
-    timeDuration.text = widget.addFlight!.timeDuration!;
+
     takeoffTime.text = widget.addFlight!.takeoffTime!;
     landingTime.text = widget.addFlight!.landingTime!;
     price.text = widget.addFlight!.price!;
@@ -235,13 +236,20 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 6, horizontal: 16),
-                            child: Text(
-                              itemData,
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black54,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    itemData,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white
+                                          : Colors.black54,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -289,13 +297,20 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 6, horizontal: 16),
-                            child: Text(
-                              itemData,
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: themeState.getDarkTheme
-                                    ? Colors.white
-                                    : Colors.black54,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    itemData,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white
+                                          : Colors.black54,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );
@@ -529,33 +544,6 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
-                          TextFormField(
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "* required";
-                              }
-                              return null;
-                            },
-                            controller: timeDuration,
-                            textAlignVertical: TextAlignVertical.bottom,
-                            decoration: InputDecoration(
-                              label:
-                                  const Text("Flight Duration Time (01h 00m)"),
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      width: 1.5, color: Color(0xff0078aa))),
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: themeState.getDarkTheme
-                                          ? Colors.white
-                                          : Colors.black)),
-                              labelStyle: TextStyle(
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white54
-                                      : Colors.black54,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
                         ],
                       ))),
               SizedBox(
@@ -599,7 +587,6 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
                 flightNumber: flightNumber.text,
                 startDate: startDate.text,
                 endDate: endDate.text,
-                timeDuration: timeDuration.text,
                 takeoffTime: takeoffTime.text,
                 landingTime: landingTime.text,
                 price: price.text,

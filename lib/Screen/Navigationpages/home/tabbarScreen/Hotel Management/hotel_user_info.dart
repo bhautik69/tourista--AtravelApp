@@ -253,6 +253,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                             MaterialPageRoute(
                               builder: (context) => HotelUserContact(
                                 contact: (email, phone) {
+                                  v3 = true;
                                   emailadd = email;
                                   phonenum = phone;
                                   emailadd == "" || emailadd.isEmpty

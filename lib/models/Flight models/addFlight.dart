@@ -9,7 +9,7 @@ class AddFlight {
   String? flightNumber;
   String? startDate;
   String? endDate;
-  String? timeDuration;
+  
   String? takeoffTime;
   String? landingTime;
   String? price;
@@ -22,7 +22,7 @@ class AddFlight {
     required this.flightNumber,
     required this.startDate,
     required this.endDate,
-    required this.timeDuration,
+    
     required this.takeoffTime,
     required this.landingTime,
     required this.price,
@@ -39,7 +39,7 @@ class AddFlight {
       "flightNumber": addFlight.flightNumber,
       "startDate": addFlight.startDate,
       "endDate": addFlight.endDate,
-      "timeDuration": addFlight.timeDuration,
+    
       "takeoffTime": addFlight.takeoffTime,
       "landingTime": addFlight.landingTime,
       "price": addFlight.price,
@@ -58,7 +58,7 @@ class AddFlight {
       "flightNumber": updateFlight.flightNumber,
       "startDate": updateFlight.startDate,
       "endDate": updateFlight.endDate,
-      "timeDuration": updateFlight.timeDuration,
+     
       "takeoffTime": updateFlight.takeoffTime,
       "landingTime": updateFlight.landingTime,
       "price": updateFlight.price,

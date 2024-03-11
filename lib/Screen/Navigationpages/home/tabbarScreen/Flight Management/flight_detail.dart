@@ -1,41 +1,76 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/seat_booking.dart';
+import 'package:demo/models/Flight%20models/addFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:iconly/iconly.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 class FlightDetail extends StatefulWidget {
-  const FlightDetail({super.key});
+  AddFlight addFlight;
+  String travellingto;
+  String classtype;
+  String timeduration;
+  String sdate;
+  String edate;
+  String startingfrom;
+  String startingsortfrom;
+  String travellingsortto;
+  FlightDetail(
+      {super.key,
+      required this.addFlight,
+      required this.startingsortfrom,
+      required this.travellingsortto,
+      required this.edate,
+      required this.sdate,
+      required this.travellingto,
+      required this.startingfrom,
+      required this.classtype,
+      required this.timeduration});
 
   @override
   State<FlightDetail> createState() => _FlightDetailState();
 }
 
-
-
 class _FlightDetailState extends State<FlightDetail> {
-   @override
+  @override
+  String path = " ";
   void initState() {
-    // TODO: implement initState
+    path = widget.addFlight.flightname!;
+    print(path);
     super.initState();
   }
-  
-void getFirebaseData()async{
-  var data= await FirebaseFirestore.instance.collection("flight"). doc("$indexFlightDate").get();
-  if(data.exists){
-    flighSeatBook=data['favourite']  ;
+
+  void getFirebaseData() async {
+    var data = await FirebaseFirestore.instance
+        .collection("flight")
+        .doc("$indexFlightDate")
+        .get();
+    if (data.exists) {
+      flighSeatBook = data['favourite'];
+      print("data------$flighSeatBook");
+      print("data------$indexFlightDate");
+    }
+    print("data-----${data.exists}");
     print("data------$flighSeatBook");
     print("data------$indexFlightDate");
   }
-  print("data-----${data.exists}");
-  print("data------$flighSeatBook");
-  print("data------$indexFlightDate");
 
-}
-  
+  Map<String, dynamic> ficonlist = {
+    "Indigo": "assets/img/indigo.png",
+    "Air India": "assets/img/airindia.jpg",
+    "Vistara": "assets/img/vistara.png",
+    "Go First": "assets/img/gofirst.png",
+    "Star Air": "assets/img/starair.png",
+    "Air India Express": "assets/img/AirIndiaExpress.png",
+    "SpiceJet": "assets/img/spisjeck.png",
+    "TruJet": "assets/img/trujet.png"
+  };
+
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
@@ -78,15 +113,16 @@ void getFirebaseData()async{
                         child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                "Flight to Sharjah",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                              Text(
+                                "Flight to ${widget.travellingto}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
                               ),
-                              const Row(
+                              Row(
                                 children: [
-                                  Text("Direct -"),
-                                  Text("3h 25m -"),
-                                  Text("Ecomony")
+                                  const Text("Direct - "),
+                                  Text("${widget.timeduration} - "),
+                                  Text(widget.classtype)
                                 ],
                               ),
                               Padding(
@@ -153,30 +189,31 @@ void getFirebaseData()async{
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          SizedBox(
-                                            height: mq.size.height * 0.063,
+                                          Container(
+                                            height: mq.size.height * 0.043,
                                             // width: mq.size.width,
                                             // color: Colors.green,
-                                            child: const Column(
+                                            child: Column(
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text("Sat 17 Feb - "),
-                                                    Text("3:40 pm"),
+                                                    Text("${widget.sdate} - "),
+                                                    Text(
+                                                        "${widget.addFlight.takeoffTime}"),
                                                   ],
                                                 ),
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      "BOM - ",
+                                                      "${widget.startingsortfrom} - ",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
                                                     Text(
-                                                      "Mumbai",
+                                                      widget.startingfrom,
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -186,35 +223,96 @@ void getFirebaseData()async{
                                               ],
                                             ),
                                           ),
-                                          // Container(
-                                          //   height: mq.size.height / 9.2,
-                                          //   width: mq.size.width / 1.5,
-                                          //   // color: Colors.blue,
-                                          // ),
-                                          SizedBox(
-                                            height: mq.size.height * 0.063,
+                                          Container(
+                                            height: mq.size.height * 0.07,
+                                            width: mq.size.width / 1.6,
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  height: 30,
+                                                  width: 30,
+                                                  child: Image.asset(
+                                                      ficonlist[path]),
+                                                ),
+                                                SizedBox(
+                                                  width: mq.size.width * 0.03,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      widget.addFlight
+                                                          .flightname!,
+                                                      style: TextStyle(
+                                                          color: themeState
+                                                                  .getDarkTheme
+                                                              ? Colors.white
+                                                                  .withOpacity(
+                                                                      0.7)
+                                                              : Colors.black
+                                                                  .withOpacity(
+                                                                      0.7)),
+                                                    ),
+                                                    Text(
+                                                      "Flight ${widget.addFlight.flightNumber!}",
+                                                      style: TextStyle(
+                                                          color: themeState
+                                                                  .getDarkTheme
+                                                              ? Colors.white
+                                                                  .withOpacity(
+                                                                      0.7)
+                                                              : Colors.black
+                                                                  .withOpacity(
+                                                                      0.7)),
+                                                    ),
+                                                    Text(
+                                                      "Flight time ${widget.timeduration}",
+                                                      style: TextStyle(
+                                                          color: themeState
+                                                                  .getDarkTheme
+                                                              ? Colors.white
+                                                                  .withOpacity(
+                                                                      0.7)
+                                                              : Colors.black
+                                                                  .withOpacity(
+                                                                      0.7)),
+                                                    )
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: mq.size.height * 0.043,
                                             // width: mq.size.width,
                                             // color: Colors.red,
-                                            child: const Column(
+                                            child: Column(
                                               //   crossAxisAlignment:
                                               //       CrossAxisAlignment.end,
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text("Sat 17 Feb - "),
-                                                    Text("3:40 pm"),
+                                                    Text("${widget.edate} - "),
+                                                    Text(
+                                                        "${widget.addFlight.landingTime}"),
                                                   ],
                                                 ),
                                                 Row(
                                                   children: [
                                                     Text(
-                                                      "BOM - ",
+                                                      "${widget.travellingsortto} - ",
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
                                                     Text(
-                                                      "Mumbai",
+                                                      widget.travellingto,
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -246,40 +344,86 @@ void getFirebaseData()async{
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
-                              "Included baggage",
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                            Titletext(
+                              title: "Included baggage",
+                              size: 16,
                             ),
-                            const Text(
-                                "Total baggage allowance for each flight"),
                             SizedBox(
-                              height: mq.size.height * 0.02,
+                              height: mq.size.height * 0.005,
+                            ),
+                            Text(
+                              "Total baggage allowance for each flight",
+                              style: TextStyle(
+                                  color: themeState.getDarkTheme
+                                      ? Colors.white.withOpacity(0.7)
+                                      : Colors.black.withOpacity(0.7)),
+                            ),
+                            SizedBox(
+                              height: mq.size.height * 0.022,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(
-                                  Icons.card_travel_outlined,
-                                  size: 30,
+                                Icon(
+                                  Ionicons.bag_add_outline,
+                                  size: 25,
                                 ),
                                 SizedBox(
-                                  width: mq.size.width * 0.02,
+                                  width: mq.size.width * 0.05,
                                 ),
-                                const Column(
+                                Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("1 personam iten",
+                                    Text(
+                                      "1 personal item ",
+                                      // style: TextStyle(
+                                      //     fontWeight: FontWeight.w500)
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.005,
+                                    ),
+                                    Text(
+                                      "Fits under the seat in front of you",
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.005,
+                                    ),
+                                    Text("Included",
                                         style: TextStyle(
+                                            color: Colors.green,
                                             fontWeight: FontWeight.w500)),
-                                    // SizedBox(
-                                    //   height: mq.size.height * 0.01,
-                                    // ),
-                                    Text("Fits under the seat in front of you",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
-                                    // SizedBox(
-                                    //   height: mq.size.height / 250,
-                                    // ),
+                                  ],
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: mq.size.height * 0.022,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Ionicons.briefcase_outline,
+                                  size: 25,
+                                ),
+                                SizedBox(
+                                  width: mq.size.width * 0.05,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "1 cabin bag",
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.005,
+                                    ),
+                                    Text(
+                                      "Up to 8 kg each 25 x 35 x 55 cm",
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.005,
+                                    ),
                                     Text("Included",
                                         style: TextStyle(
                                             color: Colors.green,
@@ -294,52 +438,28 @@ void getFirebaseData()async{
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(
-                                  Icons.luggage_outlined,
-                                  size: 30,
+                                Icon(
+                                  Ionicons.bag_check_outline,
+                                  size: 25,
                                 ),
                                 SizedBox(
-                                  width: mq.size.width * 0.025,
+                                  width: mq.size.width * 0.05,
                                 ),
-                                const Column(
+                                Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("1 personam item",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
-                                    Text("Fits under the seat in front of you",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
-                                    Text("Included",
-                                        style: TextStyle(
-                                            color: Colors.green,
-                                            fontWeight: FontWeight.w500)),
-                                  ],
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: mq.size.height * 0.02,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Icon(
-                                  Icons.luggage_outlined,
-                                  size: 30,
-                                ),
-                                SizedBox(
-                                  width: mq.size.width * 0.025,
-                                ),
-                                const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("1 personam iten",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
-                                    Text("Fits under the seat in front of you",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w500)),
+                                    Text(
+                                      "1 checked bag",
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.0045,
+                                    ),
+                                    Text(
+                                      "Max weight 30 kg",
+                                    ),
+                                    SizedBox(
+                                      height: mq.size.height * 0.0045,
+                                    ),
                                     Text("Included",
                                         style: TextStyle(
                                             color: Colors.green,
@@ -365,23 +485,26 @@ void getFirebaseData()async{
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("Need extra baggage?",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Titletext(
+                              title: "Need extra baggage?",
+                              size: 16,
+                            ),
                             SizedBox(
                               height: mq.size.height * 0.02,
                             ),
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Icon(
-                                  Icons.leave_bags_at_home_outlined,
-                                  size: 30,
+                                Icon(
+                                  Ionicons.bag_remove_outline,
+                                  size: 25,
                                 ),
                                 SizedBox(
-                                  width: mq.size.width * 0.02,
+                                  width: mq.size.width * 0.05,
                                 ),
                                 const Expanded(
                                   child: Text(
-                                      "No more extra  ------------------------------------------------------------------------------------"),
+                                      "No more baggage can be added right now - check with the airline after you book"),
                                 )
                               ],
                             )
@@ -403,16 +526,21 @@ void getFirebaseData()async{
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text("CO2 emissions estimate",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Titletext(
+                              title: "CO2e emissions estimate",
+                              size: 16,
+                            ),
                             SizedBox(
-                              height: mq.size.height * 0.02,
+                              height: mq.size.height * 0.018,
                             ),
                             const Text(
-                                "No more extra  ------------------------------------------------------------------------------------------")
+                                "Typical CO2e emissions compared with all flights we offer for this route")
                           ],
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: mq.size.height * 0.0135,
                     ),
                   ],
                 ),
@@ -448,7 +576,7 @@ void getFirebaseData()async{
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Titletext(title: "₹ 15,135"),
+                          Titletext(title: "₹ ${widget.addFlight.price}"),
                           SizedBox(
                             height: mq.size.height * 0.01,
                           ),
@@ -463,7 +591,7 @@ void getFirebaseData()async{
                       ),
                       const Spacer(),
                       SizedBox(
-                          height: mq.size.height * 0.06,
+                          height: mq.size.height * 0.065,
                           width: mq.size.width * 0.44,
                           child: commenButton(
                               title: "SELECT",

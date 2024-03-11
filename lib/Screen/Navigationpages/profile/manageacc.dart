@@ -44,7 +44,7 @@ class _MngAccState extends State<MngAcc> {
 
   var nameC = TextEditingController();
   var dateC = TextEditingController();
-  String gender = "";
+  String? gender;
   var phoneC = TextEditingController();
   var addC = TextEditingController();
   var cityC = TextEditingController();
@@ -299,6 +299,7 @@ class _MngAccState extends State<MngAcc> {
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 18),
                                   child: DropdownButtonFormField(
+                                    value: gender!.isEmpty ? null : gender,
                                     // hint: const Text("Gender"),
                                     decoration: InputDecoration(
                                       label: const Text("Gender"),

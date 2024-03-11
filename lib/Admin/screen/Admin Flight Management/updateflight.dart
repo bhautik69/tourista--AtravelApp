@@ -24,6 +24,16 @@ class _UpdateFlightState extends State<UpdateFlight> {
     super.initState();
   }
 
+  Map<String, dynamic> ficonlist = {
+    "Indigo": "assets/img/indigo.png",
+    "Air India": "assets/img/airindia.jpg",
+    "Vistara": "assets/img/vistara.png",
+    "Go First": "assets/img/gofirst.png",
+    "Star Air": "assets/img/starair.png",
+    "Air India Express": "assets/img/AirIndiaExpress.png",
+    "SpiceJet": "assets/img/spisjeck.png",
+    "TruJet": "assets/img/trujet.png"
+  };
   void _onSearchChanged() {
     setState(() {});
   }
@@ -143,8 +153,8 @@ class _UpdateFlightState extends State<UpdateFlight> {
                                   leading: SizedBox(
                                       height: 60,
                                       width: 71,
-                                      child: Image.asset(
-                                          "assets/img/airplane.png")),
+                                      child: Image.asset(ficonlist[data[index]
+                                          ["flightname"]])),
 
                                   title: Text(data[index]["flightname"]
 
@@ -181,8 +191,6 @@ class _UpdateFlightState extends State<UpdateFlight> {
                                                           ["startDate"],
                                                       endDate: data[index]
                                                           ["endDate"],
-                                                      timeDuration: data[index]
-                                                          ["timeDuration"],
                                                       takeoffTime: data[index]
                                                           ["takeoffTime"],
                                                       landingTime: data[index]

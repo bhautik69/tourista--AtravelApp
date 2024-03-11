@@ -17,7 +17,7 @@ class Fligthtab extends StatefulWidget {
 }
 
 class _FligthtabState extends State<Fligthtab> {
-  String flightClass = "";
+  String? flightClass;
   int total = 0;
   int children = 0;
   int adult = 0;
@@ -28,50 +28,45 @@ class _FligthtabState extends State<Fligthtab> {
   TextEditingController traveller = TextEditingController();
   GlobalKey<FormState> flightkey = GlobalKey();
 
-  bool _dateFieldTouched = false;
-  bool _flightFromField = false;
-  bool _flightToField = false;
-  bool _dropdownField = false;
-  bool _travellerField = false;
-
   List<String> classhint = <String>[
     "Economy",
     "Premium",
     "Business",
     "First Class"
   ];
-  List cityList = [
-    "Agartala Airport - IXA",
-    "Ahmedabad Airport - AMD",
-    "Biju Patnaik  Airport - BBI",
-    "Calicut  Airport - CCJ",
-    "Chandigarh  Airport - IXC",
-    "Chennai  Airport - MAA",
-    "Chhatrapati Shivaji Airport - BOM",
-    "Cochin  Airport - COK",
-    "Coimbatore  Airport - CJB",
-    "Devi Ahilya Bai Holkar Airport - IDR",
-    "Babasaheb Ambedkar Airport - NAG",
-    "Goa Airport - GOI",
-    "Imphal Airport - IMF",
-    "Indira Gandhi  Airport - DEL",
-    "Jaipur Airport - JAI",
-    "Jodhpur Airport - JDH",
-    "Kempegowda Airport - BLR",
-    "Madurai Airport - IXM",
-    "Mangalore Airport - IXE",
-    "Pune Airport - PNQ",
-    "Rajiv Gandhi  Airport - HYD",
-    "Rajkot Airport - RAJ",
-    "Siliguri Bagdogra Airport - IXB",
-    "Surat Airport - STV",
-    "Tiruchirappalli Airport - TRZ",
-    "Trivandrum Airport - TRV",
-    "Vijayawada Airport - VGA",
-    "Visakhapatnam Airport - VTZ"
+  List airportlist = [
+    "Agartala Airport, Agartala - IXA",
+    "Ahmedabad Airport, Ahmedabad - AMD",
+    "Biju Patnaik Airport, Bhubaneswar - BBI",
+    "Calicut Airport, Kozhikode - CCJ",
+    "Chandigarh Airport, Chandigarh - IXC",
+    "Chennai Airport, Chennai - MAA",
+    "Chhatrapati Shivaji Airport, Mumbai - BOM",
+    "Cochin Airport, Kochi - COK",
+    "Coimbatore Airport, Coimbatore - CJB",
+    "Devi Ahilya Bai Holkar Airport, Indore - IDR",
+    "Babasaheb Ambedkar Airport, Nagpur - NAG",
+    "Goa Airport, Goa - GOI",
+    "Imphal Airport, Imphal - IMF",
+    "Indira Gandhi Airport, New Delhi - DEL",
+    "Jaipur Airport, Jaipur - JAI",
+    "Jodhpur Airport, Jodhpur - JDH",
+    "Kempegowda Airport, Bengaluru - BLR",
+    "Madurai Airport, Madurai - IXM",
+    "Mangalore Airport, Mangalore - IXE",
+    "Pune Airport, Pune - PNQ",
+    "Rajiv Gandhi Airport, Hyderabad - HYD",
+    "Rajkot Airport, Rajkot - RAJ",
+    "Siliguri Bagdogra Airport, Bagdogra - IXB",
+    "Surat Airport, Surat - STV",
+    "Tiruchirappalli Airport, Tiruchirappalli - TRZ",
+    "Trivandrum Airport, Thiruvananthapuram - TRV",
+    "Vijayawada Airport, Vijayawada - VGA",
+    "Visakhapatnam Airport, Visakhapatnam - VTZ"
   ];
 
-  List<dynamic> getSuggestion(String query) => List.of(cityList).where((city) {
+  List<dynamic> getSuggestion(String query) =>
+      List.of(airportlist).where((city) {
         final cityLower = city.toLowerCase();
         final queryLower = query.toLowerCase();
         return cityLower.startsWith(queryLower);
@@ -98,26 +93,17 @@ class _FligthtabState extends State<Fligthtab> {
                       ),
                       TypeAheadFormField(
                         validator: (value) {
-                          if (_flightFromField) {
-                            if (value == null || value.isEmpty) {
-                              return "*Required Field";
-                            } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
-                                .hasMatch(value)) {
-                              return "*Enter valid name";
-                            } else {
-                              return null;
-                            }
+                          if (value == null || value.isEmpty) {
+                            return "*Required Field";
+                          } else if (!RegExp(r"^[a-zA-Z._ ,+-]+$")
+                              .hasMatch(value)) {
+                            return "*Enter valid name";
+                          } else {
+                            return null;
                           }
-                          return null;
                         },
                         textFieldConfiguration: TextFieldConfiguration(
                           controller: flightfrom,
-                          onTap: () {
-                            setState(() {
-                              _flightFromField = false;
-                              flightkey.currentState!.validate();
-                            });
-                          },
                           decoration: InputDecoration(
                               hintText: "Where From?",
                               hintStyle: TextStyle(
@@ -161,26 +147,29 @@ class _FligthtabState extends State<Fligthtab> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 6, horizontal: 16),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.flight_takeoff_rounded,
-                                  size: 25,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  itemData,
-                                  style: TextStyle(
-                                    fontSize: 17,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.flight_takeoff_rounded,
+                                    size: 25,
                                     color: themeState.getDarkTheme
                                         ? Colors.white
-                                        : Colors.black54,
+                                        : Colors.black,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    itemData,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white
+                                          : Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -191,27 +180,18 @@ class _FligthtabState extends State<Fligthtab> {
                       SizedBox(height: mq.size.height * 0.02),
                       TypeAheadFormField(
                         validator: (value) {
-                          if (_flightToField) {
-                            if (value == null || value.isEmpty) {
-                              return "*Required Field";
-                            } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
-                                .hasMatch(value)) {
-                              return "*Enter valid name";
-                            } else if (flightfrom.text == flightTo.text) {
-                              return "*Origin and destination can't be the same";
-                            }
-                            return null;
+                          if (value == null || value.isEmpty) {
+                            return "*Required Field";
+                          } else if (!RegExp(r"^[a-zA-Z._ ,+-]+$")
+                              .hasMatch(value)) {
+                            return "*Enter valid name";
+                          } else if (flightfrom.text == flightTo.text) {
+                            return "*Origin and destination can't be the same";
                           }
                           return null;
                         },
                         textFieldConfiguration: TextFieldConfiguration(
                           controller: flightTo,
-                          onTap: () {
-                            setState(() {
-                              _flightToField = false;
-                              flightkey.currentState!.validate();
-                            });
-                          },
                           decoration: InputDecoration(
                               hintText: "Where To?",
                               hintStyle: TextStyle(
@@ -255,26 +235,29 @@ class _FligthtabState extends State<Fligthtab> {
                           return Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 6, horizontal: 16),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.flight_land_rounded,
-                                  size: 25,
-                                  color: themeState.getDarkTheme
-                                      ? Colors.white
-                                      : Colors.black,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  itemData,
-                                  style: TextStyle(
-                                    fontSize: 17,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.flight_land_rounded,
+                                    size: 25,
                                     color: themeState.getDarkTheme
                                         ? Colors.white
-                                        : Colors.black54,
+                                        : Colors.black,
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    itemData,
+                                    style: TextStyle(
+                                      fontSize: 17,
+                                      color: themeState.getDarkTheme
+                                          ? Colors.white
+                                          : Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -326,19 +309,13 @@ class _FligthtabState extends State<Fligthtab> {
                                   width: 1.5, color: Colors.red),
                             )),
                         validator: (value) {
-                          if (_dateFieldTouched) {
-                            if (value == null || value.isEmpty) {
-                              return "*Required Field";
-                            }
-                            return null;
+                          if (value == null || value.isEmpty) {
+                            return "*Required Field";
                           }
                           return null;
                         },
                         onTap: () async {
-                          setState(() {
-                            _dateFieldTouched = false;
-                            flightkey.currentState?.validate();
-                          });
+                          setState(() {});
                           var dateTime = await showDatePicker(
                               builder: (BuildContext context, Widget? child) {
                                 return Theme(
@@ -372,11 +349,8 @@ class _FligthtabState extends State<Fligthtab> {
                                 keyboardType: TextInputType.none,
                                 showCursor: false,
                                 validator: (value) {
-                                  if (_travellerField) {
-                                    if (value == null || value.isEmpty) {
-                                      return "Select Traveller";
-                                    }
-                                    return null;
+                                  if (value == null || value.isEmpty) {
+                                    return "Select Traveller";
                                   }
                                   return null;
                                 },
@@ -420,8 +394,6 @@ class _FligthtabState extends State<Fligthtab> {
                                           width: 1.5, color: Colors.red),
                                     )),
                                 onTap: () {
-                                  _travellerField = false;
-                                  flightkey.currentState!.validate();
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(
@@ -481,20 +453,15 @@ class _FligthtabState extends State<Fligthtab> {
                               width: mq.size.width / 2.2,
                               // height: 54,
                               child: DropdownButtonFormField(
+                                value: flightClass,
                                 validator: (value) {
-                                  if (_dropdownField) {
-                                    if (value == null || value.isEmpty) {
-                                      return "*Required Field";
-                                    }
-                                    return null;
+                                  if (value == null || value.isEmpty) {
+                                    return "*Required Field";
                                   }
                                   return null;
                                 },
                                 onTap: () {
-                                  setState(() {
-                                    _dropdownField = false;
-                                    flightkey.currentState!.validate();
-                                  });
+                                  setState(() {});
                                 },
                                 dropdownColor: themeState.getDarkTheme
                                     ? const Color(0xff212121)
@@ -538,7 +505,7 @@ class _FligthtabState extends State<Fligthtab> {
                                 onChanged: (value) {
                                   setState(() {
                                     flightClass = value.toString();
-                                    classType = flightClass;
+                                    classType = flightClass.toString();
                                   });
                                 },
                               ),
@@ -553,22 +520,24 @@ class _FligthtabState extends State<Fligthtab> {
                         child: commenButton(
                           title: "Search",
                           callback: () async {
-                            setState(() {
-                              _dateFieldTouched = true;
-                              _flightFromField = true;
-                              _flightToField = true;
-                              _dropdownField = true;
-                              _travellerField = true;
-                            });
+                            setState(() {});
                             if (flightkey.currentState!.validate()) {
                               var prefs = await SharedPreferences.getInstance();
                               prefs.setInt("total", total);
                               prefs.setInt("children", children);
                               prefs.setInt("adult", adult);
-                               indexFlightDate=date.text+flightfrom.text+flightTo.text+flightClass;
+                              indexFlightDate = date.text +
+                                  flightfrom.text +
+                                  flightTo.text +
+                                  flightClass!;
                               // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const FlightSearch(),
+                                builder: (context) => FlightSearch(
+                                    classname: flightClass,
+                                    startingfrom: flightfrom.text,
+                                    takeoffdate: date.text,
+                                    travellingto: flightTo.text,
+                                    traveller: traveller.text),
                               ));
                             }
                           },
