@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // ignore: camel_case_types
 class BookingFlight {
-    String? id;
+  String? id;
   String? startingFrom;
   String? travelingTo;
   String? flightNumber;
@@ -16,7 +16,7 @@ class BookingFlight {
   List seatList;
   String? email;
   String? phoneno;
-  
+  String? classtype;
   String? adult;
   String? children;
   List<Map<String, dynamic>>? adultList;
@@ -24,18 +24,18 @@ class BookingFlight {
   String? totalPrice;
 
   BookingFlight(
-      {  this.id,
-       required this.startingFrom,
-    required this.travelingTo,
-    required this.flightNumber,
-    required this.startDate,
-    required this.endDate,
-    required this.takeoffTime,
-    required this.landingTime,
-    required this.price,
-    required this.flightname,
+      {this.id,
+      required this.startingFrom,
+      required this.classtype,
+      required this.travelingTo,
+      required this.flightNumber,
+      required this.startDate,
+      required this.endDate,
+      required this.takeoffTime,
+      required this.landingTime,
+      required this.price,
+      required this.flightname,
       required this.seatList,
-      
       required this.adult,
       required this.children,
       required this.email,
@@ -45,16 +45,18 @@ class BookingFlight {
       required this.totalPrice});
 
   static Future<void> addBookingFlight(BookingFlight bookingflight, id) async {
-    CollectionReference collectionReference = FirebaseFirestore.instance.collection("FlightBooking");
+    CollectionReference collectionReference =
+        FirebaseFirestore.instance.collection("FlightBooking");
 
     Map<String, dynamic> data = {
       "id": bookingflight.id,
+      "classtype" : bookingflight.classtype,
       "startingFrom": bookingflight.startingFrom,
       "travelingTo": bookingflight.travelingTo,
       "flightNumber": bookingflight.flightNumber,
       "startDate": bookingflight.startDate,
       "endDate": bookingflight.endDate,
-      "seatList" : bookingflight.seatList,
+      "seatList": bookingflight.seatList,
       "takeoffTime": bookingflight.takeoffTime,
       "landingTime": bookingflight.landingTime,
       "price": bookingflight.price,
@@ -64,7 +66,6 @@ class BookingFlight {
       "adultList": bookingflight.adultList,
       "childrenList": bookingflight.childrenList,
       "totalPrice": bookingflight.totalPrice,
-      
       "adult": bookingflight.adult,
       "children": bookingflight.children,
     };

@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 class FlightDetail extends StatefulWidget {
   AddFlight addFlight;
 
-  
   String id;
   String travellingto;
   String classtype;
@@ -602,7 +601,27 @@ class _FlightDetailState extends State<FlightDetail> {
                               title: "SELECT",
                               callback: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ChooseSeat(id: widget.id,addFlight: AddFlight( startingFrom:widget.addFlight.startingFrom, travelingTo: widget.addFlight.travelingTo, flightNumber:widget.addFlight. flightNumber, startDate:widget.addFlight. startDate, endDate:widget.addFlight. endDate, takeoffTime:widget.addFlight. takeoffTime, landingTime:widget.addFlight. landingTime, price:widget.addFlight. price, flightname:widget.addFlight. flightname, )),
+                                  builder: (context) => ChooseSeat(
+                                    esortname: widget.travellingsortto,
+                                    ssortname: widget.startingsortfrom,
+                                      clsstype1: widget.classtype,
+                                      id: widget.id,
+                                      addFlight: AddFlight(
+                                        startingFrom:
+                                            widget.addFlight.startingFrom,
+                                        travelingTo:
+                                            widget.addFlight.travelingTo,
+                                        flightNumber:
+                                            widget.addFlight.flightNumber,
+                                        startDate: widget.addFlight.startDate,
+                                        endDate: widget.addFlight.endDate,
+                                        takeoffTime:
+                                            widget.addFlight.takeoffTime,
+                                        landingTime:
+                                            widget.addFlight.landingTime,
+                                        price: widget.addFlight.price,
+                                        flightname: widget.addFlight.flightname,
+                                      )),
                                 ));
                               }))
                     ]),

@@ -15,7 +15,17 @@ import 'package:provider/provider.dart';
 class ChooseSeat extends StatefulWidget {
   String id;
   AddFlight addFlight;
-  ChooseSeat({Key? key, required this.addFlight, required this.id});
+  String clsstype1;
+  String ssortname;
+  String esortname;
+  ChooseSeat({
+    Key? key,
+    required this.addFlight,
+    required this.id,
+    required this.clsstype1,
+    required this.ssortname,
+    required this.esortname,
+  });
 
   @override
   State<ChooseSeat> createState() => _ChooseSeatState();
@@ -79,7 +89,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
     });
     //this function to loop every side of seat, from selected to booked, u also can this function to send to u'r serves side
   }
-
+    getseetdata(){
+      
+    }
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context);
@@ -390,8 +402,6 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                 //   "favourite": flighSeatBook
                                 // };
 
-                                // flighSeat.clear();
-
                                 // print("fata------------$data");
                                 // FirebaseFirestore.instance
                                 //     .collection("flight")
@@ -400,6 +410,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return Userinfo(
+                                        esortname: widget.esortname,
+                                        ssortname: widget.ssortname,
+                                        classtype: widget.clsstype1,
                                         seelist1: addseat,
                                         addFlight: AddFlight(
                                             startingFrom:
@@ -421,6 +434,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                         id: widget.id);
                                   },
                                 ));
+                                flighSeat.clear();
                               }))
                     ]),
                   ),
