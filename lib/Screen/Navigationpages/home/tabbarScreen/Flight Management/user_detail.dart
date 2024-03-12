@@ -36,9 +36,12 @@ class User_DetailState extends State<User_detail> {
   ];
 
   final _formKey = GlobalKey<FormState>();
+  // ignore: non_constant_identifier_names
   var f_name = TextEditingController();
+  // ignore: non_constant_identifier_names
   var l_name = TextEditingController();
   var date = TextEditingController();
+  // ignore: prefer_typing_uninitialized_variables
   var childyear;
   String gender = "";
   //bool _nameFieldTouched = false;

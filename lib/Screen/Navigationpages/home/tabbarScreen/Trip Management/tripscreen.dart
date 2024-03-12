@@ -531,7 +531,7 @@ class _TriptabState extends State<Triptab> {
                                             return Theme(
                                               data: ThemeData().copyWith(
                                                   colorScheme:
-                                                      ColorScheme.light(
+                                                      const ColorScheme.light(
                                                 primary: Color(0xff0078aa),
                                                 onPrimary: Colors.white,
                                                 onSurface: Colors.black,

@@ -1,17 +1,16 @@
 // ignore_for_file: sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_constructors, avoid_function_literals_in_foreach_calls, prefer_typing_uninitialized_variables, prefer_const_constructors_in_immutables, unused_local_variable
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/user_information.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
-import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class ChooseSeat extends StatefulWidget {
   String id;
   AddFlight addFlight;
@@ -563,7 +562,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     flighSeat.add(count);
                   }
                 }
-                print("lenght---${flighSeat}");
+                print("lenght---$flighSeat");
                 flighSeat.contains(count) ? addseat.add(count) : null;
                 setState(() {});
                 !flighSeat.contains(count) ? addseat.remove(count) : "";

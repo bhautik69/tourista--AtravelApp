@@ -52,7 +52,7 @@ class _ChildAgaSheetState extends State<ChildAgaSheetHotal> {
                         title: Text("${index + 1}"),
                         value: (index + 1).toString(),
                         groupValue: ages,
-                        activeColor: Color(0xff0078aa),
+                        activeColor: const Color(0xff0078aa),
                         onChanged: (value) {
                           setState(() {
                             ages = value.toString();

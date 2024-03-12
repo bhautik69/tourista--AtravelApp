@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../models/Flight models/bookingFlight.dart';
 
+// ignore: must_be_immutable
 class FlightConfirm extends StatefulWidget {
   String ssortname;
   String esortname;
@@ -235,10 +236,10 @@ class _FlightConfirmState extends State<FlightConfirm> {
                           widget.addFlight.startingFrom!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
-                          style: TextStyle(fontSize: 15, color: Colors.grey),
+                          style: const TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       SizedBox(
                         // color: Colors.amber,
                         width: mq.size.width * 0.36112,
@@ -247,7 +248,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                           widget.addFlight.travelingTo!,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 15,
                             color: Colors.grey,
                           ),
@@ -271,10 +272,10 @@ class _FlightConfirmState extends State<FlightConfirm> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: const Icon(Icons.calendar_month_outlined),
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.calendar_month_outlined),
                             ),
                             Text(
                               widget.addFlight.startDate!,
@@ -296,10 +297,10 @@ class _FlightConfirmState extends State<FlightConfirm> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: const Icon(Icons.watch_later_outlined),
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.watch_later_outlined),
                             ),
                             Text(
                               time,
@@ -327,10 +328,10 @@ class _FlightConfirmState extends State<FlightConfirm> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: const Icon(Icons.man_3_outlined),
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.man_3_outlined),
                             ),
                             Text(
                               "${adult.toString().padLeft(2, '0')} Adult",
@@ -352,10 +353,10 @@ class _FlightConfirmState extends State<FlightConfirm> {
                             borderRadius: BorderRadius.circular(10)),
                         child: Row(
                           children: [
-                            Padding(
+                            const Padding(
                               padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: const Icon(Icons.man_4_outlined),
+                                  EdgeInsets.symmetric(horizontal: 10),
+                              child: Icon(Icons.man_4_outlined),
                             ),
                             Text(
                               "${child.toString().padLeft(2, '0')} ${child >= 1 ? "children" : "child"}",

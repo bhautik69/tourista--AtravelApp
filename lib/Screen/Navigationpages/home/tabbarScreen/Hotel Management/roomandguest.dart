@@ -25,11 +25,13 @@ class _roomGuestState extends State<roomGuest> {
   int roomCount = 1;
   int childCount = 0;
   int qunt = 1;
+  // ignore: non_constant_identifier_names
   List<String> AgeList = [];
 
   // int ages = 1;
   Map<int, TextEditingController> _controllers = {};
 
+  @override
   void initState() {
     super.initState();
     // Initialize controllers with initial itemCount
@@ -53,6 +55,7 @@ class _roomGuestState extends State<roomGuest> {
   @override
   void dispose() {
     // Dispose controllers to prevent memory leaks
+    // ignore: avoid_function_literals_in_foreach_calls
     _controllers.values.forEach((controller) => controller.dispose());
     super.dispose();
   }
@@ -67,7 +70,7 @@ class _roomGuestState extends State<roomGuest> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: themeState.getDarkTheme
-            ? Color(0xff121212)
+            ? const Color(0xff121212)
             : const Color(0xFFffffff),
         body: Form(
           key: _formKey,
@@ -160,7 +163,7 @@ class _roomGuestState extends State<roomGuest> {
                                               IncrementAndDecrement(
                                                   color: roomCount == 1
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     if (roomCount > 1) {
                                                       setState(() {
@@ -177,7 +180,7 @@ class _roomGuestState extends State<roomGuest> {
                                               IncrementAndDecrement(
                                                   color: roomCount == 10
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     setState(() {
                                                       if (roomCount < 10) {
@@ -229,7 +232,7 @@ class _roomGuestState extends State<roomGuest> {
                                               IncrementAndDecrement(
                                                   color: adultsCount == 1
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     if (adultsCount > 1) {
                                                       setState(() {
@@ -251,7 +254,7 @@ class _roomGuestState extends State<roomGuest> {
                                               IncrementAndDecrement(
                                                   color: adultsCount == 10
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     setState(() {
                                                       if (adultsCount < 10) {
@@ -331,7 +334,7 @@ class _roomGuestState extends State<roomGuest> {
                                               IncrementAndDecrement(
                                                   color: childCount == 0
                                                       ? color1
-                                                      : Color(0xff0078aa),
+                                                      : const Color(0xff0078aa),
                                                   onPressed: () {
                                                     if (childCount > 0) {
                                                       setState(() {
@@ -352,7 +355,7 @@ class _roomGuestState extends State<roomGuest> {
                                               IncrementAndDecrement(
                                                 color: childCount == 20
                                                     ? color1
-                                                    : Color(0xff0078aa),
+                                                    : const Color(0xff0078aa),
                                                 onPressed: () {
                                                   setState(() {
                                                     if (childCount < 20) {
@@ -526,7 +529,7 @@ class _roomGuestState extends State<roomGuest> {
                                                         myAge: (age) {
                                                       setState(() {
                                                         _controllers[index]!
-                                                            .text = "$age";
+                                                            .text = age;
                                                       });
                                                     });
                                                     // return ChildAgaSheet(ages);
@@ -590,6 +593,7 @@ class _roomGuestState extends State<roomGuest> {
                               var store = await SharedPreferences.getInstance();
                               store.setStringList("AgeList", AgeList);
                               print(AgeList);
+                              // ignore: use_build_context_synchronously
                               Navigator.pop(context);
                             }
                           },

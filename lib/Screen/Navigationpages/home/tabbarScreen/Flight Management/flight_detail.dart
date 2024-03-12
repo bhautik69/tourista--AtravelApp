@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/seat_booking.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
-import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
@@ -193,7 +192,7 @@ class _FlightDetailState extends State<FlightDetail> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Container(
+                                          SizedBox(
                                             height: mq.size.height * 0.043,
                                             // width: mq.size.width,
                                             // color: Colors.green,
@@ -212,13 +211,13 @@ class _FlightDetailState extends State<FlightDetail> {
                                                   children: [
                                                     Text(
                                                       "${widget.startingsortfrom} - ",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
                                                     Text(
                                                       widget.startingfrom,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -227,7 +226,7 @@ class _FlightDetailState extends State<FlightDetail> {
                                               ],
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: mq.size.height * 0.07,
                                             width: mq.size.width / 1.6,
                                             child: Row(
@@ -292,7 +291,7 @@ class _FlightDetailState extends State<FlightDetail> {
                                               ],
                                             ),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: mq.size.height * 0.043,
                                             // width: mq.size.width,
                                             // color: Colors.red,
@@ -311,13 +310,13 @@ class _FlightDetailState extends State<FlightDetail> {
                                                   children: [
                                                     Text(
                                                       "${widget.travellingsortto} - ",
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
                                                     Text(
                                                       widget.travellingto,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold),
                                                     ),
@@ -348,7 +347,7 @@ class _FlightDetailState extends State<FlightDetail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Titletext(
+                            const Titletext(
                               title: "Included baggage",
                               size: 16,
                             ),
@@ -368,7 +367,7 @@ class _FlightDetailState extends State<FlightDetail> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Ionicons.bag_add_outline,
                                   size: 25,
                                 ),
@@ -378,7 +377,7 @@ class _FlightDetailState extends State<FlightDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "1 personal item ",
                                       // style: TextStyle(
                                       //     fontWeight: FontWeight.w500)
@@ -386,13 +385,13 @@ class _FlightDetailState extends State<FlightDetail> {
                                     SizedBox(
                                       height: mq.size.height * 0.005,
                                     ),
-                                    Text(
+                                    const Text(
                                       "Fits under the seat in front of you",
                                     ),
                                     SizedBox(
                                       height: mq.size.height * 0.005,
                                     ),
-                                    Text("Included",
+                                    const Text("Included",
                                         style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.w500)),
@@ -406,7 +405,7 @@ class _FlightDetailState extends State<FlightDetail> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Ionicons.briefcase_outline,
                                   size: 25,
                                 ),
@@ -416,19 +415,19 @@ class _FlightDetailState extends State<FlightDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "1 cabin bag",
                                     ),
                                     SizedBox(
                                       height: mq.size.height * 0.005,
                                     ),
-                                    Text(
+                                    const Text(
                                       "Up to 8 kg each 25 x 35 x 55 cm",
                                     ),
                                     SizedBox(
                                       height: mq.size.height * 0.005,
                                     ),
-                                    Text("Included",
+                                    const Text("Included",
                                         style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.w500)),
@@ -442,7 +441,7 @@ class _FlightDetailState extends State<FlightDetail> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Ionicons.bag_check_outline,
                                   size: 25,
                                 ),
@@ -452,19 +451,19 @@ class _FlightDetailState extends State<FlightDetail> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "1 checked bag",
                                     ),
                                     SizedBox(
                                       height: mq.size.height * 0.0045,
                                     ),
-                                    Text(
+                                    const Text(
                                       "Max weight 30 kg",
                                     ),
                                     SizedBox(
                                       height: mq.size.height * 0.0045,
                                     ),
-                                    Text("Included",
+                                    const Text("Included",
                                         style: TextStyle(
                                             color: Colors.green,
                                             fontWeight: FontWeight.w500)),
@@ -489,7 +488,7 @@ class _FlightDetailState extends State<FlightDetail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Titletext(
+                            const Titletext(
                               title: "Need extra baggage?",
                               size: 16,
                             ),
@@ -499,7 +498,7 @@ class _FlightDetailState extends State<FlightDetail> {
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Icon(
+                                const Icon(
                                   Ionicons.bag_remove_outline,
                                   size: 25,
                                 ),
@@ -530,7 +529,7 @@ class _FlightDetailState extends State<FlightDetail> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Titletext(
+                            const Titletext(
                               title: "CO2e emissions estimate",
                               size: 16,
                             ),

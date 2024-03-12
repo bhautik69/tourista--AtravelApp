@@ -386,7 +386,7 @@ class _bottomSheetState extends State<bottomSheet> {
                                                         myAge: (age) {
                                                       setState(() {
                                                         _controllers[index]!
-                                                            .text = "${age}";
+                                                            .text = age;
                                                       });
                                                     });
                                                     // return ChildAgaSheet(ages);
@@ -456,8 +456,10 @@ class _bottomSheetState extends State<bottomSheet> {
                                   var prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.setStringList("agelist", childAge);
+                                  // ignore: avoid_print
                                   print(childAge);
 
+                                  // ignore: use_build_context_synchronously
                                   Navigator.pop(context);
                                 }
                               },

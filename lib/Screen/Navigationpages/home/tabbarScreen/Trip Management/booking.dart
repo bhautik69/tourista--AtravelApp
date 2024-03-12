@@ -379,8 +379,8 @@ class _BookingDoneState extends State<BookingDone> {
                                               return Theme(
                                                 data: ThemeData().copyWith(
                                                     colorScheme:
-                                                        ColorScheme.light(
-                                                  primary: Color(0xff0078aa),
+                                                        const ColorScheme.light(
+                                                  primary: Color.fromARGB(255, 81, 108, 119),
                                                   onPrimary: Colors.white,
                                                   onSurface: Colors.black,
                                                 )),
