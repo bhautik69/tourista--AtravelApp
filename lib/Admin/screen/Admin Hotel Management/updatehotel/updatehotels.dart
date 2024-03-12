@@ -128,6 +128,7 @@ class _UpdateHotelsState extends State<UpdateHotels> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 22),
                               ),
+                    
                             ],
                           ),
                         );

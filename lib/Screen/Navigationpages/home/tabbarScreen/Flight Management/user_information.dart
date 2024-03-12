@@ -13,6 +13,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../provider/dark_theme_provider.dart';
 
+typedef clearfild = Function();
+
 // ignore: must_be_immutable
 class Userinfo extends StatefulWidget {
   String id;
@@ -21,8 +23,10 @@ class Userinfo extends StatefulWidget {
   List seelist1;
   String ssortname;
   String esortname;
+  clearfild cleaefeld1;
   Userinfo(
       {super.key,
+      required this.cleaefeld1,
       required this.classtype,
       required this.ssortname,
       required this.esortname,
@@ -127,6 +131,7 @@ class _UserinfoState extends State<Userinfo> {
           title: const Text("Who's flying?"),
           leading: IconButton(
               onPressed: () {
+                widget.cleaefeld1();
                 Navigator.pop(context);
               },
               icon: const Icon(IconlyLight.arrow_left_2, color: Colors.white))),

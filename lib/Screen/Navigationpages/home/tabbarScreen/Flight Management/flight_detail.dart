@@ -598,7 +598,7 @@ class _FlightDetailState extends State<FlightDetail> {
                           height: mq.size.height * 0.065,
                           width: mq.size.width * 0.44,
                           child: commenButton(
-                              title: "SELECT",
+                              title: "Select",
                               callback: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ChooseSeat(

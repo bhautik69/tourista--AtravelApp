@@ -411,7 +411,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                           height: mq.size.height * 0.06,
                           width: mq.size.width * 0.44,
                           child: commenButton(
-                              title: "SELECT",
+                              title: "next",
                               callback: () {
                                 print(addseat);
 
@@ -430,6 +430,9 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) {
                                       return Userinfo(
+                                          cleaefeld1: () {
+                                            addseat.clear();
+                                          },
                                           esortname: widget.esortname,
                                           ssortname: widget.ssortname,
                                           classtype: widget.clsstype1,
