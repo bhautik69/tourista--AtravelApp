@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/seat_booking.dart';
+import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
+import 'package:demo/models/Flight%20models/bookingFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:demo/widget/textwidget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +44,7 @@ class FlightDetail extends StatefulWidget {
 
 class _FlightDetailState extends State<FlightDetail> {
   String path = " ";
+  bool isLoader = false;
   void initState() {
     path = widget.addFlight.flightname!;
     print(path);
@@ -595,34 +599,72 @@ class _FlightDetailState extends State<FlightDetail> {
                       const Spacer(),
                       SizedBox(
                           height: mq.size.height * 0.065,
-                          width: mq.size.width * 0.44,
-                          child: commenButton(
-                              title: "Select",
-                              callback: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ChooseSeat(
-                                    esortname: widget.travellingsortto,
-                                    ssortname: widget.startingsortfrom,
-                                      clsstype1: widget.classtype,
-                                      id: widget.id,
-                                      addFlight: AddFlight(
-                                        
-                                        startingFrom:
-                                            widget.addFlight.startingFrom,
-                                        travelingTo:
-                                            widget.addFlight.travelingTo,
-                                        flightNumber:
-                                            widget.addFlight.flightNumber,
-                                        startDate: widget.addFlight.startDate,
-                                        endDate: widget.addFlight.endDate,
-                                        takeoffTime:
-                                            widget.addFlight.takeoffTime,
-                                        landingTime:
-                                            widget.addFlight.landingTime,
-                                        price: widget.addFlight.price,
-                                        flightname: widget.addFlight.flightname,
-                                      )),
-                                ));
+                          child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection("FlightBooking")
+                                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                                  .collection("FlightUserBooking")
+                                  .where("id", isEqualTo: widget.id)
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (snapshot.data == null) {
+                                  return const Text("");
+                                }
+                                return commenButton(
+                                    loading: isLoader,
+                                    size: snapshot.data!.docs.isEmpty
+                                        ? mq.size.width * 0.44
+                                        : null,
+                                    title: snapshot.data!.docs.isEmpty
+                                        ? "Select"
+                                        : "CENCEL BOOKING",
+                                    callback: () {
+                                      snapshot.data!.docs.isEmpty
+                                          ? booking(context)
+                                          : showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                    title: const Text(
+                                                      "Cancel Booking",
+                                                      style: TextStyle(
+                                                          fontSize: 18),
+                                                    ),
+                                                    content: const Text(
+                                                        style: TextStyle(
+                                                            fontSize: 15),
+                                                        "Are you sure you want do cancel trip ?"),
+                                                    actions: [
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              "CANCEL")),
+                                                      TextButton(
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              themeState
+                                                                      .setDarkTheme =
+                                                                  false;
+                                                            });
+                                                            cancelBook(
+                                                                widget.id);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                              "PROCEED")),
+                                                    ],
+                                                    contentPadding:
+                                                        const EdgeInsets.only(
+                                                            top: 20,
+                                                            left: 25,
+                                                            right: 25));
+                                              },
+                                            );
+                                    });
                               }))
                     ]),
                   ),
@@ -630,6 +672,47 @@ class _FlightDetailState extends State<FlightDetail> {
               ),
             )
           ],
+        ));
+  }
+
+  void booking(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => ChooseSeat(
+          esortname: widget.travellingsortto,
+          ssortname: widget.startingsortfrom,
+          clsstype1: widget.classtype,
+          id: widget.id,
+          addFlight: AddFlight(
+            startingFrom: widget.addFlight.startingFrom,
+            travelingTo: widget.addFlight.travelingTo,
+            flightNumber: widget.addFlight.flightNumber,
+            startDate: widget.addFlight.startDate,
+            endDate: widget.addFlight.endDate,
+            takeoffTime: widget.addFlight.takeoffTime,
+            landingTime: widget.addFlight.landingTime,
+            price: widget.addFlight.price,
+            flightname: widget.addFlight.flightname,
+          )),
+    ));
+  }
+
+  void cancelBook(String id) async {
+    setState(() {
+      isLoader = true;
+    });
+    await BookingFlight.deleteFlightBooking(id).whenComplete(() => () {
+          setState(() {
+            isLoader = false;
+          });
+        });
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
+
+    // ignore: use_build_context_synchronously
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Mainpage(),
         ));
   }
 }

@@ -12,7 +12,6 @@ import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 //import 'package:ionicons/ionicons.dart';
@@ -32,6 +31,7 @@ class HotelDetails extends StatefulWidget {
   int room = 0;
   int adults = 0;
   int child = 0;
+  
 
   HotelDetails(
       {super.key,
@@ -51,6 +51,7 @@ class HotelDetails extends StatefulWidget {
 }
 
 class _HotelDetailsState extends State<HotelDetails> {
+  bool isLoader = false;
   final List<Map<String, dynamic>> facilities = [
     {"name": "Free Wi-Fi", "icon": Ionicons.wifi_outline},
     {"name": "Beds", "icon": Ionicons.bed_outline},
@@ -710,7 +711,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                                 if (snapshot.data == null) {
                                   return const Text("");
                                 }
-                                return commenButton(
+                                return commenButton(loading: isLoader,
                                     size: snapshot.data!.docs.isEmpty
                                         ? mq.size.width * 0.44
                                         : null,
@@ -804,7 +805,15 @@ class _HotelDetailsState extends State<HotelDetails> {
   }
 
   void cancelBook(String id) async {
-    await bookingHotel.deleteHotelBooking(id);
+    setState(() {
+      isLoader = true;
+    });
+    
+    await bookingHotel.deleteHotelBooking(id).whenComplete(() => () {
+          setState(() {
+            isLoader = false;
+          });
+        });
     // ignore: use_build_context_synchronously
     Navigator.pop(context);
 

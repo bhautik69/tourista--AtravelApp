@@ -87,6 +87,9 @@ Widget activity(
           ),
         ],
       ),
+      SizedBox(
+        height: 10,
+      ),
       ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

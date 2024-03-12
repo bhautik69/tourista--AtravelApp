@@ -240,9 +240,6 @@ class _TriptabState extends State<Triptab> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: mq.size.height * 0.02,
-                          ),
                           Container(
                             color: themeState.getDarkTheme
                                 ? const Color(0xff212121)
@@ -569,6 +566,7 @@ class _TriptabState extends State<Triptab> {
                                                 .validate()) {
                                               runFilter(from.text, to.text,
                                                   date.text);
+                                              
                                             }
                                           })),
                                 ],

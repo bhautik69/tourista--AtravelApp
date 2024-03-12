@@ -1,4 +1,4 @@
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/Flighttab.dart';
+import 'package:demo/Screen/Navigationpages/main_page.dart';
 import 'package:demo/models/Flight%20models/addFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
@@ -87,7 +87,6 @@ class _FlightConfirmState extends State<FlightConfirm> {
       ),
       body: Column(
         children: [
-          SizedBox(height: mq.size.height * 0.015),
           Container(
             decoration: BoxDecoration(
                 color: themeState.getDarkTheme
@@ -95,11 +94,16 @@ class _FlightConfirmState extends State<FlightConfirm> {
                     : const Color(0xffffffff),
                 borderRadius: const BorderRadius.all(Radius.circular(0))),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 5,
+                  ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
                     child: Container(
                       decoration: BoxDecoration(
                           //color: Colors.amber,
@@ -236,7 +240,8 @@ class _FlightConfirmState extends State<FlightConfirm> {
                           widget.addFlight.startingFrom!,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 3,
-                          style: const TextStyle(fontSize: 15, color: Colors.grey),
+                          style:
+                              const TextStyle(fontSize: 15, color: Colors.grey),
                         ),
                       ),
                       const Spacer(),
@@ -262,7 +267,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                   ),
                   SizedBox(height: mq.size.height * 0.02),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
                         width: mq.size.width / 2.5,
@@ -273,8 +278,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                         child: Row(
                           children: [
                             const Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(Icons.calendar_month_outlined),
                             ),
                             Text(
@@ -298,8 +302,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                         child: Row(
                           children: [
                             const Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(Icons.watch_later_outlined),
                             ),
                             Text(
@@ -318,7 +321,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                   ),
                   SizedBox(height: mq.size.height * 0.02),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
                         width: mq.size.width / 2.5,
@@ -329,8 +332,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                         child: Row(
                           children: [
                             const Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(Icons.man_3_outlined),
                             ),
                             Text(
@@ -354,8 +356,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                         child: Row(
                           children: [
                             const Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 10),
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Icon(Icons.man_4_outlined),
                             ),
                             Text(
@@ -416,7 +417,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const Fligthtab(),
+                              builder: (context) => const Mainpage(),
                             ),
                             (route) => false);
                       },

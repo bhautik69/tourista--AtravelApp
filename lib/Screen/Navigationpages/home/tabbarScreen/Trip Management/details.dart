@@ -37,6 +37,7 @@ class PlaceDetails extends StatefulWidget {
 
 class _PlaceDetailsState extends State<PlaceDetails> {
   List<dynamic> placesimage = [];
+  bool isLoader = false;
 
   @override
   void initState() {
@@ -405,8 +406,12 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                                         return const Text("");
                                       }
                                       return commenButton(
+                                          size: snapshot.data!.docs.isEmpty
+                                              ? mq.size.width * 0.44
+                                              : null,
+                                          loading: isLoader,
                                           title: snapshot.data!.docs.isEmpty
-                                              ? "Book Now"
+                                              ? "BOOk NOW"
                                               : "CANCEL BOOKING",
                                           callback: () {
                                             snapshot.data!.docs.isEmpty
@@ -508,7 +513,14 @@ class _PlaceDetailsState extends State<PlaceDetails> {
   }
 
   cancelBook(String id) async {
-    await Booking.deleteBookPackage(id);
+    setState(() {
+      isLoader = true;
+    });
+    await Booking.deleteBookPackage(id).whenComplete(() => () {
+          setState(() {
+            isLoader = false;
+          });
+        });
     // ignore: use_build_context_synchronously
     Navigator.pop(context);
 

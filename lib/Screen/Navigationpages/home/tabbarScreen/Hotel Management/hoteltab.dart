@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, deprecated_member_use
 
-import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/findhotel.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/hotelottie.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Hotel%20Management/roomandguest.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 
@@ -418,7 +418,7 @@ class _HoteltabState extends State<Hoteltab> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => show_hotel(
+                              builder: (context) => HotelLottie(
                                 destination: destination.text,
                                 check_In: checkin.text,
                                 check_Out: checkout.text,
@@ -428,6 +428,33 @@ class _HoteltabState extends State<Hoteltab> {
                               ),
                             ));
                       }
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 110,
+                  child: ListView.builder(
+                    itemCount: 10,
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                children: [
+                                  // Icon(Icons.)
+                                ],
+                              ),
+                        ),
+                      );
                     },
                   ),
                 )

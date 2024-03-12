@@ -96,17 +96,14 @@ class _show_hotelState extends State<show_hotel> {
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
+                Navigator.pop(context);
               },
               icon: const Icon(IconlyLight.arrow_left_2, color: Colors.white))),
       body: StreamBuilder(
           stream: FirebaseFirestore.instance.collection("Hotel").snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Color(0xff0078aa),
-                ),
-              );
+              return const Center(child: Text(""));
             }
             if (!snapshot.hasData ||
                 snapshot.data == null ||

@@ -1,5 +1,6 @@
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/bottomSheet.dart';
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/flight_search.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Management/lottiePage.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/provider/flight_traveller_datastore_.dart';
 
@@ -526,12 +527,15 @@ class _FligthtabState extends State<Fligthtab> {
                             if (flightkey.currentState!.validate()) {
                               var prefs = await SharedPreferences.getInstance();
                               prefs.setInt("total", total);
-                              prefs.setInt("children" ,children);
+                              prefs.setInt("children", children);
                               prefs.setInt("adult", adult);
-                               indexFlightDate=date.text+flightfrom.text+flightTo.text+flightClass!;
+                              indexFlightDate = date.text +
+                                  flightfrom.text +
+                                  flightTo.text +
+                                  flightClass!;
                               // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => FlightSearch(
+                                builder: (context) => LottiePage(
                                     classname: flightClass,
                                     startingfrom: flightfrom.text,
                                     takeoffdate: date.text,
