@@ -30,7 +30,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
   int total = 0;
   int children = 0;
   int adult = 0;
-  // List<String> ages = [];
+  List<String> ages = [];
   List<Map<String, dynamic>> childList = [];
   List<Map<String, dynamic>> adultList1 = [];
 
@@ -430,8 +430,32 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                           child: commenButton(
                               title: "Next",
                               callback: () {
-                                totalprice =
-                                    int.parse(widget.hotel.price!) * total;
+                                int minorChildPrice = 0;
+                                int majorChildPrice = 0;
+
+                                var adultPrice =
+                                    int.parse(widget.hotel.price!) * adult;
+                                for (int i = 0; i < ages.length; i++) {
+                                  if (int.parse(ages[i]) >= 1 &&
+                                      int.parse(ages[i]) <= 10) {
+                                    minorChildPrice =
+                                        int.parse(widget.hotel.price!) ~/ 2;
+                                  } else if (int.parse(ages[i]) >= 11 &&
+                                      int.parse(ages[i]) <= 17) {
+                                    majorChildPrice =
+                                        int.parse(widget.hotel.price!) ~/ 1.5;
+                                  }
+                                }
+                                totalprice = (adultPrice +
+                                        minorChildPrice +
+                                        majorChildPrice) *
+                                    room;
+
+                                print(
+                                    "$room ---- $adultPrice ---- $majorChildPrice ---++-- $minorChildPrice --==-- ${adultPrice + majorChildPrice + minorChildPrice} ==== $totalprice");
+
+                                // totalprice =
+                                //     int.parse(widget.hotel.price!) * total;
                                 v3 = true;
                                 setState(() {});
                                 for (int i = 0; i <= total; i++) {
@@ -521,8 +545,8 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
     var geta = prefs.getInt("adult");
     var v3 = prefs.getInt("room");
 
-    // var agelist = prefs.getStringList("AgeList");
-    // ages = agelist ?? [];
+    var agelist = prefs.getStringList("AgeList");
+    ages = agelist ?? [];
     total = gett ?? 1;
     children = getc ?? 0;
     adult = geta ?? 0;

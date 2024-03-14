@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:path_drawing/path_drawing.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../models/Flight models/bookingFlight.dart';
@@ -51,7 +52,46 @@ class _FlightConfirmState extends State<FlightConfirm> {
     time =
         gettime2(widget.addFlight.takeoffTime!, widget.addFlight.landingTime!);
     getdata();
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     super.initState();
+  }
+
+  late Razorpay _razorpay;
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Do something when payment succeeds
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text("Payment Successfully")));
+    save();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const Mainpage(),
+        ),
+        (route) => false);
+    mesg();
+
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\$success");
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ error${response.message}");
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ error${response.error}");
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Payment Cancel")));
+
+    // Do something when payment fails
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Server Down!Please try Again After 30 minute")));
+
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ wallet");
+
+    // Do something when an external wallet was selected
   }
 
   String gettime2(String stime, String etime) {
@@ -62,6 +102,11 @@ class _FlightConfirmState extends State<FlightConfirm> {
     Duration difference = time1.difference(time2);
 
     return "${difference.inHours.toString().padLeft(2, '0')}h : ${difference.inMinutes.remainder(60).toString().padLeft(2, '0')}m";
+  }
+
+  void mesg() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("BOOKING SUCCESSFULLY")));
   }
 
   @override
@@ -445,10 +490,28 @@ class _FlightConfirmState extends State<FlightConfirm> {
                         title: "Confirm",
                         loading: isloading,
                         callback: () {
-                          save();
+                          // save();
                           // Navigator.of(context).push(MaterialPageRoute(
                           //   builder: (context) => const Fli(),
                           // ));
+                          var options = {
+                            'key': 'rzp_test_xvlZZBGCo0SzL0',
+                            // 'key': 'rzp_live_ILgsfZCZoFIKMb',
+                            'amount': int.parse(widget.totalPrice) *
+                                100, //paisa ma hoy aetale into 100 karya chhe and paisa hamesa interger av se
+                            'name': 'Tourista',
+                            'description': 'Flight Booking',
+                            'theme.color': "#0078AA",
+                            'prefill': {
+                              'contact': '8888888888',
+                              'email': 'test@razorpay.com'
+                            },
+                            // "note": {
+                            //   'payment_type': 'UPI',
+                            //   'phonepe': true,
+                            // }
+                          };
+                          _razorpay.open(options);
                         },
                       ),
                     )

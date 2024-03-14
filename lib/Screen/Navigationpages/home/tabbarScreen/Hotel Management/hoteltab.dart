@@ -111,9 +111,9 @@ class _HoteltabState extends State<Hoteltab> {
         return true;
       },
       child: Scaffold(
-        backgroundColor: themeState.getDarkTheme
-            ? const Color(0xff121212)
-            : const Color.fromARGB(255, 236, 235, 235),
+        // backgroundColor: themeState.getDarkTheme
+        //     ? const Color(0xff121212)
+        //     : const Color.fromARGB(255, 236, 235, 235),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,

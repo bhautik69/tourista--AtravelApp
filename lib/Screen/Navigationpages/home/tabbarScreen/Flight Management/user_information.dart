@@ -43,7 +43,7 @@ class _UserinfoState extends State<Userinfo> {
   int total = 0;
   int children = 0;
   int adult = 0;
-  // List<String> ages = [];
+  List<String> ages = [];
   bool v1 = false;
   bool v2 = false;
   bool v3 = false;
@@ -449,10 +449,31 @@ class _UserinfoState extends State<Userinfo> {
                             child: commenButton(
                                 title: "Next",
                                 callback: () {
-                                  totalprice =
-                                      int.parse(widget.addFlight.price!) *
-                                          total;
+                                  int minorChildPrice = 0;
+                                  int majorChildPrice = 0;
 
+                                  var adultPrice =
+                                      int.parse(widget.addFlight.price!) *
+                                          adult;
+                                  for (int i = 0; i < ages.length; i++) {
+                                    if (int.parse(ages[i]) >= 1 &&
+                                        int.parse(ages[i]) <= 10) {
+                                      minorChildPrice =
+                                          int.parse(widget.addFlight.price!) ~/
+                                              2;
+                                    } else if (int.parse(ages[i]) >= 11 &&
+                                        int.parse(ages[i]) <= 17) {
+                                      majorChildPrice =
+                                          int.parse(widget.addFlight.price!) ~/
+                                              1.5;
+                                    }
+                                  }
+                                  totalprice = adultPrice + minorChildPrice + majorChildPrice;
+                                  // // var total1 =
+                                  //     (int.parse(widget.addFlight.price!) / 2) *
+                                  //         children;
+                                  // print(
+                                  //     "$adultPrice ---- $majorChildPrice ---++-- $minorChildPrice --==-- ${adultPrice + majorChildPrice + minorChildPrice}");
                                   v3 = true;
 
                                   setState(() {});
@@ -539,8 +560,8 @@ class _UserinfoState extends State<Userinfo> {
     var gett = prefs.getInt("total");
     var getc = prefs.getInt("children");
     var geta = prefs.getInt("adult");
-    // var agelist = prefs.getStringList("agelist");
-    // ages = agelist ?? [];
+    var agelist = prefs.getStringList("agelist");
+    ages = agelist ?? [];
     total = gett ?? 1;
     children = getc ?? 0;
     adult = geta ?? 0;

@@ -68,6 +68,7 @@ class _FlightSearchState extends State<FlightSearch> {
     wordBeforeAirport4 = getWordafterAirport(widget.travellingto!);
     getravellerno();
     getID();
+    print("${widget.search}------------------search---");
     super.initState();
   }
 
@@ -447,6 +448,8 @@ class _FlightSearchState extends State<FlightSearch> {
                                         child: commenButton(
                                           title: "Check",
                                           callback: () {
+                                            print(
+                                                "${widget.ages} flight--------------------------");
                                             indexFlightDate += "$index";
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
@@ -483,7 +486,10 @@ class _FlightSearchState extends State<FlightSearch> {
                                                       price: data[index]
                                                           ["price"],
                                                       flightname: data[index]
-                                                          ["flightname"]), ages: widget.search ? ages : widget.ages),
+                                                          ["flightname"]),
+                                                  ages: widget.search
+                                                      ? ages
+                                                      : widget.ages),
                                             ));
 
                                             recentSearch(
@@ -518,6 +524,7 @@ class _FlightSearchState extends State<FlightSearch> {
     var geta = prefs.getInt("adult");
     var agelist = prefs.getStringList("agelist");
     ages = agelist ?? [];
+    print("$ages --------------shared");
     children = getc ?? 0;
     adult = geta ?? 0;
     setState(() {});

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
@@ -51,11 +52,50 @@ class _ConfirmationState extends State<Confirmation> {
   String check_Out = "";
   bool isloading = false;
   int night = 0;
+  int price = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getdata();
+
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  late Razorpay _razorpay;
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Do something when payment succeeds
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text("Payment Successfully")));
+    save();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const Mainpage(),
+        ),
+        (route) => false);
+
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\$success");
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ error${response.message}");
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ error${response.error}");
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Payment Cancel")));
+
+    // Do something when payment fails
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Server Down!Please try Again After 30 minute")));
+
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ wallet");
+
+    // Do something when an external wallet was selected
   }
 
   @override
@@ -190,7 +230,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "₹ ${(int.parse(widget.hotel.price!) * widget.adult) * night}",
+                                                  "₹ ${int.parse(widget.totalPrice) * night}",
                                                   style: TextStyle(
                                                       color: themeState
                                                               .getDarkTheme
@@ -360,7 +400,25 @@ class _ConfirmationState extends State<Confirmation> {
                               loading: isloading,
                               title: "Confirm",
                               callback: () {
-                                save();
+                                price = int.parse(widget.totalPrice) * night;
+                                var options = {
+                                  'key': 'rzp_test_xvlZZBGCo0SzL0',
+                                  // 'key': 'rzp_live_ILgsfZCZoFIKMb',
+                                  'amount': price *
+                                      100, //paisa ma hoy aetale into 100 karya chhe and paisa hamesa interger av se
+                                  'name': 'Tourista',
+                                  'description': 'Hotel Booking',
+                                  'theme.color': "#0078AA",
+                                  'prefill': {
+                                    'contact': '8888888888',
+                                    'email': 'test@razorpay.com'
+                                  },
+                                  // "note": {
+                                  //   'payment_type': 'UPI',
+                                  //   'phonepe': true,
+                                  // }
+                                };
+                                _razorpay.open(options);
                               },
                             ),
                           )
@@ -381,7 +439,6 @@ class _ConfirmationState extends State<Confirmation> {
     var store = await SharedPreferences.getInstance();
     var v1 = store.getString("checkInDate");
     var v2 = store.getString("checkOutDate");
-
     setState(() {
       check_In = v1!;
       check_Out = v2!;

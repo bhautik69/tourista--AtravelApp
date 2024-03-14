@@ -554,6 +554,10 @@ class _FligthtabState extends State<Fligthtab> {
                       callback: () async {
                         setState(() {});
                         if (flightkey.currentState!.validate()) {
+                          setState(() {
+                            search = true;
+                            recentSearch1 = false;
+                          });
                           var prefs = await SharedPreferences.getInstance();
                           prefs.setInt("total", total);
                           prefs.setInt("children", children);
@@ -650,7 +654,8 @@ class _FligthtabState extends State<Fligthtab> {
                                                         search: search,
                                                         recentsearch:
                                                             recentSearch1,
-                                                            ages: data[index]["ages"],
+                                                        ages: data[index]
+                                                            ["ages"],
                                                         classname: data[index]
                                                             ["classType"],
                                                         startingfrom: data[

@@ -334,13 +334,13 @@ class _SavedState extends State<Saved> {
                       children: [
                         SizedBox(height: mq.size.height * 0.09),
                         Lottie.asset(
-                          'assets/img/no_data_found.json',
+                          'assets/img/fkiH6q7WmM.json',
                         ),
                         SizedBox(
                           height: mq.size.height * 0.008,
                         ),
                         const Text(
-                          "Add item in wishlist",
+                          "Add Trip in wishlist",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 25),
@@ -611,13 +611,13 @@ class _SavedState extends State<Saved> {
                       children: [
                         SizedBox(height: mq.size.height * 0.09),
                         Lottie.asset(
-                          'assets/img/no_data_found.json',
+                          'assets/img/fkiH6q7WmM.json',
                         ),
                         SizedBox(
                           height: mq.size.height * 0.008,
                         ),
                         const Text(
-                          "Add item in wishlist",
+                          "Add Hotel in wishlist",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 25),

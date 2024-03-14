@@ -12,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:sizer/sizer.dart';
 
@@ -334,10 +335,8 @@ class _BookState extends State<Book> {
                         children: [
                           SizedBox(height: mq.size.height * 0.084),
                           SizedBox(
-                            child: Image.asset(
-                              "assets/img/wheretonextvector.png",
-                              fit: BoxFit.cover,
-                            ),
+                            child: Lottie.asset("assets/img/agxHfRHv4J.json",
+                                height: mq.size.height * 0.4),
                           ),
                           SizedBox(
                             height: mq.size.height * 0.008,
@@ -627,10 +626,8 @@ class _BookState extends State<Book> {
                         children: [
                           SizedBox(height: mq.size.height * 0.084),
                           SizedBox(
-                            child: Image.asset(
-                              "assets/img/wheretonextvector.png",
-                              fit: BoxFit.cover,
-                            ),
+                            child: Lottie.asset("assets/img/agxHfRHv4J.json",
+                                height: mq.size.height * 0.4),
                           ),
                           SizedBox(
                             height: mq.size.height * 0.008,
@@ -939,10 +936,8 @@ class _BookState extends State<Book> {
                         children: [
                           SizedBox(height: mq.size.height * 0.084),
                           SizedBox(
-                            child: Image.asset(
-                              "assets/img/wheretonextvector.png",
-                              fit: BoxFit.cover,
-                            ),
+                            child: Lottie.asset("assets/img/agxHfRHv4J.json",
+                                height: mq.size.height * 0.4),
                           ),
                           SizedBox(
                             height: mq.size.height * 0.008,

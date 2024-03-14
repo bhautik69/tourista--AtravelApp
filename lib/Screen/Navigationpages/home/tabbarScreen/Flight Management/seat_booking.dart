@@ -431,32 +431,36 @@ class _ChooseSeatState extends State<ChooseSeat> {
 
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) {
+                                      print(
+                                          "${widget.ages}--------------------------");
                                       return Userinfo(
-                                          cleaefeld1: () {
-                                            addseat.clear();
-                                          },
-                                          esortname: widget.esortname,
-                                          ssortname: widget.ssortname,
-                                          classtype: widget.clsstype1,
-                                          seelist1: addseat,
-                                          addFlight: AddFlight(
-                                              startingFrom:
-                                                  widget.addFlight.startingFrom,
-                                              travelingTo:
-                                                  widget.addFlight.travelingTo,
-                                              flightNumber:
-                                                  widget.addFlight.flightNumber,
-                                              startDate:
-                                                  widget.addFlight.startDate,
-                                              endDate: widget.addFlight.endDate,
-                                              takeoffTime:
-                                                  widget.addFlight.takeoffTime,
-                                              landingTime:
-                                                  widget.addFlight.landingTime,
-                                              price: widget.addFlight.price,
-                                              flightname:
-                                                  widget.addFlight.flightname),
-                                          id: widget.id, ages: widget.ages!,);
+                                        cleaefeld1: () {
+                                          addseat.clear();
+                                        },
+                                        esortname: widget.esortname,
+                                        ssortname: widget.ssortname,
+                                        classtype: widget.clsstype1,
+                                        seelist1: addseat,
+                                        addFlight: AddFlight(
+                                            startingFrom:
+                                                widget.addFlight.startingFrom,
+                                            travelingTo:
+                                                widget.addFlight.travelingTo,
+                                            flightNumber:
+                                                widget.addFlight.flightNumber,
+                                            startDate:
+                                                widget.addFlight.startDate,
+                                            endDate: widget.addFlight.endDate,
+                                            takeoffTime:
+                                                widget.addFlight.takeoffTime,
+                                            landingTime:
+                                                widget.addFlight.landingTime,
+                                            price: widget.addFlight.price,
+                                            flightname:
+                                                widget.addFlight.flightname),
+                                        id: widget.id,
+                                        ages: widget.ages!,
+                                      );
                                     },
                                   ));
                                 }
