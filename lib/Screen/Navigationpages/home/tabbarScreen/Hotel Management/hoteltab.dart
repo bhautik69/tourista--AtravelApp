@@ -24,9 +24,6 @@ class Hoteltab extends StatefulWidget {
 }
 
 class _HoteltabState extends State<Hoteltab> {
-  bool search = false;
-  bool recentSearch = false;
-
   List<dynamic> getSuggestion(String query) => List.of(cityList).where((city) {
         final cityLower = city.toLowerCase();
         final queryLower = query.toLowerCase();
@@ -38,6 +35,7 @@ class _HoteltabState extends State<Hoteltab> {
   int child1 = 0;
   int room1 = 1;
   int total = 0;
+  List<String> ages1 = [];
   var destination = TextEditingController();
   var rac = TextEditingController();
   var checkin = TextEditingController();
@@ -101,6 +99,8 @@ class _HoteltabState extends State<Hoteltab> {
     super.initState();
   }
 
+  bool search = false;
+  bool recentSearch = false;
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -122,7 +122,7 @@ class _HoteltabState extends State<Hoteltab> {
               children: [
                 Container(
                   color: themeState.getDarkTheme
-                      ? const Color(0xff212121)
+                      ? Colors.transparent
                       : const Color(0xffffffff),
                   child: Padding(
                     padding:
@@ -409,12 +409,15 @@ class _HoteltabState extends State<Hoteltab> {
                                   pageBuilder: (context, animation,
                                           secondaryAnimation) =>
                                       roomGuest(
-                                    totalRAC: (rooms, adults, children) {
+                                    totalRAC:
+                                        (rooms, adults, children, agelist) {
                                       setState(() {
                                         room1 = rooms;
                                         adults1 = adults;
                                         child1 = children;
                                         total = adults + children;
+                                        ages1 = agelist;
+                                        print("$ages1----------- ");
                                         var child;
                                         children == 0
                                             ? child = " "
@@ -467,6 +470,7 @@ class _HoteltabState extends State<Hoteltab> {
                                 store.setInt("adult", adults1);
                                 store.setInt("children", child1);
                                 store.setInt("total", total);
+                                store.setStringList("agelist", ages1);
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -492,17 +496,39 @@ class _HoteltabState extends State<Hoteltab> {
                     ),
                   ),
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.only(bottom: 8, top: 13, left: 8),
-                  child: Titletext(title: "Continue your search"),
+                  child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("HotelResentsearch")
+                          .doc(FirebaseAuth.instance.currentUser!.uid)
+                          .collection("HotelSearch")
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(child: Text(""));
+                        }
+                        if (!snapshot.hasData ||
+                            snapshot.data == null ||
+                            snapshot.data!.docs.isEmpty) {
+                          return const Text("");
+                        }
+
+                        var data = snapshot.data!.docs
+                            .where((element) => id.contains(element["id"]))
+                            .toList();
+
+                        if (data.isEmpty) {
+                          return const Text("");
+                        }
+                        return Visibility(
+                            visible: data.isEmpty ? false : true,
+                            child: Titletext(title: "Continue your search"));
+                      }),
                 ),
                 InkWell(
-                  onTap: () {
-                    setState(() {
-                      search = false;
-                      recentSearch = true;
-                    });
-                  },
+                  onTap: () {},
                   child: SizedBox(
                     height: mq.size.height * 0.15,
                     child: StreamBuilder(
@@ -546,8 +572,22 @@ class _HoteltabState extends State<Hoteltab> {
                                   ),
                                   child: GestureDetector(
                                     onTap: () async {
+                                      setState(() {
+                                        search = false;
+                                        recentSearch = true;
+                                        print(search);
+                                      });
+                                      List<dynamic> agesDynamic =
+                                          data[index]["ages"];
+                                      List<String> agesString = agesDynamic
+                                          .map((age) => age.toString())
+                                          .toList();
+                                      print(data[index]["ages"]);
+                                      
                                       var store =
                                           await SharedPreferences.getInstance();
+                                      store.setStringList(
+                                          "agelist", agesString);
                                       store.setString("checkInDate",
                                           data[index]["checkIn"]);
                                       store.setString("checkOutDate",
@@ -601,10 +641,21 @@ class _HoteltabState extends State<Hoteltab> {
                                             Padding(
                                               padding: const EdgeInsets.only(
                                                   left: 15, top: 5),
-                                              child: Titletext(
-                                                title: data[index]
-                                                    ["destination"],
-                                                size: 18,
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.location_on_outlined,
+                                                    size: 19,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 2,
+                                                  ),
+                                                  Titletext(
+                                                    title: data[index]
+                                                        ["destination"],
+                                                    size: 18,
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                             ListTile(
@@ -623,7 +674,7 @@ class _HoteltabState extends State<Hoteltab> {
                                               ),
                                               title: Padding(
                                                 padding: const EdgeInsets.only(
-                                                    bottom: 3),
+                                                    bottom: 7),
                                                 child: Text(
                                                   data[index]["hotelname"],
                                                   overflow:
@@ -636,7 +687,7 @@ class _HoteltabState extends State<Hoteltab> {
                                               ),
                                               subtitle: Text(date1 +
                                                   date +
-                                                  " ${int.parse(data[index]["adult"]) + int.parse(data[index]["child"])} Traveller"),
+                                                  ", ${int.parse(data[index]["adult"]) + int.parse(data[index]["child"])} Traveller"),
                                               // ' To ' +
                                               // data[index]['endDate'],
                                               // style:

@@ -450,7 +450,9 @@ class _UserinfoState extends State<Userinfo> {
                                 title: "Next",
                                 callback: () {
                                   int minorChildPrice = 0;
+                                  int minorChildPriceTotal = 0;
                                   int majorChildPrice = 0;
+                                  int majorChildPriceTotal = 0;
 
                                   var adultPrice =
                                       int.parse(widget.addFlight.price!) *
@@ -458,22 +460,26 @@ class _UserinfoState extends State<Userinfo> {
                                   for (int i = 0; i < ages.length; i++) {
                                     if (int.parse(ages[i]) >= 1 &&
                                         int.parse(ages[i]) <= 10) {
-                                      minorChildPrice =
+                                      minorChildPriceTotal =
                                           int.parse(widget.addFlight.price!) ~/
                                               2;
+                                      minorChildPrice += minorChildPriceTotal;
                                     } else if (int.parse(ages[i]) >= 11 &&
                                         int.parse(ages[i]) <= 17) {
-                                      majorChildPrice =
+                                      majorChildPriceTotal =
                                           int.parse(widget.addFlight.price!) ~/
                                               1.5;
+                                      majorChildPrice += majorChildPriceTotal;
                                     }
                                   }
-                                  totalprice = adultPrice + minorChildPrice + majorChildPrice;
+                                  totalprice = adultPrice +
+                                      minorChildPrice +
+                                      majorChildPrice;
                                   // // var total1 =
                                   //     (int.parse(widget.addFlight.price!) / 2) *
                                   //         children;
-                                  // print(
-                                  //     "$adultPrice ---- $majorChildPrice ---++-- $minorChildPrice --==-- ${adultPrice + majorChildPrice + minorChildPrice}");
+                                  print(
+                                      "$adultPrice ---- $majorChildPrice ---++-- $minorChildPrice --==-- ${adultPrice + majorChildPrice + minorChildPrice}");
                                   v3 = true;
 
                                   setState(() {});

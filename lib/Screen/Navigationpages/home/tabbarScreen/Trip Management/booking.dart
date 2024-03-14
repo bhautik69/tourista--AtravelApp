@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/consts/upipayment.dart';
+import 'package:demo/Screen/Navigationpages/main_page.dart';
+
 import 'package:demo/models/Trip%20models/bookingmodel.dart';
 import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
@@ -11,6 +12,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 // ignore: must_be_immutable
 class BookingDone extends StatefulWidget {
@@ -22,7 +24,7 @@ class BookingDone extends StatefulWidget {
   State<BookingDone> createState() => _BookingDoneState();
 }
 
-bool loading = false;
+// bool loading = false;
 final _formKey = GlobalKey<FormState>();
 
 class _BookingDoneState extends State<BookingDone> {
@@ -65,7 +67,51 @@ class _BookingDoneState extends State<BookingDone> {
 
       setState(() {});
     });
+
+    _razorpay = Razorpay();
+    _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
     super.initState();
+  }
+
+  late Razorpay _razorpay;
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Do something when payment succeeds
+    // ScaffoldMessenger.of(context)
+    //     .showSnackBar(SnackBar(content: Text("Payment Successfully")));
+    saveBooking();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (context) => const Mainpage(),
+        ),
+        (route) => false);
+    mesg();
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\$success");
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ error${response.message}");
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ error${response.error}");
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text("Payment Cancel")));
+
+    // Do something when payment fails
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Server Down!Please try Again After 30 minute")));
+
+    print("\$\$\$\$\$\$\$\$\$\$\$\$\ wallet");
+
+    // Do something when an external wallet was selected
+  }
+
+  void mesg() {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text("BOOKING SUCCESSFULLY")));
   }
 
   // ignore: prefer_typing_uninitialized_variables
@@ -380,7 +426,7 @@ class _BookingDoneState extends State<BookingDone> {
                                                 data: ThemeData().copyWith(
                                                     colorScheme:
                                                         const ColorScheme.light(
-                                                  primary: Color.fromARGB(255, 81, 108, 119),
+                                                  primary: Color(0xff0078aa),
                                                   onPrimary: Colors.white,
                                                   onSurface: Colors.black,
                                                 )),
@@ -526,23 +572,33 @@ class _BookingDoneState extends State<BookingDone> {
                                 height: mq.size.height * 0.067,
                                 width: mq.size.width * 0.44,
                                 child: commenButton(
-                                    loading: loading,
+                                    // loading: loading,
                                     title: "Pay Now",
                                     callback: () {
                                       // await makePayment();
                                       if (_formKey.currentState!.validate()) {
                                         setState(() {
-                                          totleprise =
-                                              int.parse(widget.package!.price!);
-
-                                          saveBooking().whenComplete(() {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const UoiIndia(),
-                                                ));
-                                          });
+                                          // totleprise =
+                                          //     int.parse(widget.package!.price!);
+                                          print("$totleprise-----------------");
+                                          var options = {
+                                            'key': 'rzp_test_xvlZZBGCo0SzL0',
+                                            // 'key': 'rzp_live_ILgsfZCZoFIKMb',
+                                            'amount': totleprise *
+                                                100, //paisa ma hoy aetale into 100 karya chhe and paisa hamesa interger av se
+                                            'name': 'Tourista',
+                                            'description': 'Trip Booking',
+                                            'theme.color': "#0078AA",
+                                            'prefill': {
+                                              'contact': '8888888888',
+                                              'email': 'test@razorpay.com'
+                                            },
+                                            // "note": {
+                                            //   'payment_type': 'UPI',
+                                            //   'phonepe': true,
+                                            // }
+                                          };
+                                          _razorpay.open(options);
                                         });
                                         travellerList.clear();
                                       }

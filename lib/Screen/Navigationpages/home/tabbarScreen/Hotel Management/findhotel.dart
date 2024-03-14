@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:iconly/iconly.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,7 +44,6 @@ class show_hotel extends StatefulWidget {
 }
 
 class _show_hotelState extends State<show_hotel> {
-  List ages = [];
   List id = [];
   getID() async {
     await FirebaseFirestore.instance
@@ -137,9 +137,10 @@ class _show_hotelState extends State<show_hotel> {
         .set(data);
   }
 
+  List ages = [];
   void getravellerno() async {
     var prefs = await SharedPreferences.getInstance();
-    var agelist = prefs.getStringList("AgeList");
+    var agelist = prefs.getStringList("agelist");
     ages = agelist ?? [];
 
     setState(() {});
@@ -167,7 +168,7 @@ class _show_hotelState extends State<show_hotel> {
           ? const Color(0xff121212)
           : const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-          title: const Text("Book Hotel"),
+          title: const Text("Search Hotel"),
           leading: IconButton(
               onPressed: () {
                 widget.search ? pop1() : Navigator.pop(context);
@@ -182,10 +183,23 @@ class _show_hotelState extends State<show_hotel> {
             if (!snapshot.hasData ||
                 snapshot.data == null ||
                 snapshot.data!.docs.isEmpty) {
-              return const Center(
-                child: Text(
-                  "NO DATA FOUND!",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
+              return SingleChildScrollView(
+                child: SizedBox(
+                  height: mq.size.height / 1.3,
+                  width: mq.size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Lottie.asset(
+                        "assets/img/no_data_found.json",
+                      ),
+                      const Text(
+                        "DATA NOT FOUND!",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 22),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }
@@ -195,195 +209,213 @@ class _show_hotelState extends State<show_hotel> {
               return city.contains(searchQuery);
             }).toList();
             if (data.isEmpty) {
-              return const Center(
-                child: Text(
-                  "HOTEL NOT FOUND!",
-                  style: TextStyle(fontWeight: FontWeight.w500, fontSize: 22),
+              return SingleChildScrollView(
+                child: SizedBox(
+                  height: mq.size.height / 1.3,
+                  width: mq.size.width,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/img/plan.png",
+                        scale: 5,
+                      ),
+                      const Text(
+                        "HOTEL NOT FOUND!",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 22),
+                      ),
+                    ],
+                  ),
                 ),
               );
             }
 
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.only(top: mq.size.height * 0.02),
+                padding: EdgeInsets.only(bottom: mq.size.height * 0.02),
                 child: ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HotelDetails(
-                                    check_In: widget.check_In,
-                                    check_Out: widget.check_Out,
-                                    child: widget.child,
-                                    room: widget.room,
-                                    adults: widget.adults,
-                                    id: data[index].id,
-                                    hotel: Hotel(
-                                        facilities: data[index]["facilities"],
-                                        name: data[index]["name"],
-                                        description: data[index]["description"],
-                                        images: data[index]["images"],
-                                        price: data[index]["price"],
-                                        cityName: data[index]["cityName"],
-                                        disttocenter: data[index]
-                                            ["disttocenter"],
-                                        address: data[index]["address"],
-                                        latitude: data[index]["latitude"],
-                                        longitude: data[index]["longitude"],
-                                        checkinfrom: data[index]["checkinfrom"],
-                                        checkinUntil: data[index]
-                                            ["checkinUntil"],
-                                        checkoutUntil: data[index]
-                                            ["checkoutUntil"],
-                                        transeferFee: data[index]
-                                            ["transeferFee"],
-                                        distFromAirport: data[index]
-                                            ["distFromAirport"],
-                                        traveltimetoairport: data[index]
-                                            ["traveltimetoairport"]),
-                                    ageList:
-                                        widget.search ? ages : widget.ageList,
-                                  ),
-                                ));
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HotelDetails(
+                                  check_In: widget.check_In,
+                                  check_Out: widget.check_Out,
+                                  child: widget.child,
+                                  room: widget.room,
+                                  adults: widget.adults,
+                                  id: data[index].id,
+                                  hotel: Hotel(
+                                      facilities: data[index]["facilities"],
+                                      name: data[index]["name"],
+                                      description: data[index]["description"],
+                                      images: data[index]["images"],
+                                      price: data[index]["price"],
+                                      cityName: data[index]["cityName"],
+                                      disttocenter: data[index]["disttocenter"],
+                                      address: data[index]["address"],
+                                      latitude: data[index]["latitude"],
+                                      longitude: data[index]["longitude"],
+                                      checkinfrom: data[index]["checkinfrom"],
+                                      checkinUntil: data[index]["checkinUntil"],
+                                      checkoutUntil: data[index]
+                                          ["checkoutUntil"],
+                                      transeferFee: data[index]["transeferFee"],
+                                      distFromAirport: data[index]
+                                          ["distFromAirport"],
+                                      traveltimetoairport: data[index]
+                                          ["traveltimetoairport"]),
+                                  ageList: ages,
+                                ),
+                              ));
 
-                            recentSearch(
-                                data[index]["id"],
-                                widget.destination,
-                                widget.check_In,
-                                widget.check_Out,
-                                widget.adults.toString(),
-                                widget.child.toString(),
-                                data[index]["name"],
-                                ages,
-                                widget.room.toString(),
-                                data[index]["images"].first);
-                          },
-                          child: Container(
-                            width: mq.size.width,
-                            color: themeState.getDarkTheme
-                                ? const Color(0xff212121)
-                                : const Color(0xffffffff),
-                            // elevation: 5,
-                            //  shape: RoundedRectangleBorder(
-                            //    borderRadius: BorderRadius.circular(10)),
-                            child: Padding(
-                              padding: EdgeInsets.all(mq.size.width * 0.026),
-                              child: Column(
-                                children: <Widget>[
-                                  AspectRatio(
-                                      aspectRatio: 1.8,
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: FancyShimmerImage(
-                                            imageUrl:
-                                                data[index]["images"].first,
-                                            boxFit: BoxFit.cover,
-                                          ))),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical:
-                                                      mq.size.width * 0.023),
-                                              child: Row(
-                                                children: [
-                                                  Titletext(
-                                                      title: data[index]
-                                                          ["name"]),
-                                                  const Spacer(),
-                                                  StreamBuilder(
-                                                      stream: FirebaseFirestore
-                                                          .instance
-                                                          .collection(
-                                                              "Favoritehotel")
-                                                          .doc(FirebaseAuth
-                                                              .instance
-                                                              .currentUser!
-                                                              .uid)
-                                                          .collection("hotels")
-                                                          .where("fid",
-                                                              isEqualTo:
-                                                                  data[index]
-                                                                      .id)
-                                                          .snapshots(),
-                                                      builder: (context,
-                                                          AsyncSnapshot<
-                                                                  QuerySnapshot>
-                                                              snapshot) {
-                                                        if (snapshot.data ==
-                                                            null) {
-                                                          return const Text("");
-                                                        }
-                                                        return InkWell(
-                                                            onTap: () {
-                                                              print(data[index]
-                                                                  .id);
+                          recentSearch(
+                              data[index]["id"],
+                              widget.destination,
+                              widget.check_In,
+                              widget.check_Out,
+                              widget.adults.toString(),
+                              widget.child.toString(),
+                              data[index]["name"],
+                              ages,
+                              widget.room.toString(),
+                              data[index]["images"].first);
+                        },
+                        child: Container(
+                          width: mq.size.width,
+                          color: themeState.getDarkTheme
+                              ? const Color(0xff212121)
+                              : const Color(0xffffffff),
+                          // elevation: 5,
+                          //  shape: RoundedRectangleBorder(
+                          //    borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: EdgeInsets.all(mq.size.width * 0.026),
+                            child: Column(
+                              children: <Widget>[
+                                AspectRatio(
+                                    aspectRatio: 1.8,
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: FancyShimmerImage(
+                                          imageUrl: data[index]["images"].first,
+                                          boxFit: BoxFit.cover,
+                                        ))),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical:
+                                                    mq.size.width * 0.023),
+                                            child: Row(
+                                              children: [
+                                                Titletext(
+                                                    title: data[index]["name"]),
+                                                const Spacer(),
+                                                StreamBuilder(
+                                                    stream: FirebaseFirestore
+                                                        .instance
+                                                        .collection(
+                                                            "Favoritehotel")
+                                                        .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser!
+                                                            .uid)
+                                                        .collection("hotels")
+                                                        .where("fid",
+                                                            isEqualTo:
+                                                                data[index].id)
+                                                        .snapshots(),
+                                                    builder: (context,
+                                                        AsyncSnapshot<
+                                                                QuerySnapshot>
+                                                            snapshot) {
+                                                      if (snapshot.data ==
+                                                          null) {
+                                                        return const Text("");
+                                                      }
+                                                      return InkWell(
+                                                          onTap: () {
+                                                            print(
+                                                                data[index].id);
 
-                                                              snapshot
-                                                                          .data!
-                                                                          .docs
-                                                                          .length ==
-                                                                      0
-                                                                  ? addToFavorite(
-                                                                      data[index]
-                                                                          [
-                                                                          "id"])
-                                                                  : removFavorite(
-                                                                      data[index]
-                                                                          [
-                                                                          "id"]);
-                                                            },
-                                                            child: Icon(
-                                                              snapshot
-                                                                          .data!
-                                                                          .docs
-                                                                          .length ==
-                                                                      0
-                                                                  ? Icons
-                                                                      .favorite_outline
-                                                                  : Icons
-                                                                      .favorite,
-                                                              color: snapshot
-                                                                          .data!
-                                                                          .docs
-                                                                          .length ==
-                                                                      0
-                                                                  ? color
-                                                                  : Colors.red,
-                                                            ));
-                                                      })
-                                                ],
-                                              ),
+                                                            snapshot.data!.docs
+                                                                        .length ==
+                                                                    0
+                                                                ? addToFavorite(
+                                                                    data[index]
+                                                                        ["id"])
+                                                                : removFavorite(
+                                                                    data[index]
+                                                                        ["id"]);
+                                                          },
+                                                          child: Icon(
+                                                            snapshot.data!.docs
+                                                                        .length ==
+                                                                    0
+                                                                ? Icons
+                                                                    .favorite_outline
+                                                                : Icons
+                                                                    .favorite,
+                                                            color: snapshot
+                                                                        .data!
+                                                                        .docs
+                                                                        .length ==
+                                                                    0
+                                                                ? color
+                                                                : Colors.red,
+                                                          ));
+                                                    })
+                                              ],
                                             ),
-                                            Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: <Widget>[
-                                                Icon(
-                                                  Icons.location_on_outlined,
-                                                  color: themeState.getDarkTheme
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  size: 16,
-                                                ),
-                                                Text(
-                                                  "${data[index]["cityName"]} - ${data[index]["disttocenter"]} km to center",
+                                          ),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.location_on_outlined,
+                                                color: themeState.getDarkTheme
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                size: 16,
+                                              ),
+                                              Text(
+                                                "${data[index]["cityName"]} - ${data[index]["disttocenter"]} km to center",
+                                                style: TextStyle(
+                                                    color: themeState
+                                                            .getDarkTheme
+                                                        ? Colors.white
+                                                            .withOpacity(0.75)
+                                                        : Colors.black
+                                                            .withOpacity(0.6)),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              const Spacer(),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    top: mq.size.width * 0.023,
+                                                    bottom: mq.size.width *
+                                                            0.03 -
+                                                        mq.size.width * 0.021),
+                                                child: Text(
+                                                  "${widget.room} Hotel rooms : ${widget.room} bed",
                                                   style: TextStyle(
                                                       color: themeState
                                                               .getDarkTheme
@@ -393,87 +425,59 @@ class _show_hotelState extends State<show_hotel> {
                                                               .withOpacity(
                                                                   0.6)),
                                                 ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                const Spacer(),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      top: mq.size.width *
-                                                          0.023,
-                                                      bottom:
-                                                          mq.size.width * 0.03 -
-                                                              mq.size.width *
-                                                                  0.021),
-                                                  child: Text(
-                                                    "${widget.room} Hotel rooms : ${widget.room} bed",
-                                                    style: TextStyle(
-                                                        color: themeState
-                                                                .getDarkTheme
-                                                            ? Colors.white
-                                                                .withOpacity(
-                                                                    0.75)
-                                                            : Colors.black
-                                                                .withOpacity(
-                                                                    0.6)),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                const Spacer(),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      // top: mq.size.width * 0.023,
-                                                      bottom:
-                                                          mq.size.width * 0.03 -
-                                                              mq.size.width *
-                                                                  0.023),
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                          "Price for 1 night, 1 adult",
-                                                          style: TextStyle(
-                                                              fontSize: 13,
-                                                              color: themeState
-                                                                      .getDarkTheme
-                                                                  ? Colors.white
-                                                                  : Colors
-                                                                      .black,
-                                                              //  fontWeight: FontWeight.w500,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500)),
-                                                      const SizedBox(
-                                                        height: 2,
-                                                      ),
-                                                      Text(
-                                                        "₹${data[index]["price"]}",
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              const Spacer(),
+                                              Padding(
+                                                padding: EdgeInsets.only(
+                                                    // top: mq.size.width * 0.023,
+                                                    bottom: mq.size.width *
+                                                            0.03 -
+                                                        mq.size.width * 0.023),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                        "Price for 1 night, 1 adult",
                                                         style: TextStyle(
+                                                            fontSize: 13,
                                                             color: themeState
                                                                     .getDarkTheme
                                                                 ? Colors.white
                                                                 : Colors.black,
+                                                            //  fontWeight: FontWeight.w500,
                                                             fontWeight:
-                                                                FontWeight.w500,
-                                                            fontSize: 20),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                                FontWeight
+                                                                    .w500)),
+                                                    const SizedBox(
+                                                      height: 2,
+                                                    ),
+                                                    Text(
+                                                      "₹${data[index]["price"]}",
+                                                      style: TextStyle(
+                                                          color: themeState
+                                                                  .getDarkTheme
+                                                              ? Colors.white
+                                                              : Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          fontSize: 20),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ],
-                                            )
-                                          ],
-                                        ),
+                                              ),
+                                            ],
+                                          )
+                                        ],
                                       ),
-                                    ],
-                                  )
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                )
+                              ],
                             ),
                           ),
                         ),

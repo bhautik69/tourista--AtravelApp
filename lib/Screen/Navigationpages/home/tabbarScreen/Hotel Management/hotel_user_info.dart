@@ -431,19 +431,23 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                               title: "Next",
                               callback: () {
                                 int minorChildPrice = 0;
+                                int minorChildPriceTotal = 0;
                                 int majorChildPrice = 0;
+                                int majorChildPriceTotal = 0;
 
                                 var adultPrice =
                                     int.parse(widget.hotel.price!) * adult;
                                 for (int i = 0; i < ages.length; i++) {
                                   if (int.parse(ages[i]) >= 1 &&
                                       int.parse(ages[i]) <= 10) {
-                                    minorChildPrice =
+                                    minorChildPriceTotal =
                                         int.parse(widget.hotel.price!) ~/ 2;
+                                    minorChildPrice += minorChildPriceTotal;
                                   } else if (int.parse(ages[i]) >= 11 &&
                                       int.parse(ages[i]) <= 17) {
-                                    majorChildPrice =
+                                    majorChildPriceTotal =
                                         int.parse(widget.hotel.price!) ~/ 1.5;
+                                    majorChildPrice += majorChildPriceTotal;
                                   }
                                 }
                                 totalprice = (adultPrice +
@@ -452,7 +456,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                                     room;
 
                                 print(
-                                    "$room ---- $adultPrice ---- $majorChildPrice ---++-- $minorChildPrice --==-- ${adultPrice + majorChildPrice + minorChildPrice} ==== $totalprice");
+                                    "$room ---- $adultPrice --++-- $majorChildPrice ---++-- $minorChildPrice ==== $totalprice");
 
                                 // totalprice =
                                 //     int.parse(widget.hotel.price!) * total;
@@ -545,7 +549,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
     var geta = prefs.getInt("adult");
     var v3 = prefs.getInt("room");
 
-    var agelist = prefs.getStringList("AgeList");
+    var agelist = prefs.getStringList("agelist");
     ages = agelist ?? [];
     total = gett ?? 1;
     children = getc ?? 0;

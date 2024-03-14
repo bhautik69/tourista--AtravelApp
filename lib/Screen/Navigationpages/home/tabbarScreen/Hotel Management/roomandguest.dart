@@ -3,9 +3,9 @@ import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-typedef TotalRAC = Function(int rooms, int adults, int children);
+typedef TotalRAC = Function(
+    int rooms, int adults, int children, List<String> ages);
 
 // ignore: camel_case_types, must_be_immutable
 class roomGuest extends StatefulWidget {
@@ -586,13 +586,13 @@ class _roomGuestState extends State<roomGuest> {
                           title: "APPLY",
                           callback: () async {
                             if (_formKey.currentState!.validate()) {
-                              widget.totalRAC(
-                                  roomCount, adultsCount, childCount);
                               getAgelist();
+                              
+
+                              widget.totalRAC(
+                                  roomCount, adultsCount, childCount, AgeList);
+
                               setState(() {});
-                              var store = await SharedPreferences.getInstance();
-                              store.setStringList("AgeList", AgeList);
-                              print(AgeList);
                               // ignore: use_build_context_synchronously
                               Navigator.pop(context);
                             }

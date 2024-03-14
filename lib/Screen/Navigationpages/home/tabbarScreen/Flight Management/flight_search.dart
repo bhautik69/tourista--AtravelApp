@@ -9,6 +9,7 @@ import 'package:demo/widget/button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -121,11 +122,11 @@ class _FlightSearchState extends State<FlightSearch> {
 
           // backgroundColor: const Color.fromRGBO(249, 251, 250, 1),
           appBar: AppBar(
-            title: const Text("Search Result"),
+            title: const Text("Search Flight"),
             //centerTitle: true,
             leading: InkWell(
               onTap: () {
-                widget.search ? pop1() : Navigator.of(context).pop();
+                widget.search ? pop1() : Navigator.pop(context);
               },
               child: const Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -148,11 +149,23 @@ class _FlightSearchState extends State<FlightSearch> {
                     if (!snapshot.hasData ||
                         snapshot.data == null ||
                         snapshot.data!.docs.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          "NO DATA FOUND!",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 22),
+                      return SingleChildScrollView(
+                        child: SizedBox(
+                          height: mq.size.height / 1.3,
+                          width: mq.size.width,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Lottie.asset(
+                                "assets/img/no_data_found.json",
+                              ),
+                              const Text(
+                                "DATA NOT FOUND!",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 22),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }
@@ -175,11 +188,24 @@ class _FlightSearchState extends State<FlightSearch> {
                     }).toList();
 
                     if (data.isEmpty) {
-                      return const Center(
-                        child: Text(
-                          "FLIGHT NOT FOUND!",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500, fontSize: 22),
+                      return SingleChildScrollView(
+                        child: SizedBox(
+                          height: mq.size.height / 1.3,
+                          width: mq.size.width,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/img/book.png",
+                                scale: 2,
+                              ),
+                              const Text(
+                                "FLIGHT NOT FOUND!",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500, fontSize: 22),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }

@@ -368,9 +368,10 @@ class _HotelDetailsState extends State<HotelDetails> {
                                   SizedBox(
                                     height: mq.size.height * 0.02,
                                   ),
-                                  SizedBox(
-                                    height: 65,
-                                    child: Text(widget.hotel.description!),
+                                  Text(
+                                    widget.hotel.description!,
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 5,
                                   ),
                                   SizedBox(
                                     height: mq.size.height * 0.02,
