@@ -5,11 +5,17 @@ import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Flight%20Managemen
 import 'package:demo/models/Flight%20models/addFlight.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FlightSearch extends StatefulWidget {
+  bool search;
+  bool recentsearch;
+  List? ages;
   String? startingfrom;
   String? travellingto;
   String? takeoffdate;
@@ -17,9 +23,12 @@ class FlightSearch extends StatefulWidget {
   String? traveller;
   FlightSearch(
       {super.key,
+      required this.search,
+      required this.recentsearch,
+      this.ages,
       required this.classname,
       required this.startingfrom,
-      required this.traveller,
+      this.traveller,
       required this.takeoffdate,
       required this.travellingto});
 
@@ -32,14 +41,71 @@ class _FlightSearchState extends State<FlightSearch> {
   String wordBeforeAirport2 = "";
   String wordBeforeAirport3 = "";
   String wordBeforeAirport4 = "";
+  List ages = [];
+  int children = 0;
+  int adult = 0;
+
+  List id = [];
+  getID() async {
+    await FirebaseFirestore.instance
+        .collection("Hotel")
+        .get()
+        .then((QuerySnapshot? snapshot) {
+      for (var element in snapshot!.docs) {
+        if (element.exists) {
+          id.add(element["id"]);
+          setState(() {});
+        }
+      }
+    });
+  }
+
   @override
   void initState() {
     wordBeforeAirport1 = getWordBeforeAirport(widget.startingfrom!);
     wordBeforeAirport2 = getWordBeforeAirport(widget.travellingto!);
     wordBeforeAirport3 = getWordafterAirport(widget.startingfrom!);
     wordBeforeAirport4 = getWordafterAirport(widget.travellingto!);
-
+    getravellerno();
+    getID();
     super.initState();
+  }
+
+  Future<void> recentSearch(
+    String id,
+    String startingFrom,
+    String travelingTo,
+    String Date,
+    String flightName,
+    String adult,
+    String child,
+    List ages,
+    String classtype,
+  ) async {
+    CollectionReference cr =
+        FirebaseFirestore.instance.collection("FlightResentsearch");
+
+    Map<String, dynamic> data = {
+      "id": id,
+      "startingFrom": startingFrom,
+      "travelingTo": travelingTo,
+      "Date": Date,
+      "adult": adult,
+      "child": child,
+      "ages": ages,
+      "flightName": flightName,
+      "classType": classtype,
+    };
+    await cr
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("FlightSearch")
+        .doc(id)
+        .set(data);
+  }
+
+  void pop1() {
+    Navigator.pop(context);
+    Navigator.pop(context);
   }
 
   @override
@@ -51,15 +117,14 @@ class _FlightSearchState extends State<FlightSearch> {
           backgroundColor: themeState.getDarkTheme
               ? const Color(0xff121212)
               : const Color.fromARGB(255, 236, 235, 235),
-    
+
           // backgroundColor: const Color.fromRGBO(249, 251, 250, 1),
           appBar: AppBar(
             title: const Text("Search Result"),
             //centerTitle: true,
             leading: InkWell(
               onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                widget.search ? pop1() : Navigator.of(context).pop();
               },
               child: const Icon(
                 Icons.arrow_back_ios_new_rounded,
@@ -100,13 +165,14 @@ class _FlightSearchState extends State<FlightSearch> {
                       var endto = documentSnapshot['travelingTo']
                           .toString()
                           .toLowerCase();
-                      var startdate =
-                          documentSnapshot['startDate'].toString().toLowerCase();
+                      var startdate = documentSnapshot['startDate']
+                          .toString()
+                          .toLowerCase();
                       return fromstart.contains(startingfrom) &&
                           endto.contains(travellingto) &&
                           startdate.contains(date);
                     }).toList();
-    
+
                     if (data.isEmpty) {
                       return const Center(
                         child: Text(
@@ -116,7 +182,7 @@ class _FlightSearchState extends State<FlightSearch> {
                         ),
                       );
                     }
-    
+
                     return ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -150,8 +216,9 @@ class _FlightSearchState extends State<FlightSearch> {
                                 width: mq.size.width,
                                 height: mq.size.height * 0.33,
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.symmetric(
-                                      vertical: 14, horizontal: 14),
+                                  padding:
+                                      const EdgeInsetsDirectional.symmetric(
+                                          vertical: 14, horizontal: 14),
                                   child: Column(
                                     children: [
                                       Row(
@@ -162,14 +229,17 @@ class _FlightSearchState extends State<FlightSearch> {
                                             decoration: BoxDecoration(
                                                 //color: Colors.amber,
                                                 border: Border.all(
-                                                    color: themeState.getDarkTheme
-                                                        ? Colors.white24
-                                                        : Colors.black26),
+                                                    color:
+                                                        themeState.getDarkTheme
+                                                            ? Colors.white24
+                                                            : Colors.black26),
                                                 borderRadius:
                                                     BorderRadius.circular(10)),
                                             child: Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  vertical: 8, horizontal: 8),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8,
+                                                      horizontal: 8),
                                               child: Text(
                                                 data[index]["flightname"],
                                                 style: const TextStyle(
@@ -205,9 +275,10 @@ class _FlightSearchState extends State<FlightSearch> {
                                                 style: TextStyle(
                                                     fontSize: 17,
                                                     fontWeight: FontWeight.bold,
-                                                    color: themeState.getDarkTheme
-                                                        ? Colors.white
-                                                        : Colors.black),
+                                                    color:
+                                                        themeState.getDarkTheme
+                                                            ? Colors.white
+                                                            : Colors.black),
                                               ),
                                               Row(
                                                 mainAxisAlignment:
@@ -234,14 +305,15 @@ class _FlightSearchState extends State<FlightSearch> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Stack(
                                                 children: [
                                                   SizedBox(
                                                     height: 24,
                                                     child: LayoutBuilder(
-                                                      builder:
-                                                          (context, constraints) {
+                                                      builder: (context,
+                                                          constraints) {
                                                         return Flex(
                                                             // ignore: sort_child_properties_last
                                                             children:
@@ -264,7 +336,8 @@ class _FlightSearchState extends State<FlightSearch> {
                                                             direction:
                                                                 Axis.horizontal,
                                                             mainAxisSize:
-                                                                MainAxisSize.max,
+                                                                MainAxisSize
+                                                                    .max,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .spaceBetween);
@@ -276,8 +349,8 @@ class _FlightSearchState extends State<FlightSearch> {
                                                     angle: 1.5,
                                                     child: Icon(
                                                       Icons.local_airport,
-                                                      color:
-                                                          Colors.indigo.shade300,
+                                                      color: Colors
+                                                          .indigo.shade300,
                                                       size: 24,
                                                     ),
                                                   ))
@@ -294,9 +367,10 @@ class _FlightSearchState extends State<FlightSearch> {
                                                 style: TextStyle(
                                                     fontSize: 17,
                                                     fontWeight: FontWeight.bold,
-                                                    color: themeState.getDarkTheme
-                                                        ? Colors.white
-                                                        : Colors.black),
+                                                    color:
+                                                        themeState.getDarkTheme
+                                                            ? Colors.white
+                                                            : Colors.black),
                                               ),
                                               Row(
                                                 children: [
@@ -335,19 +409,20 @@ class _FlightSearchState extends State<FlightSearch> {
                                             child: Row(
                                               children: [
                                                 Icon(Icons.chair_outlined,
-                                                    color: themeState.getDarkTheme
-                                                        ? Colors.white
-                                                        : Colors.black),
+                                                    color:
+                                                        themeState.getDarkTheme
+                                                            ? Colors.white
+                                                            : Colors.black),
                                                 const SizedBox(
                                                   width: 5,
                                                 ),
                                                 Text(
                                                   widget.classname!,
                                                   style: TextStyle(
-                                                      color:
-                                                          themeState.getDarkTheme
-                                                              ? Colors.white
-                                                              : Colors.black),
+                                                      color: themeState
+                                                              .getDarkTheme
+                                                          ? Colors.white
+                                                          : Colors.black),
                                                 ),
                                               ],
                                             ),
@@ -405,13 +480,25 @@ class _FlightSearchState extends State<FlightSearch> {
                                                           ["takeoffTime"],
                                                       landingTime: data[index]
                                                           ["landingTime"],
-                                                      price: data[index]["price"],
+                                                      price: data[index]
+                                                          ["price"],
                                                       flightname: data[index]
-                                                          ["flightname"])),
+                                                          ["flightname"]), ages: widget.search ? ages : widget.ages),
                                             ));
+
+                                            recentSearch(
+                                                data[index]["id"],
+                                                widget.startingfrom!,
+                                                widget.travellingto!,
+                                                widget.takeoffdate!,
+                                                data[index]["flightname"],
+                                                adult.toString(),
+                                                children.toString(),
+                                                ages,
+                                                widget.classname!);
                                           },
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -423,6 +510,17 @@ class _FlightSearchState extends State<FlightSearch> {
             ),
           )),
     );
+  }
+
+  void getravellerno() async {
+    var prefs = await SharedPreferences.getInstance();
+    var getc = prefs.getInt("children");
+    var geta = prefs.getInt("adult");
+    var agelist = prefs.getStringList("agelist");
+    ages = agelist ?? [];
+    children = getc ?? 0;
+    adult = geta ?? 0;
+    setState(() {});
   }
 
   String getWordBeforeAirport(String airportString) {

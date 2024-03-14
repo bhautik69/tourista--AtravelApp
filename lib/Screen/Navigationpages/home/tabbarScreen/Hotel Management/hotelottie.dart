@@ -7,7 +7,8 @@ import 'package:lottie/lottie.dart';
 // ignore: must_be_immutable
 class HotelLottie extends StatefulWidget {
   String destination;
-
+  bool search;
+  bool recentsearch;
   String check_In;
   String check_Out;
   int room;
@@ -15,6 +16,8 @@ class HotelLottie extends StatefulWidget {
   int child;
   HotelLottie(
       {super.key,
+      required this.search,
+      required this.recentsearch,
       required this.adults,
       required this.destination,
       required this.room,
@@ -40,6 +43,8 @@ class _HotelLottieState extends State<HotelLottie> {
                 adults: widget.adults,
                 child: widget.child,
                 room: widget.room,
+                search: widget.search,
+                recentsearch: widget.recentsearch,
               )));
     });
     super.initState();

@@ -25,10 +25,12 @@ class FlightDetail extends StatefulWidget {
   String startingfrom;
   String startingsortfrom;
   String travellingsortto;
+  List? ages = [];
   FlightDetail(
       {super.key,
       required this.id,
       required this.addFlight,
+      this.ages,
       required this.startingsortfrom,
       required this.travellingsortto,
       required this.edate,
@@ -620,7 +622,8 @@ class _FlightDetailState extends State<FlightDetail> {
                                         : "CENCEL BOOKING",
                                     callback: () {
                                       snapshot.data!.docs.isEmpty
-                                          ? booking(context)
+                                          ? booking(
+                                              context) //print("${widget.classtype}------------------------")
                                           : showDialog(
                                               context: context,
                                               builder: (context) {
@@ -692,7 +695,7 @@ class _FlightDetailState extends State<FlightDetail> {
             landingTime: widget.addFlight.landingTime,
             price: widget.addFlight.price,
             flightname: widget.addFlight.flightname,
-          )),
+          ), ages: widget.ages,),
     ));
   }
 

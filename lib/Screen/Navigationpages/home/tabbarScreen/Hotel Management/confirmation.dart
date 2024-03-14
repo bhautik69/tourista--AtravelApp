@@ -20,6 +20,9 @@ class Confirmation extends StatefulWidget {
   String totalPrice;
   List<Map<String, dynamic>> adultList;
   List<Map<String, dynamic>> childList;
+  int adult;
+  int child;
+  int room;
 
   Confirmation(
       {super.key,
@@ -27,6 +30,9 @@ class Confirmation extends StatefulWidget {
       required this.id,
       required this.hotel,
       required this.email,
+      required this.adult,
+      required this.child,
+      required this.room,
       required this.phone,
       required this.adultList,
       required this.childList});
@@ -36,9 +42,9 @@ class Confirmation extends StatefulWidget {
 }
 
 class _ConfirmationState extends State<Confirmation> {
-  int room = 1;
-  int adult = 1;
-  int child = 0;
+  // int room = 1;
+  // int adult = 1;
+  // int child = 0;
   // ignore: non_constant_identifier_names
   String check_In = "";
   // ignore: non_constant_identifier_names
@@ -65,7 +71,7 @@ class _ConfirmationState extends State<Confirmation> {
             title: const Text("Booking overview"),
             leading: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).pop();
                 },
                 icon:
                     const Icon(IconlyLight.arrow_left_2, color: Colors.white))),
@@ -146,7 +152,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                 bottom: mq.size.width * 0.03 -
                                                     mq.size.width * 0.021),
                                             child: Text(
-                                              "$room Hotel rooms : $room bed",
+                                              "${widget.room} Hotel rooms : ${widget.room} bed",
                                               style: TextStyle(
                                                   color: themeState.getDarkTheme
                                                       ? Colors.white
@@ -170,7 +176,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                   CrossAxisAlignment.end,
                                               children: [
                                                 Text(
-                                                    "Price for $night night, ${adult + child} Traveller",
+                                                    "Price for $night night, ${widget.adult + widget.child} Traveller",
                                                     style: TextStyle(
                                                         fontSize: 13,
                                                         color: themeState
@@ -184,7 +190,7 @@ class _ConfirmationState extends State<Confirmation> {
                                                   height: 2,
                                                 ),
                                                 Text(
-                                                  "₹ ${(int.parse(widget.hotel.price!) * adult) * night}",
+                                                  "₹ ${(int.parse(widget.hotel.price!) * widget.adult) * night}",
                                                   style: TextStyle(
                                                       color: themeState
                                                               .getDarkTheme
@@ -273,7 +279,7 @@ class _ConfirmationState extends State<Confirmation> {
                                   height: 3,
                                 ),
                                 Text(
-                                  "$room rooms . $adult adults ${child == 0 ? " " : ". $child children"}",
+                                  "${widget.room} rooms . ${widget.adult} adults ${widget.child == 0 ? " " : ". ${widget.child} children"}",
                                 )
                               ],
                             )
@@ -375,16 +381,10 @@ class _ConfirmationState extends State<Confirmation> {
     var store = await SharedPreferences.getInstance();
     var v1 = store.getString("checkInDate");
     var v2 = store.getString("checkOutDate");
-    var v3 = store.getInt("room");
-    var v4 = store.getInt("adult");
-    var v5 = store.getInt("children");
 
     setState(() {
       check_In = v1!;
       check_Out = v2!;
-      room = v3!;
-      adult = v4!;
-      child = v5!;
     });
     night = getNight(v1!, v2!);
     setState(() {});
@@ -420,9 +420,9 @@ class _ConfirmationState extends State<Confirmation> {
           adultList: widget.adultList,
           childrenList: widget.childList,
           totalPrice: widget.totalPrice,
-          room: room.toString(),
-          adult: adult.toString(),
-          children: child.toString(),
+          room: widget.room.toString(),
+          adult: widget.adult.toString(),
+          children: widget.child.toString(),
           check_out: check_Out,
           check_in: check_In),
       widget.id,

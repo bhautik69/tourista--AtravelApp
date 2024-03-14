@@ -18,10 +18,12 @@ class ChooseSeat extends StatefulWidget {
   String clsstype1;
   String ssortname;
   String esortname;
+  List? ages = [];
   ChooseSeat({
     Key? key,
     required this.addFlight,
     required this.id,
+    this.ages,
     required this.clsstype1,
     required this.ssortname,
     required this.esortname,
@@ -454,7 +456,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                                               price: widget.addFlight.price,
                                               flightname:
                                                   widget.addFlight.flightname),
-                                          id: widget.id);
+                                          id: widget.id, ages: widget.ages!,);
                                     },
                                   ));
                                 }
@@ -563,7 +565,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                     flighSeat.add(count);
                   }
                 }
-                print("lenght---$flighSeat");
+                print("lenght---a$flighSeat");
                 flighSeat.contains(count) ? addseat.add(count) : null;
                 setState(() {});
                 !flighSeat.contains(count) ? addseat.remove(count) : "";

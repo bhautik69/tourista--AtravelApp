@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, unused_local_variable, non_constant_identifier_names
+// ignore_for_file: camel_case_types, unused_local_variable, non_constant_identifier_names, prefer_is_empty
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/models/Hotel%20models/hoteladd.dart';
@@ -11,23 +11,29 @@ import 'package:flutter/material.dart';
 
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'hoteldetails.dart';
 
 // ignore: must_be_immutable
 class show_hotel extends StatefulWidget {
+  bool search;
+  bool recentsearch;
   String destination;
-
   String check_In;
   String check_Out;
   int room;
+  List? ageList = [];
   int adults;
   int child;
   show_hotel(
       {super.key,
+      required this.search,
+      required this.recentsearch,
       required this.adults,
       required this.destination,
       required this.room,
+      this.ageList,
       required this.check_In,
       required this.check_Out,
       required this.child});
@@ -37,6 +43,22 @@ class show_hotel extends StatefulWidget {
 }
 
 class _show_hotelState extends State<show_hotel> {
+  List ages = [];
+  List id = [];
+  getID() async {
+    await FirebaseFirestore.instance
+        .collection("Hotel")
+        .get()
+        .then((QuerySnapshot? snapshot) {
+      for (var element in snapshot!.docs) {
+        if (element.exists) {
+          id.add(element["id"]);
+          setState(() {});
+        }
+      }
+    });
+  }
+
   addToFavorite(String hotelid) async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection("Hotel")
@@ -82,6 +104,59 @@ class _show_hotelState extends State<show_hotel> {
         .delete();
   }
 
+  Future<void> recentSearch(
+      String id,
+      String destination,
+      String checkIn,
+      String checkOut,
+      String adult,
+      String child,
+      String hotelname,
+      List ages,
+      String room,
+      String url) async {
+    CollectionReference cr =
+        FirebaseFirestore.instance.collection("HotelResentsearch");
+
+    Map<String, dynamic> data = {
+      "id": id,
+      "destination": destination,
+      "checkIn": checkIn,
+      "checkOut": checkOut,
+      "adult": adult,
+      "child": child,
+      "ages": ages,
+      "room": room,
+      "hotelname": hotelname,
+      "url": url
+    };
+    await cr
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("HotelSearch")
+        .doc(id)
+        .set(data);
+  }
+
+  void getravellerno() async {
+    var prefs = await SharedPreferences.getInstance();
+    var agelist = prefs.getStringList("AgeList");
+    ages = agelist ?? [];
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getravellerno();
+    getID();
+    super.initState();
+  }
+
+  void pop1() {
+    Navigator.pop(context);
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -92,11 +167,10 @@ class _show_hotelState extends State<show_hotel> {
           ? const Color(0xff121212)
           : const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-          title: const Text("Book Trip"),
+          title: const Text("Book Hotel"),
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
+                widget.search ? pop1() : Navigator.pop(context);
               },
               icon: const Icon(IconlyLight.arrow_left_2, color: Colors.white))),
       body: StreamBuilder(
@@ -145,38 +219,51 @@ class _show_hotelState extends State<show_hotel> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => HotelDetails(
-                                      check_In: widget.check_In,
-                                      check_Out: widget.check_Out,
-                                      child: widget.child,
-                                      room: widget.room,
-                                      adults: widget.adults,
-                                      id: data[index].id,
-                                      hotel: Hotel(
-                                          facilities: data[index]["facilities"],
-                                          name: data[index]["name"],
-                                          description: data[index]
-                                              ["description"],
-                                          images: data[index]["images"],
-                                          price: data[index]["price"],
-                                          cityName: data[index]["cityName"],
-                                          disttocenter: data[index]
-                                              ["disttocenter"],
-                                          address: data[index]["address"],
-                                          latitude: data[index]["latitude"],
-                                          longitude: data[index]["longitude"],
-                                          checkinfrom: data[index]
-                                              ["checkinfrom"],
-                                          checkinUntil: data[index]
-                                              ["checkinUntil"],
-                                          checkoutUntil: data[index]
-                                              ["checkoutUntil"],
-                                          transeferFee: data[index]
-                                              ["transeferFee"],
-                                          distFromAirport: data[index]
-                                              ["distFromAirport"],
-                                          traveltimetoairport: data[index]
-                                              ["traveltimetoairport"])),
+                                    check_In: widget.check_In,
+                                    check_Out: widget.check_Out,
+                                    child: widget.child,
+                                    room: widget.room,
+                                    adults: widget.adults,
+                                    id: data[index].id,
+                                    hotel: Hotel(
+                                        facilities: data[index]["facilities"],
+                                        name: data[index]["name"],
+                                        description: data[index]["description"],
+                                        images: data[index]["images"],
+                                        price: data[index]["price"],
+                                        cityName: data[index]["cityName"],
+                                        disttocenter: data[index]
+                                            ["disttocenter"],
+                                        address: data[index]["address"],
+                                        latitude: data[index]["latitude"],
+                                        longitude: data[index]["longitude"],
+                                        checkinfrom: data[index]["checkinfrom"],
+                                        checkinUntil: data[index]
+                                            ["checkinUntil"],
+                                        checkoutUntil: data[index]
+                                            ["checkoutUntil"],
+                                        transeferFee: data[index]
+                                            ["transeferFee"],
+                                        distFromAirport: data[index]
+                                            ["distFromAirport"],
+                                        traveltimetoairport: data[index]
+                                            ["traveltimetoairport"]),
+                                    ageList:
+                                        widget.search ? ages : widget.ageList,
+                                  ),
                                 ));
+
+                            recentSearch(
+                                data[index]["id"],
+                                widget.destination,
+                                widget.check_In,
+                                widget.check_Out,
+                                widget.adults.toString(),
+                                widget.child.toString(),
+                                data[index]["name"],
+                                ages,
+                                widget.room.toString(),
+                                data[index]["images"].first);
                           },
                           child: Container(
                             width: mq.size.width,

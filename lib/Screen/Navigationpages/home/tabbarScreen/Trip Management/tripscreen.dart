@@ -566,9 +566,11 @@ class _TriptabState extends State<Triptab> {
                                                 .validate()) {
                                               runFilter(from.text, to.text,
                                                   date.text);
-                                              
                                             }
                                           })),
+                                  SizedBox(
+                                    height: mq.size.height * 0.01,
+                                  ),
                                 ],
                               ),
                             ),

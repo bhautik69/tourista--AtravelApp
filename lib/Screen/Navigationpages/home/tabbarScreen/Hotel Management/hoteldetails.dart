@@ -31,7 +31,7 @@ class HotelDetails extends StatefulWidget {
   int room = 0;
   int adults = 0;
   int child = 0;
-  
+  List? ageList = [];
 
   HotelDetails(
       {super.key,
@@ -40,6 +40,7 @@ class HotelDetails extends StatefulWidget {
       required this.adults,
       required this.room,
       this.totalPrice,
+      this.ageList,
       // ignore: non_constant_identifier_names
       required this.check_In,
       // ignore: non_constant_identifier_names
@@ -711,7 +712,8 @@ class _HotelDetailsState extends State<HotelDetails> {
                                 if (snapshot.data == null) {
                                   return const Text("");
                                 }
-                                return commenButton(loading: isLoader,
+                                return commenButton(
+                                    loading: isLoader,
                                     size: snapshot.data!.docs.isEmpty
                                         ? mq.size.width * 0.44
                                         : null,
@@ -800,6 +802,7 @@ class _HotelDetailsState extends State<HotelDetails> {
                 transeferFee: widget.hotel.transeferFee,
                 distFromAirport: widget.hotel.distFromAirport,
                 traveltimetoairport: widget.hotel.traveltimetoairport),
+            ageList: widget.ageList!,
           ),
         ));
   }
@@ -808,7 +811,7 @@ class _HotelDetailsState extends State<HotelDetails> {
     setState(() {
       isLoader = true;
     });
-    
+
     await bookingHotel.deleteHotelBooking(id).whenComplete(() => () {
           setState(() {
             isLoader = false;

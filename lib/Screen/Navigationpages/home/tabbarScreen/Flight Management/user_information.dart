@@ -23,6 +23,7 @@ class Userinfo extends StatefulWidget {
   String ssortname;
   String esortname;
   clearfild cleaefeld1;
+  List ages = [];
   Userinfo(
       {super.key,
       required this.cleaefeld1,
@@ -31,6 +32,7 @@ class Userinfo extends StatefulWidget {
       required this.esortname,
       required this.addFlight,
       required this.id,
+      required this.ages,
       required this.seelist1});
 
   @override
@@ -41,7 +43,7 @@ class _UserinfoState extends State<Userinfo> {
   int total = 0;
   int children = 0;
   int adult = 0;
-  List<String> ages = [];
+  // List<String> ages = [];
   bool v1 = false;
   bool v2 = false;
   bool v3 = false;
@@ -171,12 +173,12 @@ class _UserinfoState extends State<Userinfo> {
                                       setState(() {});
                                     },
                                     age: index + 1 > adult
-                                        ? ages[index - adult]
+                                        ? widget.ages[index - adult]
                                         : "0",
                                     visible: index < adult ? false : true,
                                     traveller: index < adult
                                         ? "Adult"
-                                        : "Child aged ${ages[index - adult]}",
+                                        : "Child aged ${widget.ages[index - adult]}",
                                     travellerNo: "Traveller ${index + 1}",
                                   ),
                                 ));
@@ -229,16 +231,8 @@ class _UserinfoState extends State<Userinfo> {
                                                           bottom: 2, top: 3),
                                                   child: Text(
                                                     index < adult
-                                                        ? "Adult${gender1[index] !=
-                                                                    null
-                                                                ? " . ${gender1[index]}"
-                                                                : " "}"
-                                                        : "Child aged ${ages[index - adult]}${gender1[index] !=
-                                                                    null
-                                                                ? " . ${gender1[index]}"
-                                                                : " "}${dob[index] != null
-                                                                ? " . ${dob[index]}"
-                                                                : " "}",
+                                                        ? "Adult${gender1[index] != null ? " . ${gender1[index]}" : " "}"
+                                                        : "Child aged ${widget.ages[index - adult]}${gender1[index] != null ? " . ${gender1[index]}" : " "}${dob[index] != null ? " . ${dob[index]}" : " "}",
                                                   ),
                                                 ),
                                                 Visibility(
@@ -480,41 +474,49 @@ class _UserinfoState extends State<Userinfo> {
                                       addAdult();
                                       addChildren();
                                       setState(() {});
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => FlightConfirm(
-                                                esortname: widget.esortname,
-                                                ssortname: widget.ssortname,
-                                                classtype1: widget.classtype,
-                                                seetlist1: widget.seelist1,
-                                                adultList: adultList1,
-                                                childList: childList,
-                                                totalPrice:
-                                                    totalprice.toString(),
-                                                email: emailadd,
-                                                phone: phonenum,
-                                                id: widget.id,
-                                                addFlight: AddFlight(
-                                                    startingFrom: widget
-                                                        .addFlight.startingFrom,
-                                                    travelingTo: widget
-                                                        .addFlight.travelingTo,
-                                                    flightNumber: widget
-                                                        .addFlight.flightNumber,
-                                                    startDate: widget
-                                                        .addFlight.startDate,
-                                                    endDate: widget
-                                                        .addFlight.endDate,
-                                                    takeoffTime: widget
-                                                        .addFlight.takeoffTime,
-                                                    landingTime: widget
-                                                        .addFlight.landingTime,
-                                                    price:
-                                                        widget.addFlight.price,
-                                                    flightname: widget
-                                                        .addFlight.flightname)),
-                                          ));
+                                      if (i == total) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => FlightConfirm(
+                                                  esortname: widget.esortname,
+                                                  ssortname: widget.ssortname,
+                                                  classtype1: widget.classtype,
+                                                  seetlist1: widget.seelist1,
+                                                  adultList: adultList1,
+                                                  childList: childList,
+                                                  totalPrice:
+                                                      totalprice.toString(),
+                                                  email: emailadd,
+                                                  phone: phonenum,
+                                                  id: widget.id,
+                                                  addFlight: AddFlight(
+                                                      startingFrom: widget
+                                                          .addFlight
+                                                          .startingFrom,
+                                                      travelingTo: widget
+                                                          .addFlight
+                                                          .travelingTo,
+                                                      flightNumber: widget
+                                                          .addFlight
+                                                          .flightNumber,
+                                                      startDate: widget
+                                                          .addFlight.startDate,
+                                                      endDate: widget
+                                                          .addFlight.endDate,
+                                                      takeoffTime: widget
+                                                          .addFlight
+                                                          .takeoffTime,
+                                                      landingTime: widget
+                                                          .addFlight
+                                                          .landingTime,
+                                                      price: widget
+                                                          .addFlight.price,
+                                                      flightname: widget
+                                                          .addFlight
+                                                          .flightname)),
+                                            ));
+                                      }
                                     }
                                   }
 
@@ -537,8 +539,8 @@ class _UserinfoState extends State<Userinfo> {
     var gett = prefs.getInt("total");
     var getc = prefs.getInt("children");
     var geta = prefs.getInt("adult");
-    var agelist = prefs.getStringList("agelist");
-    ages = agelist ?? [];
+    // var agelist = prefs.getStringList("agelist");
+    // ages = agelist ?? [];
     total = gett ?? 1;
     children = getc ?? 0;
     adult = geta ?? 0;
