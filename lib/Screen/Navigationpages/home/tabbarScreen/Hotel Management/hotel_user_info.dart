@@ -14,7 +14,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HotelUserInfo extends StatefulWidget {
   Hotel hotel;
   String id;
-  HotelUserInfo({super.key, required this.hotel, required this.id});
+  List ageList = [];
+
+  HotelUserInfo(
+      {super.key,
+      required this.hotel,
+      required this.id,
+      required this.ageList});
 
   @override
   State<HotelUserInfo> createState() => _HotelUserInfoState();
@@ -24,7 +30,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
   int total = 0;
   int children = 0;
   int adult = 0;
-  List<String> ages = [];
+  // List<String> ages = [];
   List<Map<String, dynamic>> childList = [];
   List<Map<String, dynamic>> adultList1 = [];
 
@@ -32,10 +38,12 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
   bool v2 = false;
   bool v3 = false;
   bool v4 = false;
+  int room = 0;
   int totalprice = 0;
   @override
   void initState() {
     getravellerno();
+
     _initializeControllers();
     _initializeControllers1();
     _initializeControllers2();
@@ -151,12 +159,12 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                                     setState(() {});
                                   },
                                   age: index + 1 > adult
-                                      ? ages[index - adult]
+                                      ? widget.ageList[index - adult]
                                       : "0",
                                   visible: index < adult ? false : true,
                                   traveller: index < adult
                                       ? "Adult"
-                                      : "Child aged ${ages[index - adult]}",
+                                      : "Child aged ${widget.ageList[index - adult]}",
                                   travellerNo: "Traveller ${index + 1}",
                                 ),
                               ));
@@ -207,7 +215,7 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                                                 child: Text(
                                                   index < adult
                                                       ? "Adult${gender1[index] != null ? " . ${gender1[index]}" : " "}"
-                                                      : "Child aged ${ages[index - adult]}${gender1[index] != null ? " . ${gender1[index]}" : " "}${dob[index] != null ? " . ${dob[index]}" : " "}",
+                                                      : "Child aged ${widget.ageList[index - adult]}${gender1[index] != null ? " . ${gender1[index]}" : " "}${dob[index] != null ? " . ${dob[index]}" : " "}",
                                                 ),
                                               ),
                                               Visibility(
@@ -445,47 +453,54 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
                                     addAdult();
                                     addChildren();
                                     setState(() {});
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Confirmation(
-                                              id: widget.id,
-                                              adultList: adultList1,
-                                              childList: childList,
-                                              totalPrice: totalprice.toString(),
-                                              email: emailadd,
-                                              phone: phonenum,
-                                              hotel: Hotel(
-                                                  name: widget.hotel.name,
-                                                  description:
-                                                      widget.hotel.description,
-                                                  facilities:
-                                                      widget.hotel.facilities,
-                                                  images: widget.hotel.images,
-                                                  price: widget.hotel.price,
-                                                  cityName:
-                                                      widget.hotel.cityName,
-                                                  disttocenter:
-                                                      widget.hotel.disttocenter,
-                                                  address: widget.hotel.address,
-                                                  latitude:
-                                                      widget.hotel.latitude,
-                                                  longitude:
-                                                      widget.hotel.longitude,
-                                                  checkinfrom:
-                                                      widget.hotel.checkinfrom,
-                                                  checkinUntil:
-                                                      widget.hotel.checkinUntil,
-                                                  checkoutUntil: widget
-                                                      .hotel.checkoutUntil,
-                                                  transeferFee:
-                                                      widget.hotel.transeferFee,
-                                                  distFromAirport: widget
-                                                      .hotel.distFromAirport,
-                                                  traveltimetoairport: widget
-                                                      .hotel
-                                                      .traveltimetoairport)),
-                                        ));
+                                    if (i == total) {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Confirmation(
+                                                id: widget.id,
+                                                adultList: adultList1,
+                                                childList: childList,
+                                                totalPrice:
+                                                    totalprice.toString(),
+                                                email: emailadd,
+                                                phone: phonenum,
+                                                hotel: Hotel(
+                                                    name: widget.hotel.name,
+                                                    description: widget
+                                                        .hotel.description,
+                                                    facilities:
+                                                        widget.hotel.facilities,
+                                                    images: widget.hotel.images,
+                                                    price: widget.hotel.price,
+                                                    cityName:
+                                                        widget.hotel.cityName,
+                                                    disttocenter: widget
+                                                        .hotel.disttocenter,
+                                                    address:
+                                                        widget.hotel.address,
+                                                    latitude:
+                                                        widget.hotel.latitude,
+                                                    longitude:
+                                                        widget.hotel.longitude,
+                                                    checkinfrom: widget
+                                                        .hotel.checkinfrom,
+                                                    checkinUntil: widget
+                                                        .hotel.checkinUntil,
+                                                    checkoutUntil: widget
+                                                        .hotel.checkoutUntil,
+                                                    transeferFee: widget
+                                                        .hotel.transeferFee,
+                                                    distFromAirport: widget
+                                                        .hotel.distFromAirport,
+                                                    traveltimetoairport: widget
+                                                        .hotel
+                                                        .traveltimetoairport),
+                                                adult: adult,
+                                                room: room,
+                                                child: children),
+                                          ));
+                                    }
                                   }
                                 }
                                 setState(() {});
@@ -504,11 +519,18 @@ class _HotelUserInfoState extends State<HotelUserInfo> {
     var gett = prefs.getInt("total");
     var getc = prefs.getInt("children");
     var geta = prefs.getInt("adult");
-    var agelist = prefs.getStringList("AgeList");
-    ages = agelist ?? [];
+    var v3 = prefs.getInt("room");
+
+
+
+
+    // var agelist = prefs.getStringList("AgeList");
+    // ages = agelist ?? [];
     total = gett ?? 1;
     children = getc ?? 0;
     adult = geta ?? 0;
+    room = v3 ?? 0;
+    print("$children----------------------");
     setState(() {});
   }
 

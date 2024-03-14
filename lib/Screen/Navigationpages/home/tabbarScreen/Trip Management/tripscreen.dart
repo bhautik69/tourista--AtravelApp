@@ -1,15 +1,21 @@
 // ignore_for_file: prefer_is_empty
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/Find_trip.dart';
 
 import 'package:demo/Screen/Navigationpages/home/tabbarScreen/Trip%20Management/triplottey.dart';
 import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
+import 'package:demo/widget/textwidget.dart';
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Triptab extends StatefulWidget {
   const Triptab({super.key});
@@ -67,6 +73,20 @@ class _TriptabState extends State<Triptab> {
     "Udaipur",
     "Varanasi"
   ];
+  List id = [];
+  getID() async {
+    await FirebaseFirestore.instance
+        .collection("package")
+        .get()
+        .then((QuerySnapshot? snapshot) {
+      for (var element in snapshot!.docs) {
+        if (element.exists) {
+          id.add(element["id"]);
+          setState(() {});
+        }
+      }
+    });
+  }
 
   List<dynamic> getSuggestion(String query) => List.of(cityList).where((city) {
         final cityLower = city.toLowerCase();
@@ -130,12 +150,16 @@ class _TriptabState extends State<Triptab> {
     });
   }
 
+  bool search = false;
+  bool recentSearch = true;
+
   @override
   void initState() {
     DateTime dateTime = DateTime.now();
     String datetime1 = "${dateTime.day}-${dateTime.month}-${dateTime.year}";
     deletePackagesByStartDate(datetime1);
     foundlist = allPackage;
+    getID();
     getData();
     super.initState();
   }
@@ -188,7 +212,7 @@ class _TriptabState extends State<Triptab> {
                         children: [
                           Container(
                             color: themeState.getDarkTheme
-                                ? const Color(0xff212121)
+                                ? Colors.transparent
                                 : const Color(0xffffffff),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(
@@ -510,21 +534,224 @@ class _TriptabState extends State<Triptab> {
                                             );
                                             if (_formKey.currentState!
                                                 .validate()) {
+                                              search = true;
+                                              recentSearch = false;
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                     builder: (context) =>
                                                         Triploty(
+                                                            search: search,
                                                             date: date.text,
                                                             sform: from.text,
                                                             tto: to.text),
                                                   ));
                                             }
                                           })),
+                                  SizedBox(
+                                    height: mq.size.height * 0.01,
+                                  ),
                                 ],
                               ),
                             ),
                           ),
+                          Padding(
+                            padding:
+                                EdgeInsets.only(bottom: 8, top: 13, left: 8),
+                            child: StreamBuilder(
+                                stream: FirebaseFirestore.instance
+                                    .collection("TripResentsearch")
+                                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                                    .collection("tripSearch")
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const Center(child: Text(""));
+                                  }
+                                  if (!snapshot.hasData ||
+                                      snapshot.data == null ||
+                                      snapshot.data!.docs.isEmpty) {
+                                    return const Text("");
+                                  }
+
+                                  var data = snapshot.data!.docs
+                                      .where((element) =>
+                                          id.contains(element["id"]))
+                                      .toList();
+
+                                  if (data.isEmpty) {
+                                    return const Text("");
+                                  }
+                                  return Visibility(
+                                      visible: data.isEmpty ? false : true,
+                                      child: Titletext(
+                                          title: "Continue your search"));
+                                }),
+                          ),
+                          InkWell(
+                            onTap: () {},
+                            child: SizedBox(
+                              height: mq.size.height * 0.15,
+                              child: StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection("TripResentsearch")
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection("tripSearch")
+                                      .snapshots(),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return const Center(child: Text(""));
+                                    }
+                                    if (!snapshot.hasData ||
+                                        snapshot.data == null ||
+                                        snapshot.data!.docs.isEmpty) {
+                                      return const Text("");
+                                    }
+
+                                    var data = snapshot.data!.docs
+                                        .where((element) =>
+                                            id.contains(element.id))
+                                        .toList();
+
+                                    if (data.isEmpty) {
+                                      return const Text("");
+                                    }
+
+                                    return Padding(
+                                      padding: const EdgeInsets.only(left: 7),
+                                      child: ListView.builder(
+                                        itemCount: data.length,
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          var date = getdate1(
+                                              data[index]["startdate"]);
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                              right: 10,
+                                            ),
+                                            child: GestureDetector(
+                                              onTap: () async {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Find_trip(
+                                                        search: search,
+                                                        date: data[index]
+                                                            ["startdate"],
+                                                        sform: data[index]
+                                                            ["startingfrom"],
+                                                        tto: data[index]
+                                                            ["tavelingto"],
+                                                      ),
+                                                    ));
+                                              },
+                                              child: Card(
+                                                elevation: 5,
+                                                child: Container(
+                                                  width: 260,
+                                                  decoration: BoxDecoration(
+                                                      color: themeState
+                                                              .getDarkTheme
+                                                          ? const Color(
+                                                              0xff212121)
+                                                          : const Color(
+                                                              0xffffffff),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10)),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(
+                                                                left: 15,
+                                                                top: 5),
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(
+                                                              Icons
+                                                                  .location_on_outlined,
+                                                              size: 19,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 2,
+                                                            ),
+                                                            Titletext(
+                                                              title: data[index]
+                                                                  [
+                                                                  "tavelingto"],
+                                                              size: 18,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      ListTile(
+                                                        leading: SizedBox(
+                                                          height: 60,
+                                                          width: 60,
+                                                          child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              child:
+                                                                  FancyShimmerImage(
+                                                                imageUrl:
+                                                                    data[index]
+                                                                        ["url"],
+                                                                boxFit: BoxFit
+                                                                    .cover,
+                                                              )),
+                                                        ),
+                                                        title: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  bottom: 7),
+                                                          child: Text(
+                                                            data[index][
+                                                                    "startingfrom"] +
+                                                                " To " +
+                                                                data[index][
+                                                                    "tavelingto"],
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            maxLines: 1,
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500),
+                                                          ),
+                                                        ),
+                                                        subtitle: Text(date),
+                                                        // ' To ' +
+                                                        // data[index]['endDate'],
+                                                        // style:
+                                                        //TextStyle(color: Colors.white.withOpacity(0.85)),
+                                                        // ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          )
                         ],
                       ),
                     ],
@@ -533,5 +760,11 @@ class _TriptabState extends State<Triptab> {
               ),
             ),
           );
+  }
+
+  String getdate1(String date) {
+    DateTime datetime = DateFormat('dd-MM-yyyy').parse(date);
+    String formattedDate = DateFormat('dd MMM yyyy').format(datetime);
+    return formattedDate;
   }
 }

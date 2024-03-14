@@ -7,10 +7,11 @@ import 'package:lottie/lottie.dart';
 // ignore: must_be_immutable
 class Triploty extends StatefulWidget {
   String date;
+  bool search;
   String sform;
   String tto;
   Triploty(
-      {super.key, required this.date, required this.sform, required this.tto});
+      {super.key, required this.date, required this.sform, required this.tto,required this.search});
 
   @override
   State<Triploty> createState() => _TriplotyState();
@@ -22,6 +23,7 @@ class _TriplotyState extends State<Triploty> {
     Timer(const Duration(milliseconds: 4020), () {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => Find_trip(
+            search:  widget.search,
                 date: widget.date,
                 sform: widget.sform,
                 tto: widget.tto,

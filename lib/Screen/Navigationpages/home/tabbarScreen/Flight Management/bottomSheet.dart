@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-typedef MyQuantity = Function(int total, int child, int adlut);
+typedef MyQuantity = Function(int total, int child, int adlut, List<String> childage);
 
 // ignore: camel_case_types, must_be_immutable
 class bottomSheet extends StatefulWidget {
@@ -450,15 +450,11 @@ class _bottomSheetState extends State<bottomSheet> {
                                   setState(() {
                                     qunt = quantity + quantity1;
                                   });
-                                  widget.myQuantity(qunt, quantity1, quantity);
-                                  gitageist();
-                                  setState(() {});
-                                  var prefs =
-                                      await SharedPreferences.getInstance();
-                                  prefs.setStringList("agelist", childAge);
-                                  // ignore: avoid_print
-                                  print(childAge);
+                                                                  gitageist();
+                                                                    widget.myQuantity(qunt, quantity1, quantity, childAge);
 
+                                  setState(() {});
+                                 
                                   // ignore: use_build_context_synchronously
                                   Navigator.pop(context);
                                 }

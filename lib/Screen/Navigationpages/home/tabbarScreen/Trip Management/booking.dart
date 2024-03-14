@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:demo/consts/upipayment.dart';
+
 import 'package:demo/models/Trip%20models/bookingmodel.dart';
 import 'package:demo/models/Trip%20models/packagemodel.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
@@ -380,7 +380,7 @@ class _BookingDoneState extends State<BookingDone> {
                                                 data: ThemeData().copyWith(
                                                     colorScheme:
                                                         const ColorScheme.light(
-                                                  primary: Color.fromARGB(255, 81, 108, 119),
+                                                  primary: Color(0xff0078aa),
                                                   onPrimary: Colors.white,
                                                   onSurface: Colors.black,
                                                 )),
@@ -535,14 +535,7 @@ class _BookingDoneState extends State<BookingDone> {
                                           totleprise =
                                               int.parse(widget.package!.price!);
 
-                                          saveBooking().whenComplete(() {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const UoiIndia(),
-                                                ));
-                                          });
+                                          saveBooking().whenComplete(() {});
                                         });
                                         travellerList.clear();
                                       }

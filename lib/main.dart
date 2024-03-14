@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     getCurrentTheme();
     super.initState();
-  }
+  }  
 
   // This widget is the root of your application.
   @override

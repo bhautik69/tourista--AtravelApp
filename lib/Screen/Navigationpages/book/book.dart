@@ -140,7 +140,9 @@ class _BookState extends State<Book> {
                         width: 35.w,
                         decoration: BoxDecoration(
                             color: focus1
-                                ? Colors.blue.shade50
+                                ? themeState.getDarkTheme
+                                    ? Colors.transparent
+                                    : Colors.blue.shade50
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
@@ -189,7 +191,9 @@ class _BookState extends State<Book> {
                         width: 35.w,
                         decoration: BoxDecoration(
                             color: focus2
-                                ? Colors.blue.shade50
+                                ? themeState.getDarkTheme
+                                    ? Colors.transparent
+                                    : Colors.blue.shade50
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
@@ -239,7 +243,9 @@ class _BookState extends State<Book> {
                         width: 35.w,
                         decoration: BoxDecoration(
                             color: focus3
-                                ? Colors.blue.shade50
+                                ? themeState.getDarkTheme
+                                    ? Colors.transparent
+                                    : Colors.blue.shade50
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(

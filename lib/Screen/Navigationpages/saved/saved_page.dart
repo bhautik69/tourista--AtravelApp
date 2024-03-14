@@ -178,6 +178,9 @@ class _SavedState extends State<Saved> {
     Color color1 = themeState.getDarkTheme ? Colors.white38 : Colors.black38;
 
     return Scaffold(
+        backgroundColor: themeState.getDarkTheme
+            ? const Color(0xff121212)
+            : const Color.fromARGB(255, 236, 235, 235),
         appBar: AppBar(
           title: const Text("My Wishlist "),
         ),
@@ -209,7 +212,9 @@ class _SavedState extends State<Saved> {
                         width: 40.w,
                         decoration: BoxDecoration(
                             color: focus1
-                                ? Colors.blue.shade50
+                                ? themeState.getDarkTheme
+                                    ? Colors.transparent
+                                    : Colors.blue.shade50
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
@@ -255,7 +260,9 @@ class _SavedState extends State<Saved> {
                         width: 40.w,
                         decoration: BoxDecoration(
                             color: focus2
-                                ? Colors.blue.shade50
+                                ? themeState.getDarkTheme
+                                    ? Colors.transparent
+                                    : Colors.blue.shade50
                                 : Colors.transparent,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(

@@ -10,11 +10,16 @@ import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
 
 class Find_trip extends StatefulWidget {
+  bool search;
   String sform;
   String tto;
   String date;
   Find_trip(
-      {super.key, required this.date, required this.sform, required this.tto});
+      {super.key,
+      required this.date,
+      required this.sform,
+      required this.tto,
+      required this.search});
 
   @override
   State<Find_trip> createState() => _Find_tripState();
@@ -80,6 +85,30 @@ class _Find_tripState extends State<Find_trip> {
         .delete();
   }
 
+  void pop1() {
+    Navigator.pop(context);
+    Navigator.pop(context);
+  }
+
+  Future<void> recentSearch(String id, String tavelingto, String startingfrom,
+      String startdate, String url) async {
+    CollectionReference cr =
+        FirebaseFirestore.instance.collection("TripResentsearch");
+
+    Map<String, dynamic> data = {
+      "id": id,
+      "tavelingto": tavelingto,
+      "startingfrom": startingfrom,
+      "startdate": startdate,
+      "url": url
+    };
+    await cr
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection("tripSearch")
+        .doc(id)
+        .set(data);
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -90,11 +119,10 @@ class _Find_tripState extends State<Find_trip> {
           ? const Color(0xff121212)
           : const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-          title: const Text("Book Your Trip"),
+          title: const Text("Book Your Trips"),
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
-                Navigator.pop(context);
+                widget.search ? pop1() : Navigator.pop(context);
               },
               icon: const Icon(IconlyLight.arrow_left_2, color: Colors.white))),
       body: StreamBuilder(
@@ -127,14 +155,14 @@ class _Find_tripState extends State<Find_trip> {
                   travelingto.contains(tto1) &&
                   startdate.contains(date1);
             }).toList();
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 12),
-                  child: InkWell(
+            return Padding(
+              padding:  EdgeInsets.only(bottom:mq.size.height * 0.02),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: data.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
                     onTap: () {
                       Navigator.push(
                           context,
@@ -176,6 +204,9 @@ class _Find_tripState extends State<Find_trip> {
                                       ["retunReachFligthTime"]),
                             ),
                           ));
+
+                      recentSearch(data[index]["id"], widget.tto,
+                          widget.sform, widget.date, data[index]["img1"]);
                     },
                     child: Container(
                       color: themeState.getDarkTheme
@@ -223,11 +254,11 @@ class _Find_tripState extends State<Find_trip> {
                                               snapshot.data!.docs.length == 0
                                                   ? Icons.favorite_outline
                                                   : Icons.favorite,
-                                              color:
-                                                  snapshot.data!.docs.length ==
-                                                          0
-                                                      ? color
-                                                      : Colors.red,
+                                              color: snapshot.data!.docs
+                                                          .length ==
+                                                      0
+                                                  ? color
+                                                  : Colors.red,
                                             ));
                                       })
                                 ],
@@ -261,10 +292,12 @@ class _Find_tripState extends State<Find_trip> {
                                         ),
                                         children: [
                                           TextSpan(
-                                              text: data[index]["startingForm"],
+                                              text: data[index]
+                                                  ["startingForm"],
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w500,
-                                                  color: themeState.getDarkTheme
+                                                  color: themeState
+                                                          .getDarkTheme
                                                       ? Colors.white
                                                           .withOpacity(0.6)
                                                       : Colors.black
@@ -288,7 +321,8 @@ class _Find_tripState extends State<Find_trip> {
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
                                             color: themeState.getDarkTheme
-                                                ? Colors.white.withOpacity(0.6)
+                                                ? Colors.white
+                                                    .withOpacity(0.6)
                                                 : Colors.black
                                                     .withOpacity(0.6)))
                                   ]),
@@ -416,9 +450,9 @@ class _Find_tripState extends State<Find_trip> {
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             );
           }),
     );
