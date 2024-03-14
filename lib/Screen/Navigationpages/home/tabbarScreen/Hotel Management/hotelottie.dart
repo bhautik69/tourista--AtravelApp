@@ -65,11 +65,12 @@ class _HotelLottieState extends State<HotelLottie> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               const SizedBox(
-                width: 20,
+                width: 9,
               ),
               const Text(
                 "Loading...",
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 27),
+                style: TextStyle(fontWeight: FontWeight.w500,   fontSize: 18,
+                    color: Colors.black),
               ),
             ],
           ),

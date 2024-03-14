@@ -82,6 +82,8 @@ class _show_hotelState extends State<show_hotel> {
         .delete();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
@@ -92,7 +94,7 @@ class _show_hotelState extends State<show_hotel> {
           ? const Color(0xff121212)
           : const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-          title: const Text("Book Trip"),
+          title: const Text("Book Hotel"),
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
