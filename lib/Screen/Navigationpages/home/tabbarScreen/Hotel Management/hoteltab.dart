@@ -583,7 +583,7 @@ class _HoteltabState extends State<Hoteltab> {
                                           .map((age) => age.toString())
                                           .toList();
                                       print(data[index]["ages"]);
-                                      
+
                                       var store =
                                           await SharedPreferences.getInstance();
                                       store.setStringList(
@@ -627,7 +627,7 @@ class _HoteltabState extends State<Hoteltab> {
                                     child: Card(
                                       elevation: 5,
                                       child: Container(
-                                        width: 260,
+                                        width: mq.size.width / 1.3,
                                         decoration: BoxDecoration(
                                             color: themeState.getDarkTheme
                                                 ? const Color(0xff212121)
@@ -685,9 +685,8 @@ class _HoteltabState extends State<Hoteltab> {
                                                           FontWeight.w500),
                                                 ),
                                               ),
-                                              subtitle: Text(date1 +
-                                                  date +
-                                                  ", ${int.parse(data[index]["adult"]) + int.parse(data[index]["child"])} Traveller"),
+                                              subtitle: Text(
+                                                  "$date1$date,  ${int.parse(data[index]["adult"]) + int.parse(data[index]["child"])} Traveller"),
                                               // ' To ' +
                                               // data[index]['endDate'],
                                               // style:

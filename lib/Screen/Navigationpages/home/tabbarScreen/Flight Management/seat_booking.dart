@@ -40,7 +40,6 @@ class _ChooseSeatState extends State<ChooseSeat> {
   var listSeatLeft = [];
   var listSeatRight = [];
   List addseat = [];
-  var a;
 
   @override
   void initState() {
@@ -52,7 +51,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
     initSeatValueToList(listSeatLeft, countSeatLeft, "l");
     initSeatValueToList(listSeatRight, countSeatRight, "r");
     //setVisiblitySeat();
-    a = recentSearch1 ? traveller1 : int.parse(traveller.text.split(" ").first);
+
     super.initState();
   }
 
@@ -419,11 +418,13 @@ class _ChooseSeatState extends State<ChooseSeat> {
                               callback: () {
                                 print(addseat);
 
-                                if (addseat.length != a) {
+                                if (addseat.length !=
+                                    int.parse(
+                                        traveller.text.split(" ").first)) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content: Text(
-                                              "select ${a - addseat.length} more seet according to your selection")));
+                                              "select ${int.parse(traveller.text.split(" ").first) - addseat.length} more seet according to your selection")));
                                 } else {
                                   flighSeat.clear();
 
@@ -552,7 +553,8 @@ class _ChooseSeatState extends State<ChooseSeat> {
                 }
 
                 print("lenght---${flighSeat.length}");
-                print("lenght--1111- $a");
+                print(
+                    "lenght--1111- ${int.parse(traveller.text.split(" ").first)}");
                 // if (flighSeat.length <= int.parse(traveller.text.split(" ").first)) {
 
                 dataSeat[index]["isSelected"] = !dataSeat[index]["isSelected"];
@@ -561,7 +563,8 @@ class _ChooseSeatState extends State<ChooseSeat> {
                       !dataSeat[index]["isSelected"];
                   flighSeat.remove(count);
                 } else {
-                  if (flighSeat.length < a) {
+                  if (flighSeat.length <
+                      int.parse(traveller.text.split(" ").first)) {
                     dataSeat[index]["isSelected"] =
                         !dataSeat[index]["isSelected"];
                     flighSeat.add(count);
