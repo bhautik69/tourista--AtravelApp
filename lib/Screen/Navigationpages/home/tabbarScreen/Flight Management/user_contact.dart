@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demo/provider/dark_theme_provider.dart';
 import 'package:demo/widget/button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +36,20 @@ class UsercontactState extends State<Usercontact> {
     String pattern = r'(?:\+91|0)?[9678]\d{9}$';
     RegExp regExp = RegExp(pattern);
     return regExp.hasMatch(value);
+  }
+
+  @override
+  void initState() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot<Map<String, dynamic>> snapshot) {
+      phone.text = snapshot['phone'];
+      email.text = snapshot['email'];
+    });
+
+    super.initState();
   }
 
   @override

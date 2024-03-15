@@ -42,6 +42,37 @@ class _MngAccState extends State<MngAcc> {
     }
   }
 
+// ignore: non_constant_identifier_names, valid_regexps
+  RegExp name = RegExp(r'[!@#<>?":_`~;[\]\\|=+)($*&^%0-9-]');
+
+  RegExp emailValid = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+  bool validateStructurename(String nam) {
+    String nm = nam.trim();
+    if (name.hasMatch(nm)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  //email validation
+  bool validateStructureemail(String email) {
+    String email1 = email.trim();
+    if (emailValid.hasMatch(email1)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  bool validateMobile(String value) {
+    String pattern = r'(?:\+91|0)?[9678]\d{9}$';
+    RegExp regExp = RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
   var nameC = TextEditingController();
   var dateC = TextEditingController();
   String? gender;
@@ -106,6 +137,8 @@ class _MngAccState extends State<MngAcc> {
     }
   }
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     setState(() {});
@@ -149,160 +182,144 @@ class _MngAccState extends State<MngAcc> {
                 overscroll.disallowIndicator();
                 return true;
               },
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: mq.size.height * 0.05,
-                    ),
-                    SizedBox(
-                      width: mq.size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            children: [
-                              Stack(
-                                children: [
-                                  file!.isEmpty
-                                      ? CircleAvatar(
-                                          backgroundColor: Colors.grey,
-                                          radius: 55,
-                                          child: Image.asset(
-                                            scale: 16,
-                                            "assets/img/profile.png",
-                                            fit: BoxFit.cover,
-                                          ),
-                                        )
-                                      : file!.contains('http')
-                                          ? CircleAvatar(
-                                              backgroundColor: Colors.grey,
-                                              radius: 55,
-                                              backgroundImage:
-                                                  NetworkImage(file!),
-                                            )
-                                          : CircleAvatar(
-                                              backgroundColor: Colors.grey,
-                                              radius: 55,
-                                              backgroundImage:
-                                                  FileImage(File(file!)),
+              child: Form(
+                autovalidateMode: AutovalidateMode.always,
+                key: _formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: mq.size.height * 0.05,
+                      ),
+                      SizedBox(
+                        width: mq.size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Column(
+                              children: [
+                                Stack(
+                                  children: [
+                                    file!.isEmpty
+                                        ? CircleAvatar(
+                                            backgroundColor: Colors.grey,
+                                            radius: 55,
+                                            child: Image.asset(
+                                              scale: 16,
+                                              "assets/img/profile.png",
+                                              fit: BoxFit.cover,
                                             ),
-                                  Positioned(
-                                    right: 3,
-                                    bottom: 0,
-                                    child: CircleAvatar(
-                                      radius: 20,
-                                      backgroundColor: themeState.getDarkTheme
-                                          ? const Color(0xff121212)
-                                          : const Color(0xFFffffff),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          pickImage();
-                                        },
-                                        child: const CircleAvatar(
-                                          backgroundColor: Color(0xff0078aa),
-                                          radius: 17,
-                                          child: Icon(
-                                            Icons.camera_alt,
-                                            size: 20,
-                                            color: Colors.white,
+                                          )
+                                        : file!.contains('http')
+                                            ? CircleAvatar(
+                                                backgroundColor: Colors.grey,
+                                                radius: 55,
+                                                backgroundImage:
+                                                    NetworkImage(file!),
+                                              )
+                                            : CircleAvatar(
+                                                backgroundColor: Colors.grey,
+                                                radius: 55,
+                                                backgroundImage:
+                                                    FileImage(File(file!)),
+                                              ),
+                                    Positioned(
+                                      right: 3,
+                                      bottom: 0,
+                                      child: CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: themeState.getDarkTheme
+                                            ? const Color(0xff121212)
+                                            : const Color(0xFFffffff),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            pickImage();
+                                          },
+                                          child: const CircleAvatar(
+                                            backgroundColor: Color(0xff0078aa),
+                                            radius: 17,
+                                            child: Icon(
+                                              Icons.camera_alt,
+                                              size: 20,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.05,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextField(
-                                  controller: nameC,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                      label: const Text("Name"),
-                                      labelStyle: TextStyle(
-                                          color: themeState.getDarkTheme
-                                              ? Colors.white54
-                                              : Colors.black54,
-                                          fontWeight: FontWeight.w500),
-                                      focusedBorder: const UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              width: 1.5,
-                                              color: Color(0xff0078aa))),
-                                      enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: themeState.getDarkTheme
-                                                  ? Colors.white
-                                                  : Colors.black))),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextField(
-                                  readOnly: true,
-                                  controller: dateC,
-                                  onTap: () async {
-                                    var dateTime = await showDatePicker(
-                                        builder: (BuildContext context,
-                                            Widget? child) {
-                                          return Theme(
-                                            data: ThemeData().copyWith(
-                                                colorScheme: const ColorScheme.light(
-                                              primary: Color(0xff0078aa),
-                                              onPrimary: Colors.white,
-                                              onSurface: Colors.black,
-                                            )),
-                                            child: child!,
-                                          );
-                                        },
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(1900),
-                                        lastDate: DateTime.now());
-
-                                    dateC.text =
-                                        "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
-                                  },
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                    label: const Text("Date of birth"),
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1.5,
-                                            color: Color(0xff0078aa))),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: themeState.getDarkTheme
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    labelStyle: TextStyle(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white54
-                                            : Colors.black54,
-                                        fontWeight: FontWeight.w500),
-                                  ),
+                                SizedBox(
+                                  height: mq.size.height * 0.05,
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              Padding(
+                                Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 18),
-                                  child: DropdownButtonFormField(
-                                    value: gender!.isEmpty ? null : gender,
-                                    // hint: const Text("Gender"),
+                                      horizontal: 16),
+                                  child: TextFormField(
+                                    controller: nameC,
+                                    validator: (value) {
+                                      if (validateStructurename(value!)) {
+                                        return "Enter a Valid Name";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    textAlignVertical: TextAlignVertical.bottom,
                                     decoration: InputDecoration(
-                                      label: const Text("Gender"),
+                                        label: const Text("Name"),
+                                        labelStyle: TextStyle(
+                                            color: themeState.getDarkTheme
+                                                ? Colors.white54
+                                                : Colors.black54,
+                                            fontWeight: FontWeight.w500),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5,
+                                                    color: Color(0xff0078aa))),
+                                        enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: themeState.getDarkTheme
+                                                    ? Colors.white
+                                                    : Colors.black))),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: TextFormField(
+                                    readOnly: true,
+                                    controller: dateC,
+                                    onTap: () async {
+                                      var dateTime = await showDatePicker(
+                                          builder: (BuildContext context,
+                                              Widget? child) {
+                                            return Theme(
+                                              data: ThemeData().copyWith(
+                                                  colorScheme:
+                                                      const ColorScheme.light(
+                                                primary: Color(0xff0078aa),
+                                                onPrimary: Colors.white,
+                                                onSurface: Colors.black,
+                                              )),
+                                              child: child!,
+                                            );
+                                          },
+                                          context: context,
+                                          initialDate: DateTime.now(),
+                                          firstDate: DateTime(1900),
+                                          lastDate: DateTime.now());
+
+                                      dateC.text =
+                                          "${dateTime?.day}-${dateTime?.month}-${dateTime!.year}";
+                                    },
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    decoration: InputDecoration(
+                                      label: const Text("Date of birth"),
                                       focusedBorder: const UnderlineInputBorder(
                                           borderSide: BorderSide(
                                               width: 1.5,
@@ -318,138 +335,193 @@ class _MngAccState extends State<MngAcc> {
                                               : Colors.black54,
                                           fontWeight: FontWeight.w500),
                                     ),
-                                    items: list
-                                        .map((e) => DropdownMenuItem<String>(
-                                            value: e, child: Text(e)))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      setState(() {
-                                        gender = value.toString();
-                                      });
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 18),
+                                    child: DropdownButtonFormField(
+                                      value: gender!.isEmpty ? null : gender,
+                                      // hint: const Text("Gender"),
+                                      decoration: InputDecoration(
+                                        label: const Text("Gender"),
+                                        focusedBorder:
+                                            const UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 1.5,
+                                                    color: Color(0xff0078aa))),
+                                        enabledBorder: UnderlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: themeState.getDarkTheme
+                                                    ? Colors.white
+                                                    : Colors.black)),
+                                        labelStyle: TextStyle(
+                                            color: themeState.getDarkTheme
+                                                ? Colors.white54
+                                                : Colors.black54,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                      items: list
+                                          .map((e) => DropdownMenuItem<String>(
+                                              value: e, child: Text(e)))
+                                          .toList(),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          gender = value.toString();
+                                        });
+                                      },
+                                    )),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: TextFormField(
+                                    controller: phoneC,
+                                    keyboardType: TextInputType.number,
+                                    validator: (value) {
+                                      if (value!.length != 10) {
+                                        return 'Invalid contact number';
+                                      } else {
+                                        if (!validateMobile(value)) {
+                                          return 'Invalid contact number';
+                                        } else {
+                                          return null;
+                                        }
+                                      }
                                     },
-                                  )),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextField(
-                                  controller: phoneC,
-                                  keyboardType: TextInputType.number,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                    label: const Text("Mobile phone"),
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1.5,
-                                            color: Color(0xff0078aa))),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: themeState.getDarkTheme
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    labelStyle: TextStyle(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white54
-                                            : Colors.black54,
-                                        fontWeight: FontWeight.w500),
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    decoration: InputDecoration(
+                                      label: const Text("Mobile phone"),
+                                      focusedBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Color(0xff0078aa))),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: themeState.getDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      labelStyle: TextStyle(
+                                          color: themeState.getDarkTheme
+                                              ? Colors.white54
+                                              : Colors.black54,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextField(
-                                  controller: addC,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                    label: const Text("Address"),
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1.5,
-                                            color: Color(0xff0078aa))),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: themeState.getDarkTheme
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    labelStyle: TextStyle(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white54
-                                            : Colors.black54,
-                                        fontWeight: FontWeight.w500),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: TextFormField(
+                                    controller: addC,
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    decoration: InputDecoration(
+                                      label: const Text("Address"),
+                                      focusedBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Color(0xff0078aa))),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: themeState.getDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      labelStyle: TextStyle(
+                                          color: themeState.getDarkTheme
+                                              ? Colors.white54
+                                              : Colors.black54,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.02,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextField(
-                                  controller: cityC,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                    label: const Text("City"),
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1.5,
-                                            color: Color(0xff0078aa))),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: themeState.getDarkTheme
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    labelStyle: TextStyle(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white54
-                                            : Colors.black54,
-                                        fontWeight: FontWeight.w500),
+                                SizedBox(
+                                  height: mq.size.height * 0.02,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: TextFormField(
+                                    controller: cityC,
+                                    validator: (value) {
+                                      if (validateStructurename(value!)) {
+                                        return "Enter a Valid City Name";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    decoration: InputDecoration(
+                                      label: const Text("City"),
+                                      focusedBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Color(0xff0078aa))),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: themeState.getDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      labelStyle: TextStyle(
+                                          color: themeState.getDarkTheme
+                                              ? Colors.white54
+                                              : Colors.black54,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.020,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                                child: TextField(
-                                  controller: stateC,
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  decoration: InputDecoration(
-                                    label: const Text("State"),
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            width: 1.5,
-                                            color: Color(0xff0078aa))),
-                                    enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: themeState.getDarkTheme
-                                                ? Colors.white
-                                                : Colors.black)),
-                                    labelStyle: TextStyle(
-                                        color: themeState.getDarkTheme
-                                            ? Colors.white54
-                                            : Colors.black54,
-                                        fontWeight: FontWeight.w500),
+                                SizedBox(
+                                  height: mq.size.height * 0.020,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16),
+                                  child: TextFormField(
+                                    controller: stateC,
+                                    validator: (value) {
+                                      if (validateStructurename(value!)) {
+                                        return "Enter a Valid Name";
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                    textAlignVertical: TextAlignVertical.bottom,
+                                    decoration: InputDecoration(
+                                      label: const Text("State"),
+                                      focusedBorder: const UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 1.5,
+                                              color: Color(0xff0078aa))),
+                                      enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: themeState.getDarkTheme
+                                                  ? Colors.white
+                                                  : Colors.black)),
+                                      labelStyle: TextStyle(
+                                          color: themeState.getDarkTheme
+                                              ? Colors.white54
+                                              : Colors.black54,
+                                          fontWeight: FontWeight.w500),
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: mq.size.height * 0.020,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
+                                SizedBox(
+                                  height: mq.size.height * 0.020,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

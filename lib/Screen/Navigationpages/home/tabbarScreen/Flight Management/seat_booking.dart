@@ -14,6 +14,7 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class ChooseSeat extends StatefulWidget {
   String id;
+  int travellerno;
   AddFlight addFlight;
   String clsstype1;
   String ssortname;
@@ -22,6 +23,7 @@ class ChooseSeat extends StatefulWidget {
   ChooseSeat({
     Key? key,
     required this.addFlight,
+    required this.travellerno,
     required this.id,
     this.ages,
     required this.clsstype1,
@@ -125,6 +127,8 @@ class _ChooseSeatState extends State<ChooseSeat> {
           //centerTitle: true,
           leading: InkWell(
             onTap: () {
+              flighSeat.clear();
+              addseat.clear();
               Navigator.of(context).pop();
             },
             child: const Icon(
@@ -418,13 +422,11 @@ class _ChooseSeatState extends State<ChooseSeat> {
                               callback: () {
                                 print(addseat);
 
-                                if (addseat.length !=
-                                    int.parse(
-                                        traveller.text.split(" ").first)) {
+                                if (addseat.length != widget.travellerno) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                           content: Text(
-                                              "select ${int.parse(traveller.text.split(" ").first) - addseat.length} more seet according to your selection")));
+                                              "select ${widget.travellerno - addseat.length} more seet according to your selection")));
                                 } else {
                                   flighSeat.clear();
 
@@ -553,8 +555,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                 }
 
                 print("lenght---${flighSeat.length}");
-                print(
-                    "lenght--1111- ${int.parse(traveller.text.split(" ").first)}");
+                print("lenght--1111- ${widget.travellerno}");
                 // if (flighSeat.length <= int.parse(traveller.text.split(" ").first)) {
 
                 dataSeat[index]["isSelected"] = !dataSeat[index]["isSelected"];
@@ -563,8 +564,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
                       !dataSeat[index]["isSelected"];
                   flighSeat.remove(count);
                 } else {
-                  if (flighSeat.length <
-                      int.parse(traveller.text.split(" ").first)) {
+                  if (flighSeat.length < widget.travellerno) {
                     dataSeat[index]["isSelected"] =
                         !dataSeat[index]["isSelected"];
                     flighSeat.add(count);

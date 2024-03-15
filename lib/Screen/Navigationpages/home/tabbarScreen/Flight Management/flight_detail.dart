@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 // ignore: must_be_immutable
 class FlightDetail extends StatefulWidget {
   AddFlight addFlight;
-
+  int? travellerno;
   String id;
   String travellingto;
   String classtype;
@@ -31,6 +31,7 @@ class FlightDetail extends StatefulWidget {
       required this.id,
       required this.addFlight,
       this.ages,
+       this.travellerno,
       required this.startingsortfrom,
       required this.travellingsortto,
       required this.edate,
@@ -695,7 +696,7 @@ class _FlightDetailState extends State<FlightDetail> {
             landingTime: widget.addFlight.landingTime,
             price: widget.addFlight.price,
             flightname: widget.addFlight.flightname,
-          ), ages: widget.ages,),
+          ), ages: widget.ages, travellerno: widget.travellerno!,),
     ));
   }
 

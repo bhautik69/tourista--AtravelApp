@@ -22,9 +22,11 @@ class FlightSearch extends StatefulWidget {
   String? takeoffdate;
   String? classname;
   String? traveller;
+  int travelno;
   FlightSearch(
       {super.key,
       required this.search,
+      required this.travelno,
       required this.recentsearch,
       this.ages,
       required this.classname,
@@ -515,7 +517,7 @@ class _FlightSearchState extends State<FlightSearch> {
                                                           ["flightname"]),
                                                   ages: widget.search
                                                       ? ages
-                                                      : widget.ages),
+                                                      : widget.ages, travellerno: widget.travelno,),
                                             ));
 
                                             recentSearch(

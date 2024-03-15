@@ -577,9 +577,12 @@ class _FligthtabState extends State<Fligthtab> {
                                 flightfrom.text +
                                 flightTo.text +
                                 flightClass!;
+
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => LottiePage(
+                                travellerno:
+                                    int.parse(traveller.text.split(" ").first),
                                 classname: flightClass,
                                 startingfrom: flightfrom.text,
                                 takeoffdate: date.text,
@@ -705,6 +708,7 @@ class _FligthtabState extends State<Fligthtab> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => FlightSearch(
+                                                travelno: traveller1,
                                                 search: search,
                                                 recentsearch: recentSearch1,
                                                 ages: data[index]["ages"],

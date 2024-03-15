@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 
 // ignore: must_be_immutable
 class LottiePage extends StatefulWidget {
+  int travellerno;
    bool search;
   bool recentsearch;
   String? startingfrom;
@@ -16,6 +17,7 @@ class LottiePage extends StatefulWidget {
   String? traveller;
   LottiePage(
       {super.key,
+      required this.travellerno,
       required this.search,
       required this.recentsearch,
       required this.classname,
@@ -33,7 +35,7 @@ class _LottiePageState extends State<LottiePage> {
   void initState() {
     Timer(const Duration(milliseconds: 4020), () {
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => FlightSearch(search: widget.search,
+        builder: (context) => FlightSearch(search: widget.search,travelno: widget.travellerno,
           recentsearch: widget.recentsearch,
           
             classname: widget.classname,
