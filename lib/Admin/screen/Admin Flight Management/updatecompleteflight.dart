@@ -203,7 +203,7 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "*Required Field";
-                          } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
+                          } else if (!RegExp(r"^[a-z,A-Z._ +-]+$")
                               .hasMatch(value)) {
                             return "*Enter valid name";
                           } else {
@@ -262,7 +262,7 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "*Required Field";
-                          } else if (!RegExp(r"^[a-zA-Z._ +-]+$")
+                          } else if (!RegExp(r"^[a-z,A-Z._ +-]+$")
                               .hasMatch(value)) {
                             return "*Enter valid name";
                           } else if (startingFrom.text == travelingTo.text) {

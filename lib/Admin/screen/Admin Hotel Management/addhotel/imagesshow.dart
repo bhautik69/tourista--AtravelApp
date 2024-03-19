@@ -47,6 +47,7 @@ class _ImagesState extends State<Images> {
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
+              widget.img.clear();
             },
             icon: const Icon(IconlyLight.arrow_left_2)),
       ),
@@ -117,8 +118,6 @@ class _ImagesState extends State<Images> {
         }
       });
     }
-    setState(() {
-    
-    });
+    setState(() {});
   }
 }
