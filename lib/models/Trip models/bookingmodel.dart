@@ -42,6 +42,7 @@ class Booking {
   String? city;
   String? state;
   String? totalprice;
+  String? bookingdate;
   List<dynamic>? travellerlist;
 
   Booking(
@@ -51,6 +52,7 @@ class Booking {
       required this.latitude,
       required this.longitude,
       this.id,
+      required this.bookingdate,
       required this.retunfligthdate,
       required this.retunreachfligthdate,
       required this.retunfligthtime,
@@ -126,7 +128,8 @@ class Booking {
       "city": booking.city,
       "state": booking.state,
       "totalprice": booking.totalprice,
-      "travellerlist": booking.travellerlist
+      "travellerlist": booking.travellerlist,
+      "bookingdate" : booking.bookingdate
     };
     db
         .doc(FirebaseAuth.instance.currentUser!.uid)

@@ -628,12 +628,19 @@ class _FligthtabState extends State<Fligthtab> {
 
                       return Visibility(
                           visible: data.isEmpty ? false : true,
-                          child:
-                              const Titletext(title: "Continue your search"));
+                          child: const Row(
+                            children: [
+                              Icon(Icons.search),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Titletext(title: "Recently Searched"),
+                            ],
+                          ));
                     }),
               ),
               InkWell(
-                onTap: () {},
+              
                 child: SizedBox(
                   height: mq.size.height * 0.15,
                   child: StreamBuilder(

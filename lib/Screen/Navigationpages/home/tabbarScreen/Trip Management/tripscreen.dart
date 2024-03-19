@@ -585,8 +585,15 @@ class _TriptabState extends State<Triptab> {
                                   }
                                   return Visibility(
                                       visible: data.isEmpty ? false : true,
-                                      child: Titletext(
-                                          title: "Continue your search"));
+                                      child: const Row(
+                                        children: [
+                                          Icon(Icons.search),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Titletext(title: "Recently Searched"),
+                                        ],
+                                      ));
                                 }),
                           ),
                           InkWell(
@@ -635,6 +642,10 @@ class _TriptabState extends State<Triptab> {
                                             ),
                                             child: GestureDetector(
                                               onTap: () async {
+                                                setState(() {
+                                                  search = false;
+                                                  recentSearch = true;
+                                                });
                                                 Navigator.push(
                                                     context,
                                                     MaterialPageRoute(

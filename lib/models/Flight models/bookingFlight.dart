@@ -17,6 +17,7 @@ class BookingFlight {
   String? email;
   String? phoneno;
   String? classtype;
+  String? bookingdate;
   String? adult;
   String? children;
   List<Map<String, dynamic>>? adultList;
@@ -29,6 +30,7 @@ class BookingFlight {
       required this.classtype,
       required this.travelingTo,
       required this.flightNumber,
+      required this.bookingdate,
       required this.startDate,
       required this.endDate,
       required this.takeoffTime,
@@ -50,7 +52,7 @@ class BookingFlight {
 
     Map<String, dynamic> data = {
       "id": bookingflight.id,
-      "classtype" : bookingflight.classtype,
+      "classtype": bookingflight.classtype,
       "startingFrom": bookingflight.startingFrom,
       "travelingTo": bookingflight.travelingTo,
       "flightNumber": bookingflight.flightNumber,
@@ -68,6 +70,7 @@ class BookingFlight {
       "totalPrice": bookingflight.totalPrice,
       "adult": bookingflight.adult,
       "children": bookingflight.children,
+      "bookingdate" : bookingflight.bookingdate
     };
 
     await collectionReference

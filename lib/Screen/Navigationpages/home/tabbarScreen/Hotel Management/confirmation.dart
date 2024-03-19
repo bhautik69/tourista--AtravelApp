@@ -456,6 +456,7 @@ class _ConfirmationState extends State<Confirmation> {
         .addBookingHotels(
       bookingHotel(
           name: widget.hotel.name,
+          bookingdate: DateTime.now().toString(),
           id: widget.id,
           description: widget.hotel.description,
           facilities: widget.hotel.facilities,

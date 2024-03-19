@@ -104,6 +104,8 @@ class _show_hotelState extends State<show_hotel> {
         .delete();
   }
 
+ 
+ 
   Future<void> recentSearch(
       String id,
       String destination,
@@ -136,6 +138,30 @@ class _show_hotelState extends State<show_hotel> {
         .doc(id)
         .set(data);
   }
+Future<void> deleteSearch() async {
+  CollectionReference cr =
+      FirebaseFirestore.instance.collection("HotelResentsearch");
+
+  // Get the current user's ID
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+
+  // Reference to the HotelSearch collection for the current user
+  CollectionReference hotelSearchCollection =
+      cr.doc(userId).collection("HotelSearch");
+
+  // Query to get documents in HotelSearch collection ordered by document ID
+  QuerySnapshot querySnapshot = await hotelSearchCollection
+      .orderBy(FieldPath.documentId, descending: true)
+      .limit(11)
+      .get();
+
+  // Check if there are 11 or more documents
+  if (querySnapshot.docs.length == 11) {
+    // Delete the last document returned (latest document)
+    String latestDocumentId = querySnapshot.docs.last.id;
+    await hotelSearchCollection.doc(latestDocumentId).delete();
+  }
+}
 
   List ages = [];
   void getravellerno() async {

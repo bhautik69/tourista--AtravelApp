@@ -524,7 +524,15 @@ class _HoteltabState extends State<Hoteltab> {
                         }
                         return Visibility(
                             visible: data.isEmpty ? false : true,
-                            child: Titletext(title: "Continue your search"));
+                            child: const Row(
+                              children: [
+                                Icon(Icons.search),
+                                 SizedBox(
+                                  width: 10,
+                                ),
+                                Titletext(title: "Recently Searched"),
+                              ],
+                            ));
                       }),
                 ),
                 InkWell(

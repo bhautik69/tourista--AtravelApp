@@ -7,7 +7,8 @@ import '../../../../../provider/dark_theme_provider.dart';
 import '../../../../../widget/button.dart';
 
 // ignore: camel_case_types
-typedef dataStore = Function(String gender, String Dob, String firstName, String lastName);
+typedef dataStore = Function(
+    String gender, String Dob, String firstName, String lastName);
 
 // ignore: must_be_immutable
 class HotelUserDetail extends StatefulWidget {
@@ -16,7 +17,9 @@ class HotelUserDetail extends StatefulWidget {
   String age;
   bool visible;
   dataStore store;
-  HotelUserDetail({super.key,required this.store,
+  HotelUserDetail(
+      {super.key,
+      required this.store,
       required this.traveller,
       required this.visible,
       required this.age,
@@ -48,11 +51,12 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
       return false;
     }
   }
+
   @override
   Widget build(BuildContext context) {
-     var mq = MediaQuery.of(context);
+    var mq = MediaQuery.of(context);
     final themeState = Provider.of<DarkThemeProvider>(context);
-   return Scaffold(
+    return Scaffold(
       appBar: AppBar(
           title: const Text("Traveller details"),
           leading: IconButton(
@@ -373,7 +377,8 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                               ),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 17, horizontal: 15),
-                              prefixIcon: const Icon(Icons.calendar_month_outlined),
+                              prefixIcon:
+                                  const Icon(Icons.calendar_month_outlined),
                               //  prefixIconColor: Colors.grey,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -427,7 +432,8 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                                   );
                                 },
                                 context: context,
-                                initialDate: DateTime.now(),
+                                initialDate: DateTime(DateTime.now().year -
+                                    int.parse(widget.age)),
                                 firstDate: DateTime(DateTime.now().year -
                                     int.parse(widget.age)),
                                 lastDate: DateTime.now());
@@ -475,7 +481,8 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
                       title: "Done",
                       callback: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.store(gender, date.text,f_name.text,l_name.text);
+                          widget.store(
+                              gender, date.text, f_name.text, l_name.text);
                           setState(() {});
                           Navigator.pop(context);
                         }
@@ -489,6 +496,5 @@ class _HotelUserDetailState extends State<HotelUserDetail> {
         ),
       ),
     );
-  
   }
 }

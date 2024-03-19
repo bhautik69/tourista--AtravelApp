@@ -8,7 +8,8 @@ import 'package:ionicons/ionicons.dart';
 import 'package:provider/provider.dart';
 
 // ignore: non_constant_identifier_names
-typedef dataStore = Function(String gender, String Dob, String firstName, String lastName);
+typedef dataStore = Function(
+    String gender, String Dob, String firstName, String lastName);
 
 class User_detail extends StatefulWidget {
   String traveller;
@@ -380,7 +381,8 @@ class User_DetailState extends State<User_detail> {
                               ),
                               contentPadding: const EdgeInsets.symmetric(
                                   vertical: 17, horizontal: 15),
-                              prefixIcon: const Icon(Icons.calendar_month_outlined),
+                              prefixIcon:
+                                  const Icon(Icons.calendar_month_outlined),
                               //  prefixIconColor: Colors.grey,
                               border: OutlineInputBorder(
                                   borderSide: const BorderSide(
@@ -434,7 +436,8 @@ class User_DetailState extends State<User_detail> {
                                   );
                                 },
                                 context: context,
-                                initialDate: DateTime.now(),
+                                initialDate: DateTime(DateTime.now().year -
+                                    int.parse(widget.age)),
                                 firstDate: DateTime(DateTime.now().year -
                                     int.parse(widget.age)),
                                 lastDate: DateTime.now());
@@ -482,7 +485,8 @@ class User_DetailState extends State<User_detail> {
                       title: "Done",
                       callback: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.store(gender, date.text ,f_name.text,l_name.text);
+                          widget.store(
+                              gender, date.text, f_name.text, l_name.text);
                           setState(() {});
                           Navigator.pop(context);
                         }

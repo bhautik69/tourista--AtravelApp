@@ -17,6 +17,7 @@ class bookingHotel {
   String? checkinfrom;
   String? checkinUntil;
   String? checkoutUntil;
+  String? bookingdate;
   String? transeferFee;
   String? distFromAirport;
   String? traveltimetoairport;
@@ -55,6 +56,7 @@ class bookingHotel {
       required this.adult,
       required this.children,
       required this.email,
+      required this.bookingdate,
       required this.phoneno,
       required this.adultList,
       required this.childrenList,
@@ -90,12 +92,13 @@ class bookingHotel {
       "phoneno": bookinghotel.phoneno,
       "adultList": bookinghotel.adultList,
       "childrenList": bookinghotel.childrenList,
+      "bookingdate": bookinghotel.bookingdate,
       "totalPrice": bookinghotel.totalPrice,
       "room": bookinghotel.room,
       "adult": bookinghotel.adult,
       "children": bookinghotel.children,
-      "check_out" : bookinghotel.check_out,
-      "check_in" : bookinghotel.check_in
+      "check_out": bookinghotel.check_out,
+      "check_in": bookinghotel.check_in
     };
 
     collectionReference

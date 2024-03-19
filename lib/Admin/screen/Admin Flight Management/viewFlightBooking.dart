@@ -3,6 +3,7 @@ import 'package:demo/Admin/screen/Admin%20Flight%20Management/flightBookingDetai
 import 'package:demo/widget/textwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class ViewFlightBooking extends StatefulWidget {
@@ -51,11 +52,14 @@ class _ViewFlightBookingState extends State<ViewFlightBooking> {
           };
           setState(() {
             allBookingData.add(data);
+            bookingdate = getdate(element["bookingdate"]);
           });
         }
       }
     });
   }
+
+  var bookingdate;
 
   void _runFilter(String enteredKeyword) {
     List results = [];
@@ -210,10 +214,16 @@ class _ViewFlightBookingState extends State<ViewFlightBooking> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Titletext(
-                                          title:
-                                              "$wordBeforeAirport1 To $wordBeforeAirport2",
-                                          size: 15,
+                                        Row(
+                                          children: [
+                                            Titletext(
+                                              title:
+                                                  "$wordBeforeAirport1 To $wordBeforeAirport2",
+                                              size: 15,
+                                            ),
+                                            Spacer(),
+                                            Text(bookingdate)
+                                          ],
                                         ),
                                         SizedBox(
                                           height: mq.size.height * 0.014,
@@ -409,6 +419,14 @@ class _ViewFlightBookingState extends State<ViewFlightBooking> {
               ],
             ),
     );
+  }
+
+  String getdate(String date) {
+    DateTime dateTime = DateTime.parse(date);
+
+    // Format the DateTime object into the desired format
+    String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
+    return formattedDate.toString();
   }
 
   String getWordBeforeAirport(String airportString) {

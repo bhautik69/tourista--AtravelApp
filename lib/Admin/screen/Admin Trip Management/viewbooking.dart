@@ -5,6 +5,7 @@ import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class ViewBooking extends StatefulWidget {
@@ -63,12 +64,14 @@ class _ViewBookingState extends State<ViewBooking> {
             "travellerlist": element["travellerlist"]
           };
           allBookingdata.add(data);
+          bookingdate = getdate(element["bookingdate"]);
           setState(() {});
         }
       }
     });
   }
 
+  var bookingdate;
   void _runFilter(String enteredKeyword) {
     List results = [];
     if (enteredKeyword.isEmpty) {
@@ -213,12 +216,18 @@ class _ViewBookingState extends State<ViewBooking> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Titletext(
-                                            title: foundlist[index]
-                                                    ["startingForm"] +
-                                                " To " +
-                                                foundlist[index]["traveligTo"],
-                                            size: 18,
+                                          Row(
+                                            children: [
+                                              Titletext(
+                                                title: foundlist[index]
+                                                        ["startingForm"] +
+                                                    " To " +
+                                                    foundlist[index]["traveligTo"],
+                                                size: 18,
+                                              ),
+                                              Spacer(),
+                                              Text(bookingdate)
+                                            ],
                                           ),
                                           SizedBox(
                                             height: mq.size.height * 0.014,
@@ -397,5 +406,13 @@ class _ViewBookingState extends State<ViewBooking> {
                   ),
                 ],
               ));
+  }
+
+  String getdate(String date) {
+    DateTime dateTime = DateTime.parse(date);
+
+    // Format the DateTime object into the desired format
+    String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
+    return formattedDate.toString();
   }
 }

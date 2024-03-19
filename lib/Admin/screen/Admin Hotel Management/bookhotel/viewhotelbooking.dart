@@ -4,6 +4,7 @@ import 'package:demo/widget/textwidget.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
 class ViewHotelBooking extends StatefulWidget {
@@ -51,11 +52,13 @@ class _ViewHotelBookingState extends State<ViewHotelBooking> {
             "room": element["room"],
             "adult": element["adult"],
             "children": element["children"],
+            "bookingdate": element["bookingdate"],
             "check_out": element["check_out"],
             "check_in": element["check_in"]
           };
           setState(() {
             allBookingData.add(data);
+            bookingdate = getdate(element["bookingdate"]);
           });
         }
       }
@@ -86,6 +89,7 @@ class _ViewHotelBookingState extends State<ViewHotelBooking> {
     });
   }
 
+  var bookingdate;
   @override
   void initState() {
     getData();
@@ -195,9 +199,15 @@ class _ViewHotelBookingState extends State<ViewHotelBooking> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Titletext(
-                                          title: foundlist[index]["name"],
-                                          size: 18,
+                                        Row(
+                                          children: [
+                                            Titletext(
+                                              title: foundlist[index]["name"],
+                                              size: 18,
+                                            ),
+                                            Spacer(),
+                                            Text(bookingdate)
+                                          ],
                                         ),
                                         SizedBox(
                                           height: mq.size.height * 0.014,
@@ -396,5 +406,13 @@ class _ViewHotelBookingState extends State<ViewHotelBooking> {
               ],
             ),
     );
+  }
+
+  String getdate(String date) {
+    DateTime dateTime = DateTime.parse(date);
+
+    // Format the DateTime object into the desired format
+    String formattedDate = DateFormat('dd MMM yyyy').format(dateTime);
+    return formattedDate.toString();
   }
 }

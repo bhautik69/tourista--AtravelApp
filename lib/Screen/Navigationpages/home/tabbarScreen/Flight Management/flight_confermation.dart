@@ -533,6 +533,7 @@ class _FlightConfirmState extends State<FlightConfirm> {
     await BookingFlight.addBookingFlight(
       BookingFlight(
           classtype: widget.classtype1,
+          bookingdate: DateTime.now().toString(),
           id: widget.id,
           startingFrom: widget.addFlight.startingFrom,
           travelingTo: widget.addFlight.travelingTo,
