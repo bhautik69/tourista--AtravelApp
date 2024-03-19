@@ -527,7 +527,7 @@ class _HoteltabState extends State<Hoteltab> {
                             child: const Row(
                               children: [
                                 Icon(Icons.search),
-                                 SizedBox(
+                                SizedBox(
                                   width: 10,
                                 ),
                                 Titletext(title: "Recently Searched"),
@@ -569,6 +569,7 @@ class _HoteltabState extends State<Hoteltab> {
                             child: ListView.builder(
                               itemCount: data.length,
                               scrollDirection: Axis.horizontal,
+                              reverse: true,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 var date = getdate(data[index]["checkOut"]);
@@ -615,6 +616,8 @@ class _HoteltabState extends State<Hoteltab> {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) => show_hotel(
+                                              hotelname: data[index]
+                                                  ["hotelname"],
                                               search: search,
                                               recentsearch: recentSearch,
                                               adults: int.parse(

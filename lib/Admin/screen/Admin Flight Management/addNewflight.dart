@@ -575,7 +575,7 @@ class _AddNewFlightState extends State<AddNewFlight> {
         .whenComplete(() {
       setState(() {
         isLoading = false;
-        clearFields();
+        //clearFields();
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("ADDED SUCCESSFULLY")));
       });

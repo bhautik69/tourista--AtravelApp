@@ -378,6 +378,7 @@ Widget hotel(
       ),
       Row(
         children: [
+          Spacer(),
           InkWell(
             onTap: () {
               showMap();
@@ -391,18 +392,18 @@ Widget hotel(
               ),
             ),
           ),
-          Spacer(),
-          GestureDetector(
-            onTap: () => viewDetails,
-            child: Text(
-              "View Details",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: Colors.blue,
-              ),
-            ),
-          ),
+          //
+          // GestureDetector(
+          //   onTap: () => viewDetails,
+          //   child: Text(
+          //     "View Details",
+          //     style: TextStyle(
+          //       fontWeight: FontWeight.w500,
+          //       fontSize: 16,
+          //       color: Colors.blue,
+          //     ),
+          //   ),
+          // ),
         ],
       )
     ],

@@ -45,6 +45,7 @@ class _HotelLottieState extends State<HotelLottie> {
                 room: widget.room,
                 search: widget.search,
                 recentsearch: widget.recentsearch,
+                hotelname: '',
               )));
     });
     super.initState();
@@ -74,7 +75,9 @@ class _HotelLottieState extends State<HotelLottie> {
               ),
               const Text(
                 "Loading...",
-                style: TextStyle(fontWeight: FontWeight.w500,   fontSize: 18,
+                style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
                     color: Colors.black),
               ),
             ],

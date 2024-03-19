@@ -640,7 +640,6 @@ class _FligthtabState extends State<Fligthtab> {
                     }),
               ),
               InkWell(
-              
                 child: SizedBox(
                   height: mq.size.height * 0.15,
                   child: StreamBuilder(
@@ -715,18 +714,21 @@ class _FligthtabState extends State<Fligthtab> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => FlightSearch(
-                                                travelno: traveller1,
-                                                search: search,
-                                                recentsearch: recentSearch1,
-                                                ages: data[index]["ages"],
-                                                classname: data[index]
-                                                    ["classType"],
-                                                startingfrom: data[index]
-                                                    ["startingFrom"],
-                                                takeoffdate: data[index]
-                                                    ["Date"],
-                                                travellingto: data[index]
-                                                    ["travelingTo"])));
+                                                  travelno: traveller1,
+                                                  search: search,
+                                                  recentsearch: recentSearch1,
+                                                  ages: data[index]["ages"],
+                                                  classname: data[index]
+                                                      ["classType"],
+                                                  startingfrom: data[index]
+                                                      ["startingFrom"],
+                                                  takeoffdate: data[index]
+                                                      ["Date"],
+                                                  travellingto: data[index]
+                                                      ["travelingTo"],
+                                                  flightName: data[index]
+                                                      ["flightName"],
+                                                )));
                                   },
                                   child: Card(
                                     elevation: 5,

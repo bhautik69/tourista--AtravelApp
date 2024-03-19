@@ -269,6 +269,9 @@ class _PlaceDetailsState extends State<PlaceDetails> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) => Hotelmaps(
+                                                viewdetailcallback: () {
+                                                  Navigator.pop(context);
+                                                },
                                                 latitude:
                                                     widget.package!.latitude,
                                                 longitude:

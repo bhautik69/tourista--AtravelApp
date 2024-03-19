@@ -42,7 +42,7 @@ class _LottiePageState extends State<LottiePage> {
             startingfrom: widget.startingfrom,
             takeoffdate: widget.takeoffdate,
             travellingto: widget.travellingto,
-            traveller: widget.traveller),
+            traveller: widget.traveller, flightName: '',),
       ));
     });
     super.initState();

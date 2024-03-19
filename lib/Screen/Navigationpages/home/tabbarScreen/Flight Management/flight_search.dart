@@ -17,6 +17,7 @@ class FlightSearch extends StatefulWidget {
   bool search;
   bool recentsearch;
   List? ages;
+  String? flightName;
   String? startingfrom;
   String? travellingto;
   String? takeoffdate;
@@ -28,6 +29,7 @@ class FlightSearch extends StatefulWidget {
       required this.search,
       required this.travelno,
       required this.recentsearch,
+      required this.flightName,
       this.ages,
       required this.classname,
       required this.startingfrom,
@@ -174,7 +176,10 @@ class _FlightSearchState extends State<FlightSearch> {
                     final data = snapshot.data!.docs.where((documentSnapshot) {
                       var startingfrom = widget.startingfrom!.toLowerCase();
                       var travellingto = widget.travellingto!.toLowerCase();
+                      var flightname = widget.flightName!.toLowerCase();
+
                       var date = widget.takeoffdate!.toLowerCase();
+                      var flightname1 = documentSnapshot["flightname"].toString().toLowerCase();
                       var fromstart = documentSnapshot['startingFrom']
                           .toString()
                           .toLowerCase();
@@ -184,7 +189,9 @@ class _FlightSearchState extends State<FlightSearch> {
                       var startdate = documentSnapshot['startDate']
                           .toString()
                           .toLowerCase();
-                      return fromstart.contains(startingfrom) &&
+                      return widget.recentsearch ? fromstart.contains(startingfrom) &&
+                          endto.contains(travellingto) &&
+                          startdate.contains(date) && flightname1.contains(flightname) : fromstart.contains(startingfrom) &&
                           endto.contains(travellingto) &&
                           startdate.contains(date);
                     }).toList();
@@ -481,43 +488,45 @@ class _FlightSearchState extends State<FlightSearch> {
                                             indexFlightDate += "$index";
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
-                                              builder: (context) => FlightDetail(
-                                                  id: data[index]["id"],
-                                                  startingsortfrom:
-                                                      wordBeforeAirport3,
-                                                  travellingsortto:
-                                                      wordBeforeAirport4,
-                                                  startingfrom:
-                                                      wordBeforeAirport1,
-                                                  sdate: sdate1,
-                                                  edate: edate1,
-                                                  timeduration: timeduration2,
-                                                  classtype: widget.classname!,
-                                                  travellingto:
-                                                      wordBeforeAirport2,
-                                                  addFlight: AddFlight(
-                                                      id: data[index]["id"],
-                                                      startingFrom: data[index]
-                                                          ["startingFrom"],
-                                                      travelingTo: data[index]
-                                                          ["travelingTo"],
-                                                      flightNumber: data[index]
-                                                          ["flightNumber"],
-                                                      startDate: data[index]
-                                                          ["startDate"],
-                                                      endDate: data[index]
-                                                          ["endDate"],
-                                                      takeoffTime: data[index]
-                                                          ["takeoffTime"],
-                                                      landingTime: data[index]
-                                                          ["landingTime"],
-                                                      price: data[index]
-                                                          ["price"],
-                                                      flightname: data[index]
-                                                          ["flightname"]),
-                                                  ages: widget.search
-                                                      ? ages
-                                                      : widget.ages, travellerno: widget.travelno,),
+                                              builder: (context) =>
+                                                  FlightDetail(
+                                                id: data[index]["id"],
+                                                startingsortfrom:
+                                                    wordBeforeAirport3,
+                                                travellingsortto:
+                                                    wordBeforeAirport4,
+                                                startingfrom:
+                                                    wordBeforeAirport1,
+                                                sdate: sdate1,
+                                                edate: edate1,
+                                                timeduration: timeduration2,
+                                                classtype: widget.classname!,
+                                                travellingto:
+                                                    wordBeforeAirport2,
+                                                addFlight: AddFlight(
+                                                    id: data[index]["id"],
+                                                    startingFrom: data[index]
+                                                        ["startingFrom"],
+                                                    travelingTo: data[index]
+                                                        ["travelingTo"],
+                                                    flightNumber: data[index]
+                                                        ["flightNumber"],
+                                                    startDate: data[index]
+                                                        ["startDate"],
+                                                    endDate: data[index]
+                                                        ["endDate"],
+                                                    takeoffTime: data[index]
+                                                        ["takeoffTime"],
+                                                    landingTime: data[index]
+                                                        ["landingTime"],
+                                                    price: data[index]["price"],
+                                                    flightname: data[index]
+                                                        ["flightname"]),
+                                                ages: widget.search
+                                                    ? ages
+                                                    : widget.ages,
+                                                travellerno: widget.travelno,
+                                              ),
                                             ));
 
                                             recentSearch(

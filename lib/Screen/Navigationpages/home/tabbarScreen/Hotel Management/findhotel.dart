@@ -21,6 +21,7 @@ class show_hotel extends StatefulWidget {
   bool search;
   bool recentsearch;
   String destination;
+  String hotelname = "";
   String check_In;
   String check_Out;
   int room;
@@ -30,10 +31,12 @@ class show_hotel extends StatefulWidget {
   show_hotel(
       {super.key,
       required this.search,
+    
       required this.recentsearch,
       required this.adults,
       required this.destination,
       required this.room,
+      required this.hotelname,
       this.ageList,
       required this.check_In,
       required this.check_Out,
@@ -104,8 +107,6 @@ class _show_hotelState extends State<show_hotel> {
         .delete();
   }
 
- 
- 
   Future<void> recentSearch(
       String id,
       String destination,
@@ -138,30 +139,31 @@ class _show_hotelState extends State<show_hotel> {
         .doc(id)
         .set(data);
   }
-Future<void> deleteSearch() async {
-  CollectionReference cr =
-      FirebaseFirestore.instance.collection("HotelResentsearch");
 
-  // Get the current user's ID
-  String userId = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> deleteSearch() async {
+    CollectionReference cr =
+        FirebaseFirestore.instance.collection("HotelResentsearch");
 
-  // Reference to the HotelSearch collection for the current user
-  CollectionReference hotelSearchCollection =
-      cr.doc(userId).collection("HotelSearch");
+    // Get the current user's ID
+    String userId = FirebaseAuth.instance.currentUser!.uid;
 
-  // Query to get documents in HotelSearch collection ordered by document ID
-  QuerySnapshot querySnapshot = await hotelSearchCollection
-      .orderBy(FieldPath.documentId, descending: true)
-      .limit(11)
-      .get();
+    // Reference to the HotelSearch collection for the current user
+    CollectionReference hotelSearchCollection =
+        cr.doc(userId).collection("HotelSearch");
 
-  // Check if there are 11 or more documents
-  if (querySnapshot.docs.length == 11) {
-    // Delete the last document returned (latest document)
-    String latestDocumentId = querySnapshot.docs.last.id;
-    await hotelSearchCollection.doc(latestDocumentId).delete();
+    // Query to get documents in HotelSearch collection ordered by document ID
+    QuerySnapshot querySnapshot = await hotelSearchCollection
+        .orderBy(FieldPath.documentId, descending: true)
+        .limit(11)
+        .get();
+
+    // Check if there are 11 or more documents
+    if (querySnapshot.docs.length == 11) {
+      // Delete the last document returned (latest document)
+      String latestDocumentId = querySnapshot.docs.last.id;
+      await hotelSearchCollection.doc(latestDocumentId).delete();
+    }
   }
-}
 
   List ages = [];
   void getravellerno() async {
@@ -231,8 +233,12 @@ Future<void> deleteSearch() async {
             }
             final data = snapshot.data!.docs.where((documentSnapshot) {
               var searchQuery = widget.destination.toLowerCase();
+              var hotelname = widget.hotelname.toLowerCase();
               var city = documentSnapshot['cityName'].toString().toLowerCase();
-              return city.contains(searchQuery);
+              var hname = documentSnapshot['name'].toString().toLowerCase();
+              return widget.recentsearch
+                  ? city.contains(searchQuery) && hname.contains(hotelname)
+                  : city.contains(searchQuery);
             }).toList();
             if (data.isEmpty) {
               return SingleChildScrollView(
@@ -313,135 +319,127 @@ Future<void> deleteSearch() async {
                               widget.room.toString(),
                               data[index]["images"].first);
                         },
-                        child: Container(
-                          width: mq.size.width,
-                          color: themeState.getDarkTheme
-                              ? const Color(0xff212121)
-                              : const Color(0xffffffff),
-                          // elevation: 5,
-                          //  shape: RoundedRectangleBorder(
-                          //    borderRadius: BorderRadius.circular(10)),
-                          child: Padding(
-                            padding: EdgeInsets.all(mq.size.width * 0.026),
-                            child: Column(
-                              children: <Widget>[
-                                AspectRatio(
-                                    aspectRatio: 1.8,
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: FancyShimmerImage(
-                                          imageUrl: data[index]["images"].first,
-                                          boxFit: BoxFit.cover,
-                                        ))),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Column(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical:
-                                                    mq.size.width * 0.023),
-                                            child: Row(
-                                              children: [
-                                                Titletext(
-                                                    title: data[index]["name"]),
-                                                const Spacer(),
-                                                StreamBuilder(
-                                                    stream: FirebaseFirestore
-                                                        .instance
-                                                        .collection(
-                                                            "Favoritehotel")
-                                                        .doc(FirebaseAuth
-                                                            .instance
-                                                            .currentUser!
-                                                            .uid)
-                                                        .collection("hotels")
-                                                        .where("fid",
-                                                            isEqualTo:
-                                                                data[index].id)
-                                                        .snapshots(),
-                                                    builder: (context,
-                                                        AsyncSnapshot<
-                                                                QuerySnapshot>
-                                                            snapshot) {
-                                                      if (snapshot.data ==
-                                                          null) {
-                                                        return const Text("");
-                                                      }
-                                                      return InkWell(
-                                                          onTap: () {
-                                                            print(
-                                                                data[index].id);
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: Container(
+                            width: mq.size.width,
+                            color: themeState.getDarkTheme
+                                ? const Color(0xff212121)
+                                : const Color(0xffffffff),
+                            // elevation: 5,
+                            //  shape: RoundedRectangleBorder(
+                            //    borderRadius: BorderRadius.circular(10)),
+                            child: Padding(
+                              padding: EdgeInsets.all(mq.size.width * 0.026),
+                              child: Column(
+                                children: <Widget>[
+                                  AspectRatio(
+                                      aspectRatio: 1.8,
+                                      child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: FancyShimmerImage(
+                                            imageUrl:
+                                                data[index]["images"].first,
+                                            boxFit: BoxFit.cover,
+                                          ))),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical:
+                                                      mq.size.width * 0.023),
+                                              child: Row(
+                                                children: [
+                                                  Titletext(
+                                                      title: data[index]
+                                                          ["name"]),
+                                                  const Spacer(),
+                                                  StreamBuilder(
+                                                      stream: FirebaseFirestore
+                                                          .instance
+                                                          .collection(
+                                                              "Favoritehotel")
+                                                          .doc(FirebaseAuth
+                                                              .instance
+                                                              .currentUser!
+                                                              .uid)
+                                                          .collection("hotels")
+                                                          .where("fid",
+                                                              isEqualTo:
+                                                                  data[index]
+                                                                      .id)
+                                                          .snapshots(),
+                                                      builder: (context,
+                                                          AsyncSnapshot<
+                                                                  QuerySnapshot>
+                                                              snapshot) {
+                                                        if (snapshot.data ==
+                                                            null) {
+                                                          return const Text("");
+                                                        }
+                                                        return InkWell(
+                                                            onTap: () {
+                                                              print(data[index]
+                                                                  .id);
 
-                                                            snapshot.data!.docs
-                                                                        .length ==
-                                                                    0
-                                                                ? addToFavorite(
-                                                                    data[index]
-                                                                        ["id"])
-                                                                : removFavorite(
-                                                                    data[index]
-                                                                        ["id"]);
-                                                          },
-                                                          child: Icon(
-                                                            snapshot.data!.docs
-                                                                        .length ==
-                                                                    0
-                                                                ? Icons
-                                                                    .favorite_outline
-                                                                : Icons
-                                                                    .favorite,
-                                                            color: snapshot
-                                                                        .data!
-                                                                        .docs
-                                                                        .length ==
-                                                                    0
-                                                                ? color
-                                                                : Colors.red,
-                                                          ));
-                                                    })
-                                              ],
+                                                              snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .length ==
+                                                                      0
+                                                                  ? addToFavorite(
+                                                                      data[index]
+                                                                          [
+                                                                          "id"])
+                                                                  : removFavorite(
+                                                                      data[index]
+                                                                          [
+                                                                          "id"]);
+                                                            },
+                                                            child: Icon(
+                                                              snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .length ==
+                                                                      0
+                                                                  ? Icons
+                                                                      .favorite_outline
+                                                                  : Icons
+                                                                      .favorite,
+                                                              color: snapshot
+                                                                          .data!
+                                                                          .docs
+                                                                          .length ==
+                                                                      0
+                                                                  ? color
+                                                                  : Colors.red,
+                                                            ));
+                                                      })
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                color: themeState.getDarkTheme
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                size: 16,
-                                              ),
-                                              Text(
-                                                "${data[index]["cityName"]} - ${data[index]["disttocenter"]} km to center",
-                                                style: TextStyle(
-                                                    color: themeState
-                                                            .getDarkTheme
-                                                        ? Colors.white
-                                                            .withOpacity(0.75)
-                                                        : Colors.black
-                                                            .withOpacity(0.6)),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Spacer(),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: mq.size.width * 0.023,
-                                                    bottom: mq.size.width *
-                                                            0.03 -
-                                                        mq.size.width * 0.021),
-                                                child: Text(
-                                                  "${widget.room} Hotel rooms : ${widget.room} bed",
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.location_on_outlined,
+                                                  color: themeState.getDarkTheme
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  size: 16,
+                                                ),
+                                                Text(
+                                                  "${data[index]["cityName"]} - ${data[index]["disttocenter"]} km to center",
                                                   style: TextStyle(
                                                       color: themeState
                                                               .getDarkTheme
@@ -451,59 +449,87 @@ Future<void> deleteSearch() async {
                                                               .withOpacity(
                                                                   0.6)),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Spacer(),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    // top: mq.size.width * 0.023,
-                                                    bottom: mq.size.width *
-                                                            0.03 -
-                                                        mq.size.width * 0.023),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Text(
-                                                        "Price for 1 night, 1 adult",
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Spacer(),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: mq.size.width *
+                                                          0.023,
+                                                      bottom:
+                                                          mq.size.width * 0.03 -
+                                                              mq.size.width *
+                                                                  0.021),
+                                                  child: Text(
+                                                    "${widget.room} Hotel rooms : ${widget.room} bed",
+                                                    style: TextStyle(
+                                                        color: themeState
+                                                                .getDarkTheme
+                                                            ? Colors.white
+                                                                .withOpacity(
+                                                                    0.75)
+                                                            : Colors.black
+                                                                .withOpacity(
+                                                                    0.6)),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                const Spacer(),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      // top: mq.size.width * 0.023,
+                                                      bottom:
+                                                          mq.size.width * 0.03 -
+                                                              mq.size.width *
+                                                                  0.023),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                          "Price for 1 night, 1 adult",
+                                                          style: TextStyle(
+                                                              fontSize: 13,
+                                                              color: themeState
+                                                                      .getDarkTheme
+                                                                  ? Colors.white
+                                                                  : Colors
+                                                                      .black,
+                                                              //  fontWeight: FontWeight.w500,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500)),
+                                                      const SizedBox(
+                                                        height: 2,
+                                                      ),
+                                                      Text(
+                                                        "₹${data[index]["price"]}",
                                                         style: TextStyle(
-                                                            fontSize: 13,
                                                             color: themeState
                                                                     .getDarkTheme
                                                                 ? Colors.white
                                                                 : Colors.black,
-                                                            //  fontWeight: FontWeight.w500,
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w500)),
-                                                    const SizedBox(
-                                                      height: 2,
-                                                    ),
-                                                    Text(
-                                                      "₹${data[index]["price"]}",
-                                                      style: TextStyle(
-                                                          color: themeState
-                                                                  .getDarkTheme
-                                                              ? Colors.white
-                                                              : Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ],
+                                                                FontWeight.w500,
+                                                            fontSize: 20),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
+                                              ],
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                )
-                              ],
+                                    ],
+                                  )
+                                ],
+                              ),
                             ),
                           ),
                         ),
