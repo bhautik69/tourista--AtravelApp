@@ -40,7 +40,7 @@ class _UpdateFlightState extends State<UpdateFlight> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Update/Delete Hotels"),
+        title: const Text("Update/Delete Flight"),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {

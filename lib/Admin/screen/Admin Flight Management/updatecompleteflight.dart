@@ -116,7 +116,7 @@ class _UpdateCompleteflightState extends State<UpdateCompleteflight> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 236, 235, 235),
       appBar: AppBar(
-        title: const Text("Add New Flight"),
+        title: const Text("Update New Flight"),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {
