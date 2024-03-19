@@ -61,6 +61,46 @@ class _SavedState extends State<Saved> {
     });
   }
 
+  List id = [];
+
+  getID() async {
+    await FirebaseFirestore.instance
+        .collection("Hotel")
+        .get()
+        .then((QuerySnapshot? snapshot) {
+      for (var element in snapshot!.docs) {
+        if (element.exists) {
+          id.add(element["id"]);
+          setState(() {});
+        }
+      }
+    });
+  }
+
+  deleteUnusedItems1() async {
+    final items = await FirebaseFirestore.instance
+        .collection('Favoritehotel')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('hotels')
+        .get();
+
+    items.docs.forEach((item) {
+      final fid = item['fid'];
+
+      if (!id.contains(fid)) {
+        // delete unused favorite item
+        FirebaseFirestore.instance
+            .collection('Favoritehotel')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('hotels')
+            .doc(item.id)
+            .delete();
+      }
+    });
+  }
+
+
+
   deleteUnusedItems() async {
     final items = await FirebaseFirestore.instance
         .collection('favorite')
@@ -140,7 +180,9 @@ class _SavedState extends State<Saved> {
 
   Future<void> initData() async {
     await getid();
+    await getID();
     //await deleteUnusedItems();
+     //await deleteUnusedItems1();
   }
 
   bool focus1 = true;

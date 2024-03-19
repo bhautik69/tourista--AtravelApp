@@ -31,7 +31,6 @@ class show_hotel extends StatefulWidget {
   show_hotel(
       {super.key,
       required this.search,
-    
       required this.recentsearch,
       required this.adults,
       required this.destination,
@@ -140,31 +139,7 @@ class _show_hotelState extends State<show_hotel> {
         .set(data);
   }
 
-  Future<void> deleteSearch() async {
-    CollectionReference cr =
-        FirebaseFirestore.instance.collection("HotelResentsearch");
-
-    // Get the current user's ID
-    String userId = FirebaseAuth.instance.currentUser!.uid;
-
-    // Reference to the HotelSearch collection for the current user
-    CollectionReference hotelSearchCollection =
-        cr.doc(userId).collection("HotelSearch");
-
-    // Query to get documents in HotelSearch collection ordered by document ID
-    QuerySnapshot querySnapshot = await hotelSearchCollection
-        .orderBy(FieldPath.documentId, descending: true)
-        .limit(11)
-        .get();
-
-    // Check if there are 11 or more documents
-    if (querySnapshot.docs.length == 11) {
-      // Delete the last document returned (latest document)
-      String latestDocumentId = querySnapshot.docs.last.id;
-      await hotelSearchCollection.doc(latestDocumentId).delete();
-    }
-  }
-
+ 
   List ages = [];
   void getravellerno() async {
     var prefs = await SharedPreferences.getInstance();
@@ -268,6 +243,7 @@ class _show_hotelState extends State<show_hotel> {
                 padding: EdgeInsets.only(bottom: mq.size.height * 0.02),
                 child: ListView.builder(
                     shrinkWrap: true,
+                    reverse: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     itemBuilder: (context, index) {

@@ -96,7 +96,32 @@ class _HoteltabState extends State<Hoteltab> {
   @override
   void initState() {
     getID();
+    
+    
+
     super.initState();
+  }
+
+  Future<void> deleteSearch() async {
+    CollectionReference cr =
+        FirebaseFirestore.instance.collection("HotelResentsearch");
+
+    // Get the current user's ID
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    // Reference to the HotelSearch collection for the current user
+    CollectionReference hotelSearchCollection =
+        cr.doc(userId).collection("HotelSearch");
+
+    // Query to get documents in HotelSearch collection ordered by document ID
+    QuerySnapshot querySnapshot = await hotelSearchCollection.get();
+
+    // Check if there are 11 or more documents
+    if (querySnapshot.docs.length == 11) {
+      // Delete the last document returned (latest document)
+      String latestDocumentId = querySnapshot.docs.last.id;
+      await hotelSearchCollection.doc(latestDocumentId).delete();
+    }
   }
 
   bool search = false;
