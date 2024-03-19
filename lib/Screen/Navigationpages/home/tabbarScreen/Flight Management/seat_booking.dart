@@ -57,6 +57,7 @@ class _ChooseSeatState extends State<ChooseSeat> {
     super.initState();
   }
 
+ 
   initSeatValueToList(List data, count, side) {
     var objectData;
     //init variable to save your object data

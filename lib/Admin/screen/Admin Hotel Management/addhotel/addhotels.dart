@@ -136,7 +136,9 @@ class _AddHotelState extends State<AddHotel> {
                           controller: descriptionController,
                           textAlignVertical: TextAlignVertical.bottom,
                           decoration: const InputDecoration(
-                              label: Text("Resort Description"),
+                              label: Text(
+                                "Resort Description",
+                              ),
                               labelStyle: TextStyle(
                                   color: Colors.black54,
                                   fontWeight: FontWeight.w500),
@@ -239,6 +241,8 @@ class _AddHotelState extends State<AddHotel> {
                       children: [
                         const Titletext(title: "Property Location"),
                         TextFormField(
+                          minLines: 1,
+                          maxLines: 2,
                           validator: (value) {
                             if (value!.isEmpty) {
                               return "* required";
